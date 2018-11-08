@@ -21,6 +21,4 @@
     padding: 70px !important;
   }
 
-
-
 </style>

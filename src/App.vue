@@ -7,6 +7,7 @@
         <b-navbar-nav>
           <b-nav-item to="/">Home</b-nav-item>
           <b-nav-item to="/posts-manager">CRUD Example</b-nav-item>
+          <b-nav-item to="/start">Startseite (Test)</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
