@@ -22,6 +22,10 @@
     padding: 70px !important;
   }
 
+  body{
+    background-color:#f3f2f1;
+  }
+
 
 
 </style>
