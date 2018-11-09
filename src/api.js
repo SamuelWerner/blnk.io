@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const client = axios.create({
-  baseURL: 'http://localhost:8081/',
+  baseURL: 'https://blnk-io.herokuapp.com/',
   json: true
 })
 
@@ -13,12 +13,10 @@ export default {
       url: resource,
       data
     }).then(req => {
-      console.log('i am here' + req.data)
       return req.data
     })
   },
   getPosts () {
-    console.log('#################2')
     return this.execute('get', '/posts')
   },
   getPost (id) {
