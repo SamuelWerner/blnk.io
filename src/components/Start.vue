@@ -27,11 +27,11 @@
           -->
 
           <div>
-            <md-dialog :md-active.sync="showDialog">
-              <md-dialog-title>Neues Dokument erstellen</md-dialog-title>
+            <md-dialog class="dialog" :md-active.sync="showDialog">
+              <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
                  <md-field class="inputBox">
                    <form id="form" @submit.prevent="addDoc">
-                     <md-input type="text" placeholder="Namen eingeben..." v-model="doc" maxlength="20"></md-input>
+                     <md-input type="text" placeholder="Titel eingeben..." v-model="doc" maxlength="30"></md-input>
                    </form>
                  </md-field>
               <md-dialog-actions>
@@ -66,14 +66,17 @@
         value: null,
         showDialog: false,
         docs: [
-          { 'doc': 'default doc' }
         ]
       }
     },
     methods: {
       addDoc () {
-        this.docs.push({doc: this.doc})
-        this.doc = ''
+        if (this.doc !== '') {
+          this.docs.push({doc: this.doc})
+          this.doc = ''
+        } else {
+          this.doc = ''
+        }
       }
     }
   }
@@ -81,20 +84,16 @@
 
 
 <style scoped>
-  main, body, main{
+  main, body, main {
     height: 100%;
   }
 
   main{
     width: 70%;
     margin: 0 auto;
-    margin-top: 5%;
+    margin-top: 5rem;
   }
 
-  .inputBox {
-    margin-left: 24px;
-    width: 80%;
-  }
 
   ul {
     margin: 0;
@@ -110,9 +109,20 @@
     border-radius: calc(0.25rem - 1px);
     background-color: rgba(0, 0, 0, 0.03);
     width: 16%;
+    min-width: 160px;
     height: 13rem;
     float: left;
     text-align: center;
     word-wrap: break-word;
+  }
+
+  .dialog {
+    text-align: center;
+    width: 30rem;
+    padding: 0 2rem;
+  }
+
+  input {
+    width: 416px;
   }
 </style>
