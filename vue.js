@@ -2,7 +2,9 @@ var express = require('express');
 var path = require('path');
 var serveStatic = require('serve-static');
 app = express();
+// serve pure static assets
+
 app.use(serveStatic(__dirname + "/dist"));
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 8080;
 app.listen(port);
 console.log('server started '+ port);
