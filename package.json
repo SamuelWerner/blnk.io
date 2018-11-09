@@ -176,7 +176,7 @@
     "vue-router": "^3.0.1"
   },
   "engines": {
-    "node": ">= 4.0.0",
+    "node": ">= 5.0.0",
     "npm": ">= 3.0.0"
   },
   "browserslist": [
