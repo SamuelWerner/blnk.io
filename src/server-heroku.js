@@ -12,7 +12,7 @@ app.use(bodyParser.json())
 app.use(express.static('dist'))
 
 // For ease of this tutorial, we are going to use SQLite to limit dependencies
-let database = new Sequelize('postgres://zqwiaftoiffqit:109878db79a215594ae56e0baa01ddd45442a89ee8f944c0b8009e481def7d5d@ec2-75-101-138-26.compute-1.amazonaws.com:5432/ddui8mmmfa9dqf')
+let database = new Sequelize(process.env.DATABASE_URL)
 
 // Resets the database and launches the express app on :8081
 
