@@ -5,6 +5,7 @@
   "author": "Samuel Werner <samuel.werner@iem.thm.de>",
   "private": true,
   "scripts": {
+    "postinstall": "npm run build",
     "dev": "concurrently --kill-others \"node build/dev-server.js\" \"node src/server.js\"",
     "start": "concurrently --kill-others \"node build/dev-server.js\" \"node src/server.js\"",
     "build": "node build/build.js",

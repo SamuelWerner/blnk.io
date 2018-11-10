@@ -1,2 +1,2 @@
-web: node vue.js -p 8080
-worker: node src/server.js -p 8081
+web: node build/vue.js
+worker: node src/server.js
