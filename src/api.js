@@ -1,9 +1,16 @@
 import axios from 'axios'
-
-const client = axios.create({
-  baseURL: 'https://blnk-io.herokuapp.com/',
-  json: true
-})
+var client
+if (process.env.dbEnvironment === 'server') {
+  client = axios.create({
+    baseURL: 'https://blnk-io.herokuapp.com/',
+    json: true
+  })
+} else {
+  client = axios.create({
+    baseURL: 'http://localhost:8081',
+    json: true
+  })
+}
 
 export default {
   async execute (method, resource, data) {
