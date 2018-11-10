@@ -35,6 +35,7 @@
       <li v-for="doc in docs" :key="doc.id">
         <img style="width: 30px" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
         {{ doc.title }}
+        <md-button class="md-primary" @click.prevent="deleteDoc(doc.id)">Löschen</md-button>
       </li>
     </ul>
 
@@ -64,6 +65,15 @@
         await api.createDoc(this.model)
         this.model = {} // reset form
         await this.refreshDocs()
+      },
+      async deleteDoc (id) {
+        if (confirm('Wirklich löschen?')) {
+          if (this.model.id === id) {
+            this.model = {}
+          }
+          await api.deleteDoc(id)
+          await this.refreshDocs()
+        }
       }
     }
   }
