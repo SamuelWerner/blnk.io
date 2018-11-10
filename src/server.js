@@ -19,7 +19,7 @@ let database = new Sequelize({
 database
   .sync({ force: false })
   .then(() => {
-    app.listen(8081, () => {
+    app.listen(process.env.PORT || 8081, () => {
       console.log('listening to port localhost:8081')
     })
   })
