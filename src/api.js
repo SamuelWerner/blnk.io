@@ -48,5 +48,8 @@ export default {
   },
   deleteDoc (id) {
     return this.execute('delete', `/docs/${id}`)
+  },
+  updateDoc (id, data) {
+    return this.execute('put', `/docs/${id}`, data)
   }
 }

@@ -35,7 +35,8 @@
       <li v-for="doc in docs" :key="doc.id">
         <img style="width: 30px" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
         {{ doc.title }}
-        <md-button class="md-primary" @click.prevent="deleteDoc(doc.id)">Löschen</md-button>
+        <md-button class="md-danger" @click.prevent="deleteDoc(doc.id)">Löschen</md-button>
+        <md-button class="md-primary" @click.prevent="openDoc(doc.id)">Öffnen</md-button>
       </li>
     </ul>
 
@@ -74,6 +75,9 @@
           await api.deleteDoc(id)
           await this.refreshDocs()
         }
+      },
+      async openDoc (id) {
+        this.$router.push('/paper/' + id)
       }
     }
   }
