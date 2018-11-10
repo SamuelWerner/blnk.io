@@ -16,7 +16,7 @@
               <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
                  <md-field class="inputBox">
                    <form id="form" @submit.prevent="saveDoc">
-                     <md-input type="text" placeholder="Titel eingeben..." v-model="model.title" maxlength="30"></md-input>
+                     <label>Titel eingeben...</label><md-input type="text" v-model="model.title" maxlength="30"></md-input>
                    </form>
                  </md-field>
               <md-dialog-actions>
@@ -33,10 +33,10 @@
 
     <ul>
       <li v-for="doc in docs" :key="doc.id">
-        <img style="width: 30px" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
-        {{ doc.title }}
-        <md-button class="md-danger" @click.prevent="deleteDoc(doc.id)">Löschen</md-button>
-        <md-button class="md-primary" @click.prevent="openDoc(doc.id)">Öffnen</md-button>
+        <img style="" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
+        <p id="docTitle">{{ doc.title }}</p><br>
+        <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.id)">Öffnen</md-button><br>
+        <md-button class="md-danger md-dense" @click.prevent="deleteDoc(doc.id)">Löschen</md-button>
       </li>
     </ul>
 
@@ -89,12 +89,11 @@
     height: 100%;
   }
 
-  main{
+  main {
     width: 70%;
     margin: 0 auto;
     margin-top: 5rem;
   }
-
 
   ul {
     margin: 0;
@@ -104,17 +103,22 @@
   }
 
   ul li {
-    padding: 12px 20px;
+    padding: 12px 10px;
     margin: 1rem 1rem 0 0;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: calc(0.25rem - 1px);
     background-color: rgba(0, 0, 0, 0.03);
-    width: 16%;
-    min-width: 160px;
-    height: 13rem;
+    width: 12rem;
+    min-height: 14rem;
     float: left;
     text-align: center;
     word-wrap: break-word;
+  }
+
+  ul li:hover {
+    -webkit-box-shadow: 0px 0px 7px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 7px -1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 7px -1px rgba(0,0,0,0.75);
   }
 
   .dialog {
@@ -125,5 +129,19 @@
 
   input {
     width: 416px;
+  }
+
+  #docTitle {
+    margin: 0;
+    font-weight: normal;
+    margin: 0 5px;
+  }
+
+  li .md-button {
+    font-size: 0.8rem;
+  }
+
+  li img {
+    width: 33px;
   }
 </style>
