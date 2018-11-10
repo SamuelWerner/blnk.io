@@ -31,6 +31,11 @@ let Post = database.define('posts', {
   body: Sequelize.TEXT
 })
 
+let Doc = database.define('docs', {
+  title: Sequelize.STRING,
+  body: Sequelize.TEXT
+})
+
 // Initialize epilogue
 epilogue.initialize({
   app: app,
@@ -41,6 +46,11 @@ epilogue.initialize({
 epilogue.resource({
   model: Post,
   endpoints: ['/posts', '/posts/:id']
+})
+
+epilogue.resource({
+  model: Doc,
+  endpoints: ['/docs', '/docs/:id']
 })
 
 app.get('/*', function (req, res) {
