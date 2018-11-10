@@ -1,2 +1,2 @@
-web: node build/vue.js
+web: node build/dev-server.js
 worker: node src/server.js
