@@ -7,7 +7,6 @@ const client = axios.create({
 
 export default {
   async execute (method, resource, data) {
-    console.log(method + '  ' + resource + '  ' + data)
     return client({
       method,
       url: resource,

@@ -4,16 +4,15 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const Sequelize = require('sequelize')
 const epilogue = require('epilogue')
+var path = require('path')
 
 let app = express()
 app.use(cors())
 app.use(bodyParser.json())
+app.use(express.static('dist'))
 
 // For ease of this tutorial, we are going to use SQLite to limit dependencies
-let database = new Sequelize({
-  dialect: 'sqlite',
-  storage: './test.sqlite'
-})
+let database = new Sequelize('postgres://zqwiaftoiffqit:109878db79a215594ae56e0baa01ddd45442a89ee8f944c0b8009e481def7d5d@ec2-75-101-138-26.compute-1.amazonaws.com:5432/ddui8mmmfa9dqf')
 
 // Resets the database and launches the express app on :8081
 
@@ -42,4 +41,8 @@ epilogue.initialize({
 epilogue.resource({
   model: Post,
   endpoints: ['/posts', '/posts/:id']
+})
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname + '../../dist/index.html'))
 })
