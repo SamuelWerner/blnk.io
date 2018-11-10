@@ -16,17 +16,14 @@ let database = new Sequelize(process.env.DATABASE_URL)
 
 // Resets the database and launches the express app on :8081
 
-database
-  .sync({ force: false })
-  .then(() => {
-    app.listen(process.env.PORT || 8081, () => {
-      console.log('listening to port localhost:8081')
-    })
-  })
-
 // Define our Post model
 // id, createdAt, and updatedAt are added by sequelize automatically
 let Post = database.define('posts', {
+  title: Sequelize.STRING,
+  body: Sequelize.TEXT
+})
+
+let Doc = database.define('docs', {
   title: Sequelize.STRING,
   body: Sequelize.TEXT
 })
@@ -41,6 +38,11 @@ epilogue.initialize({
 epilogue.resource({
   model: Post,
   endpoints: ['/posts', '/posts/:id']
+})
+
+epilogue.resource({
+  model: Doc,
+  endpoints: ['/docs', '/docs/:id']
 })
 
 app.get('/*', function (req, res) {
