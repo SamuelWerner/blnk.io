@@ -23,6 +23,7 @@
     "epilogue": "^0.7.1",
     "jquery": "^3.3.1",
     "node-pre-gyp": "^0.11.0",
+    "pg": "^7.6.1",
     "request": "^2.88.0",
     "sequelize": "^4.41.1",
     "sqlite3": "^4.0.0",
