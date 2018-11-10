@@ -1,12 +1,18 @@
+/* eslint-disable no-path-concat */
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const Sequelize = require('sequelize')
 const epilogue = require('epilogue')
+var path = require('path')
 
 let app = express()
 app.use(cors())
 app.use(bodyParser.json())
+app.use(express.static('dist'))
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname + '../../dist/index.html'))
+})
 
 // For ease of this tutorial, we are going to use SQLite to limit dependencies
 let database = new Sequelize({
@@ -38,9 +44,7 @@ epilogue.initialize({
 })
 
 // Create the dynamic REST resource for our Post model
-let userResource = epilogue.resource({
+epilogue.resource({
   model: Post,
   endpoints: ['/posts', '/posts/:id']
 })
-
-
