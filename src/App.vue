@@ -5,9 +5,7 @@
       <b-navbar-brand to="/">blnk.io</b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item to="/">Home</b-nav-item>
           <b-nav-item to="/posts-manager">CRUD Example</b-nav-item>
-          <b-nav-item to="/start">Startseite (Test)</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

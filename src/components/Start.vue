@@ -11,27 +11,12 @@
           <h5 class="card-title">Neues Dokument anlegen</h5>
           <p class="card-text">Lege ein neues Dokument an und bearbeite es.</p>
 
-          <!--
-          <div>
-            <md-dialog-prompt
-              :md-active.sync="active"
-              v-model="value"
-              md-title="Neues Dokument erstellen"
-              md-input-maxlength="30"
-              md-input-placeholder="Namen eingeben..."
-              md-confirm-text="Erstellen"
-              md-cancel-text="Abbruch"/>
-
-            <md-button class="md-primary md-raised" @click="active = true">+</md-button> <br>
-          </div>
-          -->
-
           <div>
             <md-dialog class="dialog" :md-active.sync="showDialog">
               <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
                  <md-field class="inputBox">
-                   <form id="form" @submit.prevent="addDoc">
-                     <md-input type="text" placeholder="Titel eingeben..." v-model="doc" maxlength="30"></md-input>
+                   <form id="form" @submit.prevent="saveDoc">
+                     <md-input type="text" placeholder="Titel eingeben..." v-model="model.title" maxlength="30"></md-input>
                    </form>
                  </md-field>
               <md-dialog-actions>
@@ -47,9 +32,9 @@
     </div>
 
     <ul>
-      <li v-for="(data, index) in docs" :key='index'>
+      <li v-for="doc in docs" :key="doc.id">
         <img style="width: 30px" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
-        {{ data.doc }}
+        {{ doc.title }}
       </li>
     </ul>
 
@@ -58,25 +43,27 @@
 
 
 <script>
+  import api from '@/api'
   export default {
     name: 'Start',
     data () {
       return {
-        active: false,
-        value: null,
         showDialog: false,
-        docs: [
-        ]
+        docs: [],
+        model: {}
       }
     },
+    async created () {
+      this.refreshDocs()
+    },
     methods: {
-      addDoc () {
-        if (this.doc !== '') {
-          this.docs.push({doc: this.doc})
-          this.doc = ''
-        } else {
-          this.doc = ''
-        }
+      async refreshDocs () {
+        this.docs = await api.getDocs()
+      },
+      async saveDoc () {
+        await api.createDoc(this.model)
+        this.model = {} // reset form
+        await this.refreshDocs()
       }
     }
   }

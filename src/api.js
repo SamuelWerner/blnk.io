@@ -29,5 +29,17 @@ export default {
   },
   deletePost (id) {
     return this.execute('delete', `/posts/${id}`)
+  },
+  getDocs () {
+    return this.execute('get', '/docs')
+  },
+  getDoc (id) {
+    return this.execute('get', `/docs/${id}`)
+  },
+  createDoc (data) {
+    return this.execute('post', '/docs', data)
+  },
+  deleteDoc (id) {
+    return this.execute('delete', `/docs/${id}`)
   }
 }

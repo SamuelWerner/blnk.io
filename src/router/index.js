@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+import Paper from '@/components/Paper'
 import PostsManager from '@/components/PostsManager'
 import Start from '@/components/Start'
 import { MdButton, MdContent, MdTabs } from 'vue-material/dist/components'
@@ -15,12 +15,12 @@ let router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
-      name: 'Hello',
-      component: Hello
+      path: '/paper',
+      name: 'Paper',
+      component: Paper
     },
     {
-      path: '/start',
+      path: '/',
       name: 'Start',
       component: Start
     },
