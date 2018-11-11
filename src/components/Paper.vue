@@ -1,8 +1,7 @@
-<!--  omment for test commit -->
 <template>
   <main class="container" style="height:100%">
     <div class="row">
-      <div class="col">
+      <div class="col-9">
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-light">Datei</button>
           <button type="button" class="btn btn-light">Bearbeiten</button>
@@ -16,15 +15,42 @@
           <button type="button" class="btn btn-light"><i>I</i></button>
           <button type="button" class="btn btn-light"><u>U</u></button>
         </div>
-
-        <h1 style="margin-top: 2rem;">{{ doc.title }}</h1>
-        <div style="outline:none" contenteditable="true"
-             class="my-3 bg-white rounded shadow-lg paper"
-             @input="onDivInput($event, doc)"
-            v-html="body" :disabled="1">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-light">Links</button>
+          <button type="button" class="btn btn-light">Zentriert</button>
+          <button type="button" class="btn btn-light">Rechts</button>
         </div>
       </div>
+      <div class="col-3">
+        <md-button style="margin-top: 1rem; float: right" type="button" onClick="history.go(-1);return true;" class="md-default md-raised md-dense">zurück</md-button>
+        <md-button style="margin-top: 1rem; float: right" type="button" @click="showDialog = true" disabled="true" class="md-default md-raised md-dense">umbenennen</md-button>
+      </div>
     </div>
+
+
+    <md-dialog class="dialog" :md-active.sync="showDialog">
+      <md-dialog-title>Neuen Namen eingeben</md-dialog-title>
+
+      <md-field class="inputBox">
+        <form id="form" @submit.prevent="updateName">
+          <label>{{ doc.title }}</label><md-input type="text" v-model="model.title" maxlength="30"></md-input>
+        </form>
+      </md-field>
+
+      <md-dialog-actions>
+        <md-button class="md-primary" @click="showDialog = false">Abbruch</md-button>
+        <md-button class="md-primary" @click="showDialog = false" type="submit" form="form">Umbenennen</md-button>
+      </md-dialog-actions>
+    </md-dialog>
+
+
+    <h1 style="margin-top: 3rem;">{{ doc.title }}</h1>
+    <div style="outline:none" contenteditable="true"
+       class="my-3 bg-white rounded shadow-lg paper"
+       @input="onDivInput($event, doc)"
+       v-html="body" :disabled="1">
+    </div>
+
   </main>
 </template>
 
@@ -34,6 +60,8 @@
     name: 'Paper',
     data () {
       return {
+        name: 'Delay',
+        showDialog: false,
         doc: [],
         model: {},
         body: []
@@ -61,6 +89,9 @@
           copydoc.body = e.target.innerHTML
           api.updateDoc(copydoc.id, copydoc)
         }
+      },
+      updateName () {
+
       }
     }
   }
@@ -68,7 +99,6 @@
 
 
 <style>
-
   main, body, main{
     height: 100%;
   }
@@ -83,7 +113,16 @@
   }
 
   .btn-group {
-    margin-top: 0.3rem;
+    margin: 0.3rem 0.3rem 0 0;
   }
 
+  .dialog {
+    text-align: center;
+    width: 30rem;
+    padding: 0 2rem;
+  }
+
+  input {
+    width: 416px;
+  }
 </style>
