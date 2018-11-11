@@ -12,7 +12,7 @@
               <md-menu-item @click="">Öffnen</md-menu-item>
               <md-menu-item @click="">Kopie erstellen</md-menu-item>
               <md-menu-item @click="">Herunterladen</md-menu-item>
-              <md-menu-item @click="">Umbenennen</md-menu-item>
+              <md-menu-item @click="showDialogRename = true">Umbenennen</md-menu-item>
               <md-menu-item @click="">Verschieben nach</md-menu-item>
               <md-menu-item @click="">Löschen</md-menu-item>
               <md-menu-item @click="">Seiteneinrichtung</md-menu-item>
@@ -50,28 +50,28 @@
       </div>
       <div class="col-md-4 order-md-2 order-1">
         <md-button style="margin-top: 1rem; float: right" type="button" onClick="history.go(-1);return true;" class="md-default md-raised md-dense">zurück</md-button>
-        <md-button style="margin-top: 1rem; float: right" type="button" @click="showDialog = true" disabled="true" class="md-default md-raised md-dense">umbenennen</md-button>
+        <md-button style="margin-top: 1rem; float: right" type="button" @click="showDialogRename = true" class="md-default md-raised md-dense">umbenennen</md-button>
       </div>
     </div>
 
 
-    <md-dialog class="dialog" :md-active.sync="showDialog">
+    <md-dialog class="dialog" :md-active.sync="showDialogRename">
       <md-dialog-title>Neuen Namen eingeben</md-dialog-title>
 
       <md-field class="inputBox">
         <form id="form" @submit.prevent="updateName">
-          <label>{{ doc.title }}</label><md-input type="text" v-model="model.title" maxlength="30"></md-input>
+          <label>{{ doc.title }}</label><md-input type="text" v-model="rename" maxlength="30"></md-input>
         </form>
       </md-field>
 
       <md-dialog-actions>
-        <md-button class="md-primary" @click="showDialog = false">Abbruch</md-button>
-        <md-button class="md-primary" @click="showDialog = false" type="submit" form="form">Umbenennen</md-button>
+        <md-button class="md-primary" @click="showDialogRename = false">Abbruch</md-button>
+        <md-button class="md-primary" @click="showDialogRename = false" type="submit" form="form">Umbenennen</md-button>
       </md-dialog-actions>
     </md-dialog>
 
 
-    <h1 style="margin-top: 3rem;">{{ doc.title }}</h1>     <b-alert class="saving" :show="saveAlert" variant="info">speichert...</b-alert>
+    <h1 style="margin-top: 3rem;">{{ doc.title }}</h1> {{ rename }}     <b-alert class="saving" :show="saveAlert" variant="info">speichert...</b-alert>
     <div style="outline:none" contenteditable="true"
        class="my-3 bg-white rounded shadow-lg paper"
        @input="onDivInput($event, doc)"
@@ -88,7 +88,7 @@
     data () {
       return {
         name: 'Delay',
-        showDialog: false,
+        showDialogRename: false,
         doc: [],
         model: {},
         body: [],
