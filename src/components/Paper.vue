@@ -1,7 +1,7 @@
 <template>
   <main class="container" style="height:100%">
     <div class="row">
-      <div class="col-8">
+      <div class="col-md-8 order-md-1 order-2">
         <md-menu md-size="small" md-align-trigger >
           <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
             <button md-menu-trigger  type="button" class="btn btn-light">Datei</button>
@@ -48,7 +48,7 @@
           <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_clear-24px.svg" /> </button>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-md-4 order-md-2 order-1">
         <md-button style="margin-top: 1rem; float: right" type="button" onClick="history.go(-1);return true;" class="md-default md-raised md-dense">zurück</md-button>
         <md-button style="margin-top: 1rem; float: right" type="button" @click="showDialog = true" disabled="true" class="md-default md-raised md-dense">umbenennen</md-button>
       </div>
@@ -71,7 +71,7 @@
     </md-dialog>
 
 
-    <h1 style="margin-top: 3rem;">{{ doc.title }}</h1>    <b-alert class="saving" :show="saveAlert" variant="info">speichert...</b-alert>
+    <h1 style="margin-top: 3rem;">{{ doc.title }}</h1>     <b-alert class="saving" :show="saveAlert" variant="info">speichert...</b-alert>
     <div style="outline:none" contenteditable="true"
        class="my-3 bg-white rounded shadow-lg paper"
        @input="onDivInput($event, doc)"
@@ -133,8 +133,12 @@
 
 
 <style>
-  main, body, main{
+  main, main{
     height: 100%;
+  }
+
+  body{
+    background-color:#f3f2f1;
   }
 
   .saving {
@@ -146,10 +150,6 @@
   .paper {
     min-height:1000px;
     padding: 100px !important;
-  }
-
-  body{
-    background-color:#f3f2f1;
   }
 
   .btn-group {
@@ -167,7 +167,7 @@
   }
 
   .fktstripImg {
-    height: 19px !important;
+    height: 21px !important;
   }
 
   .md-list-item-container {
