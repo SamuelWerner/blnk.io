@@ -44,7 +44,7 @@
     </md-dialog>
 
 
-    <h1 style="margin-top: 3rem;">{{ doc.title }}</h1>
+    <h1 style="margin-top: 3rem;">{{ doc.title }}</h1>    <b-alert class="saving" :show="saveAlert" variant="info">speichert...</b-alert>
     <div style="outline:none" contenteditable="true"
        class="my-3 bg-white rounded shadow-lg paper"
        @input="onDivInput($event, doc)"
@@ -64,7 +64,9 @@
         showDialog: false,
         doc: [],
         model: {},
-        body: []
+        body: [],
+        saving: false,
+        saveAlert: false
       }
     },
     async created () {
@@ -82,16 +84,21 @@
           await api.updateDoc(doc.id, doc)
         }
       },
-      onDivInput: function (e, doc) {
-        var copydoc = doc
-        if (copydoc.id) {
-          console.log('update')
-          copydoc.body = e.target.innerHTML
-          api.updateDoc(copydoc.id, copydoc)
+      async onDivInput (e, doc) {
+        if (this.saving) return
+        if (doc.id) {
+          this.saving = true
+          await this.Sleep(3000)
+          this.saveAlert = true
+          doc.body = e.target.innerHTML
+          await api.updateDoc(doc.id, doc)
+          await this.Sleep(1000)
+          this.saveAlert = false
+          this.saving = false
         }
       },
-      updateName () {
-
+      Sleep (milliseconds) {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
       }
     }
   }
@@ -101,6 +108,12 @@
 <style>
   main, body, main{
     height: 100%;
+  }
+
+  .saving {
+    display: inline;
+    float: right;
+    top: -55px;
   }
 
   .paper {
