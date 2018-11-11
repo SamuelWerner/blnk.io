@@ -1,13 +1,16 @@
+/* eslint-disable no-undef */
 import axios from 'axios'
 var client
-if (process.env.dbEnvironment === 'server') {
+
+console.log(process.env.NODE_ENV + '+++++++++++')
+if (process.env.NODE_ENV === 'development') {
   client = axios.create({
-    baseURL: 'https://blnk-io.herokuapp.com/',
+    baseURL: 'http://localhost:8081',
     json: true
   })
 } else {
   client = axios.create({
-    baseURL: 'http://localhost:8081',
+    baseURL: 'https://blnk-io.herokuapp.com/',
     json: true
   })
 }
@@ -51,5 +54,8 @@ export default {
   },
   updateDoc (id, data) {
     return this.execute('put', `/docs/${id}`, data)
+  },
+  setEnvDB (env) {
+    envdb = env
   }
 }

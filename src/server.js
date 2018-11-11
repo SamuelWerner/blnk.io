@@ -1,5 +1,4 @@
-/* eslint-disable no-path-concat */
-process.env.dbEnvironment = 'local'
+global.dbEnvironment = 'local'
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
