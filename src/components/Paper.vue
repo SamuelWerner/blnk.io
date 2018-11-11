@@ -1,27 +1,54 @@
 <template>
   <main class="container" style="height:100%">
     <div class="row">
-      <div class="col-9">
+      <div class="col-8">
+        <md-menu md-size="small" md-align-trigger >
+          <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button md-menu-trigger  type="button" class="btn btn-light">Datei</button>
+
+            <md-menu-content class="menu-content">
+              <md-menu-item @click="">Freigeben</md-menu-item>
+              <md-menu-item @click="">Neu</md-menu-item>
+              <md-menu-item @click="">Öffnen</md-menu-item>
+              <md-menu-item @click="">Kopie erstellen</md-menu-item>
+              <md-menu-item @click="">Herunterladen</md-menu-item>
+              <md-menu-item @click="">Umbenennen</md-menu-item>
+              <md-menu-item @click="">Verschieben nach</md-menu-item>
+              <md-menu-item @click="">Löschen</md-menu-item>
+              <md-menu-item @click="">Seiteneinrichtung</md-menu-item>
+              <md-menu-item @click="">Drucken</md-menu-item>
+            </md-menu-content>
+
+            <button type="button" class="btn btn-light">Bearbeiten</button>
+            <button type="button" class="btn btn-light">Ansicht</button>
+            <button type="button" class="btn btn-light">Einfügen</button>
+            <button type="button" class="btn btn-light">Format</button>
+            <button type="button" class="btn btn-light">Tools</button>
+          </div>
+        </md-menu><br>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light">Datei</button>
-          <button type="button" class="btn btn-light">Bearbeiten</button>
-          <button type="button" class="btn btn-light">Ansicht</button>
-          <button type="button" class="btn btn-light">Einfügen</button>
-          <button type="button" class="btn btn-light">Format</button>
-          <button type="button" class="btn btn-light">Tools</button>
-        </div><br>
-        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light"><b>F</b></button>
-          <button type="button" class="btn btn-light"><i>I</i></button>
-          <button type="button" class="btn btn-light"><u>U</u></button>
+          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_bold-24px.svg" /> </button>
+          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_italic-24px.svg" /> </button>
+          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_underlined-24px.svg" /> </button>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light">Links</button>
-          <button type="button" class="btn btn-light">Zentriert</button>
-          <button type="button" class="btn btn-light">Rechts</button>
+          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_align_left-24px.svg" /> </button>
+          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_align_center-24px.svg" /> </button>
+          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_align_right-24px.svg" /> </button>
+          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_align_justify-24px.svg" /> </button>
+        </div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_line_spacing-24px.svg" /> </button>
+        </div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_list_numbered-24px.svg" /> </button>
+          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_list_bulleted-24px.svg" /> </button>
+        </div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_clear-24px.svg" /> </button>
         </div>
       </div>
-      <div class="col-3">
+      <div class="col-4">
         <md-button style="margin-top: 1rem; float: right" type="button" onClick="history.go(-1);return true;" class="md-default md-raised md-dense">zurück</md-button>
         <md-button style="margin-top: 1rem; float: right" type="button" @click="showDialog = true" disabled="true" class="md-default md-raised md-dense">umbenennen</md-button>
       </div>
@@ -137,5 +164,21 @@
 
   input {
     width: 416px;
+  }
+
+  .fktstripImg {
+    height: 19px !important;
+  }
+
+  .md-list-item-container {
+    font-size: 0.875rem;
+  }
+
+  .md-list-item-content {
+    min-height: 35px;
+  }
+
+  .menu-content {
+    max-height: 1000rem;
   }
 </style>
