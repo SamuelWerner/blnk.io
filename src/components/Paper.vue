@@ -25,11 +25,11 @@
             <md-menu-content class="menu-content">
               <md-menu-item @click="" disabled>Rückgängig machen</md-menu-item>
               <md-menu-item @click="" disabled>Wiederholen</md-menu-item>
-              <md-menu-item @click="" disabled>Auusschneiden</md-menu-item>
+              <md-menu-item @click="" disabled>Ausschneiden</md-menu-item>
               <md-menu-item @click="" disabled>Kopieren</md-menu-item>
               <md-menu-item @click="" disabled>Einfügen</md-menu-item>
               <md-menu-item @click="" disabled>Löschen</md-menu-item>
-              <md-menu-item @click="" disabled>Ales auswählen</md-menu-item>
+              <md-menu-item @click="markieren('paper')">Alles auswählen</md-menu-item>
             </md-menu-content>
           </md-menu>
           <md-menu md-size="small" md-align-trigger >
@@ -212,6 +212,20 @@
       },
       Sleep (milliseconds) {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
+      },
+      markieren (elementId) {
+        var elem = document.getElementById(elementId)
+        if (document.selection && document.selection.createRange) {
+          var textRange = document.selection.createRange()
+          textRange.moveToElementText(elem)
+          textRange.select()
+        } else if (document.createRange && window.getSelection) {
+          var range = document.createRange()
+          range.selectNode(elem)
+          var selection = window.getSelection()
+          selection.removeAllRanges()
+          selection.addRange(range)
+        }
       }
     }
   }
