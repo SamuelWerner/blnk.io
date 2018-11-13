@@ -175,8 +175,14 @@
 
     methods: {
       async newSocket (id, doc) {
-        console.log('new socket' + id)
-        this.socket = io('http://localhost:8080')
+        console.log('new socket' + id + ', Node_env: ' + process.env.NODE_ENV)
+
+        if (process.env.NODE_ENV === 'development') {
+          this.socket = io('http://localhost:8080')
+        } else {
+          this.socket = io('https://blnk-io.herokuapp.com/')
+        }
+
         this.socket.on('docChannel_' + id + '_newTitle', function (data) {
           doc.title = data
         })
