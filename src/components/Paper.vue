@@ -239,13 +239,13 @@
       },
       redo () {
         document.execCommand('redo', false, null)
-      },
+      }, /*
       cut () {
         document.execCommand('cut', false, null)
       },
       copy () {
         document.execCommand('copy', false, null)
-      },
+      }, */
       makeBold () {
         document.execCommand('bold', false, null)
       },
