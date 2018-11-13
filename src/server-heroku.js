@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 app.use(express.static('dist'))
 
 var http = require('http').Server(app)
-http.listen(process.env.PORT || 8081)
+// http.listen(process.env.PORT || 8081)
 var io = require('socket.io')(http)
 
 io.on('connection', function (socket) {
