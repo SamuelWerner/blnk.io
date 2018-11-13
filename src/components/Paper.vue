@@ -233,11 +233,6 @@
           selection.addRange(range)
         }
       },
-      getHTMLcode () {
-        var richText = document.getElementById('paper').innerHTML
-        var htmlCode = richText.replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        document.getElementById('htmlEditor').innerHTML = htmlCode
-      },
       makeBold () {
         document.execCommand('bold', false, null)
       }
