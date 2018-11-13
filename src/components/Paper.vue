@@ -25,8 +25,8 @@
             <md-menu-content class="menu-content">
               <md-menu-item @click="" disabled>Rückgängig machen</md-menu-item>
               <md-menu-item @click="" disabled>Wiederholen</md-menu-item>
-              <md-menu-item @click="" disabled>Ausschneiden</md-menu-item>
-              <md-menu-item @click="" disabled>Kopieren</md-menu-item>
+              <md-menu-item @click="cut">Ausschneiden</md-menu-item>
+              <md-menu-item @click="copy">Kopieren</md-menu-item>
               <md-menu-item @click="" disabled>Einfügen</md-menu-item>
               <md-menu-item @click="" disabled>Löschen</md-menu-item>
               <md-menu-item @click="markieren('paper')">Alles auswählen</md-menu-item>
@@ -43,7 +43,7 @@
             <button md-menu-trigger type="button" class="btn btn-light">Einfügen</button>
 
             <md-menu-content class="menu-content">
-              <md-menu-item @click="" disabled></md-menu-item>
+              <md-menu-item @click="insertHorizontalRule">Horizontale Linie</md-menu-item>
             </md-menu-content>
           </md-menu>
           <md-menu md-size="small" md-align-trigger >
@@ -63,8 +63,8 @@
           </div>
         <br>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-undo-24px.svg" /> </button>
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-redo-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="undo"> <img class="fktstripImg" src="../assets/baseline-undo-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="redo"> <img class="fktstripImg" src="../assets/baseline-redo-24px.svg" /> </button>
           <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-print-24px.svg" /> </button>
           <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_paint-24px.svg" /> </button>
         </div>
@@ -75,22 +75,22 @@
           <button type="button" class="btn btn-light" @click="makeStrikeThrough"> <img class="fktstripImg" src="../assets/baseline-strikethrough_s-24px.svg" /> </button>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_align_left-24px.svg" /> </button>
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_align_center-24px.svg" /> </button>
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_align_right-24px.svg" /> </button>
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_align_justify-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="justifyLeft"> <img class="fktstripImg" src="../assets/baseline-format_align_left-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="justifyCenter"> <img class="fktstripImg" src="../assets/baseline-format_align_center-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="justifyRight"> <img class="fktstripImg" src="../assets/baseline-format_align_right-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="justifyFull"> <img class="fktstripImg" src="../assets/baseline-format_align_justify-24px.svg" /> </button>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_line_spacing-24px.svg" /> </button>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_list_numbered-24px.svg" /> </button>
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_list_bulleted-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="insertOrderedList"> <img class="fktstripImg" src="../assets/baseline-format_list_numbered-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="insertUnorderedList"> <img class="fktstripImg" src="../assets/baseline-format_list_bulleted-24px.svg" /> </button>
           <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_indent_decrease-24px.svg" /> </button>
           <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_indent_increase-24px.svg" /> </button>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_clear-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="removeFormat"> <img class="fktstripImg" src="../assets/baseline-format_clear-24px.svg" /> </button>
         </div>
         <!--
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -220,7 +220,7 @@
       Sleep (milliseconds) {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
       },
-      markieren (elementId) {
+      markieren (elementId) { /* selectAll?? */
         var elem = document.getElementById(elementId)
         if (document.selection && document.selection.createRange) {
           var textRange = document.selection.createRange()
@@ -234,6 +234,18 @@
           selection.addRange(range)
         }
       },
+      undo () {
+        document.execCommand('undo', false, null)
+      },
+      redo () {
+        document.execCommand('redo', false, null)
+      },
+      cut () {
+        document.execCommand('cut', false, null)
+      },
+      copy () {
+        document.execCommand('copy', false, null)
+      },
       makeBold () {
         document.execCommand('bold', false, null)
       },
@@ -245,6 +257,30 @@
       },
       makeStrikeThrough () {
         document.execCommand('strikeThrough', false, null)
+      },
+      insertHorizontalRule () {
+        document.execCommand('insertHorizontalRule', false, null)
+      },
+      insertOrderedList () {
+        document.execCommand('insertOrderedList', false, null)
+      },
+      insertUnorderedList () {
+        document.execCommand('insertUnorderedList', false, null)
+      },
+      justifyCenter () {
+        document.execCommand('justifyCenter', false, null)
+      },
+      justifyFull () {
+        document.execCommand('justifyFull', false, null)
+      },
+      justifyLeft () {
+        document.execCommand('justifyLeft', false, null)
+      },
+      justifyRight () {
+        document.execCommand('justifyRight', false, null)
+      },
+      removeFormat () {
+        document.execCommand('removeFormat', false, null)
       }
     }
   }
