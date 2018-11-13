@@ -7,57 +7,57 @@
             <button md-menu-trigger  type="button" class="btn btn-light">Datei</button>
 
             <md-menu-content class="menu-content">
-              <md-menu-item @click="">Freigeben</md-menu-item>
-              <md-menu-item @click="">Neu</md-menu-item>
-              <md-menu-item @click="">Öffnen</md-menu-item>
-              <md-menu-item @click="">Kopie erstellen</md-menu-item>
-              <md-menu-item @click="">Herunterladen</md-menu-item>
+              <md-menu-item @click="" disabled>Freigeben</md-menu-item>
+              <md-menu-item @click="" disabled>Neu</md-menu-item>
+              <md-menu-item @click="" disabled>Öffnen</md-menu-item>
+              <md-menu-item @click="" disabled>Kopie erstellen</md-menu-item>
+              <md-menu-item @click="" disabled>Herunterladen</md-menu-item>
               <md-menu-item @click="showDialogRename = true">Umbenennen</md-menu-item>
-              <md-menu-item @click="">Verschieben nach</md-menu-item>
-              <md-menu-item @click="">Löschen</md-menu-item>
-              <md-menu-item @click="">Seiteneinrichtung</md-menu-item>
-              <md-menu-item @click="">Drucken</md-menu-item>
+              <md-menu-item @click="" disabled>Verschieben nach</md-menu-item>
+              <md-menu-item @click="" disabled>Löschen</md-menu-item>
+              <md-menu-item @click="" disabled>Seiteneinrichtung</md-menu-item>
+              <md-menu-item @click="" disabled>Drucken</md-menu-item>
             </md-menu-content>
           </md-menu>
           <md-menu md-size="small" md-align-trigger >
             <button md-menu-trigger type="button" class="btn btn-light">Bearbeiten</button>
 
             <md-menu-content class="menu-content">
-              <md-menu-item @click="">Rückgängig machen</md-menu-item>
-              <md-menu-item @click="">Wiederholen</md-menu-item>
-              <md-menu-item @click="">Auusschneiden</md-menu-item>
-              <md-menu-item @click="">Kopieren</md-menu-item>
-              <md-menu-item @click="">Einfügen</md-menu-item>
-              <md-menu-item @click="">Löschen</md-menu-item>
-              <md-menu-item @click="">Ales auswählen</md-menu-item>
+              <md-menu-item @click="" disabled>Rückgängig machen</md-menu-item>
+              <md-menu-item @click="" disabled>Wiederholen</md-menu-item>
+              <md-menu-item @click="" disabled>Auusschneiden</md-menu-item>
+              <md-menu-item @click="" disabled>Kopieren</md-menu-item>
+              <md-menu-item @click="" disabled>Einfügen</md-menu-item>
+              <md-menu-item @click="" disabled>Löschen</md-menu-item>
+              <md-menu-item @click="" disabled>Ales auswählen</md-menu-item>
             </md-menu-content>
           </md-menu>
           <md-menu md-size="small" md-align-trigger >
             <button md-menu-trigger type="button" class="btn btn-light">Ansicht</button>
 
             <md-menu-content class="menu-content">
-              <md-menu-item @click=""></md-menu-item>
+              <md-menu-item @click="" disabled></md-menu-item>
             </md-menu-content>
           </md-menu>
           <md-menu md-size="small" md-align-trigger >
             <button md-menu-trigger type="button" class="btn btn-light">Einfügen</button>
 
             <md-menu-content class="menu-content">
-              <md-menu-item @click=""></md-menu-item>
+              <md-menu-item @click="" disabled></md-menu-item>
             </md-menu-content>
           </md-menu>
           <md-menu md-size="small" md-align-trigger >
             <button md-menu-trigger type="button" class="btn btn-light">Format</button>
 
             <md-menu-content class="menu-content">
-              <md-menu-item @click=""></md-menu-item>
+              <md-menu-item @click="" disabled></md-menu-item>
             </md-menu-content>
           </md-menu>
           <md-menu md-size="small" md-align-trigger >
             <button md-menu-trigger type="button" class="btn btn-light">Tools</button>
 
             <md-menu-content class="menu-content">
-              <md-menu-item @click=""></md-menu-item>
+              <md-menu-item @click="" disabled></md-menu-item>
             </md-menu-content>
           </md-menu>
           </div>
@@ -119,7 +119,7 @@
       </div>
       <div class="col-md-3 order-md-2 order-1">
         <md-button style="float: right" type="button" to="/" class="md-default md-raised md-dense">zurück</md-button>
-        <md-button style="float: right" type="button" @click="showDialogRename = true" class="md-default md-raised md-dense">umbenennen</md-button>
+        <!--<md-button style="float: right" type="button" @click="showDialogRename = true" class="md-default md-raised md-dense">umbenennen</md-button>-->
       </div>
     </div>
 
@@ -128,7 +128,7 @@
 
       <md-field class="inputBox">
         <form id="form" @submit.prevent="updateName">
-          <label>{{ doc.title }}</label><md-input type="text" v-model="doc.title" maxlength="30"></md-input>
+          <label>Titel eingeben...</label><md-input type="text" v-model="doc.title" maxlength="30"></md-input>
         </form>
       </md-field>
 
@@ -257,15 +257,17 @@
 
   .fktstripImg {
     height: 21px !important;
+    margin-bottom: 1px;
   }
 
   .md-list-item-container {
     font-size: 0.875rem;
-    padding: 0 0.5rem 0 1.7rem;
+    padding: 0;
   }
 
   .md-list-item-content {
     min-height: 35px;
+    padding: 0 1.4rem 0 2.8rem;
   }
 
   .menu-content {

@@ -31,14 +31,16 @@
       </div>
     </div>
 
-    <ul>
-      <li v-for="doc in docs" :key="doc.id">
-        <img style="" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
-        <p id="docTitle">{{ doc.title }}</p><br>
-        <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.id)">Öffnen</md-button><br>
-        <md-button class="md-danger md-dense" @click.prevent="deleteDoc(doc.id)">Löschen</md-button>
-      </li>
-    </ul>
+    <div>
+      <ul>
+        <li v-for="doc in docs" :key="doc.id">
+          <img style="" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
+          <p id="docTitle">{{ doc.title }}</p><br>
+          <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.id)">Öffnen</md-button><br>
+          <md-button class="md-danger md-dense" @click.prevent="deleteDoc(doc.id)">Löschen</md-button>
+        </li>
+      </ul>
+    </div>
 
   </main>
 </template>
@@ -107,7 +109,7 @@
     margin: 1rem 1rem 0 0;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: calc(0.25rem - 1px);
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #f7f7f7;
     width: 12rem;
     min-height: 14rem;
     float: left;
