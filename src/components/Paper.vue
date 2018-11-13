@@ -69,7 +69,7 @@
           <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_paint-24px.svg" /> </button>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light" @click=""> <img class="fktstripImg" src="../assets/baseline-format_bold-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="makeBold"> <img class="fktstripImg" src="../assets/baseline-format_bold-24px.svg" /> </button>
           <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_italic-24px.svg" /> </button>
           <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_underlined-24px.svg" /> </button>
         </div>
@@ -226,6 +226,14 @@
           selection.removeAllRanges()
           selection.addRange(range)
         }
+      },
+      getHTMLcode () {
+        var richText = document.getElementById('paper').innerHTML
+        var htmlCode = richText.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        document.getElementById('htmlEditor').innerHTML = htmlCode
+      },
+      makeBold () {
+        document.execCommand('bold', false, null)
       }
     }
   }
