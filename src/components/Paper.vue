@@ -70,8 +70,8 @@
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-light" @click="makeBold"> <img class="fktstripImg" src="../assets/baseline-format_bold-24px.svg" /> </button>
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_italic-24px.svg" /> </button>
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_underlined-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="makeItalic"> <img class="fktstripImg" src="../assets/baseline-format_italic-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="makeUnderline"> <img class="fktstripImg" src="../assets/baseline-format_underlined-24px.svg" /> </button>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_align_left-24px.svg" /> </button>
@@ -235,6 +235,12 @@
       },
       makeBold () {
         document.execCommand('bold', false, null)
+      },
+      makeItalic () {
+        document.execCommand('italic', false, null)
+      },
+      makeUnderline () {
+        document.execCommand('underline', false, null)
       }
     }
   }
