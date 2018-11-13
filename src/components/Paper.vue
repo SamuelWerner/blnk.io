@@ -1,8 +1,10 @@
 <template>
   <main class="container" style="height:100%">
     <div class="row">
-      <div class="col-md-9 order-md-1 order-2">
+      <div class="col-md-10 order-md-1 order-2">
+        <!-- Menüleiste -->
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+          <!-- Datei -->
           <md-menu md-size="small" md-align-trigger >
             <button md-menu-trigger  type="button" class="btn btn-light">Datei</button>
 
@@ -15,23 +17,25 @@
               <md-menu-item @click="showDialogRename = true">Umbenennen</md-menu-item>
               <md-menu-item @click="" disabled>Verschieben nach</md-menu-item>
               <md-menu-item @click="" disabled>Löschen</md-menu-item>
-              <md-menu-item @click="" disabled>Seiteneinrichtung</md-menu-item>
+              <md-menu-item @click="showDialogPage = true" >Seiteneinrichtung</md-menu-item>
               <md-menu-item @click="" disabled>Drucken</md-menu-item>
             </md-menu-content>
           </md-menu>
+          <!-- Bearbeiten -->
           <md-menu md-size="small" md-align-trigger >
             <button md-menu-trigger type="button" class="btn btn-light">Bearbeiten</button>
 
             <md-menu-content class="menu-content">
-              <md-menu-item @click="" disabled>Rückgängig machen</md-menu-item>
-              <md-menu-item @click="" disabled>Wiederholen</md-menu-item>
-              <md-menu-item @click="cut">Ausschneiden</md-menu-item>
-              <md-menu-item @click="copy">Kopieren</md-menu-item>
-              <md-menu-item @click="" disabled>Einfügen</md-menu-item>
+              <md-menu-item @click="undo" >Rückgängig machen</md-menu-item>
+              <md-menu-item @click="redo" >Wiederholen</md-menu-item>
+              <md-menu-item @click="cut" >Ausschneiden</md-menu-item>
+              <md-menu-item @click="copy" >Kopieren</md-menu-item>
+              <md-menu-item @click="paste" disabled>Einfügen</md-menu-item>
               <md-menu-item @click="" disabled>Löschen</md-menu-item>
               <md-menu-item @click="markieren('paper')">Alles auswählen</md-menu-item>
             </md-menu-content>
           </md-menu>
+          <!-- Ansicht -->
           <md-menu md-size="small" md-align-trigger >
             <button md-menu-trigger type="button" class="btn btn-light">Ansicht</button>
 
@@ -39,6 +43,7 @@
               <md-menu-item @click="" disabled></md-menu-item>
             </md-menu-content>
           </md-menu>
+          <!-- Einfügen -->
           <md-menu md-size="small" md-align-trigger >
             <button md-menu-trigger type="button" class="btn btn-light">Einfügen</button>
 
@@ -46,6 +51,7 @@
               <md-menu-item @click="insertHorizontalRule">Horizontale Linie</md-menu-item>
             </md-menu-content>
           </md-menu>
+          <!-- Format -->
           <md-menu md-size="small" md-align-trigger >
             <button md-menu-trigger type="button" class="btn btn-light">Format</button>
 
@@ -53,6 +59,7 @@
               <md-menu-item @click="" disabled></md-menu-item>
             </md-menu-content>
           </md-menu>
+          <!-- Tools -->
           <md-menu md-size="small" md-align-trigger >
             <button md-menu-trigger type="button" class="btn btn-light">Tools</button>
 
@@ -62,35 +69,115 @@
           </md-menu>
           </div>
         <br>
+        <!-- Toolleiste -->
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light" @click="undo"> <img class="fktstripImg" src="../assets/baseline-undo-24px.svg" /> </button>
-          <button type="button" class="btn btn-light" @click="redo"> <img class="fktstripImg" src="../assets/baseline-redo-24px.svg" /> </button>
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-print-24px.svg" /> </button>
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_paint-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="undo">
+            <md-tooltip md-delay="300">Rückgängig machen</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-undo-24px.svg" />
+          </button>
+          <button type="button" class="btn btn-light" @click="redo">
+            <md-tooltip md-delay="300">Wiederholen</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-redo-24px.svg" />
+          </button>
+          <button type="button" class="btn btn-light">
+            <md-tooltip md-delay="300">Drucken</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-print-24px.svg" />
+          </button>
+          <button type="button" class="btn btn-light">
+            <md-tooltip md-delay="300">Format übertragen</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-format_paint-24px.svg" />
+          </button>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light" @click="makeBold"> <img class="fktstripImg" src="../assets/baseline-format_bold-24px.svg" /> </button>
-          <button type="button" class="btn btn-light" @click="makeItalic"> <img class="fktstripImg" src="../assets/baseline-format_italic-24px.svg" /> </button>
-          <button type="button" class="btn btn-light" @click="makeUnderline"> <img class="fktstripImg" src="../assets/baseline-format_underlined-24px.svg" /> </button>
-          <button type="button" class="btn btn-light" @click="makeStrikeThrough"> <img class="fktstripImg" src="../assets/baseline-strikethrough_s-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="makeBold">
+            <md-tooltip md-delay="300">Fett</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-format_bold-24px.svg" />
+          </button>
+          <button type="button" class="btn btn-light" @click="makeItalic">
+            <md-tooltip md-delay="300">Kursiv</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-format_italic-24px.svg" />
+          </button>
+          <button type="button" class="btn btn-light" @click="makeUnderline">
+            <md-tooltip md-delay="300">Unterstrichen</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-format_underlined-24px.svg" />
+          </button>
+          <button type="button" class="btn btn-light" @click="makeStrikeThrough">
+            <md-tooltip md-delay="300">Durchgestrichen</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-strikethrough_s-24px.svg" />
+          </button>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light" @click="justifyLeft"> <img class="fktstripImg" src="../assets/baseline-format_align_left-24px.svg" /> </button>
-          <button type="button" class="btn btn-light" @click="justifyCenter"> <img class="fktstripImg" src="../assets/baseline-format_align_center-24px.svg" /> </button>
-          <button type="button" class="btn btn-light" @click="justifyRight"> <img class="fktstripImg" src="../assets/baseline-format_align_right-24px.svg" /> </button>
-          <button type="button" class="btn btn-light" @click="justifyFull"> <img class="fktstripImg" src="../assets/baseline-format_align_justify-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="subscript">
+            <md-tooltip md-delay="300">Tiefgestellt</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-keyboard_arrow_down-24px.svg" />
+          </button>
+          <button type="button" class="btn btn-light" @click="superscript">
+            <md-tooltip md-delay="300">Hochgestellt</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-keyboard_arrow_up-24px.svg" />
+          </button>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_line_spacing-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="justifyLeft">
+            <md-tooltip md-delay="300">Linksbündig</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-format_align_left-24px.svg" />
+          </button>
+          <button type="button" class="btn btn-light" @click="justifyCenter">
+            <md-tooltip md-delay="300">Zentriert</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-format_align_center-24px.svg" />
+          </button>
+          <button type="button" class="btn btn-light" @click="justifyRight">
+            <md-tooltip md-delay="300">Rechtsbündig</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-format_align_right-24px.svg" />
+          </button>
+          <button type="button" class="btn btn-light" @click="justifyFull">
+            <md-tooltip md-delay="300">Blocksatz</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-format_align_justify-24px.svg" />
+          </button>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light" @click="insertOrderedList"> <img class="fktstripImg" src="../assets/baseline-format_list_numbered-24px.svg" /> </button>
-          <button type="button" class="btn btn-light" @click="insertUnorderedList"> <img class="fktstripImg" src="../assets/baseline-format_list_bulleted-24px.svg" /> </button>
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_indent_decrease-24px.svg" /> </button>
-          <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_indent_increase-24px.svg" /> </button>
+        <md-menu md-size="small" md-align-trigger >
+          <md-tooltip md-delay="300">Zeilenabstand</md-tooltip>
+          <button md-menu-trigger type="button" class="btn btn-light" > <img class="fktstripImg" src="../assets/baseline-format_line_spacing-24px.svg" /> </button>
+
+          <md-menu-content class="menu-content">
+            <md-menu-item @click="lineHight(1)" disabled>Einfach</md-menu-item>
+            <md-menu-item @click="lineHight(1.15)" disabled>1,15</md-menu-item>
+            <md-menu-item @click="lineHight(1.5)" disabled>1,5</md-menu-item>
+            <md-menu-item @click="lineHight(2)" disabled>Doppelt</md-menu-item>
+            <md-menu-item @click="" disabled></md-menu-item>
+            <md-menu-item @click="" disabled>Abstand vor Absatz einfügen</md-menu-item>
+            <md-menu-item @click="" disabled>Abstand nach Absatz einfügen</md-menu-item>
+            <md-menu-item @click="" disabled>Benutzerdefiniert</md-menu-item>
+
+          </md-menu-content>
+        </md-menu>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-light" @click="removeFormat"> <img class="fktstripImg" src="../assets/baseline-format_clear-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="insertOrderedList">
+            <md-tooltip md-delay="300">Nummerierte Liste</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-format_list_numbered-24px.svg" />
+          </button>
+          <button type="button" class="btn btn-light" @click="insertUnorderedList">
+            <md-tooltip md-delay="300">Aufzählungsliste</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-format_list_bulleted-24px.svg" />
+          </button>
+          <button type="button" class="btn btn-light" @click="outdent">
+            <md-tooltip md-delay="300">Einzug verkleinern</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-format_indent_decrease-24px.svg" />
+          </button>
+          <button type="button" class="btn btn-light" @click="indent">
+            <md-tooltip md-delay="300">Einzug vergrößern</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-format_indent_increase-24px.svg" />
+          </button>
+        </div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-light" @click="removeFormat">
+            <md-tooltip md-delay="300">Formatierung entfernen</md-tooltip>
+            <img class="fktstripImg" src="../assets/baseline-format_clear-24px.svg" />
+          </button>
+        </div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-light" @click="insertText"> </button>
         </div>
         <!--
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -118,7 +205,8 @@
         </div>
         -->
       </div>
-      <div class="col-md-3 order-md-2 order-1">
+
+      <div class="col-md-2 order-md-2 order-1">
         <md-button style="float: right" type="button" to="/" class="md-default md-raised md-dense">zurück</md-button>
         <!--<md-button style="float: right" type="button" @click="showDialogRename = true" class="md-default md-raised md-dense">umbenennen</md-button>-->
       </div>
@@ -127,7 +215,7 @@
     <md-dialog class="dialog" :md-active.sync="showDialogRename">
       <md-dialog-title>Neuen Namen eingeben</md-dialog-title>
 
-      <md-field class="inputBox">
+      <md-field>
         <form id="form" @submit.prevent="updateName">
           <label>Titel eingeben...</label><md-input type="text" v-model="doc.title" maxlength="30"></md-input>
         </form>
@@ -139,10 +227,35 @@
       </md-dialog-actions>
     </md-dialog>
 
+    <md-dialog class="dialog" :md-active.sync="showDialogPage">
+      <md-dialog-title>Seitenränder und -farbe ändern</md-dialog-title>
+
+      <div class="md-layout md-gutter">
+        <div class="md-layout-item">
+          <md-field>
+            <label for="pagecolor">Seitenfarbe</label>
+            <md-select v-model="pagecolor" name="pagecolor" id="pagecolor">
+              <md-option value="red">Rot</md-option>
+              <md-option value="blue">Blau</md-option>
+              <md-option value="yellow">Gelb</md-option>
+              <md-option value="green">Grün</md-option>
+              <md-option value="black">Schwarz</md-option>
+              <md-option value="white">Weiß</md-option>
+            </md-select>
+          </md-field>
+        </div>
+      </div>
+
+      <md-dialog-actions>
+        <md-button class="md-primary" @click="showDialogPage = false">Abbruch</md-button>
+        <md-button class="md-primary" @click="showDialogPage = false; pagecolor = value" type="submit" form="form2">Übernehmen</md-button>
+      </md-dialog-actions>
+    </md-dialog>
+
     <h1 style="margin-top: 3rem;">{{ doc.title }}</h1> {{ rename }}     <b-alert class="saving" :show="saveAlert" variant="info">speichert...</b-alert>
     <div style="outline:none" contenteditable="true"
        id="paper"
-       class="my-3 bg-white rounded shadow-lg paper"
+       class="my-3 rounded shadow-lg paper"
        @input="onDivInput($event, doc)"
        v-html="body" :disabled="1">
     </div>
@@ -161,13 +274,15 @@
       return {
         name: 'Delay',
         showDialogRename: false,
+        showDialogPage: false,
         doc: [],
         model: {},
         body: [],
         saving: false,
         saveAlert: false,
         rename: '',
-        socket: null
+        socket: null,
+        pagecolor: 'white'
       }
     },
     async created () {
@@ -239,13 +354,16 @@
       },
       redo () {
         document.execCommand('redo', false, null)
-      }, /*
+      },
       cut () {
         document.execCommand('cut', false, null)
       },
       copy () {
         document.execCommand('copy', false, null)
-      }, */
+      },
+      paste () {
+        document.execCommand('paste', false, null)
+      },
       makeBold () {
         document.execCommand('bold', false, null)
       },
@@ -281,7 +399,28 @@
       },
       removeFormat () {
         document.execCommand('removeFormat', false, null)
+      },
+      subscript () {
+        document.execCommand('subscript', false, null)
+      },
+      superscript () {
+        document.execCommand('superscript', false, null)
+      },
+      indent () {
+        document.execCommand('indent', false, null)
+      },
+      outdent () {
+        document.execCommand('outdent', false, null)
+      },
+      insertText () {
+        document.execCommand('insertText', false, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. \n' +
+        '\n' + 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \n')
       }
+      /*
+      backColor (color) {
+        var page = document.getElementById('paper')
+        page.style.backgroundColor = color
+      } */
     }
   }
 </script>
@@ -305,9 +444,10 @@
     padding-top: 0.5rem;
   }
 
-  .paper {
-    min-height:1000px;
-    padding: 110px !important;
+  #paper {
+    min-height:1500px;
+    padding: 120px;
+    background-color: white;
   }
 
   .btn-group {
