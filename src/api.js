@@ -2,7 +2,6 @@
 import axios from 'axios'
 var client
 
-console.log(process.env.NODE_ENV + '+++++++++++')
 if (process.env.NODE_ENV === 'development') {
   client = axios.create({
     baseURL: 'http://localhost:8081',
