@@ -72,6 +72,7 @@
           <button type="button" class="btn btn-light" @click="makeBold"> <img class="fktstripImg" src="../assets/baseline-format_bold-24px.svg" /> </button>
           <button type="button" class="btn btn-light" @click="makeItalic"> <img class="fktstripImg" src="../assets/baseline-format_italic-24px.svg" /> </button>
           <button type="button" class="btn btn-light" @click="makeUnderline"> <img class="fktstripImg" src="../assets/baseline-format_underlined-24px.svg" /> </button>
+          <button type="button" class="btn btn-light" @click="makeStrikeThrough"> <img class="fktstripImg" src="../assets/baseline-strikethrough_s-24px.svg" /> </button>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-light"> <img class="fktstripImg" src="../assets/baseline-format_align_left-24px.svg" /> </button>
@@ -241,6 +242,9 @@
       },
       makeUnderline () {
         document.execCommand('underline', false, null)
+      },
+      makeStrikeThrough () {
+        document.execCommand('strikeThrough', false, null)
       }
     }
   }
