@@ -128,7 +128,7 @@
 
       <md-field class="inputBox">
         <form id="form" @submit.prevent="updateName">
-          <label>{{ doc.title }}</label><md-input type="text" v-model="rename" maxlength="30"></md-input>
+          <label>{{ doc.title }}</label><md-input type="text" v-model="doc.title" maxlength="30"></md-input>
         </form>
       </md-field>
 
@@ -149,8 +149,11 @@
   </main>
 </template>
 
+
 <script>
   import api from '@/api'
+  import io from 'socket.io-client'
+
   export default {
     name: 'Paper',
     data () {
@@ -161,7 +164,9 @@
         model: {},
         body: [],
         saving: false,
-        saveAlert: false
+        saveAlert: false,
+        rename: '',
+        socket: null
       }
     },
     async created () {
@@ -169,12 +174,25 @@
     },
 
     methods: {
+      async newSocket (id, doc) {
+        console.log('new socket' + id)
+        this.socket = io('http://localhost:8080')
+        this.socket.on('docChannel_' + id + '_newTitle', function (data) {
+          doc.title = data
+        })
+      },
+      async updateName () {
+        this.socket.emit('newTitle', {room: 'docChannel_' + this.doc.id + '_newTitle', message: this.doc.title})
+        if (this.doc.id) {
+          await api.updateDoc(this.doc.id, this.doc)
+        }
+      },
       async refreshDocs () {
         this.doc = await api.getDoc(this.$route.params.docID)
+        this.newSocket(this.doc.id, this.doc)
         this.body = this.doc.body
       },
       async updateDoc (doc) {
-        console.log(doc.id)
         if (doc.id) {
           await api.updateDoc(doc.id, doc)
         }

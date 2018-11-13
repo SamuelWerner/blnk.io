@@ -26,6 +26,8 @@ const proxyTable = config.dev.proxyTable
 
 const app = express()
 
+
+
 const compiler = webpack(webpackConfig)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -84,11 +86,27 @@ devMiddleware.waitUntilValid(() => {
   _resolve()
 })
 
-const server = app.listen(port)
+
+const server = null
+
+var http = require('http').Server(app)
+http.listen(8080)
+var io = require('socket.io')(http)
+
+io.on('connection', function (socket) {
+
+  socket.on('newTitle', function (data) {
+    let room = data['room']
+    let newTitle = data['message']
+    io.emit(room, newTitle);
+  });
+
+  console.log('a user connected')
+})
 
 module.exports = {
   ready: readyPromise,
   close: () => {
-    server.close()
+    http.close()
   }
 }

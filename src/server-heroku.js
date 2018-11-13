@@ -12,6 +12,19 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(express.static('dist'))
 
+var http = require('http').Server(app)
+http.listen(8080)
+var io = require('socket.io')(http)
+
+io.on('connection', function (socket) {
+  socket.on('newTitle', function (data) {
+    let room = data['room']
+    let newTitle = data['message']
+    io.emit(room, newTitle)
+  })
+  console.log('a user connected')
+})
+
 // For ease of this tutorial, we are going to use SQLite to limit dependencies
 let database = new Sequelize(process.env.DATABASE_URL)
 

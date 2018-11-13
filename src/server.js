@@ -6,6 +6,7 @@ const Sequelize = require('sequelize')
 const epilogue = require('epilogue')
 
 let app = express()
+
 app.use(cors())
 app.use(bodyParser.json())
 
