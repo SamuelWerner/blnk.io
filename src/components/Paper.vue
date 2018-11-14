@@ -548,4 +548,8 @@
     border: white;
   }
 
+  sub, sup {
+    position: static;
+  }
+
 </style>
