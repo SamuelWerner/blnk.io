@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="md" type="dark" variant="dark">
+    <b-navbar toggleable="md" type="dark" variant="dark" fixed="">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-navbar-brand to="/">blnk.io</b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
@@ -15,21 +15,24 @@
 </template>
 
 <script>
+  export default {
+    name: 'app',
+    data () {
+      return {
+        activeUser: null
+      }
+    },
+    methods: {
 
-export default {
-  name: 'app',
-  data () {
-    return {
-      activeUser: null
-    }
-  },
-  methods: {
-
-    async logout () {
-      await this.$auth.logout()
-      await this.refreshActiveUser()
-      this.$router.push('/')
+      async logout () {
+        await this.$auth.logout()
+        await this.refreshActiveUser()
+        this.$router.push('/')
+      }
     }
   }
-}
 </script>
+
+<style>
+
+</style>

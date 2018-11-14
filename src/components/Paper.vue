@@ -1,6 +1,6 @@
 <template>
-  <main class="container" style="height:100%">
-    <div class="row">
+  <main class="container-fluid" style="height:100%">
+    <div class="row sticky">
       <div class="col-md-11 order-md-1 order-2">
         <!-- Menüleiste -->
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -213,7 +213,7 @@
       </div>
 
       <div class="col-md-1 order-md-2 order-1">
-        <md-button style="float: right" type="button" to="/" class="md-icon-button md-raised">
+        <md-button style="float: right; margin-top: 0.7rem" type="button" to="/" class="md-icon-button md-raised">
           <img class="fktstripImg" style="margin: 0" src="../assets/baseline-cancel-24px.svg" />
         </md-button>
         <!--<md-button style="float: right" type="button" @click="showDialogRename = true" class="md-default md-raised md-dense">umbenennen</md-button>-->
@@ -261,12 +261,14 @@
       </md-dialog-actions>
     </md-dialog>
 
-    <h1 style="margin-top: 3rem;">{{ doc.title }}</h1> {{ rename }}     <b-alert class="saving" :show="saveAlert" variant="info">speichert...</b-alert>
-    <div style="outline:none" contenteditable="true"
-       id="paper"
-       class="my-3 rounded shadow-lg paper"
-       @input="onDivInput($event, doc)"
-       v-html="doc.body" :disabled="1">
+    <div class="container">
+      <h1 style="margin-top: 3rem;">{{ doc.title }}</h1> {{ rename }}     <b-alert class="saving" :show="saveAlert" variant="info">speichert...</b-alert>
+      <div style="outline:none" contenteditable="true"
+         id="paper"
+         class="my-3 rounded shadow-lg paper"
+         @input="onDivInput($event, doc)"
+         v-html="doc.body" :disabled="1">
+      </div>
     </div>
 
   </main>
@@ -321,7 +323,11 @@
         this.socket.emit('room', 'docChannel_' + id)
       },
       async updateName () {
-        this.socket.emit('titleChange', {room: 'docChannel_' + this.doc.id, event: 'titleChange', message: this.doc.title})
+        this.socket.emit('titleChange', {
+          room: 'docChannel_' + this.doc.id,
+          event: 'titleChange',
+          message: this.doc.title
+        })
         if (this.doc.id) {
           await api.updateDoc(this.doc.id, this.doc)
         }
@@ -443,7 +449,7 @@
       },
       insertText () {
         document.execCommand('insertText', false, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. \n' +
-        '\n' + 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \n')
+          '\n' + 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \n')
       },
       /*
       backColor (color) {
@@ -472,8 +478,19 @@
     top: -55px;
   }
 
+  .container-fluid {
+  }
+
   .container {
-    padding-top: 0.5rem;
+  }
+
+  .sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    background-color: #f3f2f1;
+    padding: 0.5rem 0 1rem 0;
+    box-shadow: 0 1px 2px -2px gray;
   }
 
   #paper {
