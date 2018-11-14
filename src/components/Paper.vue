@@ -242,7 +242,7 @@
       <div class="md-layout md-gutter">
         <div class="md-layout-item">
           <md-field>
-            <label for="pagecolor">Seitenfarbe</label>
+            <label :for="pagecolor">Seitenfarbe</label>
             <md-select v-model="pagecolor" name="pagecolor" id="pagecolor">
               <md-option value="red">Rot</md-option>
               <md-option value="blue">Blau</md-option>
