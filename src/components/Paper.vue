@@ -11,7 +11,7 @@
             <md-menu-content class="menu-content">
               <md-menu-item @click="" disabled>Freigeben</md-menu-item>
               <md-menu-item @click="" disabled>Neu</md-menu-item>
-              <md-menu-item @click="" disabled>Öffnen</md-menu-item>
+              <md-menu-item @click="" to="/">Öffnen</md-menu-item>
               <md-menu-item @click="" disabled>Kopie erstellen</md-menu-item>
               <md-menu-item @click="" disabled>Herunterladen</md-menu-item>
               <md-menu-item @click="showDialogRename = true">Umbenennen</md-menu-item>
@@ -262,7 +262,8 @@
     </md-dialog>
 
     <div class="container">
-      <h1 style="margin-top: 3rem;">{{ doc.title }}</h1> {{ rename }}     <b-alert class="saving" :show="saveAlert" variant="info">speichert...</b-alert>
+      <b-alert class="saving" :show="saveAlert" variant="info">speichert...</b-alert>
+      <h1>{{ doc.title }}</h1> {{ rename }}
       <div style="outline:none" contenteditable="true"
          id="paper"
          class="my-3 rounded shadow-lg paper"
@@ -472,10 +473,16 @@
     background-color:#f3f2f1;
   }
 
+  h1 {
+    margin-top: 3rem;
+  }
+
   .saving {
-    display: inline;
     float: right;
-    top: -55px;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 2rem;
+    z-index: 10;
   }
 
   .container-fluid {
@@ -490,7 +497,7 @@
     top: 0;
     background-color: #f3f2f1;
     padding: 0.5rem 0 1rem 0;
-    box-shadow: 0 1px 2px -2px gray;
+    box-shadow: 0 1px 3px -2px gray;
     z-index: 1;
   }
 
