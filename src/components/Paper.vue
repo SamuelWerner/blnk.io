@@ -143,7 +143,7 @@
        id="paper"
        class="my-3 bg-white rounded shadow-lg paper"
        @input="onDivInput($event, doc)"
-       v-html="body" :disabled="1">
+       v-html="doc.body" :disabled="1">
     </div>
 
   </main>
@@ -166,7 +166,8 @@
         saving: false,
         saveAlert: false,
         rename: '',
-        socket: null
+        socket: null,
+        waitForSave: false
       }
     },
     async created () {
@@ -175,23 +176,33 @@
 
     methods: {
       async newSocket (id, doc) {
-        console.log('new socket' + id + ', Node_env: ' + process.env.NODE_ENV)
-
         if (process.env.NODE_ENV === 'development') {
           this.socket = io('http://localhost:8080')
         } else {
           this.socket = io('https://blnk-io.herokuapp.com/')
         }
+        // Benutzer meldet sich an einem Raum an
+        this.joinRoom(id)
 
-        this.socket.on('docChannel_' + id + '_newTitle', function (data) {
+        this.socket.on('titleChange', function (data) {
           doc.title = data
         })
+
+        this.socket.on('textChange', function (data) {
+          doc.body = data
+        })
+      },
+      async joinRoom (id) {
+        this.socket.emit('room', 'docChannel_' + id)
       },
       async updateName () {
-        this.socket.emit('newTitle', {room: 'docChannel_' + this.doc.id + '_newTitle', message: this.doc.title})
+        this.socket.emit('titleChange', {room: 'docChannel_' + this.doc.id, event: 'titleChange', message: this.doc.title})
         if (this.doc.id) {
           await api.updateDoc(this.doc.id, this.doc)
         }
+      },
+      async updateText (newDoc) { // TODO: Zukünftig: Nur Teile austauschen. Zur Zeit wird jedes mal der komplette Text übertragen.
+        this.socket.emit('textChange', {room: 'docChannel_' + newDoc.id, event: 'textChange', message: newDoc.body})
       },
       async refreshDocs () {
         this.doc = await api.getDoc(this.$route.params.docID)
@@ -204,16 +215,25 @@
         }
       },
       async onDivInput (e, doc) {
-        if (this.saving) return
+        if (this.saving) {
+          this.waitForSave = true
+          return
+        }
         if (doc.id) {
-          this.saving = true
-          await this.Sleep(3000)
-          this.saveAlert = true
-          doc.body = e.target.innerHTML
-          await api.updateDoc(doc.id, doc)
-          await this.Sleep(1000)
-          this.saveAlert = false
-          this.saving = false
+          this.waitForSave = true
+          while (this.waitForSave) {
+            this.saving = true
+            await this.Sleep(2000)
+            this.saveAlert = true
+            let newDoc = JSON.parse(JSON.stringify(doc))
+            newDoc.body = e.target.innerHTML
+            await api.updateDoc(newDoc.id, newDoc)
+            await this.updateText(newDoc)
+            await this.Sleep(1000)
+            this.saveAlert = false
+            this.waitForSave = false
+            this.saving = false
+          }
         }
       },
       Sleep (milliseconds) {

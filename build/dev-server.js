@@ -89,17 +89,30 @@ devMiddleware.waitUntilValid(() => {
 
 const server = null
 
+// Socket.io
 var http = require('http').Server(app)
 http.listen(8080)
 var io = require('socket.io')(http)
 
 io.on('connection', function (socket) {
 
-  socket.on('newTitle', function (data) {
-    let room = data['room']
-    let newTitle = data['message']
-    io.emit(room, newTitle);
+  socket.on('room', function(room) {
+    socket.join(room);
   });
+
+  socket.on('titleChange', function (data) {
+    let room = data['room']
+    let event = data['event']
+    let title = data['message']
+    socket.to(room).emit(event, title);
+  });
+
+  socket.on('textChange', function (data) {
+    let room = data['room']
+    let event = data['event']
+    let newBody = data['message']
+    socket.to(room).emit(event, newBody);
+  })
 
   console.log('a user connected')
 })
