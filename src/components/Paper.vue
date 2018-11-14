@@ -491,7 +491,7 @@
     background-color: #f3f2f1;
     padding: 0.5rem 0 1rem 0;
     box-shadow: 0 1px 2px -2px gray;
-    z-index: 9999;
+    z-index: 1;
   }
 
   #paper {
