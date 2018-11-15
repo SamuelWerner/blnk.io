@@ -7,6 +7,7 @@ const epilogue = require('epilogue')
 var path = require('path')
 
 let app = express()
+app.use(bodyParser({limit: '20mb'}))
 app.use(bodyParser.json())
 app.use(express.static('dist'))
 
