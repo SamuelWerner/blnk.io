@@ -92,7 +92,7 @@ database
   .sync({ force: false })
   .then(() => {
     var http = require('http').Server(app)
-    app.listen(process.env.PORT || port, () => {
+    http.listen(process.env.PORT || port, () => {
       console.log('listening to port localhost:' + port)
     })
 
