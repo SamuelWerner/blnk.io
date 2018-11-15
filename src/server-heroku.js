@@ -1,14 +1,12 @@
 /* eslint-disable no-path-concat */
 global.dbEnvironment = 'server'
 const express = require('express')
-const cors = require('cors')
 const bodyParser = require('body-parser')
 const Sequelize = require('sequelize')
 const epilogue = require('epilogue')
 var path = require('path')
 
 let app = express()
-app.use(cors())
 app.use(bodyParser.json())
 app.use(express.static('dist'))
 
