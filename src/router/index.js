@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Paper from '@/components/Paper'
-import PostsManager from '@/components/PostsManager'
 import Start from '@/components/Start'
 import { MdButton, MdContent, MdTabs } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
@@ -23,11 +22,6 @@ let router = new Router({
       path: '/',
       name: 'Start',
       component: Start
-    },
-    {
-      path: '/posts-manager',
-      name: 'PostsManager',
-      component: PostsManager
     }
   ]
 })
