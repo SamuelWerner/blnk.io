@@ -268,7 +268,8 @@
          id="paper"
          class="my-3 rounded shadow-lg paper"
          @input="onDivInput($event, doc)"
-         v-html="doc.body" :disabled="1">
+         @paste="onPaste"
+         v-html="doc.body" :disabled="1" ref="paper">
       </div>
     </div>
 
@@ -303,6 +304,21 @@
     },
 
     methods: {
+      onPaste (event) {
+        var pastedData = event.clipboardData.files[0]
+        var that = this
+
+        if (pastedData.type.indexOf('image') === 0) {
+          var reader = new FileReader()
+          reader.readAsDataURL(pastedData)
+          reader.onloadend = function () {
+            var base64data = reader.result
+            var image = document.createElement('img')
+            image.src = base64data
+            that.insertImgAtCaret(image)
+          }
+        }
+      },
       async newSocket (id, doc) {
         if (process.env.NODE_ENV === 'development') {
           this.socket = io('http://localhost:8080')
@@ -451,6 +467,17 @@
       insertText () {
         document.execCommand('insertText', false, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. \n' +
           '\n' + 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \n')
+      },
+      insertImgAtCaret (img) {
+        let sel, range
+        if (window.getSelection) {
+          sel = window.getSelection()
+          if (sel.getRangeAt && sel.rangeCount) {
+            range = sel.getRangeAt(0)
+            range.deleteContents()
+            range.insertNode(img)
+          }
+        }
       },
       /*
       backColor (color) {
