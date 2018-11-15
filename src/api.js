@@ -4,7 +4,7 @@ var client
 
 if (process.env.NODE_ENV === 'development') {
   client = axios.create({
-    baseURL: 'http://localhost:8081',
+    baseURL: 'http://localhost:8080',
     json: true
   })
 } else {
@@ -53,8 +53,5 @@ export default {
   },
   updateDoc (id, data) {
     return this.execute('put', `/docs/${id}`, data)
-  },
-  setEnvDB (env) {
-    envdb = env
   }
 }

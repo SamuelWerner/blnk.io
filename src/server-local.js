@@ -1,0 +1,156 @@
+'use strict'
+
+const config = require('../config')
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
+}
+
+const express = require('express')
+const bodyParser = require('body-parser')
+const Sequelize = require('sequelize')
+const epilogue = require('epilogue')
+const opn = require('opn')
+const path = require('path')
+const webpack = require('webpack')
+const proxyMiddleware = require('http-proxy-middleware')
+const webpackConfig = process.env.NODE_ENV === 'testing'
+  ? require('../build/webpack.prod.conf')
+  : require('../build/webpack.dev.conf')
+// default port where dev server listens for incoming traffic
+const port = process.env.PORT || config.dev.port
+// automatically open browser, if not set will be false
+const autoOpenBrowser = !!config.dev.autoOpenBrowser
+// Define HTTP proxies to your custom API backend
+// https://github.com/chimurai/http-proxy-middleware
+const proxyTable = config.dev.proxyTable
+const compiler = webpack(webpackConfig)
+const uri = 'http://localhost:' + port
+
+const devMiddleware = require('webpack-dev-middleware')(compiler, {
+  publicPath: webpackConfig.output.publicPath,
+  quiet: true
+})
+
+const hotMiddleware = require('webpack-hot-middleware')(compiler, {
+  log: false
+})
+// force page reload when html-webpack-plugin template changes
+compiler.plugin('compilation', function (compilation) {
+  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
+    hotMiddleware.publish({ action: 'reload' })
+    cb()
+  })
+})
+
+let app = express()
+
+// enable hot-reload and state-preserving
+// compilation error display
+app.use(hotMiddleware)
+
+// proxy api requests
+Object.keys(proxyTable).forEach(function (context) {
+  let options = proxyTable[context]
+  if (typeof options === 'string') {
+    options = { target: options }
+  }
+  app.use(proxyMiddleware(options.filter || context, options))
+})
+
+// handle fallback for HTML5 history API
+app.use(require('connect-history-api-fallback')())
+
+// serve webpack bundle output
+app.use(devMiddleware)
+
+// serve pure static assets
+const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+app.use(staticPath, express.static('./static'))
+app.use(bodyParser.json())
+
+// For ease of this tutorial, we are going to use SQLite to limit dependencies
+let database = new Sequelize({
+  dialect: 'sqlite',
+  storage: './test.sqlite'
+})
+
+let _resolve
+const readyPromise = new Promise(resolve => {
+  _resolve = resolve
+})
+
+database
+  .sync({ force: false })
+  .then(() => {
+    var http = require('http').Server(app)
+    app.listen(process.env.PORT || port, () => {
+      console.log('listening to port localhost:' + port)
+    })
+
+    console.log('> Starting dev server...')
+    devMiddleware.waitUntilValid(() => {
+      console.log('> Listening at ' + uri + '\n')
+      // when env is testing, don't need open it
+      if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
+        opn(uri)
+      }
+      _resolve()
+    })
+
+    // Websocket
+    var io = require('socket.io')(http)
+    io.on('connection', function (socket) {
+      socket.on('room', function (room) {
+        socket.join(room)
+      })
+
+      socket.on('titleChange', function (data) {
+        let room = data['room']
+        let event = data['event']
+        let title = data['message']
+        socket.to(room).emit(event, title)
+      })
+
+      socket.on('textChange', function (data) {
+        let room = data['room']
+        let event = data['event']
+        let newBody = data['message']
+        socket.to(room).emit(event, newBody)
+      })
+
+      console.log('a user connected')
+    })
+  })
+
+// Define our Post model
+// id, createdAt, and updatedAt are added by sequelize automatically
+let Post = database.define('posts', {
+  title: Sequelize.STRING,
+  body: Sequelize.TEXT
+})
+
+let Doc = database.define('docs', {
+  title: Sequelize.STRING,
+  body: Sequelize.TEXT
+})
+
+// Initialize epilogue
+epilogue.initialize({
+  app: app,
+  sequelize: database
+})
+
+// Create the dynamic REST resource for our Post model
+epilogue.resource({
+  model: Post,
+  endpoints: ['/posts', '/posts/:id']
+})
+
+epilogue.resource({
+  model: Doc,
+  endpoints: ['/docs', '/docs/:id']
+})
+
+module.exports = {
+  ready: readyPromise
+}
