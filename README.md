@@ -5,10 +5,7 @@ Project for Study
 ## Quickstart
 1. Clone repository
 
-2. Open Terminal, start Node with database:
-`node ./src/server`
-
-3. Open second Terminal, build Vue.js frontend
+2. Open the terminal and start the application with:
 `npm start`
 
 
