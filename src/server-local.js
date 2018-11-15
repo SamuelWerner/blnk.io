@@ -68,10 +68,19 @@ const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.asset
 app.use(staticPath, express.static('./static'))
 app.use(bodyParser.json())
 
-// For ease of this tutorial, we are going to use SQLite to limit dependencies
+const Op = Sequelize.Op
 let database = new Sequelize({
   dialect: 'sqlite',
-  storage: './test.sqlite'
+  storage: './test.sqlite',
+  operatorsAliases: { // Prevent SQL Incjection see more -> https://stackoverflow.com/questions/46608382/sequelize-deprecated-error-message
+    $and: Op.and,
+    $or: Op.or,
+    $eq: Op.eq,
+    $gt: Op.gt,
+    $lt: Op.lt,
+    $lte: Op.lte,
+    $like: Op.like
+  }
 })
 
 let _resolve
