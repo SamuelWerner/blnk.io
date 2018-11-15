@@ -1,6 +1,6 @@
 <template>
-  <main class="container" style="height:100%">
-    <div class="row">
+  <main class="container-fluid" style="height:100%">
+    <div class="row sticky">
       <div class="col-md-11 order-md-1 order-2">
         <!-- Menüleiste -->
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -11,7 +11,7 @@
             <md-menu-content class="menu-content">
               <md-menu-item @click="" disabled>Freigeben</md-menu-item>
               <md-menu-item @click="" disabled>Neu</md-menu-item>
-              <md-menu-item @click="" disabled>Öffnen</md-menu-item>
+              <md-menu-item @click="" to="/">Öffnen</md-menu-item>
               <md-menu-item @click="" disabled>Kopie erstellen</md-menu-item>
               <md-menu-item @click="" disabled>Herunterladen</md-menu-item>
               <md-menu-item @click="showDialogRename = true">Umbenennen</md-menu-item>
@@ -213,7 +213,7 @@
       </div>
 
       <div class="col-md-1 order-md-2 order-1">
-        <md-button style="float: right" type="button" to="/" class="md-icon-button md-raised">
+        <md-button style="float: right; margin-top: 0.7rem" type="button" to="/" class="md-icon-button md-raised">
           <img class="fktstripImg" style="margin: 0" src="../assets/baseline-cancel-24px.svg" />
         </md-button>
         <!--<md-button style="float: right" type="button" @click="showDialogRename = true" class="md-default md-raised md-dense">umbenennen</md-button>-->
@@ -261,12 +261,15 @@
       </md-dialog-actions>
     </md-dialog>
 
-    <h1 style="margin-top: 3rem;">{{ doc.title }}</h1> {{ rename }}     <b-alert class="saving" :show="saveAlert" variant="info">speichert...</b-alert>
-    <div style="outline:none" contenteditable="true"
-       id="paper"
-       class="my-3 rounded shadow-lg paper"
-       @input="onDivInput($event, doc)"
-       v-html="doc.body" :disabled="1">
+    <div class="container">
+      <b-alert class="saving" :show="saveAlert" variant="info">speichert...</b-alert>
+      <h1>{{ doc.title }}</h1> {{ rename }}
+      <div style="outline:none" contenteditable="true"
+         id="paper"
+         class="my-3 rounded shadow-lg paper"
+         @input="onDivInput($event, doc)"
+         v-html="doc.body" :disabled="1">
+      </div>
     </div>
 
   </main>
@@ -321,7 +324,11 @@
         this.socket.emit('room', 'docChannel_' + id)
       },
       async updateName () {
-        this.socket.emit('titleChange', {room: 'docChannel_' + this.doc.id, event: 'titleChange', message: this.doc.title})
+        this.socket.emit('titleChange', {
+          room: 'docChannel_' + this.doc.id,
+          event: 'titleChange',
+          message: this.doc.title
+        })
         if (this.doc.id) {
           await api.updateDoc(this.doc.id, this.doc)
         }
@@ -443,7 +450,7 @@
       },
       insertText () {
         document.execCommand('insertText', false, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. \n' +
-        '\n' + 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \n')
+          '\n' + 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \n')
       },
       /*
       backColor (color) {
@@ -466,14 +473,32 @@
     background-color:#f3f2f1;
   }
 
+  h1 {
+    margin-top: 3rem;
+  }
+
   .saving {
-    display: inline;
     float: right;
-    top: -55px;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 2rem;
+    z-index: 10;
+  }
+
+  .container-fluid {
   }
 
   .container {
-    padding-top: 0.5rem;
+  }
+
+  .sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    background-color: #f3f2f1;
+    padding: 0.5rem 0 1rem 0;
+    box-shadow: 0 1px 3px -2px gray;
+    z-index: 1;
   }
 
   #paper {
@@ -529,6 +554,10 @@
     height: 36px;
     background-color: white;
     border: white;
+  }
+
+  sub, sup {
+    position: relative;
   }
 
 </style>
