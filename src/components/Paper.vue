@@ -302,7 +302,6 @@
     async created () {
       this.refreshDocs()
     },
-
     methods: {
       onPaste (event) {
         var pastedData = event.clipboardData.files[0]
@@ -335,6 +334,11 @@
         this.socket.on('textChange', function (data) {
           doc.body = data
         })
+
+        /* this.socket.on('addCaret', function (data) {
+          var username = getUsername()
+          caret.push({username, this.getCaretPosition(doc)})
+        }) */
       },
       async joinRoom (id) {
         this.socket.emit('room', 'docChannel_' + id)
@@ -382,6 +386,41 @@
             this.waitForSave = false
             this.saving = false
           }
+        }
+      },
+      async addCaret (doc) {
+        var positions = []
+        positions.push(this.getCaretPosition(doc))
+        this.socket.emit('addCaret', {
+          room: 'docChannel_' + this.doc.id,
+          event: 'addCaret',
+          message: positions
+        })
+      },
+      getCaretPosition (doc) {
+        if (document.selection) {
+          doc.focus()
+          var range = doc.selection.createRange()
+          var rangelen = range.text.length
+          range.moveStart('character', -doc.value.length)
+          var start = range.text.length - rangelen
+          return {'start': start, 'end': start + rangelen}
+        } else if (doc.selectionStart || doc.selectionStart === '0') {
+          return {'start': doc.selectionStart, 'end': doc.selectionEnd}
+        } else {
+          return {'start': 0, 'end': 0}
+        }
+      },
+      setCaretPosition (doc, start, end) {
+        if (doc.setSelectionRange) {
+          doc.focus()
+          doc.setSelectionRange(start, end)
+        } else if (doc.createTextRange) {
+          var range = doc.createTextRange()
+          range.collapse(true)
+          range.moveEnd('character', end)
+          range.moveStart('character', start)
+          range.select()
         }
       },
       Sleep (milliseconds) {
