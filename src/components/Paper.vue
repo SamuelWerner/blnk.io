@@ -281,6 +281,10 @@
   import api from '@/api'
   import io from 'socket.io-client'
 
+  const usernames = {}
+
+  const positions = {}
+
   export default {
     name: 'Paper',
     data () {
@@ -335,10 +339,11 @@
           doc.body = data
         })
 
-        /* this.socket.on('addCaret', function (data) {
-          var username = getUsername()
-          caret.push({username, this.getCaretPosition(doc)})
-        }) */
+        this.socket.on('addCaret', function (data) { // TODO Funktion zum anzeigen der anderen Carets einfügen
+          var username = this.getUsername()
+          positions.push({ username, data })
+          console.log(positions)
+        })
       },
       async joinRoom (id) {
         this.socket.emit('room', 'docChannel_' + id)
@@ -389,7 +394,6 @@
         }
       },
       async addCaret (doc) {
-        var positions = []
         positions.push(this.getCaretPosition(doc))
         this.socket.emit('addCaret', {
           room: 'docChannel_' + this.doc.id,
@@ -421,6 +425,15 @@
           range.moveEnd('character', end)
           range.moveStart('character', start)
           range.select()
+        }
+      },
+      getUsername () {
+        for (var i = 0; i < positions.length; i++) {
+          if (i === usernames.length) {
+            return i
+          } else {
+            return 0
+          }
         }
       },
       Sleep (milliseconds) {
