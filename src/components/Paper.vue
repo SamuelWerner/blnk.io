@@ -553,7 +553,7 @@
   }
 
   h1 {
-    margin-top: 3rem;
+    margin-top: 3rem !important;
   }
 
   .saving {
@@ -607,13 +607,13 @@
   }
 
   .md-list-item-container {
-    font-size: 0.875rem;
-    padding: 0;
+    font-size: 0.875rem !important;
+    padding: 0 !important;
   }
 
   .md-list-item-content {
-    min-height: 35px;
-    padding: 0 1.4rem 0 2.8rem;
+    min-height: 35px !important;
+    padding: 0 1.4rem 0 2.8rem !important;
   }
 
   .menu-content {
@@ -631,7 +631,7 @@
   .btn-tmenu {
     width: 40px;
     height: 36px;
-    background-color: white;
+    background-color: white !important;
     border: white;
   }
 
