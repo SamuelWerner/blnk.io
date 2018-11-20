@@ -549,7 +549,7 @@
   }
 
   body{
-    background-color:#f3f2f1;
+    background-color:#f3f2f1 !important;
   }
 
   h1 {
