@@ -557,11 +557,11 @@
   }
 
   .saving {
-    float: right;
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    top: 2rem;
-    z-index: 10;
+    float: right !important;
+    position: -webkit-sticky !important; /* Safari */
+    position: sticky !important;
+    top: 2rem !important;
+    z-index: 10 !important;
   }
 
   .container-fluid {
