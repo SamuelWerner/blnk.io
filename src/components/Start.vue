@@ -42,6 +42,7 @@
       </ul>
     </div>
 
+
   </main>
 </template>
 
@@ -49,6 +50,7 @@
 <script>
   import api from '@/api'
   export default {
+
     name: 'Start',
     data () {
       return {
