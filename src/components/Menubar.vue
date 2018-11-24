@@ -122,12 +122,12 @@
     methods: {
       async updateName () {
         this.$parent.socket.emit('titleChange', {
-          room: 'docChannel_' + this.$parent.doc.id,
+          room: 'docChannel_' + this.$parent.doc.hash,
           event: 'titleChange',
           message: this.$parent.doc.title
         })
-        if (this.$parent.doc.id) {
-          await api.updateDoc(this.$parent.doc.id, this.$parent.doc)
+        if (this.$parent.doc.hash) {
+          await api.updateDoc(this.$parent.doc.hash, this.$parent.doc)
         }
       },
       markieren (elementId) { /* selectAll?? */

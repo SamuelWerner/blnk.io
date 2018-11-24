@@ -14,7 +14,7 @@ let router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/paper/:docID',
+      path: '/paper/:hash',
       name: 'Paper',
       component: Paper
     },

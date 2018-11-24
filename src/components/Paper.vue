@@ -108,16 +108,16 @@
         this.socket.emit('room', 'docChannel_' + id)
       },
       async updateText (newDoc) { // TODO: Zukünftig: Nur Teile austauschen. Zur Zeit wird jedes mal der komplette Text übertragen.
-        this.socket.emit('textChange', {room: 'docChannel_' + newDoc.id, event: 'textChange', message: newDoc.body})
+        this.socket.emit('textChange', {room: 'docChannel_' + newDoc.hash, event: 'textChange', message: newDoc.body})
       },
       async refreshDocs () {
-        this.doc = await api.getDoc(this.$route.params.docID)
-        this.newSocket(this.doc.id, this.doc)
+        this.doc = await api.getDoc(this.$route.params.hash)
+        this.newSocket(this.doc.hash, this.doc)
         this.body = this.doc.body
       },
       async updateDoc (doc) {
-        if (doc.id) {
-          await api.updateDoc(doc.id, doc)
+        if (doc.hash) {
+          await api.updateDoc(doc.hash, doc)
         }
       },
       async onDivInput (e, doc) {
@@ -125,7 +125,7 @@
           this.waitForSave = true
           return
         }
-        if (doc.id) {
+        if (doc.hash) {
           this.waitForSave = true
           while (this.waitForSave) {
             this.saving = true
@@ -133,7 +133,7 @@
             this.saveAlert = true
             let newDoc = JSON.parse(JSON.stringify(doc))
             newDoc.body = e.target.innerHTML
-            await api.updateDoc(newDoc.id, newDoc)
+            await api.updateDoc(newDoc.hash, newDoc)
             await this.updateText(newDoc)
             await this.Sleep(1000)
             this.saveAlert = false
@@ -145,7 +145,7 @@
       async addCaret (doc) {
         positions.push(this.getCaretPosition(doc))
         this.socket.emit('addCaret', {
-          room: 'docChannel_' + this.doc.id,
+          room: 'docChannel_' + this.doc.hash,
           event: 'addCaret',
           message: positions
         })

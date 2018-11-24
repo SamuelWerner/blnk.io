@@ -27,16 +27,16 @@ export default {
   getDocs () {
     return this.execute('get', '/docs')
   },
-  getDoc (id) {
-    return this.execute('get', `/docs/${id}`)
+  getDoc (hash) {
+    return this.execute('get', `/docs/${hash}`)
   },
   createDoc (data) {
     return this.execute('post', '/docs', data)
   },
-  deleteDoc (id) {
-    return this.execute('delete', `/docs/${id}`)
+  deleteDoc (hash) {
+    return this.execute('delete', `/docs/${hash}`)
   },
-  updateDoc (id, data) {
-    return this.execute('put', `/docs/${id}`, data)
+  updateDoc (hash, data) {
+    return this.execute('put', `/docs/${hash}`, data)
   }
 }

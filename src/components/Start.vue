@@ -33,11 +33,12 @@
 
     <div>
       <ul>
-        <li v-for="doc in docs" :key="doc.id">
+        <li v-for="doc in docs" :key="doc.hash">
           <img style="" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
-          <p id="docTitle">{{ doc.title }}</p><br>
-          <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.id)">Öffnen</md-button><br>
-          <md-button class="md-danger md-dense" @click.prevent="deleteDoc(doc.id)">Löschen</md-button>
+          <span class="docTitle">{{ doc.title }}</span><br>
+          <span class="updatedAt">{{doc.updatedAt | formatDate}}</span>
+          <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.hash)">Öffnen</md-button><br>
+          <md-button class="md-danger md-dense" @click.prevent="deleteDoc(doc.hash)">Löschen</md-button>
         </li>
       </ul>
     </div>
@@ -71,12 +72,12 @@
         this.model = {} // reset form
         await this.refreshDocs()
       },
-      async deleteDoc (id) {
+      async deleteDoc (hash) {
         if (confirm('Wirklich löschen?')) {
-          if (this.model.id === id) {
+          if (this.model.hash === hash) {
             this.model = {}
           }
-          await api.deleteDoc(id)
+          await api.deleteDoc(hash)
           await this.refreshDocs()
         }
       },
@@ -125,6 +126,10 @@
     box-shadow: 0px 0px 7px -1px rgba(0,0,0,0.75);
   }
 
+  .updatedAt {
+    font-size: 9px;
+  }
+
   .dialog {
     text-align: center;
     width: 30rem;
@@ -135,7 +140,7 @@
     width: 416px;
   }
 
-  #docTitle {
+  .docTitle {
     margin: 0;
     font-weight: normal;
     margin: 0 5px;

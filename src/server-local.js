@@ -84,11 +84,6 @@ let database = new Sequelize({
   }
 })
 
-let _resolve
-const readyPromise = new Promise(resolve => {
-  _resolve = resolve
-})
-
 database
   .sync({ force: false })
   .then(() => {
@@ -104,7 +99,6 @@ database
       if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
         opn(uri)
       }
-      _resolve()
     })
 
     // Websocket
@@ -132,35 +126,24 @@ database
     })
   })
 
-// Define our Post model
-// id, createdAt, and updatedAt are added by sequelize automatically
-let Post = database.define('posts', {
+let Doc = database.define('docs2', {
   title: Sequelize.STRING,
-  body: Sequelize.TEXT
+  body: Sequelize.TEXT,
+  hash: Sequelize.TEXT
 })
-
-let Doc = database.define('docs', {
-  title: Sequelize.STRING,
-  body: Sequelize.TEXT
-})
-
 // Initialize epilogue
 epilogue.initialize({
   app: app,
   sequelize: database
 })
 
-// Create the dynamic REST resource for our Post model
-epilogue.resource({
-  model: Post,
-  endpoints: ['/posts', '/posts/:id']
-})
-
-epilogue.resource({
+var docs = epilogue.resource({
   model: Doc,
-  endpoints: ['/docs', '/docs/:id']
+  endpoints: ['/docs', '/docs/:hash'],
+  sort: {
+    default: '-updatedAt,title'
+  }
 })
+var restMiddleware = require('./middleware/docs')
 
-module.exports = {
-  ready: readyPromise
-}
+docs.use(restMiddleware)
