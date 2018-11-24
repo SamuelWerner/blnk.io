@@ -49,7 +49,7 @@ database
     })
   })
 
-let Doc = database.define('docs2', {
+let Doc = database.define('docs', {
   title: Sequelize.STRING,
   body: Sequelize.TEXT,
   hash: Sequelize.TEXT
