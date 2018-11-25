@@ -116,10 +116,32 @@ database
       })
 
       socket.on('textChange', function (data) {
+        let hash = data['hash']
         let room = data['room']
         let event = data['event']
-        let newBody = data['message']
-        socket.to(room).emit(event, newBody)
+        let difference = data['difference']
+
+        Doc.findOne({
+          where: {hash: hash}
+        }).then(docs => {
+          let body = docs.get('body')
+
+          for (let i in difference) {
+            let diff = (difference[i])
+            if (i !== 'rotate') {
+              if (!diff) return
+              if (diff.EndDeletePosition > 0) {
+                body = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.EndDeletePosition)
+              } else {
+                body = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.StartInsertPosition)
+              }
+            }
+          }
+          docs.updateAttributes({
+            body: body
+          })
+        })
+        socket.to(room).emit(event, difference)
       })
 
       console.log('a user connected')

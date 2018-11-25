@@ -20,13 +20,13 @@
 
 
     <div class="container">
-      <b-alert class="saving" :show="saveAlert" variant="info">speichert...</b-alert>
+      <b-alert class="saving" :show="saving" variant="info">speichert...</b-alert>
       <h1>{{ doc.title }}</h1> {{ rename }}
       <div style="outline:none" contenteditable="true"
          id="paper"
          class="my-3 rounded shadow-lg paper"
          @input="onDivInput($event, doc)"
-         @paste="onPaste"
+         @paste.prevent="onPaste"
          v-html="doc.body" :disabled="1" ref="paper">
       </div>
     </div>
@@ -40,6 +40,7 @@
   import io from 'socket.io-client'
   import Toolbar from './Toolbar'
   import Menubar from './Menubar'
+  import stringDiff from '../utils/string-diff'
 
   const usernames = {}
   const positions = {}
@@ -54,32 +55,62 @@
         showDialogPage: false,
         doc: [],
         model: {},
-        body: [],
+        oldBody: [],
         saving: false,
-        saveAlert: false,
         rename: '',
-        socket: null,
-        waitForSave: false
+        socket: null
       }
     },
     async created () {
       this.refreshDocs()
     },
     methods: {
-      onPaste (event) {
+      async onPaste (event) {
         var pastedData = event.clipboardData.files[0]
         var that = this
 
-        if (pastedData.type.indexOf('image') === 0) {
+        if (pastedData && pastedData.type.indexOf('image') === 0) {
           var reader = new FileReader()
           reader.readAsDataURL(pastedData)
           reader.onloadend = function () {
             var base64data = reader.result
-            var image = document.createElement('img')
+            var image = new Image()
             image.src = base64data
-            that.insertImgAtCaret(image)
+            image.addEventListener('load', function _func () {
+              image.removeEventListener('load', _func)
+              image.src = that.reduceImageSize(image)
+              that.insertImgAtCaret(image)
+            })
           }
         }
+      },
+      reduceImageSize (img) {
+        var canvas = document.createElement('canvas')
+        var ctx = canvas.getContext('2d')
+        ctx.drawImage(img, 0, 0)
+
+        var MAX_WIDTH = 800
+        var MAX_HEIGHT = 600
+        var width = img.width
+        var height = img.height
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width
+            width = MAX_WIDTH
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height
+            height = MAX_HEIGHT
+          }
+        }
+        canvas.width = width
+        canvas.height = height
+        ctx = canvas.getContext('2d')
+        ctx.drawImage(img, 0, 0, width, height)
+
+        return canvas.toDataURL('image/jpeg', 0.8)
       },
       async newSocket (id, doc) {
         if (process.env.NODE_ENV === 'development') {
@@ -95,7 +126,18 @@
         })
 
         this.socket.on('textChange', function (data) {
-          doc.body = data
+          for (let i in data) {
+            let diff = (data[i])
+            if (i !== 'rotate') {
+              if (!diff) return
+              if (diff.EndDeletePosition > 0) {
+                doc.body = doc.body.substr(0, diff.StartInsertPosition) + diff.newData + doc.body.substr(diff.EndDeletePosition)
+              } else {
+                doc.body = doc.body.substr(0, diff.StartInsertPosition) + diff.newData + doc.body.substr(diff.StartInsertPosition)
+              }
+            }
+          }
+          this.oldBody = doc.body
         })
 
         this.socket.on('addCaret', function (data) { // TODO Funktion zum anzeigen der anderen Carets einfügen
@@ -107,39 +149,24 @@
       async joinRoom (id) {
         this.socket.emit('room', 'docChannel_' + id)
       },
-      async updateText (newDoc) { // TODO: Zukünftig: Nur Teile austauschen. Zur Zeit wird jedes mal der komplette Text übertragen.
-        this.socket.emit('textChange', {room: 'docChannel_' + newDoc.hash, event: 'textChange', message: newDoc.body})
+      async updateText (newDoc, difference) {
+        this.socket.emit('textChange', {room: 'docChannel_' + newDoc.hash, event: 'textChange', difference: difference, hash: newDoc.hash})
       },
       async refreshDocs () {
         this.doc = await api.getDoc(this.$route.params.hash)
         this.newSocket(this.doc.hash, this.doc)
-        this.body = this.doc.body
-      },
-      async updateDoc (doc) {
-        if (doc.hash) {
-          await api.updateDoc(doc.hash, doc)
-        }
+        this.oldBody = this.doc.body
       },
       async onDivInput (e, doc) {
         if (this.saving) {
-          this.waitForSave = true
           return
         }
         if (doc.hash) {
-          this.waitForSave = true
-          while (this.waitForSave) {
-            this.saving = true
-            await this.Sleep(2000)
-            this.saveAlert = true
-            let newDoc = JSON.parse(JSON.stringify(doc))
-            newDoc.body = e.target.innerHTML
-            await api.updateDoc(newDoc.hash, newDoc)
-            await this.updateText(newDoc)
-            await this.Sleep(1000)
-            this.saveAlert = false
-            this.waitForSave = false
-            this.saving = false
-          }
+          this.saving = true
+          let difference = await stringDiff(this.oldBody, e.target.innerHTML)
+          await this.updateText(doc, difference.result)
+          this.oldBody = e.target.innerHTML
+          this.saving = false
         }
       },
       async addCaret (doc) {
