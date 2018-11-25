@@ -16,13 +16,13 @@ let database = new Sequelize(process.env.DATABASE_URL)
 database
   .sync({ force: false })
   .then(() => {
-    var http = require('http').Server(app)
-    http.listen(process.env.PORT || 8081, () => {
+    var https = require('https').Server(app)
+    https.listen(process.env.PORT || 8081, () => {
       console.log('listening to port localhost:8081')
     })
 
     // Socket.io
-    var io = require('socket.io')(http)
+    var io = require('socket.io')(https)
     io.on('connection', function (socket) {
       socket.on('room', function (room) {
         socket.join(room)
