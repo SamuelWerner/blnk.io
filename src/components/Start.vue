@@ -42,8 +42,6 @@
         </li>
       </ul>
     </div>
-
-
   </main>
 </template>
 
