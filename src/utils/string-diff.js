@@ -72,6 +72,7 @@ String.prototype.diff = function (compareString, precision, length) { // p -> pr
 }
 
 export default function stringDiff (string, anotherString) {
+  if (!string) string = ''
   var result = '{"result":[' + string.diff(anotherString, 2, 0) + ']}'
   return JSON.parse(result)
 }

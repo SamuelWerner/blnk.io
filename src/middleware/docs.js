@@ -4,11 +4,10 @@ module.exports = {
   create: {
     fetch: function (req, res, context) {
       try {
-        console.log(context.attributes)
         var random = Math.random().toString()
         let hash = crypto.createHash('sha1').update(res.req.title + random).digest('hex')
         context.attributes['hash'] = hash
-        console.log(context.attributes)
+        context.attributes['body'] = ''
         // manipulate the fetch call
         return context.continue
       } catch (e) {

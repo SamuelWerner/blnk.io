@@ -26,7 +26,7 @@
          id="paper"
          class="my-3 rounded shadow-lg paper"
          @input="onDivInput($event, doc)"
-         @paste.prevent="onPaste"
+         @paste="onPaste"
          v-html="doc.body" :disabled="1" ref="paper">
       </div>
     </div>
@@ -55,7 +55,7 @@
         showDialogPage: false,
         doc: [],
         model: {},
-        oldBody: [],
+        oldBody: '',
         saving: false,
         rename: '',
         socket: null
@@ -70,6 +70,7 @@
         var that = this
 
         if (pastedData && pastedData.type.indexOf('image') === 0) {
+          this.preventDefault()
           var reader = new FileReader()
           reader.readAsDataURL(pastedData)
           reader.onloadend = function () {
@@ -163,6 +164,8 @@
         }
         if (doc.hash) {
           this.saving = true
+          console.log(e.target.innerHTML)
+          console.log(stringDiff(this.oldBody, e.target.innerHTML))
           let difference = await stringDiff(this.oldBody, e.target.innerHTML)
           await this.updateText(doc, difference.result)
           this.oldBody = e.target.innerHTML

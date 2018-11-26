@@ -125,7 +125,6 @@ database
           where: {hash: hash}
         }).then(docs => {
           let body = docs.get('body')
-
           for (let i in difference) {
             let diff = (difference[i])
             if (i !== 'rotate') {
