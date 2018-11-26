@@ -17,8 +17,6 @@
       </div>
     </div>
 
-
-
     <div class="container">
       <b-alert class="saving" :show="saving" variant="info">speichert...</b-alert>
       <h1>{{ doc.title }}</h1> {{ rename }}
@@ -33,7 +31,6 @@
 
   </main>
 </template>
-
 
 <script>
   import api from '@/api'
@@ -229,11 +226,6 @@
           }
         }
       },
-      /*
-      backColor (color) {
-        var page = document.getElementById('paper')
-        page.style.backgroundColor = color
-      } */
       createLink () {
         document.execCommand('createLink', false, null)
       }
@@ -262,11 +254,8 @@
     z-index: 10 !important;
   }
 
-  .container-fluid {
-  }
-
-  .container {
-  }
+  .container-fluid {}
+  .container {}
 
   .sticky {
     position: -webkit-sticky; /* Safari */
@@ -298,4 +287,17 @@
     position: relative;
   }
 
+  .md-list-item-container {
+    font-size: 0.875rem;
+    padding: 0;
+    font-size: 0.875rem !important;
+    padding: 0 !important;
+  }
+
+  .md-list-item-content {
+    min-height: 35px;
+    padding: 0 1.4rem 0 2.8rem;
+    min-height: 35px !important;
+    padding: 0 1.4rem 0 2.8rem !important;
+  }
 </style>

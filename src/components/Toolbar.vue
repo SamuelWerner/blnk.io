@@ -117,30 +117,30 @@
     <button type="button" class="btn btn-light btn-tmenu" @click="insertText"> </button>
   </div>
     <!--
-<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-  <div class="md-layout-item">
-    <md-field class="">
-      <md-select v-model="font" name="font" id="font" placeholder="Font">
-        <md-option value="arial">Arial</md-option>
-        <md-option value="calibri">Calibri</md-option>
-        <md-option value="cambria">Cambria</md-option>
-        <md-option value="comic-sans">Comic Sans</md-option>
-        <md-option value="consolas">Consolas</md-option>
-        <md-option value="courier">Courier</md-option>
-        <md-option value="droid-sans">Droid Sans</md-option>
-        <md-option value="georgia">Georgia</md-option>
-        <md-option value="helvetica">Helvetica</md-option>
-        <md-option value="impact">Impact</md-option>
-        <md-option value="roboto">Roboto</md-option>
-        <md-option value="segoe-ui">Segoe UI</md-option>
-        <md-option value="times-new-roman">Times New Roman</md-option>
-        <md-option value="ubuntu">Ubuntu</md-option>
-        <md-option value="verdana">Verdana</md-option>
-      </md-select>
-    </md-field>
-  </div>
-</div>
--->
+      <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+        <div class="md-layout-item">
+          <md-field class="">
+            <md-select v-model="font" name="font" id="font" placeholder="Font">
+              <md-option value="arial">Arial</md-option>
+              <md-option value="calibri">Calibri</md-option>
+              <md-option value="cambria">Cambria</md-option>
+              <md-option value="comic-sans">Comic Sans</md-option>
+              <md-option value="consolas">Consolas</md-option>
+              <md-option value="courier">Courier</md-option>
+              <md-option value="droid-sans">Droid Sans</md-option>
+              <md-option value="georgia">Georgia</md-option>
+              <md-option value="helvetica">Helvetica</md-option>
+              <md-option value="impact">Impact</md-option>
+              <md-option value="roboto">Roboto</md-option>
+              <md-option value="segoe-ui">Segoe UI</md-option>
+              <md-option value="times-new-roman">Times New Roman</md-option>
+              <md-option value="ubuntu">Ubuntu</md-option>
+              <md-option value="verdana">Verdana</md-option>
+            </md-select>
+          </md-field>
+        </div>
+      </div>
+    -->
   </main>
 </template>
 
@@ -239,11 +239,6 @@
         document.execCommand('insertText', false, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. \n' +
           '\n' + 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \n')
       },
-      /*
-      backColor (color) {
-        var page = document.getElementById('paper')
-        page.style.backgroundColor = color
-      } */
       createLink () {
         document.execCommand('createLink', false, null)
       }
@@ -252,7 +247,6 @@
 </script>
 
 <style scoped>
-
   body{
     background-color:#f3f2f1 !important;
   }
@@ -279,7 +273,6 @@
     max-height: 1000rem;
   }
 
-
   .btn-tmenu {
     width: 40px;
     height: 36px;
@@ -290,5 +283,4 @@
   sub, sup {
     position: relative;
   }
-
 </style>
