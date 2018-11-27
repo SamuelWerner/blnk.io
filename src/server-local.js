@@ -143,7 +143,6 @@ database
         })
         socket.to(room).emit(event, {difference: difference, distanceDiff: distanceDiff})
       })
-
       console.log('a user connected')
     })
   })

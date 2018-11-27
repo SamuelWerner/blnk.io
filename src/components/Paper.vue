@@ -82,11 +82,9 @@
             })
           }
         }
-
         if (doc.hash) {
           this.saving = true
           let difference = await stringDiff(that.oldBody, that.$refs.paper.innerHTML)
-          console.log(difference)
           await this.updateText(doc, difference.result, 1)
           this.oldBody = event.target.innerHTML
           this.saving = false
@@ -157,7 +155,6 @@
         this.socket.on('addCaret', function (data) { // TODO Funktion zum anzeigen der anderen Carets einfügen
           var username = this.getUsername()
           positions.push({ username, data })
-          console.log(positions)
         })
       },
       async joinRoom (id) {
@@ -173,7 +170,6 @@
       },
       async onDivInput (e, doc) {
         if (this.saving) {
-          console.log('already saving')
           return
         }
 
@@ -216,14 +212,11 @@
         }
       },
       restoreSelection (distanceDiff) {
-        console.log(distanceDiff)
         if (!this.savedSelection) return
-        console.log(this.savedSelection.start)
         var charIndex = 0
         var range = document.createRange()
         range.setStart(this.$refs.paper, 0)
         range.collapse(true)
-        console.log(range + 'af')
         var nodeStack = [this.$refs.paper]
         var node
         var foundStart = false
@@ -233,12 +226,11 @@
           if (node.nodeType === 3) {
             var nextCharIndex = charIndex + node.length
             if (!foundStart && this.savedSelection.start >= charIndex && this.savedSelection.start <= nextCharIndex) {
-              range.setStart(node, this.savedSelection.start - charIndex + distanceDiff)
+              range.setStart(node, this.savedSelection.start - charIndex)
               foundStart = true
-              console.log('start ###########')
             }
             if (foundStart && this.savedSelection.end >= charIndex && this.savedSelection.end <= nextCharIndex) {
-              range.setEnd(node, this.savedSelection.end - charIndex + distanceDiff)
+              range.setEnd(node, this.savedSelection.end - charIndex)
               stop = true
             }
             charIndex = nextCharIndex
@@ -252,7 +244,6 @@
 
         var sel = window.getSelection()
         sel.removeAllRanges()
-        console.log(range + '##################')
         sel.addRange(range)
       },
       getCaretPosition (doc) {
