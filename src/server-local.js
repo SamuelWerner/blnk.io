@@ -120,6 +120,7 @@ database
         let room = data['room']
         let event = data['event']
         let difference = data['difference']
+        let distanceDiff = data['distanceDiff']
 
         Doc.findOne({
           where: {hash: hash}
@@ -140,7 +141,7 @@ database
             body: body
           })
         })
-        socket.to(room).emit(event, difference)
+        socket.to(room).emit(event, {difference: difference, distanceDiff: distanceDiff})
       })
 
       console.log('a user connected')

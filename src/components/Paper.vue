@@ -21,10 +21,10 @@
       <b-alert class="saving" :show="saving" variant="info">speichert...</b-alert>
       <h1>{{ doc.title }}</h1> {{ rename }}
       <div style="outline:none" contenteditable="true"
-         id="paper"
+         id="paper" itemref="paper"
          class="my-3 rounded shadow-lg paper"
          @input="onDivInput($event, doc)"
-         @paste="onPaste"
+         @paste="onPaste($event, doc)"
          v-html="doc.body" :disabled="1" ref="paper">
       </div>
     </div>
@@ -55,19 +55,20 @@
         oldBody: '',
         saving: false,
         rename: '',
-        socket: null
+        socket: null,
+        savedSelection: null
       }
     },
     async created () {
       this.refreshDocs()
     },
     methods: {
-      async onPaste (event) {
+      async onPaste (event, doc) {
         var pastedData = event.clipboardData.files[0]
         var that = this
-
         if (pastedData && pastedData.type.indexOf('image') === 0) {
-          this.preventDefault()
+          event.preventDefault()
+
           var reader = new FileReader()
           reader.readAsDataURL(pastedData)
           reader.onloadend = function () {
@@ -80,6 +81,15 @@
               that.insertImgAtCaret(image)
             })
           }
+        }
+
+        if (doc.hash) {
+          this.saving = true
+          let difference = await stringDiff(that.oldBody, that.$refs.paper.innerHTML)
+          console.log(difference)
+          await this.updateText(doc, difference.result, 1)
+          this.oldBody = event.target.innerHTML
+          this.saving = false
         }
       },
       reduceImageSize (img) {
@@ -122,10 +132,13 @@
         this.socket.on('titleChange', function (data) {
           doc.title = data
         })
+        var that = this
 
-        this.socket.on('textChange', function (data) {
-          for (let i in data) {
-            let diff = (data[i])
+        this.socket.on('textChange', function (d) {
+          let difference = d['difference']
+          let distanceDiff = d['distanceDiff']
+          for (let i in difference) {
+            let diff = (difference[i])
             if (i !== 'rotate') {
               if (!diff) return
               if (diff.EndDeletePosition > 0) {
@@ -135,7 +148,10 @@
               }
             }
           }
-          this.oldBody = doc.body
+
+          that.$nextTick(() => {
+            that.restoreSelection(distanceDiff)
+          })
         })
 
         this.socket.on('addCaret', function (data) { // TODO Funktion zum anzeigen der anderen Carets einfügen
@@ -147,8 +163,8 @@
       async joinRoom (id) {
         this.socket.emit('room', 'docChannel_' + id)
       },
-      async updateText (newDoc, difference) {
-        this.socket.emit('textChange', {room: 'docChannel_' + newDoc.hash, event: 'textChange', difference: difference, hash: newDoc.hash})
+      async updateText (newDoc, difference, distanceDiff) {
+        this.socket.emit('textChange', {room: 'docChannel_' + newDoc.hash, event: 'textChange', difference: difference, hash: newDoc.hash, distanceDiff: distanceDiff})
       },
       async refreshDocs () {
         this.doc = await api.getDoc(this.$route.params.hash)
@@ -157,17 +173,27 @@
       },
       async onDivInput (e, doc) {
         if (this.saving) {
+          console.log('already saving')
           return
         }
+
+        let distanceDiff = 0
+        if (e) {
+          distanceDiff = 1
+        } else {
+          distanceDiff = -1
+        }
+
         if (doc.hash) {
           this.saving = true
-          console.log(e.target.innerHTML)
-          console.log(stringDiff(this.oldBody, e.target.innerHTML))
           let difference = await stringDiff(this.oldBody, e.target.innerHTML)
-          await this.updateText(doc, difference.result)
+          await this.updateText(doc, difference.result, distanceDiff)
           this.oldBody = e.target.innerHTML
           this.saving = false
         }
+        this.$nextTick(() => {
+          this.saveSelection()
+        })
       },
       async addCaret (doc) {
         positions.push(this.getCaretPosition(doc))
@@ -176,6 +202,58 @@
           event: 'addCaret',
           message: positions
         })
+      },
+      saveSelection () {
+        var range = window.getSelection().getRangeAt(0)
+        var preSelectionRange = range.cloneRange()
+        preSelectionRange.selectNodeContents(this.$refs.paper)
+        preSelectionRange.setEnd(range.startContainer, range.startOffset)
+        var start = preSelectionRange.toString().length
+
+        this.savedSelection = {
+          start: start,
+          end: start + range.toString().length
+        }
+      },
+      restoreSelection (distanceDiff) {
+        console.log(distanceDiff)
+        if (!this.savedSelection) return
+        console.log(this.savedSelection.start)
+        var charIndex = 0
+        var range = document.createRange()
+        range.setStart(this.$refs.paper, 0)
+        range.collapse(true)
+        console.log(range + 'af')
+        var nodeStack = [this.$refs.paper]
+        var node
+        var foundStart = false
+        var stop = false
+
+        while (!stop && (node = nodeStack.pop())) {
+          if (node.nodeType === 3) {
+            var nextCharIndex = charIndex + node.length
+            if (!foundStart && this.savedSelection.start >= charIndex && this.savedSelection.start <= nextCharIndex) {
+              range.setStart(node, this.savedSelection.start - charIndex + distanceDiff)
+              foundStart = true
+              console.log('start ###########')
+            }
+            if (foundStart && this.savedSelection.end >= charIndex && this.savedSelection.end <= nextCharIndex) {
+              range.setEnd(node, this.savedSelection.end - charIndex + distanceDiff)
+              stop = true
+            }
+            charIndex = nextCharIndex
+          } else {
+            var i = node.childNodes.length
+            while (i--) {
+              nodeStack.push(node.childNodes[i])
+            }
+          }
+        }
+
+        var sel = window.getSelection()
+        sel.removeAllRanges()
+        console.log(range + '##################')
+        sel.addRange(range)
       },
       getCaretPosition (doc) {
         if (document.selection) {
