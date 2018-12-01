@@ -48,20 +48,19 @@ database
           let body = docs.get('body')
           for (let i in difference) {
             let diff = (difference[i])
-            if (i !== 'rotate') {
-              if (!diff) return
-              if (diff.EndDeletePosition > 0) {
-                body = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.EndDeletePosition)
-              } else {
-                body = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.StartInsertPosition)
-              }
+            if (!diff) return
+            if (diff.EndDeletePosition - diff.StartInsertPosition > 0) {
+              body = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.EndDeletePosition)
+            } else {
+              body = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.StartInsertPosition)
             }
           }
+
           docs.updateAttributes({
             body: body
           })
+          socket.to(room).emit(event, {difference: difference, distanceDiff: distanceDiff})
         })
-        socket.to(room).emit(event, {difference: difference, distanceDiff: distanceDiff})
       })
 
       console.log('a user connected')

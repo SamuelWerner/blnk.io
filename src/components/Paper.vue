@@ -23,8 +23,8 @@
       <div style="outline:none" contenteditable="true"
          id="paper" itemref="paper"
          class="my-3 rounded shadow-lg paper"
-         @input="onDivInput($event, doc)"
-         @paste="onPaste($event, doc)"
+         @paste.stop="onPaste($event, doc)"
+         @input.stop.self="onDivInput($event, doc)"
          v-html="doc.body" :disabled="1" ref="paper">
       </div>
     </div>
@@ -66,6 +66,7 @@
       async onPaste (event, doc) {
         var pastedData = event.clipboardData.files[0]
         var that = this
+        // Image paste
         if (pastedData && pastedData.type.indexOf('image') === 0) {
           event.preventDefault()
 
@@ -75,19 +76,14 @@
             var base64data = reader.result
             var image = new Image()
             image.src = base64data
+            image.id = 'img' + Math.floor(Math.random() * 9999999)
             image.addEventListener('load', function _func () {
               image.removeEventListener('load', _func)
               image.src = that.reduceImageSize(image)
               that.insertImgAtCaret(image)
+              that.onDivInput(event, doc)
             })
           }
-        }
-        if (doc.hash) {
-          this.saving = true
-          let difference = await stringDiff(that.oldBody, that.$refs.paper.innerHTML)
-          await this.updateText(doc, difference.result, 1)
-          this.oldBody = event.target.innerHTML
-          this.saving = false
         }
       },
       reduceImageSize (img) {
@@ -116,7 +112,7 @@
         ctx = canvas.getContext('2d')
         ctx.drawImage(img, 0, 0, width, height)
 
-        return canvas.toDataURL('image/jpeg', 0.8)
+        return canvas.toDataURL('image/jpeg', 0.6)
       },
       async newSocket (id, doc) {
         if (process.env.NODE_ENV === 'development') {
@@ -137,14 +133,13 @@
           let distanceDiff = d['distanceDiff']
           for (let i in difference) {
             let diff = (difference[i])
-            if (i !== 'rotate') {
-              if (!diff) return
-              if (diff.EndDeletePosition > 0) {
-                doc.body = doc.body.substr(0, diff.StartInsertPosition) + diff.newData + doc.body.substr(diff.EndDeletePosition)
-              } else {
-                doc.body = doc.body.substr(0, diff.StartInsertPosition) + diff.newData + doc.body.substr(diff.StartInsertPosition)
-              }
+            if (!diff) return
+            if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
+              doc.body = doc.body.substr(0, diff.StartInsertPosition) + diff.newData + doc.body.substr(diff.EndDeletePosition)
+            } else { // Insert
+              doc.body = doc.body.substr(0, diff.StartInsertPosition) + diff.newData + doc.body.substr(diff.StartInsertPosition)
             }
+            this.oldBody = doc.body
           }
 
           that.$nextTick(() => {
@@ -182,9 +177,9 @@
 
         if (doc.hash) {
           this.saving = true
-          let difference = await stringDiff(this.oldBody, e.target.innerHTML)
+          let difference = await stringDiff(this.oldBody, this.$refs.paper.innerHTML)
+          this.oldBody = this.$refs.paper.innerHTML
           await this.updateText(doc, difference.result, distanceDiff)
-          this.oldBody = e.target.innerHTML
           this.saving = false
         }
         this.$nextTick(() => {
