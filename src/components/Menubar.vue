@@ -9,7 +9,7 @@
             <md-menu-item @click="" disabled>Freigeben</md-menu-item>
             <md-menu-item @click="" disabled>Neu</md-menu-item>
             <md-menu-item @click="" to="/">Öffnen</md-menu-item>
-            <md-menu-item @click="" disabled>Kopie erstellen</md-menu-item>
+            <md-menu-item @click="showDialogCopyDokument = true">Kopie erstellen</md-menu-item>
             <md-menu-item @click="" disabled>Herunterladen</md-menu-item>
             <md-menu-item @click="showDialogRename = true">Umbenennen</md-menu-item>
             <md-menu-item @click="" disabled>Verschieben nach</md-menu-item>
@@ -80,6 +80,21 @@
         </md-dialog-actions>
       </md-dialog>
 
+      <md-dialog class="dialog" :md-active.sync="showDialogCopyDokument">
+        <md-dialog-title>Kopie anlegen</md-dialog-title>
+
+        <md-field>
+          <form id="copyDoc" @submit.prevent="copyDoc">
+            <label>Titel eingeben...</label><md-input type="text" v-model="model.title"  maxlength="30"></md-input>
+          </form>
+        </md-field>
+
+        <md-dialog-actions>
+          <md-button class="md-primary" @click="showDialogCopyDokument = false">Abbruch</md-button>
+          <md-button class="md-primary" @click="showDialogCopyDokument = false" type="submit" form="copyDoc">Erstellen</md-button>
+        </md-dialog-actions>
+      </md-dialog>
+
       <md-dialog class="dialog" :md-active.sync="showDialogPage">
         <md-dialog-title>Seitenränder und -farbe ändern</md-dialog-title>
 
@@ -115,8 +130,10 @@
       return {
         name: 'Delay',
         showDialogRename: false,
+        showDialogCopyDokument: false,
         showDialogPage: false,
-        pagecolor: 'white'
+        pagecolor: 'white',
+        model: {}
       }
     },
     methods: {
@@ -129,6 +146,13 @@
         if (this.$parent.doc.hash) {
           await api.updateDoc(this.$parent.doc.hash, this.$parent.doc)
         }
+      },
+      async copyDoc () {
+        var doc = await api.createDoc(this.model)
+        doc.body = this.$parent.doc.body
+        await api.updateDoc(doc.hash, doc)
+        this.model = {} // reset form
+        alert('Kopie von dem Dokument wurde erstellt und gespeichert.')
       },
       markieren (elementId) { /* selectAll?? */
         var elem = document.getElementById(elementId)
