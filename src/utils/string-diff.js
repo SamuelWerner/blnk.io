@@ -3,18 +3,18 @@ import diff from 'fast-diff'
 var myMap = new Map()
 
 export default function stringDiff (oldBody, newBody) {
-  // Die src der Images entfernen, das die Berechnung sonst langsam wird
+  // Die src der Images entfernen, da die Berechnung sonst langsam wird
   oldBody = emptyImageSrc(oldBody)
   newBody = emptyImageSrc(newBody)
   // Differenz berechnen - erst ab dem Zeitpunkt der Unterscheidung
   let difference = diff(oldBody, newBody)
   difference = replaceImageSrc(difference)
   let result = '{"result":[' + getChangeOrdersInJsonFormat(difference) + ']}'
+  myMap.clear()
   return JSON.parse(result)
 }
 
 function getChangeOrdersInJsonFormat (difference) {
-  console.log(difference)
   let position = 0
   let tmpResult = ''
   let separator = ''
@@ -42,7 +42,10 @@ function getChangeOrdersInJsonFormat (difference) {
 function replaceImageSrc (difference) {
   for (let i in difference) {
     myMap.forEach((value, key) => {
-      difference[i][1] = difference[i][1].replace(key, value)
+      if (difference[i][1].includes(key)) {
+        difference[i][1] = difference[i][1].replace(key, value)
+        myMap.delete(key)
+      }
     })
   }
   return difference
@@ -52,12 +55,13 @@ function emptyImageSrc (element) {
   var div = document.createElement('div')
   div.innerHTML = element
   var images = div.getElementsByTagName('img')
-
+  var id = 0
   for (var i = 0; i < images.length; i++) {
     let img = images[i]
-    let keyId = '~~' + img.id + '~~'
-    myMap.set(keyId, img.src)
-    img.src = keyId
+    let keyId = '~~~img###' + id + '###img~~~'
+    myMap.set(keyId, img)
+    img = keyId
+    id++
   }
   return div.innerHTML
 }
