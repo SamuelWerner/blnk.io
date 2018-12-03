@@ -4,13 +4,13 @@
       <div class="col-md-11 order-md-1 order-2">
         <!-- Menüleiste -->
         <Menubar :my-doc="doc"></Menubar>
-        <br>
+        <!-- Toolbar -->
         <Toolbar></Toolbar>
       </div>
 
       <div class="col-md-1 order-md-2 order-1">
         <md-button style="float: right; margin-top: 0.7rem" type="button" to="/" class="md-icon-button md-raised">
-          <img class="fktstripImg" style="margin: 0" src="../assets/baseline-cancel-24px.svg" />
+          <img class="fktstripImg" style="margin: 0" src="../assets/baseline-clear-24px.svg" />
         </md-button>
         <!--<md-button style="float: right" type="button" @click="showDialogRename = true" class="md-default md-raised md-dense">umbenennen</md-button>-->
 
@@ -352,16 +352,16 @@
   }
 
   .md-list-item-container {
-    font-size: 0.875rem;
-    padding: 0;
     font-size: 0.875rem !important;
     padding: 0 !important;
   }
 
   .md-list-item-content {
-    min-height: 35px;
-    padding: 0 1.4rem 0 2.8rem;
     min-height: 35px !important;
     padding: 0 1.4rem 0 2.8rem !important;
+  }
+
+  .md-divider {
+    margin: 0.5rem !important;
   }
 </style>

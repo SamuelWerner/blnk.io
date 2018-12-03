@@ -23,7 +23,6 @@
       }
     },
     methods: {
-
       async logout () {
         await this.$auth.logout()
         await this.refreshActiveUser()

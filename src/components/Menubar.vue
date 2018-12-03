@@ -7,13 +7,16 @@
 
           <md-menu-content class="menu-content">
             <md-menu-item @click="" disabled>Freigeben</md-menu-item>
+            <md-divider></md-divider>
             <md-menu-item @click="" disabled>Neu</md-menu-item>
             <md-menu-item @click="" to="/">Öffnen</md-menu-item>
             <md-menu-item @click="showDialogCopyDokument = true">Kopie erstellen</md-menu-item>
             <md-menu-item @click="" disabled>Herunterladen</md-menu-item>
+            <md-divider></md-divider>
             <md-menu-item @click="showDialogRename = true">Umbenennen</md-menu-item>
             <md-menu-item @click="" disabled>Verschieben nach</md-menu-item>
             <md-menu-item @click="" disabled>Löschen</md-menu-item>
+            <md-divider></md-divider>
             <md-menu-item @click="showDialogPage = true" >Seiteneinrichtung</md-menu-item>
             <md-menu-item @click="" disabled>Drucken</md-menu-item>
           </md-menu-content>
@@ -25,11 +28,12 @@
           <md-menu-content class="menu-content">
             <md-menu-item @click="undo" >Rückgängig machen</md-menu-item>
             <md-menu-item @click="redo" >Wiederholen</md-menu-item>
+            <md-divider></md-divider>
             <md-menu-item @click="cut" >Ausschneiden</md-menu-item>
             <md-menu-item @click="copy" >Kopieren</md-menu-item>
             <md-menu-item @click="paste" disabled>Einfügen</md-menu-item>
             <md-menu-item @click="" disabled>Löschen</md-menu-item>
-            <md-menu-item @click="markieren('paper')">Alles auswählen</md-menu-item>
+            <md-menu-item @click="selectAll"><!--markieren('paper')-->Alles auswählen</md-menu-item>
           </md-menu-content>
         </md-menu>
         <!-- Ansicht -->
@@ -65,6 +69,8 @@
           </md-menu-content>
         </md-menu>
       </div>
+
+      <!-- DIALOG Umbenennen -->
       <md-dialog class="dialog" :md-active.sync="showDialogRename">
         <md-dialog-title>Neuen Namen eingeben</md-dialog-title>
 
@@ -79,13 +85,15 @@
           <md-button class="md-primary" @click="showDialogRename = false" type="submit" form="form">Umbenennen</md-button>
         </md-dialog-actions>
       </md-dialog>
+      <!-- DIALOG end -->
 
+      <!-- DIALOG Dok kopieren -->
       <md-dialog class="dialog" :md-active.sync="showDialogCopyDokument">
-        <md-dialog-title>Kopie anlegen</md-dialog-title>
+        <md-dialog-title>Kopie des aktuellen Doks anlegen</md-dialog-title>
 
         <md-field>
           <form id="copyDoc" @submit.prevent="copyDoc">
-            <label>Titel eingeben...</label><md-input type="text" v-model="model.title"  maxlength="30"></md-input>
+            <label>Titel für Kopie eingeben...</label><md-input type="text" v-model="model.title"  maxlength="30"></md-input>
           </form>
         </md-field>
 
@@ -94,7 +102,9 @@
           <md-button class="md-primary" @click="showDialogCopyDokument = false" type="submit" form="copyDoc">Erstellen</md-button>
         </md-dialog-actions>
       </md-dialog>
+      <!-- DIALOG end -->
 
+      <!-- DIALOG Seiteneinrichtung -->
       <md-dialog class="dialog" :md-active.sync="showDialogPage">
         <md-dialog-title>Seitenränder und -farbe ändern</md-dialog-title>
 
@@ -119,6 +129,8 @@
           <md-button class="md-primary" @click="showDialogPage = false; pagecolor = value" type="submit" form="form2">Übernehmen</md-button>
         </md-dialog-actions>
       </md-dialog>
+      <!-- DIALOG end -->
+
     </main>
 </template>
 
@@ -126,11 +138,13 @@
   import api from '@/api'
   export default {
     name: 'Menubar',
+    extends: 'Paper',
     data () {
       return {
         name: 'Delay',
         showDialogRename: false,
         showDialogCopyDokument: false,
+        showDialogOpenDokument: false,
         showDialogPage: false,
         pagecolor: 'white',
         model: {}
@@ -168,6 +182,9 @@
           selection.addRange(range)
         }
       },
+      selectAll () {
+        document.execCommand('selectAll', false, null)
+      },
       undo () {
         document.execCommand('undo', false, null)
       },
@@ -182,6 +199,9 @@
       },
       paste () {
         document.execCommand('paste', false, null)
+      },
+      delete () {
+        document.execCommand('delete', false, null)
       },
       makeBold () {
         document.execCommand('bold', false, null)
@@ -272,5 +292,11 @@
 
   sub, sup {
     position: relative;
+  }
+
+  .dialog {
+    text-align: center;
+    width: 30rem;
+    padding: 0 2rem;
   }
 </style>
