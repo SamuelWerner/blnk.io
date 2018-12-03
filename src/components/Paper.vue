@@ -165,8 +165,15 @@
       },
       async onDivInput (e, doc) {
         if (this.saving) {
-          return
+          await this.Sleep(500)
+          if (this.saving) {
+            return
+          }
         }
+        this.saving = true
+        await this.Sleep(500)
+        let oldBodySaving = this.oldBody
+        let newBodySaving = this.$refs.paper.innerHTML
 
         let distanceDiff = 0
         if (e) {
@@ -176,13 +183,12 @@
         }
 
         if (doc.hash) {
-          this.saving = true
-          let difference = await stringDiff(this.oldBody, this.$refs.paper.innerHTML)
-          this.oldBody = this.$refs.paper.innerHTML
-          await this.updateText(doc, difference.result, distanceDiff)
-          this.saving = false
+          var difference = await stringDiff(oldBodySaving, newBodySaving)
+          this.oldBody = newBodySaving
         }
         this.$nextTick(() => {
+          this.updateText(doc, difference.result, distanceDiff)
+          this.saving = false
           this.saveSelection()
         })
       },
