@@ -25,6 +25,10 @@
          class="my-3 rounded shadow-lg paper"
          @paste.stop="onPaste($event, doc)"
          @input.stop.self="onDivInput($event, doc)"
+         @mouseup="addCaret"
+         @mousedown="addCaret"
+         @keyup="addCaret"
+         @keydown="addCaret"
          v-html="doc.body" :disabled="1" ref="paper">
       </div>
     </div>
@@ -192,13 +196,74 @@
           this.saveSelection()
         })
       },
-      async addCaret (doc) {
-        positions.push(this.getCaretPosition(doc))
+      addCaret (doc) {
+        var username = this.readUsername()
+        var positionRow = this.readCaretPosition(doc.srcElement)
+        var positionCol = this.getDivContainer()
+        var user = {username, positionRow, positionCol}
         this.socket.emit('addCaret', {
-          room: 'docChannel_' + this.doc.hash,
+          room: 'docChannel_' + this.doc.id,
           event: 'addCaret',
-          message: positions
+          message: user
         })
+      },
+      getDivContainer () {
+        var sel
+        var range
+        var sibling
+        var gen
+        var doc = document.getElementById('paper')
+        if (window.getSelection) {
+          sel = window.getSelection()
+          if (sel.rangeCount) {
+            range = sel.getRangeAt(0)
+            if (range.commonAncestorContainer.parentNode === doc) {
+              gen = 0
+            } else if (range.commonAncestorContainer.parentNode.parentNode === doc) {
+              gen = 1
+            }
+            if (gen === 0) {
+              return gen
+            } else {
+              for (var i = 1; i < doc.childNodes.length; i++) {
+                console.log(range.commonAncestorContainer.textContent)
+                console.log(doc.childNodes[i].textContent)
+                if (range.commonAncestorContainer.textContent === doc.childNodes[i].textContent) {
+                  sibling = i
+                  return {gen, sibling}
+                }
+              }
+            }
+          }
+        }
+      },
+      readCaretPosition (doc) {
+        var caretPos = 0
+        var sel
+        var range
+        if (window.getSelection) {
+          sel = window.getSelection()
+          if (sel.rangeCount) {
+            range = sel.getRangeAt(0)
+            if (range.commonAncestorContainer.parentNode === doc || range.commonAncestorContainer.parentNode.parentNode === doc) {
+              caretPos = range.endOffset
+            }
+          }
+        } else if (document.selection && document.selection.createRange) {
+          range = document.selection.createRange()
+          if (range.parentElement() === doc || range.parentElement.parentElement() === doc) {
+            var tempEl = document.createElement('span')
+            doc.insertBefore(tempEl, doc.firstChild)
+            var tempRange = range.duplicate()
+            tempRange.moveToElementText(tempEl)
+            tempRange.setEndPoint('EndToEnd', range)
+            caretPos = tempRange.text.length
+          }
+        }
+        return caretPos
+      },
+      readUsername () {
+        return this.socket.id
       },
       saveSelection () {
         var range = window.getSelection().getRangeAt(0)

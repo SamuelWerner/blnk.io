@@ -102,6 +102,7 @@ database
     })
 
     // Websocket
+    var positions = []
     var io = require('socket.io')(http)
     io.on('connection', function (socket) {
       socket.on('room', function (room) {
@@ -140,6 +141,23 @@ database
           })
           socket.to(room).emit(event, {difference: difference, distanceDiff: distanceDiff})
         })
+      })
+      socket.on('addCaret', function (data) {
+        let room = data['room']
+        let event = data['event']
+        if (positions.length > 0) {
+          for (let i = 0; i < positions.length; i++) {
+            if (positions[i]['username'] === data['message']['username']) {
+              positions[i] = data['message']
+            } else if (i === positions.length - 1) {
+              positions.push(data['message'])
+            }
+          }
+        } else {
+          positions.push(data['message'])
+        }
+        console.log(positions)
+        socket.to(room).emit(event, positions)
       })
       console.log('a user connected')
     })
