@@ -19,6 +19,46 @@
         <img class="fktstripImg" src="../assets/baseline-format_paint-24px.svg" />
       </button>
     </div>
+
+    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+      <md-menu md-size="small" md-align-trigger  >
+        <md-tooltip md-delay="300">Schriftart</md-tooltip>
+        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/outline-font_download-24px.svg" /> </button>
+
+        <md-menu-content class="menu-content">
+          <md-menu-item @click="fontName ('Arial')" style="font-family: Arial"> Arial </md-menu-item>
+          <md-menu-item @click="fontName ('Calibri')" style="font-family: Calibri"> Calibri </md-menu-item>
+          <md-menu-item @click="fontName ('Comic Sans')" style="font-family: Comic Sans"> Comic Sans </md-menu-item>
+          <md-menu-item @click="fontName ('Courier')" style="font-family: Courier"> Courier </md-menu-item>
+          <md-menu-item @click="fontName ('Droid Sans')" style="font-family: Droid Sans"> Droid Sans </md-menu-item>
+          <md-menu-item @click="fontName ('Georgia')" style="font-family: Georgia"> Georgia </md-menu-item>
+          <md-menu-item @click="fontName ('Helvetica')" style="font-family: Helvetica"> Helvetica </md-menu-item>
+          <md-menu-item @click="fontName ('Impact')" style="font-family: Impact"> Impact </md-menu-item>
+          <md-menu-item @click="fontName ('Roboto')" style="font-family: Roboto"> Roboto </md-menu-item>
+          <md-menu-item @click="fontName ('Segoe UI')" style="font-family: Segoe UI"> Segoe UI </md-menu-item>
+          <md-menu-item @click="fontName ('Impact')" style="font-family: Impact"> Impact </md-menu-item>
+          <md-menu-item @click="fontName ('Roboto')" style="font-family: Roboto"> Roboto </md-menu-item>
+          <md-menu-item @click="fontName ('Times New Roman')" style="font-family: Times New Roman"> Times New Roman </md-menu-item>
+          <md-menu-item @click="fontName ('Ubuntu')" style="font-family: Ubuntu"> Ubuntu </md-menu-item>
+          <md-menu-item @click="fontName ('Verdana')" style="font-family: Verdana"> Verdana </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+      <md-menu md-size="small" md-align-trigger  >
+        <md-tooltip md-delay="300">Schriftgröße</md-tooltip>
+        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/baseline-format_size-24px.svg" /> </button>
+
+        <md-menu-content class="menu-content">
+          <md-menu-item @click="fontSize (1)" > <p style="margin: 0; font-size: x-small">Größe 1</p> </md-menu-item>
+          <md-menu-item @click="fontSize (2)" > <p style="margin: 0; font-size: small">Größe 2</p> </md-menu-item>
+          <md-menu-item @click="fontSize (3)" > <p style="margin: 0; font-size: medium">Größe 3</p> </md-menu-item>
+          <md-menu-item @click="fontSize (4)" > <p style="margin: 0; font-size: large">Größe 4</p> </md-menu-item>
+          <md-menu-item @click="fontSize (5)" > <p style="margin: 0; font-size: x-large">Größe 5</p> </md-menu-item>
+          <md-menu-item @click="fontSize (6)" > <p style="margin: 0; font-size: xx-large">Größe 6</p> </md-menu-item>
+          <md-menu-item @click="fontSize (7)" > <p style="margin: 0; font-size: 3rem">Größe 7</p> </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </div>
+
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-light btn-tmenu" @click="makeBold">
         <md-tooltip md-delay="300">Fett</md-tooltip>
@@ -38,7 +78,7 @@
       </button>
 
       <md-menu md-size="small" md-align-trigger  >
-        <md-tooltip md-delay="300">Zeilenabstand</md-tooltip>
+        <md-tooltip md-delay="300">Schriftfarbe</md-tooltip>
         <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/baseline-format_color_text-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
@@ -129,32 +169,6 @@
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-light btn-tmenu" @click="insertText"> <strong>txt</strong> </button>
     </div>
-
-    <!--
-    <div class="btn-group btn-group-sm btn-group-select" role="group" aria-label="Basic example">
-      <div class="md-layout-item">
-        <md-field class="">
-          <md-select v-model="font" name="font" id="font" placeholder="Font">
-            <md-option value="arial">Arial</md-option>
-            <md-option value="calibri">Calibri</md-option>
-            <md-option value="cambria">Cambria</md-option>
-            <md-option value="comic-sans">Comic Sans</md-option>
-            <md-option value="consolas">Consolas</md-option>
-            <md-option value="courier">Courier</md-option>
-            <md-option value="droid-sans">Droid Sans</md-option>
-            <md-option value="georgia">Georgia</md-option>
-            <md-option value="helvetica">Helvetica</md-option>
-            <md-option value="impact">Impact</md-option>
-            <md-option value="roboto">Roboto</md-option>
-            <md-option value="segoe-ui">Segoe UI</md-option>
-            <md-option value="times-new-roman">Times New Roman</md-option>
-            <md-option value="ubuntu">Ubuntu</md-option>
-            <md-option value="verdana">Verdana</md-option>
-          </md-select>
-        </md-field>
-      </div>
-    </div>
-    -->
   </main>
 </template>
 
@@ -260,6 +274,12 @@
       },
       foreColor (textColor) {
         document.execCommand('foreColor', false, textColor)
+      },
+      fontName (textFont) {
+        document.execCommand('fontName', false, textFont)
+      },
+      fontSize (textSize) {
+        document.execCommand('fontSize', false, textSize)
       }
     }
   }

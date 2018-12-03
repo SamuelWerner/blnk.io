@@ -369,5 +369,6 @@
 
   .md-divider {
     margin: 0.5rem !important;
+    opacity: 0.8 !important;
   }
 </style>
