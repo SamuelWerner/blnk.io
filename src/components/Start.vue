@@ -1,6 +1,5 @@
 <template>
   <main class="container" style="height:100%">
-    <h1 class="h1">blnk.io</h1>
     <div>
       <div class="card text-center">
         <div class="card-header">
