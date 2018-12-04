@@ -158,6 +158,7 @@
           if (saved) {
             window.setTimeout(function () { that.saving = false }, 400) // Kleiner Delay blockt die nächste Eingabe
           } else {
+            console.log('Fehler, erwartet:' + data['expected'] + ' erhalten: ' + data['delivered'])
             that.error = true
           }
         })

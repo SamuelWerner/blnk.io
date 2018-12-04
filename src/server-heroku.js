@@ -49,7 +49,7 @@ database
           let body = docs.get('body')
           if (body.length !== bodyLength) {
             console.error('Die Dokumente sind nicht mehr synchron')
-            socket.emit('messageSaved', {saved: false})
+            socket.emit('messageSaved', {saved: false, expected: body.length, delivered: bodyLength})
             return // Die Inhalte der zwei Dokumente stimmen nicht mehr überein
           } else {
             socket.emit('messageSaved', {saved: true})
