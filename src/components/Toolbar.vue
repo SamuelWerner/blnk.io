@@ -82,11 +82,11 @@
         <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/baseline-format_color_text-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
-          <md-menu-item @click="foreColor ('#000000')" > Schwarz </md-menu-item>
-          <md-menu-item @click="foreColor ('#0000FF')" > Blau </md-menu-item>
-          <md-menu-item @click="foreColor ('#33CC33')" > Grün </md-menu-item>
-          <md-menu-item @click="foreColor ('#FF0000')" > Rot </md-menu-item>
-          <md-menu-item @click="foreColor ('#FFEE84')" > Gelb </md-menu-item>
+          <md-menu-item @click="foreColor ('#000000')" > <div class="color color-black"></div> Schwarz </md-menu-item>
+          <md-menu-item @click="foreColor ('#0000FF')" > <div class="color color-blue"></div> Blau </md-menu-item>
+          <md-menu-item @click="foreColor ('#33CC33')" > <div class="color color-green"></div> Grün </md-menu-item>
+          <md-menu-item @click="foreColor ('#FF0000')" > <div class="color color-red"></div> Rot </md-menu-item>
+          <md-menu-item @click="foreColor ('#FFEE84')" > <div class="color color-yellow"></div> Gelb </md-menu-item>
         </md-menu-content>
       </md-menu>
     </div>
@@ -337,4 +337,30 @@
     width: 17px !important;
     height: 17px !important;
   }
+
+  .color {
+    width: 12px; height: 12px;margin-right:10px
+  }
+
+  .color-black {
+    background-color: black;
+  }
+
+  .color-blue {
+    background-color: #0000FF;
+  }
+
+  .color-green {
+    background-color: #33CC33;
+  }
+
+  .color-red {
+    background-color: #FF0000;
+  }
+
+  .color-yellow {
+    background-color: #FFEE84;
+  }
+
+
 </style>
