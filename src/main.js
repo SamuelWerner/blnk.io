@@ -11,8 +11,11 @@ import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 import moment from 'moment'
 
+var VueScrollTo = require('vue-scrollto')
+
 Vue.use(BootstrapVue)
 Vue.use(VueMaterial)
+Vue.use(VueScrollTo)
 
 Vue.config.productionTip = false
 

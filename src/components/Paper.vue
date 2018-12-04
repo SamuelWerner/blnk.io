@@ -9,7 +9,7 @@
       </div>
 
       <div class="col-md-1 order-md-2 order-1">
-        <md-button style="float: right; margin-top: 0.7rem" type="button" class="md-icon-button md-raised">
+        <md-button href="/" style="float: right; margin-top: 0.7rem" type="button" class="md-icon-button md-raised">
           <img class="fktstripImg" style="margin: 0" src="../assets/baseline-clear-24px.svg" />
         </md-button>
         <!--<md-button style="float: right" type="button" @click="showDialogRename = true" class="md-default md-raised md-dense">umbenennen</md-button>-->
@@ -33,7 +33,8 @@
          v-html="doc.body" :disabled="1" ref="paper">
       </div>
     </div>
-
+    <a id="buttonTop"></a>
+    <a id="pageBottom"></a>
   </main>
 </template>
 
@@ -455,5 +456,47 @@
   .md-divider {
     margin: 0.5rem !important;
     opacity: 0.8 !important;
+  }
+
+  #buttonTop {
+    display: inline-block;
+    background-color: #f7f6d8;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border-radius: 4px;
+    margin: 30px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    transition: background-color .3s;
+    z-index: 1000;
+    transition: background-color .3s, opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  #buttonTop:hover {
+    cursor: pointer;
+    background-color: #333;
+  }
+
+  #buttonTop:active {
+    background-color: #555;
+  }
+
+  #buttonTop.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #buttonTop::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.5em;
+    line-height: 38px;
+    color: #a80337;
   }
 </style>
