@@ -19,12 +19,13 @@
 
     <div class="container">
       <b-alert class="saving" :show="saving" variant="info">speichert...</b-alert>
+      <b-alert class="error" :show="error" variant="danger">Beim Speichern ist ein Fehler aufgetreten. Bitte die Schritte um den Fehler zu reproduzieren in die Gruppe stellen. Neu laden des Dokuments behebt die Inkonsistenz.</b-alert>
       <h1>{{ doc.title }}</h1> {{ rename }}
       <div style="outline:none" contenteditable="true"
          id="paper" itemref="paper"
          class="my-3 rounded shadow-lg paper"
          @paste.stop="onPaste($event, doc)"
-         @input.stop.self="onDivInput($event, doc)"
+         @input.stop="documentChanges($event, doc)"
          @mouseup="addCaret"
          @mousedown="addCaret"
          @keyup="addCaret"
@@ -60,7 +61,8 @@
         saving: false,
         rename: '',
         socket: null,
-        savedSelection: null
+        savedSelection: null,
+        error: false
       }
     },
     async created () {
@@ -85,7 +87,7 @@
               image.removeEventListener('load', _func)
               image.src = that.reduceImageSize(image)
               that.insertImgAtCaret(image)
-              that.onDivInput(event, doc)
+              that.documentChanges(event, doc)
             })
           }
         }
@@ -138,17 +140,26 @@
           for (let i in difference) {
             let diff = (difference[i])
             if (!diff) return
+            let body = that.$refs.paper.innerHTML
             if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
-              doc.body = doc.body.substr(0, diff.StartInsertPosition) + diff.newData + doc.body.substr(diff.EndDeletePosition)
+              that.$refs.paper.innerHTML = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.EndDeletePosition)
             } else { // Insert
-              doc.body = doc.body.substr(0, diff.StartInsertPosition) + diff.newData + doc.body.substr(diff.StartInsertPosition)
+              that.$refs.paper.innerHTML = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.StartInsertPosition)
             }
-            this.oldBody = doc.body
+            that.oldBody = that.$refs.paper.innerHTML
           }
 
           that.$nextTick(() => {
             that.restoreSelection(distanceDiff)
           })
+        })
+        this.socket.on('messageSaved', function (data) {
+          let saved = data['saved']
+          if (saved) {
+            window.setTimeout(function () { that.saving = false }, 400) // Kleiner Delay blockt die nächste Eingabe
+          } else {
+            that.error = true
+          }
         })
 
         this.socket.on('addCaret', function (data) { // TODO Funktion zum anzeigen der anderen Carets einfügen
@@ -159,25 +170,30 @@
       async joinRoom (id) {
         this.socket.emit('room', 'docChannel_' + id)
       },
-      async updateText (newDoc, difference, distanceDiff) {
-        this.socket.emit('textChange', {room: 'docChannel_' + newDoc.hash, event: 'textChange', difference: difference, hash: newDoc.hash, distanceDiff: distanceDiff})
+      async updateText (newDoc, difference, distanceDiff, oldBodyLength) {
+        this.socket.emit('textChange', {room: 'docChannel_' + newDoc.hash, event: 'textChange', difference: difference, hash: newDoc.hash, distanceDiff: distanceDiff, bodyLength: oldBodyLength})
       },
       async refreshDocs () {
         this.doc = await api.getDoc(this.$route.params.hash)
         this.newSocket(this.doc.hash, this.doc)
         this.oldBody = this.doc.body
       },
-      async onDivInput (e, doc) {
+      async documentChanges (e, doc) {
         if (this.saving) {
           await this.Sleep(500)
-          if (this.saving) {
-            return
+          if (!this.saving) {
+            this.onDivInput(e, doc)
           }
+        } else {
+          this.saving = true
+          this.onDivInput(e, doc)
         }
-        this.saving = true
-        await this.Sleep(500)
+      },
+      async onDivInput (e, doc) {
         let oldBodySaving = this.oldBody
         let newBodySaving = this.$refs.paper.innerHTML
+        let oldBodyLength = this.oldBody.length
+        this.oldBody = newBodySaving
 
         let distanceDiff = 0
         if (e) {
@@ -188,24 +204,20 @@
 
         if (doc.hash) {
           var difference = await stringDiff(oldBodySaving, newBodySaving)
-          this.oldBody = newBodySaving
         }
-        this.$nextTick(() => {
-          this.updateText(doc, difference.result, distanceDiff)
-          this.saving = false
-          this.saveSelection()
-        })
+        this.updateText(doc, difference.result, distanceDiff, oldBodyLength)
+        this.saveSelection()
       },
       addCaret (doc) {
-        var username = this.readUsername()
-        var positionRow = this.readCaretPosition(doc.srcElement)
-        var positionCol = this.getDivContainer()
-        var user = {username, positionRow, positionCol}
-        this.socket.emit('addCaret', {
-          room: 'docChannel_' + this.doc.id,
-          event: 'addCaret',
-          message: user
-        })
+        // var username = this.readUsername()
+        // var positionRow = this.readCaretPosition(doc.srcElement)
+        // var positionCol = this.getDivContainer()
+        // var user = {username, positionRow, positionCol}
+        // this.socket.emit('addCaret', {
+        //   room: 'docChannel_' + this.doc.id,
+        //   event: 'addCaret',
+        //   message: user
+        // })
       },
       getDivContainer () {
         var sel
@@ -387,6 +399,14 @@
     position: sticky !important;
     top: 2rem !important;
     z-index: 10 !important;
+  }
+
+  .error {
+    float: right !important;
+    position: -webkit-sticky !important; /* Safari */
+    position: sticky !important;
+    top: 2rem !important;
+    z-index: 11 !important;
   }
 
   .container-fluid {}

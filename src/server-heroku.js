@@ -41,11 +41,19 @@ database
         let event = data['event']
         let difference = data['difference']
         let distanceDiff = data['distanceDiff']
+        let bodyLength = data['bodyLength']
 
         Doc.findOne({
           where: {hash: hash}
         }).then(docs => {
           let body = docs.get('body')
+          if (body.length !== bodyLength) {
+            console.error('Die Dokumente sind nicht mehr synchron')
+            socket.emit('messageSaved', {saved: false})
+            return // Die Inhalte der zwei Dokumente stimmen nicht mehr überein
+          } else {
+            socket.emit('messageSaved', {saved: true})
+          }
           for (let i in difference) {
             let diff = (difference[i])
             if (!diff) return
