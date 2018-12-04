@@ -9,7 +9,7 @@
             <md-menu-item @click="" disabled>Freigeben</md-menu-item>
             <md-divider></md-divider>
             <md-menu-item @click="" disabled>Neu</md-menu-item>
-            <md-menu-item @click="" to="/">Öffnen</md-menu-item>
+            <md-menu-item @click="" >Öffnen</md-menu-item>
             <md-menu-item @click="showDialogCopyDokument = true">Kopie erstellen</md-menu-item>
             <md-menu-item @click="" disabled>Herunterladen</md-menu-item>
             <md-divider></md-divider>

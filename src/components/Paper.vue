@@ -9,7 +9,7 @@
       </div>
 
       <div class="col-md-1 order-md-2 order-1">
-        <md-button style="float: right; margin-top: 0.7rem" type="button" to="/" class="md-icon-button md-raised">
+        <md-button style="float: right; margin-top: 0.7rem" type="button" class="md-icon-button md-raised">
           <img class="fktstripImg" style="margin: 0" src="../assets/baseline-clear-24px.svg" />
         </md-button>
         <!--<md-button style="float: right" type="button" @click="showDialogRename = true" class="md-default md-raised md-dense">umbenennen</md-button>-->
