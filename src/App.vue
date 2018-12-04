@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="md" type="dark" variant="dark" fixed="">
+    <b-navbar toggleable="md" type="dark" variant="dark" fixed=""> <!-- fixed="top" -->
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-navbar-brand to="/"><img src="./assets/Logo_Blnk.png" width="135"/></b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">

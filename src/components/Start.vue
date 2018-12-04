@@ -85,7 +85,14 @@
   }
 </script>
 
+<!-- Style Allgemein -->
+<style>
+  body {
+    background-color: #f3f2f1 !important;
+  }
+</style>
 
+<!-- Style nur diese Komponente -->
 <style scoped>
   main, body, main {
     height: 100%;
@@ -105,22 +112,24 @@
   }
 
   ul li {
-    padding: 12px 10px;
+    padding: 20px 10px 10px 10px;
     margin: 1rem 1rem 0 0;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: calc(0.25rem - 1px);
-    background-color: #f7f7f7;
+    background-color: #fff/*#f7f7f7*/;
     width: 12rem;
-    min-height: 14rem;
+    min-height: 15rem;
     float: left;
     text-align: center;
     word-wrap: break-word;
+    transition: box-shadow 0.2s ease-out;
   }
 
   ul li:hover {
-    -webkit-box-shadow: 0px 0px 7px -1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 7px -1px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 7px -1px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 2px 4px 15px 1px rgba(189,189,189,1);
+    -moz-box-shadow: 2px 4px 15px 1px rgba(189,189,189,1);
+    box-shadow: 2px 4px 15px 1px rgba(189,189,189,1);
+    transition: box-shadow 0.2s ease-in-out;
   }
 
   .updatedAt {
