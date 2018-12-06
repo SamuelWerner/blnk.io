@@ -19,18 +19,13 @@
 
     <div class="container">
       <b-alert class="saving" :show="saving" variant="info">speichert...</b-alert>
-      <b-alert class="error" :show="error" variant="danger">Beim Speichern ist ein Fehler aufgetreten. Bitte die Schritte um den Fehler zu reproduzieren in die Gruppe stellen. Neu laden des Dokuments behebt die Inkonsistenz.</b-alert>
       <h1>{{ doc.title }}</h1> {{ rename }}
       <div style="outline:none" contenteditable="true"
          id="paper" itemref="paper"
          class="my-3 rounded shadow-lg paper"
          @paste.stop="onPaste($event, doc)"
          @input.stop="documentChanges($event, doc)"
-         @mouseup="addCaret"
-         @mousedown="addCaret"
-         @keyup="addCaret"
-         @keydown="addCaret"
-         v-html="doc.body" :disabled="1" ref="paper">
+         v-html="body" :disabled="1" ref="paper">
       </div>
     </div>
 
@@ -42,7 +37,7 @@
   import io from 'socket.io-client'
   import Toolbar from './Toolbar'
   import Menubar from './Menubar'
-  import stringDiff from '../utils/string-diff'
+  import DiffDOM from 'diff-dom'
 
   const usernames = {}
   const positions = {}
@@ -61,14 +56,95 @@
         saving: false,
         rename: '',
         socket: null,
-        savedSelection: null,
-        error: false
+        body: ''
       }
     },
     async created () {
-      this.refreshDocs()
+      // Beim Aufruf der Seite das Dokument aufbauen
+      let newB = document.createElement('div')
+      this.doc = await api.getDoc(this.$route.params.hash)
+      let changes = JSON.parse(this.doc.body).changes
+      let dd = new DiffDOM()
+      for (let change in changes) {
+        let tmpArray = changes[change]
+        tmpArray.pop()
+        dd.apply(newB, tmpArray)
+      }
+      this.body = newB.innerHTML
+      this.oldBody = this.body
+      // Socket Verbindung initalisieren
+      this.newSocket(this.doc.hash, this.doc)
     },
     methods: {
+      async newSocket (id, doc) {
+        if (process.env.NODE_ENV === 'development') {
+          this.socket = io('http://localhost:8080')
+        } else {
+          this.socket = io('https://blnk-io.herokuapp.com/')
+        }
+        // Benutzer meldet sich an dem Dokument an
+        this.joinRoom(id)
+
+        this.socket.on('titleChange', function (data) {
+          doc.title = data
+        })
+
+        const that = this
+        this.socket.on('textChange', function (d) {
+          let difference = d['difference']
+          let diff = JSON.parse(difference)
+          let dd = new DiffDOM()
+          dd.apply(document.getElementById('paper'), diff)
+          that.oldBody = document.getElementById('paper').innerHTML
+        })
+
+        this.socket.on('addCaret', function (data) { // TODO Funktion zum anzeigen der anderen Carets einfügen
+          var username = this.getUsername()
+          positions.push({ username, data })
+        })
+      },
+      async joinRoom (id) {
+        this.socket.emit('room', 'docChannel_' + id)
+      },
+      async documentChanges (e, doc) {
+        if (this.saving) return
+        this.saveDocChanges(e, doc)
+      },
+      async saveDocChanges (e, doc) {
+        this.saving = true
+        await this.Sleep(200)
+        let oldBodySaving = this.oldBody
+        let newBodySaving = this.$refs.paper.innerHTML
+        this.oldBody = newBodySaving
+        var dd = new DiffDOM()
+        if (doc.hash) {
+          let oldB = document.createElement('div')
+          let newB = document.createElement('div')
+          oldB.innerHTML = oldBodySaving
+          newB.innerHTML = newBodySaving
+          var diff = dd.diff(oldB, newB)
+          var diffJson = JSON.stringify(diff)
+          this.socket.emit('textChange', {room: 'docChannel_' + doc.hash, event: 'textChange', difference: diffJson, hash: doc.hash})
+          this.saving = false
+        }
+      },
+      Sleep (milliseconds) {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+      },
+      insertImgAtCaret (img) {
+        let sel, range
+        if (window.getSelection) {
+          sel = window.getSelection()
+          if (sel.getRangeAt && sel.rangeCount) {
+            range = sel.getRangeAt(0)
+            range.deleteContents()
+            range.insertNode(img)
+          }
+        }
+      },
+      createLink () {
+        document.execCommand('createLink', false, null)
+      },
       async onPaste (event, doc) {
         var pastedData = event.clipboardData.files[0]
         var that = this
@@ -119,95 +195,6 @@
         ctx.drawImage(img, 0, 0, width, height)
 
         return canvas.toDataURL('image/jpeg', 0.6)
-      },
-      async newSocket (id, doc) {
-        if (process.env.NODE_ENV === 'development') {
-          this.socket = io('http://localhost:8080')
-        } else {
-          this.socket = io('https://blnk-io.herokuapp.com/')
-        }
-        // Benutzer meldet sich an einem Raum an
-        this.joinRoom(id)
-
-        this.socket.on('titleChange', function (data) {
-          doc.title = data
-        })
-        var that = this
-
-        this.socket.on('textChange', function (d) {
-          let difference = d['difference']
-          let distanceDiff = d['distanceDiff']
-          for (let i in difference) {
-            let diff = (difference[i])
-            if (!diff) return
-            let body = that.$refs.paper.innerHTML
-            if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
-              that.$refs.paper.innerHTML = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.EndDeletePosition)
-            } else { // Insert
-              that.$refs.paper.innerHTML = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.StartInsertPosition)
-            }
-            that.oldBody = that.$refs.paper.innerHTML
-          }
-
-          that.$nextTick(() => {
-            that.restoreSelection(distanceDiff)
-          })
-        })
-        this.socket.on('messageSaved', function (data) {
-          let saved = data['saved']
-          if (saved) {
-            window.setTimeout(function () { that.saving = false }, 400) // Kleiner Delay blockt die nächste Eingabe
-          } else {
-            console.log('Fehler, erwartet:' + data['expected'] + ' erhalten: ' + data['delivered'])
-            that.error = true
-          }
-        })
-
-        this.socket.on('addCaret', function (data) { // TODO Funktion zum anzeigen der anderen Carets einfügen
-          var username = this.getUsername()
-          positions.push({ username, data })
-        })
-      },
-      async joinRoom (id) {
-        this.socket.emit('room', 'docChannel_' + id)
-      },
-      async updateText (newDoc, difference, distanceDiff, oldBodyLength) {
-        this.socket.emit('textChange', {room: 'docChannel_' + newDoc.hash, event: 'textChange', difference: difference, hash: newDoc.hash, distanceDiff: distanceDiff, bodyLength: oldBodyLength})
-      },
-      async refreshDocs () {
-        this.doc = await api.getDoc(this.$route.params.hash)
-        this.newSocket(this.doc.hash, this.doc)
-        this.oldBody = this.doc.body
-      },
-      async documentChanges (e, doc) {
-        if (this.saving) {
-          await this.Sleep(500)
-          if (!this.saving) {
-            this.onDivInput(e, doc)
-          }
-        } else {
-          this.saving = true
-          this.onDivInput(e, doc)
-        }
-      },
-      async onDivInput (e, doc) {
-        let oldBodySaving = this.oldBody
-        let newBodySaving = this.$refs.paper.innerHTML
-        let oldBodyLength = this.oldBody.length
-        this.oldBody = newBodySaving
-
-        let distanceDiff = 0
-        if (e) {
-          distanceDiff = 1
-        } else {
-          distanceDiff = -1
-        }
-
-        if (doc.hash) {
-          var difference = await stringDiff(oldBodySaving, newBodySaving)
-        }
-        this.updateText(doc, difference.result, distanceDiff, oldBodyLength)
-        this.saveSelection()
       },
       addCaret (doc) {
         // var username = this.readUsername()
@@ -278,53 +265,6 @@
       readUsername () {
         return this.socket.id
       },
-      saveSelection () {
-        var range = window.getSelection().getRangeAt(0)
-        var preSelectionRange = range.cloneRange()
-        preSelectionRange.selectNodeContents(this.$refs.paper)
-        preSelectionRange.setEnd(range.startContainer, range.startOffset)
-        var start = preSelectionRange.toString().length
-
-        this.savedSelection = {
-          start: start,
-          end: start + range.toString().length
-        }
-      },
-      restoreSelection (distanceDiff) {
-        if (!this.savedSelection) return
-        var charIndex = 0
-        var range = document.createRange()
-        range.setStart(this.$refs.paper, 0)
-        range.collapse(true)
-        var nodeStack = [this.$refs.paper]
-        var node
-        var foundStart = false
-        var stop = false
-
-        while (!stop && (node = nodeStack.pop())) {
-          if (node.nodeType === 3) {
-            var nextCharIndex = charIndex + node.length
-            if (!foundStart && this.savedSelection.start >= charIndex && this.savedSelection.start <= nextCharIndex) {
-              range.setStart(node, this.savedSelection.start - charIndex)
-              foundStart = true
-            }
-            if (foundStart && this.savedSelection.end >= charIndex && this.savedSelection.end <= nextCharIndex) {
-              range.setEnd(node, this.savedSelection.end - charIndex)
-              stop = true
-            }
-            charIndex = nextCharIndex
-          } else {
-            var i = node.childNodes.length
-            while (i--) {
-              nodeStack.push(node.childNodes[i])
-            }
-          }
-        }
-
-        var sel = window.getSelection()
-        sel.removeAllRanges()
-        sel.addRange(range)
-      },
       getCaretPosition (doc) {
         if (document.selection) {
           doc.focus()
@@ -359,23 +299,6 @@
             return 0
           }
         }
-      },
-      Sleep (milliseconds) {
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
-      },
-      insertImgAtCaret (img) {
-        let sel, range
-        if (window.getSelection) {
-          sel = window.getSelection()
-          if (sel.getRangeAt && sel.rangeCount) {
-            range = sel.getRangeAt(0)
-            range.deleteContents()
-            range.insertNode(img)
-          }
-        }
-      },
-      createLink () {
-        document.execCommand('createLink', false, null)
       }
     }
   }

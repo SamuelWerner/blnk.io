@@ -7,7 +7,7 @@ module.exports = {
         var random = Math.random().toString()
         let hash = crypto.createHash('sha1').update(res.req.title + random).digest('hex')
         context.attributes['hash'] = hash
-        context.attributes['body'] = ''
+        context.attributes['body'] = '{"changes":[]}'
         // manipulate the fetch call
         return context.continue
       } catch (e) {

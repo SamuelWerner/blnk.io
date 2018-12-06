@@ -35,39 +35,27 @@ database
         socket.to(room).emit(event, title)
       })
 
+
       socket.on('textChange', function (data) {
         let hash = data['hash']
         let room = data['room']
-        let event = data['event']
         let difference = data['difference']
-        let distanceDiff = data['distanceDiff']
-        let bodyLength = data['bodyLength']
+        if (!difference || difference === '[]' || difference === []) {
+          return
+        }
 
         Doc.findOne({
           where: {hash: hash}
         }).then(docs => {
-          let body = docs.get('body')
-          if (body.length !== bodyLength) {
-            console.error('Die Dokumente sind nicht mehr synchron')
-            socket.emit('messageSaved', {saved: false, expected: body.length, delivered: bodyLength})
-            return // Die Inhalte der zwei Dokumente stimmen nicht mehr überein
-          } else {
-            socket.emit('messageSaved', {saved: true})
-          }
-          for (let i in difference) {
-            let diff = (difference[i])
-            if (!diff) return
-            if (diff.EndDeletePosition - diff.StartInsertPosition > 0) {
-              body = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.EndDeletePosition)
-            } else {
-              body = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.StartInsertPosition)
-            }
-          }
-
+          var obj = JSON.parse(docs.get('body'))
+          let diff = JSON.parse(difference)
+          diff.push({'timestamp': Date.now()})
+          obj.changes.push(diff)
+          var body = JSON.stringify(obj)
           docs.updateAttributes({
             body: body
           })
-          socket.to(room).emit(event, {difference: difference, distanceDiff: distanceDiff})
+          socket.to(room).emit('textChange', {difference: difference})
         })
       })
 
