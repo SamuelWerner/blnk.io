@@ -26,21 +26,19 @@
         <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/outline-font_download-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
-          <md-menu-item @click="fontName ('Arial')" style="font-family: Arial"> Arial </md-menu-item>
-          <md-menu-item @click="fontName ('Calibri')" style="font-family: Calibri"> Calibri </md-menu-item>
-          <md-menu-item @click="fontName ('Comic Sans')" style="font-family: Comic Sans"> Comic Sans </md-menu-item>
-          <md-menu-item @click="fontName ('Courier')" style="font-family: Courier"> Courier </md-menu-item>
-          <md-menu-item @click="fontName ('Droid Sans')" style="font-family: Droid Sans"> Droid Sans </md-menu-item>
-          <md-menu-item @click="fontName ('Georgia')" style="font-family: Georgia"> Georgia </md-menu-item>
-          <md-menu-item @click="fontName ('Helvetica')" style="font-family: Helvetica"> Helvetica </md-menu-item>
-          <md-menu-item @click="fontName ('Impact')" style="font-family: Impact"> Impact </md-menu-item>
-          <md-menu-item @click="fontName ('Roboto')" style="font-family: Roboto"> Roboto </md-menu-item>
-          <md-menu-item @click="fontName ('Segoe UI')" style="font-family: Segoe UI"> Segoe UI </md-menu-item>
-          <md-menu-item @click="fontName ('Impact')" style="font-family: Impact"> Impact </md-menu-item>
-          <md-menu-item @click="fontName ('Roboto')" style="font-family: Roboto"> Roboto </md-menu-item>
-          <md-menu-item @click="fontName ('Times New Roman')" style="font-family: Times New Roman"> Times New Roman </md-menu-item>
-          <md-menu-item @click="fontName ('Ubuntu')" style="font-family: Ubuntu"> Ubuntu </md-menu-item>
-          <md-menu-item @click="fontName ('Verdana')" style="font-family: Verdana"> Verdana </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Arial'" @click="fontName ('Arial')" style="font-family: Arial"> Arial </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Calibri'" @click="fontName ('Calibri')" style="font-family: Calibri"> Calibri </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Comic Sans MS'" @click="fontName ('Comic Sans MS')" style="font-family: Comic Sans MS"> Comic Sans </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Courier'" @click="fontName ('Courier')" style="font-family: Courier"> Courier </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Droid Sans'" @click="fontName ('Droid Sans')" style="font-family: Droid Sans"> Droid Sans </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Georgia'" @click="fontName ('Georgia')" style="font-family: Georgia"> Georgia </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Helvetica'" @click="fontName ('Helvetica')" style="font-family: Helvetica"> Helvetica </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Impact'" @click="fontName ('Impact')" style="font-family: Impact"> Impact </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Roboto'" @click="fontName ('Roboto')" style="font-family: Roboto"> Roboto </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Segoe UI'" @click="fontName ('Segoe UI')" style="font-family: Segoe UI"> Segoe UI </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Times New Roman'" @click="fontName ('Times New Roman')" style="font-family: Times New Roman"> Times New Roman </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Ubuntu'" @click="fontName ('Ubuntu')" style="font-family: Ubuntu"> Ubuntu </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Verdana'" @click="fontName ('Verdana')" style="font-family: Verdana"> Verdana </md-menu-item>
         </md-menu-content>
       </md-menu>
       <md-menu md-size="small" md-align-trigger  >
@@ -50,7 +48,7 @@
         <md-menu-content class="menu-content">
           <md-menu-item @click="fontSize (1)" > <p style="margin: 0; font-size: x-small">Größe 1</p> </md-menu-item>
           <md-menu-item @click="fontSize (2)" > <p style="margin: 0; font-size: small">Größe 2</p> </md-menu-item>
-          <md-menu-item @click="fontSize (3)" > <p style="margin: 0; font-size: medium">Größe 3</p> </md-menu-item>
+          <md-menu-item @click="fontSize (3)" > <p style="margin: 0; font-size: medium">Größe 3 (Standard)</p> </md-menu-item>
           <md-menu-item @click="fontSize (4)" > <p style="margin: 0; font-size: large">Größe 4</p> </md-menu-item>
           <md-menu-item @click="fontSize (5)" > <p style="margin: 0; font-size: x-large">Größe 5</p> </md-menu-item>
           <md-menu-item @click="fontSize (6)" > <p style="margin: 0; font-size: xx-large">Größe 6</p> </md-menu-item>
@@ -167,8 +165,15 @@
       </button>
     </div>
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+      <button v-scroll-to="'#pageBottom'" type="button" class="btn btn-light btn-tmenu" @click="insertText">
+        <img class="fktstripImg" src="../assets/baseline-vertical_align_bottom-24px.svg" />
+      </button>
+      <button v-scroll-to="'#pageTop'" type="button" class="btn btn-light btn-tmenu" @click="insertText">
+        <img class="fktstripImg" src="../assets/baseline-vertical_align_top-24px.svg" />
+      </button>
       <button type="button" class="btn btn-light btn-tmenu" @click="insertText"> <strong>txt</strong> </button>
     </div>
+    <!--<p>Letzte Schriftart: {{ fontMessage }} - Letzte Schriftgröße: {{ sizeMessage }}</p>-->
   </main>
 </template>
 
@@ -181,7 +186,9 @@
         name: 'Delay',
         showDialogRename: false,
         showDialogPage: false,
-        pagecolor: 'white'
+        pagecolor: 'white',
+        fontMessage: '...',
+        sizeMessage: '...'
       }
     },
     methods: {
@@ -339,7 +346,9 @@
   }
 
   .color {
-    width: 12px; height: 12px;margin-right:10px
+    width: 12px;
+    height: 12px;
+    margin-right:10px
   }
 
   .color-black {

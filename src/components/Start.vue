@@ -1,6 +1,11 @@
 <template>
   <main class="container" style="height:100%">
     <div>
+      <!--
+      <div style="text-align: left; margin: 2rem 0; padding: 2rem 2rem 2rem 5rem; background-color: #343a40">
+        <img src="../assets/Logo-BLNK.svg" style="width: 40%" />
+      </div>
+      -->
       <div class="card text-center">
         <div class="card-header">
           Featured

@@ -1,8 +1,9 @@
 <template>
   <div id="app">
+    <a id="pageTop"></a>
     <b-navbar toggleable="md" type="dark" variant="dark" fixed=""> <!-- fixed="top" -->
-      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-      <b-navbar-brand to="/"><img src="./assets/Logo_Blnk.png" width="135"/></b-navbar-brand>
+      <!--<b-navbar-toggle target="nav_collapse"></b-navbar-toggle>-->
+      <b-navbar-brand to="/"><img src="./assets/Logo-BLNK.svg" width="150"/></b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
           <!--<b-nav-item to="/posts-manager">CRUD Example</b-nav-item>-->

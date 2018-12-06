@@ -9,7 +9,7 @@
             <md-menu-item @click="" disabled>Freigeben</md-menu-item>
             <md-divider></md-divider>
             <md-menu-item @click="" disabled>Neu</md-menu-item>
-            <md-menu-item @click="" >Öffnen</md-menu-item>
+            <md-menu-item @click="" href="/">Öffnen</md-menu-item>
             <md-menu-item @click="showDialogCopyDokument = true">Kopie erstellen</md-menu-item>
             <md-menu-item @click="" disabled>Herunterladen</md-menu-item>
             <md-divider></md-divider>
@@ -38,15 +38,16 @@
         </md-menu>
         <!-- Ansicht -->
         <md-menu md-size="small" class="btn-fmenu" md-align-trigger >
-          <md-button md-menu-trigger  type="button" class="md-default md-raised md-dense">Ansicht</md-button>
+          <md-button md-menu-trigger type="button" class="md-default md-raised md-dense">Ansicht</md-button>
 
           <md-menu-content class="menu-content">
-            <md-menu-item @click="" disabled></md-menu-item>
+            <md-menu-item @click="" v-scroll-to="'#pageTop'">Seite nach oben scrollen</md-menu-item>
+            <md-menu-item @click="" v-scroll-to="'#pageBottom'">Seite nach unten scrollen</md-menu-item>
           </md-menu-content>
         </md-menu>
         <!-- Einfügen -->
         <md-menu md-size="small" class="btn-fmenu" md-align-trigger >
-          <md-button md-menu-trigger  type="button" class="md-default md-raised md-dense">Einfügen</md-button>
+          <md-button md-menu-trigger type="button" class="md-default md-raised md-dense">Einfügen</md-button>
 
           <md-menu-content class="menu-content">
             <md-menu-item @click="insertHorizontalRule">Horizontale Linie</md-menu-item>
@@ -54,7 +55,7 @@
         </md-menu>
         <!-- Format -->
         <md-menu md-size="small" class="btn-fmenu" md-align-trigger >
-          <md-button md-menu-trigger  type="button" class="md-default md-raised md-dense">Format</md-button>
+          <md-button md-menu-trigger type="button" class="md-default md-raised md-dense">Format</md-button>
 
           <md-menu-content class="menu-content">
             <md-menu-item @click="" disabled></md-menu-item>
