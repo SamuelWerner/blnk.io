@@ -1,17 +1,20 @@
 <template>
-  <main class="container" style="height:100%">
-    <div>
-      <!--
-      <div style="text-align: left; margin: 2rem 0; padding: 2rem 2rem 2rem 5rem; background-color: #343a40">
-        <img src="../assets/Logo-BLNK.svg" style="width: 40%" />
-      </div>
-      -->
+  <main class="container-fluid">
+    <!--
+    <div style="text-align: left; margin: 2rem 0; padding: 2rem 2rem 2rem 5rem; background-color: #343a40">
+      <img src="../assets/Logo-BLNK.svg" style="width: 40%" />
+    </div>
+    -->
+    <div class="banner">
+      <img src="../assets/Blnk-Logo.png" height="433" width="2038"/>
+    </div>
+    <div class="container">
       <div class="card text-center">
         <div class="card-header">
           Featured
         </div>
         <div class="card-body">
-          <p><img style="width: 60px" src="../assets/outline-insert_drive_file-24px.svg" /></p>
+          <p><img style="width: 80px" src="../assets/outline-insert_drive_file-24px.svg" /></p>
           <h5 class="card-title">Neues Dokument anlegen</h5>
           <p class="card-text">Lege ein neues Dokument an und bearbeite es.</p>
 
@@ -30,21 +33,26 @@
             </md-dialog>
             <md-button class="md-primary md-raised" @click="showDialog = true">+</md-button>
           </div>
-
         </div>
       </div>
-    </div>
 
-    <div>
-      <ul>
-        <li v-for="doc in docs" :key="doc.hash">
-          <img style="" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
-          <span class="docTitle">{{ doc.title }}</span><br>
-          <span class="updatedAt">{{doc.updatedAt | formatDate}}</span>
-          <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.hash)">Öffnen</md-button><br>
-          <md-button class="md-danger md-dense" @click.prevent="deleteDoc(doc.hash)">Löschen</md-button>
-        </li>
-      </ul>
+      <div>
+        <ul>
+          <li v-for="doc in docs" :key="doc.hash">
+            <div class="liDiv">
+              <img style="width: 40px" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
+              <span class="docTitle">{{ doc.title }}</span><br>
+
+              <div class="liButtons">
+                <span class="updatedAt">geändert: {{doc.updatedAt | formatDate}}</span><br>
+                <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.hash)">Öffnen</md-button><br>
+                <md-button class="md-danger md-dense" @click.prevent="deleteDoc(doc.hash)">Löschen</md-button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div style="clear: left"></div>
     </div>
   </main>
 </template>
@@ -93,52 +101,61 @@
 <!-- Style Allgemein -->
 <style>
   body {
-    background-color: #f3f2f1 !important;
+    /*background-color: #f3f2f1 !important;*/
+    background-color: #343a40 !important
   }
 </style>
 
 <!-- Style nur diese Komponente -->
 <style scoped>
-  main, body, main {
-    height: 100%;
+  html, body, main {
   }
 
   main {
-    width: 70%;
     margin: 0 auto;
-    margin-top: 5rem;
+    padding-bottom: 2rem;
+  }
+
+  .card {
+    margin: 0 10px;
   }
 
   ul {
-    margin: 0;
+    margin: 1.5rem 0 0 0;
     padding: 0;
     list-style-type: none;
     width: 100%;
   }
 
   ul li {
+    padding: 0 10px 20px 10px;
+    width: 20%;
+    float: left;
+  }
+
+  .liDiv {
+    position: relative;
     padding: 20px 10px 10px 10px;
-    margin: 1rem 1rem 0 0;
-    border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: calc(0.25rem - 1px);
     background-color: #fff/*#f7f7f7*/;
-    width: 12rem;
-    min-height: 15rem;
+    min-height: 17.5rem;
     float: left;
     text-align: center;
     word-wrap: break-word;
     transition: box-shadow 0.2s ease-out;
+    width: 100%;
   }
 
-  ul li:hover {
-    -webkit-box-shadow: 2px 4px 15px 1px rgba(189,189,189,1);
-    -moz-box-shadow: 2px 4px 15px 1px rgba(189,189,189,1);
-    box-shadow: 2px 4px 15px 1px rgba(189,189,189,1);
+  .liDiv:hover {
+    -webkit-box-shadow: 5px 5px 22px 2px rgba(0,0,0,1);
+    -moz-box-shadow: 5px 5px 22px 2px rgba(0,0,0,1);
+    box-shadow: 5px 5px 22px 2px rgba(0,0,0,1);
     transition: box-shadow 0.2s ease-in-out;
   }
 
   .updatedAt {
     font-size: 9px;
+    margin-bottom: 10px;
   }
 
   .dialog {
@@ -152,9 +169,8 @@
   }
 
   .docTitle {
-    margin: 0;
     font-weight: normal;
-    margin: 0 5px;
+    margin: 0 5px 20px 5px;
   }
 
   li .md-button {
@@ -163,5 +179,24 @@
 
   li img {
     width: 33px;
+  }
+
+  .banner {
+    text-align: center;
+    padding: 3rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .banner img {
+    width: 40%;
+  }
+
+  .liButtons {
+    position: absolute;
+    bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
   }
 </style>

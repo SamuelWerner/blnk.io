@@ -30,6 +30,7 @@
     </div>
     <a id="buttonTop"></a>
     <a id="pageBottom"></a>
+    <p id="pageTitleScroll">Dokument: {{ doc.title }}</p>
   </main>
 </template>
 
@@ -305,8 +306,11 @@
   }
 </script>
 
+<style scoped>
+</style>
+
 <style>
-  main, main {
+  main {
     height: 100%;
   }
 
