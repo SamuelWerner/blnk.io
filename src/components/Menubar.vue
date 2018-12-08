@@ -71,6 +71,8 @@
         </md-menu>
       </div>
 
+      <!--<p style="float: right;">Name Dokument: {{ $parent.doc.title }}</p>-->
+
       <!-- DIALOG Umbenennen -->
       <md-dialog class="dialog" :md-active.sync="showDialogRename">
         <md-dialog-title>Neuen Namen eingeben</md-dialog-title>
@@ -264,7 +266,7 @@
 </script>
 
 <style scoped>
-  main, main{
+  main {
     height: auto;
   }
   body{
