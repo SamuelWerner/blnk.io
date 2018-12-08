@@ -35,7 +35,6 @@ database
         socket.to(room).emit(event, title)
       })
 
-
       socket.on('textChange', function (data) {
         let hash = data['hash']
         let room = data['room']

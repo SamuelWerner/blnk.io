@@ -54,10 +54,13 @@
         doc: [],
         model: {},
         oldBody: '',
+        oldBodySaving: '',
         saving: false,
+        distributing: false,
         rename: '',
         socket: null,
-        body: ''
+        body: '',
+        timeoutHandle: null
       }
     },
     async created () {
@@ -73,6 +76,7 @@
       }
       this.body = newB.innerHTML
       this.oldBody = this.body
+      this.oldBodySaving = this.body
       // Socket Verbindung initalisieren
       this.newSocket(this.doc.hash, this.doc)
     },
@@ -91,12 +95,17 @@
         })
 
         const that = this
-        this.socket.on('textChange', function (d) {
+        this.socket.on('textChange', async function (d) {
+          while (that.distributing) {
+            await that.Sleep(100)
+          }
+          that.savePaper(doc)
           let difference = d['difference']
           let diff = JSON.parse(difference)
           let dd = new DiffDOM()
           dd.apply(document.getElementById('paper'), diff)
-          that.oldBody = document.getElementById('paper').innerHTML
+          that.oldBody = that.$refs.paper.innerHTML
+          that.oldBodySaving = that.$refs.paper.innerHTML
         })
 
         this.socket.on('addCaret', function (data) { // TODO Funktion zum anzeigen der anderen Carets einfügen
@@ -108,15 +117,40 @@
         this.socket.emit('room', 'docChannel_' + id)
       },
       async documentChanges (e, doc) {
-        if (this.saving) return
-        this.saveDocChanges(e, doc)
-      },
-      async saveDocChanges (e, doc) {
         this.saving = true
-        await this.Sleep(200)
-        let oldBodySaving = this.oldBody
+        this.distributeChanges(e, doc)
+
+        // warten bis der Benutzer keine Eingabe mehr macht
+        window.clearTimeout(this.timeoutHandle)
+        var that = this
+        this.timeoutHandle = window.setTimeout(async function () {
+          await that.savePaper(doc)
+          that.saving = false
+        }, 5000)
+      },
+      async distributeChanges (e, doc) { // Jede Änderung wird sofort verteilt
+        this.distributing = true
+        let oldBody = this.oldBody
+        let newBody = this.$refs.paper.innerHTML
+        this.oldBody = newBody
+
+        var dd = new DiffDOM()
+        if (doc.hash) {
+          let oldB = document.createElement('div')
+          let newB = document.createElement('div')
+          oldB.innerHTML = oldBody
+          newB.innerHTML = newBody
+          var diff = dd.diff(oldB, newB)
+          var diffJson = JSON.stringify(diff)
+          await this.socket.emit('distributeChanges', {room: 'docChannel_' + doc.hash, difference: diffJson, hash: doc.hash})
+          this.distributing = false
+        }
+      },
+      async savePaper (doc) { // Die Änderungen werden nur bei Ende der Benutzer-Eingabe gespeichert
+        let oldBodySaving = this.oldBodySaving
         let newBodySaving = this.$refs.paper.innerHTML
-        this.oldBody = newBodySaving
+        this.oldBodySaving = newBodySaving
+
         var dd = new DiffDOM()
         if (doc.hash) {
           let oldB = document.createElement('div')
@@ -125,7 +159,7 @@
           newB.innerHTML = newBodySaving
           var diff = dd.diff(oldB, newB)
           var diffJson = JSON.stringify(diff)
-          this.socket.emit('textChange', {room: 'docChannel_' + doc.hash, event: 'textChange', difference: diffJson, hash: doc.hash})
+          this.socket.emit('savePaper', {difference: diffJson, hash: doc.hash})
           this.saving = false
         }
       },

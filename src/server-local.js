@@ -116,10 +116,16 @@ database
         let title = data['message']
         socket.to(room).emit(event, title)
       })
-
-      socket.on('textChange', function (data) {
-        let hash = data['hash']
+      socket.on('distributeChanges', function (data) {
         let room = data['room']
+        let difference = data['difference']
+        if (!difference || difference === '[]' || difference === []) {
+          return
+        }
+        socket.to(room).emit('textChange', {difference: difference})
+      })
+      socket.on('savePaper', function (data) {
+        let hash = data['hash']
         let difference = data['difference']
         if (!difference || difference === '[]' || difference === []) {
           return
@@ -136,7 +142,6 @@ database
           docs.updateAttributes({
             body: body
           })
-          socket.to(room).emit('textChange', {difference: difference})
         })
       })
       socket.on('addCaret', function (data) {
