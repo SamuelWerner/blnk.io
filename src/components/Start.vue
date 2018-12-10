@@ -23,7 +23,7 @@
               <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
                  <md-field class="inputBox">
                    <form id="form" @submit.prevent="saveDoc">
-                     <label>Titel eingeben...</label><md-input type="text" v-model="model.title" maxlength="30"></md-input>
+                     <label>Titel eingeben...</label><md-input type="text" v-model="model.title" maxlength="20"></md-input>
                    </form>
                  </md-field>
               <md-dialog-actions>
@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="docList">
         <ul>
           <li v-for="doc in docs" :key="doc.hash">
             <div class="liDiv">
@@ -47,6 +47,24 @@
                 <span class="updatedAt">geändert: {{doc.updatedAt | formatDate}}</span><br>
                 <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.hash)">Öffnen</md-button><br>
                 <md-button class="md-danger md-dense" @click.prevent="deleteDoc(doc.hash)">Löschen</md-button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div style="clear: left"></div>
+
+      <div class="mobileDocList">
+        <ul>
+          <li v-for="doc in docs" :key="doc.hash">
+            <div class="liDiv">
+              <img class="docWidgetSec" src="../assets/outline-insert_drive_file-24px.svg" />
+              <span class="docTitle">{{ doc.title }}</span><br>
+
+              <div class="liButtons">
+                <span class="updatedAt">{{doc.updatedAt | formatDate}}</span>
+                <md-button class="md-secondary md-raised md-dense" @click.prevent="deleteDoc(doc.hash)">Löschen</md-button>
+                <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.hash)">Öffnen</md-button>
               </div>
             </div>
           </li>
@@ -127,6 +145,10 @@
     min-width: 220px;
   }
 
+  .mobileDocList {
+    display: none;
+  }
+
   ul {
     margin: 1.5rem 0 0 0;
     padding: 0;
@@ -138,7 +160,7 @@
     padding: 0 10px 20px 10px;
     width: 20%;
     float: left;
-    min-width: 220px;
+    min-width: 210px;
   }
 
   .liDiv {
@@ -216,6 +238,9 @@
     ul li {
       width: 25%;
     }
+    .banner {
+      padding: 1.3rem;
+    }
   }
 
   @media (max-width: 991px) {
@@ -223,7 +248,7 @@
       width: 33.3%;
     }
     .banner {
-      padding: 1rem;
+      padding: 0.8rem;
     }
   }
 
@@ -248,13 +273,44 @@
     }
   }
 
-  @media (max-width: 430px) {
+  @media (max-width: 450px) {
+    .docList {
+      display: none;
+    }
+
+    .mobileDocList {
+      display: inline;
+    }
+
     ul li {
-      width: 60%;
+      width: 100%;
+      height: auto;
     }
 
     .docWidgetSec {
-      width: 40px;
+      width: 30px;
+    }
+
+    .liDiv {
+      padding: 12px 8px 8px 10px;
+      min-height: 0;
+      text-align: left;
+    }
+
+    .docTitle {
+      margin-top: 5px;
+    }
+
+    .liButtons {
+      position: relative;
+      text-align: right;
+    }
+
+    .updatedAt {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      margin: 0;
     }
   }
 </style>
