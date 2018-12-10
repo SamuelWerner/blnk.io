@@ -40,7 +40,7 @@
         <ul>
           <li v-for="doc in docs" :key="doc.hash">
             <div class="liDiv">
-              <img style="width: 40px" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
+              <img style="width: 50px" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
               <span class="docTitle">{{ doc.title }}</span><br>
 
               <div class="liButtons">
@@ -198,5 +198,23 @@
     margin-right: auto;
     left: 0;
     right: 0;
+  }
+
+  @media (max-width: 1200px) {
+    ul li {
+      width: 25%;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    ul li {
+      width: 33.3%;
+    }
+  }
+
+  @media (max-width: 770px) {
+    ul li {
+      width: 50%;
+    }
   }
 </style>
