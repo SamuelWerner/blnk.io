@@ -341,6 +341,9 @@
 </script>
 
 <style scoped>
+  body {
+    background-color: #f3f2f1 !important;
+  }
 </style>
 
 <style>

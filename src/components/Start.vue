@@ -6,7 +6,7 @@
     </div>
     -->
     <div class="banner">
-      <img src="../assets/Blnk-Logo.png" height="433" width="2038"/>
+      <img src="../assets/Blnk-Logo.png" />
     </div>
     <div class="container">
       <div class="card text-center">
@@ -183,12 +183,12 @@
 
   .banner {
     text-align: center;
-    padding: 3rem;
+    padding: 2rem;
     margin-bottom: 0.7rem;
   }
 
   .banner img {
-    width: 40%;
+    width: 30%;
   }
 
   .liButtons {
