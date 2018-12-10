@@ -430,7 +430,6 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    transition: background-color .3s;
     z-index: 1000;
     transition: background-color .3s, opacity .5s, visibility .5s;
     opacity: 0;
@@ -460,4 +459,23 @@
     line-height: 38px;
     color: #a80337;
   }
+
+  @media (max-width: 991px) {
+    #paper {
+      padding: 4rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #paper {
+      padding: 3rem;
+    }
+  }
+
+  @media (max-width: 430px) {
+    #paper {
+      padding: 2rem;
+    }
+  }
+
 </style>
