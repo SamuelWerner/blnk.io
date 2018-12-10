@@ -14,7 +14,7 @@
           Featured
         </div>
         <div class="card-body">
-          <p><img style="width: 80px" src="../assets/outline-insert_drive_file-24px.svg" /></p>
+          <p><img class="docWidgetMain" src="../assets/outline-insert_drive_file-24px.svg" /></p>
           <h5 class="card-title">Neues Dokument anlegen</h5>
           <p class="card-text">Lege ein neues Dokument an und bearbeite es.</p>
 
@@ -40,7 +40,7 @@
         <ul>
           <li v-for="doc in docs" :key="doc.hash">
             <div class="liDiv">
-              <img style="width: 50px" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
+              <img class="docWidgetSec" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
               <span class="docTitle">{{ doc.title }}</span><br>
 
               <div class="liButtons">
@@ -104,6 +104,12 @@
     /*background-color: #f3f2f1 !important;*/
     background-color: #343a40 !important
   }
+
+  @media (max-width: 500px) {
+    .dialog {
+      width: auto;
+    }
+  }
 </style>
 
 <!-- Style nur diese Komponente -->
@@ -118,6 +124,7 @@
 
   .card {
     margin: 0 10px;
+    min-width: 220px;
   }
 
   ul {
@@ -131,6 +138,7 @@
     padding: 0 10px 20px 10px;
     width: 20%;
     float: left;
+    min-width: 220px;
   }
 
   .liDiv {
@@ -162,10 +170,6 @@
     text-align: center;
     width: 30rem;
     padding: 0 2rem;
-  }
-
-  input {
-    width: 416px;
   }
 
   .docTitle {
@@ -200,21 +204,57 @@
     right: 0;
   }
 
+  .docWidgetMain {
+    width: 80px;
+  }
+
+  .docWidgetSec {
+    width: 50px;
+  }
+
   @media (max-width: 1200px) {
     ul li {
       width: 25%;
     }
   }
 
-  @media (max-width: 1000px) {
+  @media (max-width: 991px) {
     ul li {
       width: 33.3%;
     }
+    .banner {
+      padding: 1rem;
+    }
   }
 
-  @media (max-width: 770px) {
+  @media (max-width: 767px) {
     ul li {
       width: 50%;
+    }
+    .banner {
+      display: none;
+    }
+    .container {
+      margin-top: 1rem;
+    }
+    .container-fluid {
+      padding: 0;
+    }
+    .docWidgetMain {
+      width: 60px;
+    }
+    .docWidgetSec {
+      width: 45px;
+    }
+  }
+
+  @media (max-width: 430px) {
+    ul li {
+      width: 60%;
+    }
+
+    .docWidgetSec {
+      width: 40px;
     }
   }
 </style>

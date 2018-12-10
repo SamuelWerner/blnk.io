@@ -305,10 +305,6 @@
     margin: 0.7rem 0.1rem 0 0;
   }
 
-  input {
-    width: 416px;
-  }
-
   .fktstripImg {
     height: 21px !important;
     width: 21px !important;

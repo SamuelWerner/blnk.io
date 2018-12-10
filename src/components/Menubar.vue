@@ -281,10 +281,6 @@
     margin: 0.7rem 0.1rem 0 0;
   }
 
-  input {
-    width: 416px;
-  }
-
   .menu-content {
     max-height: 1000rem;
   }

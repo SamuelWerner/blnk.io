@@ -394,10 +394,6 @@
     background-color: white;
   }
 
-  input {
-    width: 416px;
-  }
-
   .fktstripImg {
     height: 21px !important;
     width: 21px !important;
