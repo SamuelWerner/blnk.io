@@ -523,7 +523,7 @@
       padding: 0;
     }
     .row {
-      display: none;
+      display: none !important;
     }
     #menuMobile {
       display: inline;
