@@ -120,7 +120,7 @@
 <style>
   body {
     /*background-color: #f3f2f1 !important;*/
-    background-color: #343a40 !important
+    background-color: #343a40 !important;
   }
 
   @media (max-width: 500px) {
@@ -132,8 +132,6 @@
 
 <!-- Style nur diese Komponente -->
 <style scoped>
-  html, body, main {
-  }
 
   main {
     margin: 0 auto;

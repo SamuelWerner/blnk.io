@@ -513,7 +513,7 @@
   @media (max-width: 767px) {
     h1 {
       margin: 0 !important;
-      font-size: 1.8rem;
+      font-size: 1.8rem !important;
     }
     #paper {
       padding: 2rem;
