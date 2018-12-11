@@ -247,7 +247,7 @@
       width: 33.3%;
     }
     .banner {
-      padding: 0.8rem;
+      padding: 0.7rem;
     }
   }
 
@@ -258,11 +258,9 @@
     .banner {
       display: none;
     }
-    .container {
-      margin-top: 1rem;
-    }
+    .container {}
     .container-fluid {
-      padding: 0;
+      padding: 0.7rem 0 0 0;
     }
     .docWidgetMain {
       width: 60px;

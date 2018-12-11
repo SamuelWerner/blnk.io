@@ -539,9 +539,6 @@
     #paper {
       padding: 1rem;
     }
-    #mobileMenu {
-      display: inline;
-    }
   }
 
 </style>
