@@ -120,7 +120,7 @@
 <style>
   body {
     /*background-color: #f3f2f1 !important;*/
-    background-color: #4286f4  !important;
+    background-color: #4286f4;
   }
 
   @media (max-width: 500px) {
