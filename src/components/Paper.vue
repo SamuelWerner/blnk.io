@@ -369,18 +369,15 @@
 </script>
 
 <style scoped>
-  body {
-    background-color: #f3f2f1 !important;
-  }
 </style>
 
 <style>
-  main {
-    height: 100%;
-  }
-
   body {
     background-color: #f3f2f1 !important;
+  }
+
+  main {
+    height: 100%;
   }
 
   h1 {

@@ -118,10 +118,7 @@
 
 <!-- Style Allgemein -->
 <style>
-  body {
-    /*background-color: #f3f2f1 !important;*/
-    background-color: #4286f4;
-  }
+
 
   @media (max-width: 500px) {
     .dialog {
@@ -132,6 +129,10 @@
 
 <!-- Style nur diese Komponente -->
 <style scoped>
+  main {
+    /*background-color: #f3f2f1 !important;*/
+    background-color: #343a40 !important;
+  }
 
   main {
     margin: 0 auto;
