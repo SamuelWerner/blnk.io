@@ -20,7 +20,7 @@
     </div>
 
     <div id="menuMobile">
-      <md-menu md-size="small" md-align-trigger>
+      <md-menu md-size="small" md-align-trigger :md-offset-x="-300" :md-offset-y="-36">
         <md-button md-menu-trigger href="" style="float: right;" type="button" class="md-icon-button md-raised">
           <img class="menuMobileImg" style="margin: 0;" src="../assets/baseline-menu-24px.svg" />
         </md-button>
