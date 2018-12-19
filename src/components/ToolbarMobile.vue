@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main style="">
     <!-- Toolleiste -->
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-light btn-tmenu" @click="undo">
@@ -10,14 +10,14 @@
         <md-tooltip md-delay="300">Wiederholen</md-tooltip>
         <img class="fktstripImg" src="../assets/baseline-redo-24px.svg" />
       </button>
-      <button type="button" class="btn btn-light btn-tmenu">
+     <!-- <button type="button" class="btn btn-light btn-tmenu">
         <md-tooltip md-delay="300">Drucken</md-tooltip>
         <img class="fktstripImg" src="../assets/baseline-print-24px.svg" />
       </button>
       <button type="button" class="btn btn-light btn-tmenu">
         <md-tooltip md-delay="300">Format übertragen</md-tooltip>
         <img class="fktstripImg" src="../assets/baseline-format_paint-24px.svg" />
-      </button>
+      </button>-->
     </div>
 
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -70,10 +70,10 @@
         <md-tooltip md-delay="300">Unterstrichen</md-tooltip>
         <img class="fktstripImg" src="../assets/baseline-format_underlined-24px.svg" />
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="makeStrikeThrough">
+      <!--<button type="button" class="btn btn-light btn-tmenu" @click="makeStrikeThrough">
         <md-tooltip md-delay="300">Durchgestrichen</md-tooltip>
         <img class="fktstripImg" src="../assets/baseline-strikethrough_s-24px.svg" />
-      </button>
+      </button>-->
 
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftfarbe</md-tooltip>
@@ -87,7 +87,7 @@
           <md-menu-item @click="foreColor ('#FFEE84')" > <div class="color color-yellow"></div> Gelb </md-menu-item>
         </md-menu-content>
       </md-menu>
-    </div>
+    </div><!--
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-light btn-tmenu" @click="subscript">
         <md-tooltip md-delay="300">Tiefgestellt</md-tooltip>
@@ -97,13 +97,13 @@
         <md-tooltip md-delay="300">Hochgestellt</md-tooltip>
         <img class="fktstripImg imgBig" src="../assets/font-style-superscript.svg" />
       </button>
-    </div>
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+    </div>-->
+    <!--<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-light btn-tmenu" @click="createLink">
         <md-tooltip md-delay="300">Link einfügen</md-tooltip>
         <img class="fktstripImg" src="../assets/baseline-insert_link-24px.svg" />
       </button>
-    </div>
+    </div>-->
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-light btn-tmenu" @click="justifyLeft">
         <md-tooltip md-delay="300">Linksbündig</md-tooltip>
@@ -149,14 +149,14 @@
         <md-tooltip md-delay="300">Aufzählungsliste</md-tooltip>
         <img class="fktstripImg" src="../assets/baseline-format_list_bulleted-24px.svg" />
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="outdent">
+     <!--<button type="button" class="btn btn-light btn-tmenu" @click="outdent">
         <md-tooltip md-delay="300">Einzug verkleinern</md-tooltip>
         <img class="fktstripImg" src="../assets/baseline-format_indent_decrease-24px.svg" />
       </button>
       <button type="button" class="btn btn-light btn-tmenu" @click="indent">
         <md-tooltip md-delay="300">Einzug vergrößern</md-tooltip>
         <img class="fktstripImg" src="../assets/baseline-format_indent_increase-24px.svg" />
-      </button>
+      </button>-->
     </div>
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-light btn-tmenu" @click="removeFormat">
@@ -164,7 +164,7 @@
         <img class="fktstripImg" src="../assets/baseline-format_clear-24px.svg" />
       </button>
     </div>
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+    <!--<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button v-scroll-to="'#pageBottom'" type="button" class="btn btn-light btn-tmenu" @click="insertText">
         <img class="fktstripImg" src="../assets/baseline-vertical_align_bottom-24px.svg" />
       </button>
@@ -172,7 +172,7 @@
         <img class="fktstripImg" src="../assets/baseline-vertical_align_top-24px.svg" />
       </button>
       <button type="button" class="btn btn-light btn-tmenu" @click="insertText"> <strong>txt</strong> </button>
-    </div>
+    </div>-->
     <!--<p>Letzte Schriftart: {{ fontMessage }} - Letzte Schriftgröße: {{ sizeMessage }}</p>-->
   </main>
 </template>
@@ -180,7 +180,7 @@
 
 <script>
   export default {
-    name: 'Toolbar',
+    name: 'ToolbarMobile',
     data () {
       return {
         name: 'Delay',
@@ -295,6 +295,15 @@
 <style scoped>
   body{
     background-color:#f3f2f1 !important;
+  }
+
+  main {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #f3f2f1;
+    padding: 0.5rem 1rem 1rem 1rem;
+    z-index: 1;
   }
 
   h1 {

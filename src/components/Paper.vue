@@ -12,9 +12,36 @@
         <md-button href="/" style="float: right; margin-top: 0.7rem" type="button" class="md-icon-button md-raised">
           <img class="fktstripImg" style="margin: 0" src="../assets/baseline-clear-24px.svg" />
         </md-button>
-        <!--<md-button style="float: right" type="button" @click="showDialogRename = true" class="md-default md-raised md-dense">umbenennen</md-button>-->
-
       </div>
+    </div>
+
+    <div id="mobileBar" class="sticky">
+      <ToolbarMobile></ToolbarMobile>
+    </div>
+
+    <div id="menuMobile">
+      <md-menu md-size="small" md-align-trigger :md-offset-x="-300" :md-offset-y="-36">
+        <md-button md-menu-trigger href="" style="float: right;" type="button" class="md-icon-button md-raised">
+          <img class="menuMobileImg" style="margin: 0;" src="../assets/baseline-menu-24px.svg" />
+        </md-button>
+
+        <md-menu-content class="menu-content" style="max-height: 1000px">
+          <md-menu-item href="/" @click="" >zurück zum Menü</md-menu-item>
+          <md-menu-item @click="" disabled>Freigeben</md-menu-item>
+          <md-divider></md-divider>
+          <md-menu-item @click="" disabled>Neu</md-menu-item>
+          <md-menu-item @click="" href="/">Öffnen</md-menu-item>
+          <md-menu-item @click="showDialogCopyDokument = true">Kopie erstellen</md-menu-item>
+          <md-menu-item @click="" disabled>Herunterladen</md-menu-item>
+          <md-divider></md-divider>
+          <md-menu-item @click="showDialogRename = true">Umbenennen</md-menu-item>
+          <md-menu-item @click="" disabled>Verschieben nach</md-menu-item>
+          <md-menu-item @click="" disabled>Löschen</md-menu-item>
+          <md-divider></md-divider>
+          <md-menu-item @click="showDialogPage = true" >Seiteneinrichtung</md-menu-item>
+          <md-menu-item @click="" disabled>Drucken</md-menu-item>
+        </md-menu-content>
+      </md-menu>
     </div>
 
     <div class="container">
@@ -39,6 +66,7 @@
   import io from 'socket.io-client'
   import Toolbar from './Toolbar'
   import Menubar from './Menubar'
+  import ToolbarMobile from './ToolbarMobile'
   import DiffDOM from 'diff-dom'
 
   const usernames = {}
@@ -46,7 +74,7 @@
 
   export default {
     name: 'Paper',
-    components: {Toolbar, Menubar},
+    components: {Toolbar, Menubar, ToolbarMobile},
     data () {
       return {
         name: 'Delay',
@@ -344,12 +372,12 @@
 </style>
 
 <style>
-  main {
-    height: 100%;
-  }
-
   body {
     background-color: #f3f2f1 !important;
+  }
+
+  main {
+    height: 100%;
   }
 
   h1 {
@@ -361,7 +389,7 @@
     position: -webkit-sticky !important; /* Safari */
     position: sticky !important;
     top: 2rem !important;
-    z-index: 10 !important;
+    z-index: 100 !important;
   }
 
   .error {
@@ -385,14 +413,21 @@
     z-index: 1;
   }
 
+  #mobileBar {
+    display: none;
+  }
+
+  #menuMobile {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
   #paper {
     min-height:1500px;
     padding: 120px;
     background-color: white;
-  }
-
-  input {
-    width: 416px;
   }
 
   .fktstripImg {
@@ -431,7 +466,6 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    transition: background-color .3s;
     z-index: 1000;
     transition: background-color .3s, opacity .5s, visibility .5s;
     opacity: 0;
@@ -461,4 +495,50 @@
     line-height: 38px;
     color: #a80337;
   }
+
+  @media (max-width: 991px) {
+    #paper {
+      padding: 4rem;
+      min-height: 110vh;
+    }
+    .saving {
+      font-size: 14px;
+      padding: 0.65rem 0.9rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    h1 {
+      margin: 0 !important;
+      font-size: 1.8rem !important;
+    }
+    #paper {
+      padding: 2rem;
+      min-height: 90vh;
+    }
+    .container-fluid {
+      padding: 0;
+    }
+    .row {
+      display: none !important;
+    }
+    #menuMobile {
+      display: inline;
+    }
+    #mobileBar {
+      display: inline;
+    }
+    .saving {
+      font-size: 11px;
+      padding: 0.3rem 0.5rem;
+      top: 1rem !important;
+    }
+  }
+
+  @media (max-width: 430px) {
+    #paper {
+      padding: 1rem;
+    }
+  }
+
 </style>
