@@ -235,7 +235,7 @@
       saveSelection () {
         var range = window.getSelection().getRangeAt(0)
         var preSelectionRange = range.cloneRange()
-        preSelectionRange.selectNodeContents(this.$refs.paper)
+        preSelectionRange.selectNodeContents(range.startContainer)
         preSelectionRange.setEnd(range.startContainer, range.startOffset)
         var start = preSelectionRange.toString().length
         this.savedSelection = {
