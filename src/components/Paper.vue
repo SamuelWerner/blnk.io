@@ -68,6 +68,7 @@
   import Menubar from './Menubar'
   import ToolbarMobile from './ToolbarMobile'
   import DiffDOM from 'diff-dom'
+  import StringDiff from '../utils/string-diff'
 
   const usernames = {}
   const positions = {}
@@ -131,7 +132,28 @@
           that.savePaper(doc)
           let difference = d['difference']
           let diff = JSON.parse(difference)
-          let dd = new DiffDOM()
+          let dd = new DiffDOM({
+            textDiff: function (node, currentValue, expectedValue, newValue) {
+              if (currentValue === expectedValue) {
+              // The text node contains the text we expect it to contain, so we simple change the text of it to the new value.
+                node.data = newValue
+              } else {
+              // The text node currently does not contain what we expected it to contain, so we need to merge.
+                difference = StringDiff(currentValue, newValue)
+                for (let i in difference) {
+                  let diff = (difference[i])
+                  if (!diff) return
+                  let body = currentValue
+                  if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
+                    node.data = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.EndDeletePosition)
+                  } else { // Insert
+                    node.data = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.StartInsertPosition)
+                  }
+                }
+              }
+              return true
+            }}
+          )
           dd.apply(document.getElementById('paper'), diff)
           that.oldBody = that.$refs.paper.innerHTML
           that.oldBodySaving = that.$refs.paper.innerHTML
