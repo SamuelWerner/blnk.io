@@ -62,6 +62,8 @@
 </template>
 
 <script>
+  /* eslint-disable no-constant-condition */
+
   import api from '@/api'
   import io from 'socket.io-client'
   import Toolbar from './Toolbar'
@@ -126,31 +128,44 @@
 
         const that = this
         this.socket.on('textChange', async function (d) {
-          while (that.distributing) {
+          while (that.distributing) { // Wait until all changes in this Paper are committed
             await that.Sleep(100)
           }
-          that.savePaper(doc)
+          await that.savePaper(doc)
           let difference = d['difference']
           let diff = JSON.parse(difference)
+          let distanceDiff = 0 // diff[0].newValue.length - diff[0].oldValue.length
           let dd = new DiffDOM({
             textDiff: function (node, currentValue, expectedValue, newValue) {
-              if (currentValue === expectedValue) {
-              // The text node contains the text we expect it to contain, so we simple change the text of it to the new value.
-                node.data = newValue
-              } else {
               // The text node currently does not contain what we expected it to contain, so we need to merge.
-                difference = StringDiff(currentValue, newValue)
-                for (let i in difference) {
-                  let diff = (difference[i])
-                  if (!diff) return
-                  let body = currentValue
-                  if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
-                    node.data = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.EndDeletePosition)
-                  } else { // Insert
-                    node.data = body.substr(0, diff.StartInsertPosition) + diff.newData + body.substr(diff.StartInsertPosition)
+              difference = StringDiff(node.data, newValue)
+              for (let i in difference) {
+                var diff = (difference[i][0])
+                if (!diff) return
+                let text = node.data
+                if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
+                  if (currentValue !== expectedValue) {
+                    node.data = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.EndDeletePosition)
+                  } else {
+                    node.data = newValue
                   }
+                  distanceDiff = diff.StartInsertPosition - diff.EndDeletePosition
+                } else { // Insert
+                  if (currentValue !== expectedValue) {
+                    node.data = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.StartInsertPosition)
+                  } else {
+                    node.data = newValue
+                  }
+                  distanceDiff = diff.newData.length
                 }
+                that.$nextTick(() => {
+                  // Nur die Caret Position wieder herstellen, wenn Caret auch in dem veränderten Knoten ist
+                  if (that.savedSelection && that.savedSelection.node === node) {
+                    that.restoreSelection(distanceDiff, diff.StartInsertPosition)
+                  }
+                })
               }
+
               return true
             }}
           )
@@ -169,15 +184,16 @@
       },
       async documentChanges (e, doc) {
         this.saving = true
+        this.saveSelection()
         this.distributeChanges(e, doc)
 
-        // warten bis der Benutzer keine Eingabe mehr macht
+        // mit dem Speichern warten bis der Benutzer keine Eingabe mehr macht
         window.clearTimeout(this.timeoutHandle)
         var that = this
         this.timeoutHandle = window.setTimeout(async function () {
           await that.savePaper(doc)
           that.saving = false
-        }, 5000)
+        }, 3000)
       },
       async distributeChanges (e, doc) { // Jede Änderung wird sofort verteilt
         this.distributing = true
@@ -213,6 +229,56 @@
           this.socket.emit('savePaper', {difference: diffJson, hash: doc.hash})
           this.saving = false
         }
+      },
+      // Speichert die Position des Caret in einem Div
+      saveSelection () {
+        var range = window.getSelection().getRangeAt(0)
+        var preSelectionRange = range.cloneRange()
+        preSelectionRange.selectNodeContents(this.$refs.paper)
+        preSelectionRange.setEnd(range.startContainer, range.startOffset)
+        var start = preSelectionRange.toString().length
+        this.savedSelection = {
+          start: start,
+          end: start + range.toString().length,
+          nodeStart: range.startOffset,
+          node: range.startContainer
+        }
+      },
+      // Stellt die Position des Caret in einem Div wieder her
+      restoreSelection (distanceDiff, position) {
+        if (!this.savedSelection) return
+        if (this.savedSelection.nodeStart < position) distanceDiff = 0
+        var charIndex = 0
+        var range = document.createRange()
+        range.setStart(this.$refs.paper, 0)
+        range.collapse(true)
+        var nodeStack = [this.$refs.paper]
+        var node
+        var foundStart = false
+        var stop = false
+        while (!stop && (node = nodeStack.pop())) {
+          if (node.nodeType === 3) { // NodeType is Text
+            var nextCharIndex = charIndex + node.length
+            if (!foundStart && this.savedSelection.start >= charIndex && this.savedSelection.start <= nextCharIndex) {
+              range.setStart(node, this.savedSelection.start - charIndex + distanceDiff)
+              foundStart = true
+            }
+            if (foundStart && this.savedSelection.end >= charIndex && this.savedSelection.end <= nextCharIndex) {
+              range.setEnd(node, this.savedSelection.end - charIndex + distanceDiff)
+              stop = true
+            }
+            charIndex = nextCharIndex
+          } else {
+            var i = node.childNodes.length
+            while (i--) {
+              nodeStack.push(node.childNodes[i])
+            }
+          }
+        }
+        var sel = window.getSelection()
+        sel.removeAllRanges()
+        sel.addRange(range)
+        this.saveSelection()
       },
       Sleep (milliseconds) {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -312,8 +378,6 @@
               return gen
             } else {
               for (var i = 1; i < doc.childNodes.length; i++) {
-                console.log(range.commonAncestorContainer.textContent)
-                console.log(doc.childNodes[i].textContent)
                 if (range.commonAncestorContainer.textContent === doc.childNodes[i].textContent) {
                   sibling = i
                   return {gen, sibling}
