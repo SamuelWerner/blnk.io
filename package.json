@@ -20,6 +20,7 @@
     "diff-dom": "^2.5.0",
     "epilogue": "^0.7.1",
     "fast-diff": "^1.2.0",
+    "heroku-ssl-redirect": "0.0.4",
     "moment": "^2.22.2",
     "pg": "^7.6.1",
     "sequelize": "^4.41.2",
