@@ -51,7 +51,7 @@
          id="paper" itemref="paper"
          class="my-3 rounded shadow-lg paper"
          @paste.stop="onPaste($event, doc)"
-         @input.stop="documentChanges($event, doc)"
+         @input.stop="documentChanges($event, doc)" @click="saveSelection()"
          v-html="body" :disabled="1" ref="paper">
       </div>
     </div>
@@ -143,21 +143,22 @@
                 var diff = (difference[i][0])
                 if (!diff) return
                 let text = node.data
+                console.log('newValue' + newValue)
+                console.log('oldValue' + currentValue)
                 if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
+                  distanceDiff += newValue.length - currentValue.length
                   if (currentValue !== expectedValue) {
                     node.data = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.EndDeletePosition)
                   } else {
                     node.data = newValue
                   }
-                  distanceDiff = diff.StartInsertPosition - diff.EndDeletePosition
-                  console.log(distanceDiff)
                 } else { // Insert
                   if (currentValue !== expectedValue) {
                     node.data = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.StartInsertPosition)
                   } else {
                     node.data = newValue
                   }
-                  distanceDiff = diff.newData.length
+                  distanceDiff += diff.newData.length
                 }
                 that.$nextTick(() => {
                   // Nur die Caret Position wieder herstellen, wenn Caret auch in dem veränderten Knoten ist
@@ -247,6 +248,7 @@
       },
       // Stellt die Position des Caret in einem Div wieder her
       restoreSelection (distanceDiff, position) {
+        console.log(distanceDiff)
         if (!this.savedSelection) return
         if (this.savedSelection.nodeStart < position) distanceDiff = 0
         var range = document.createRange()
