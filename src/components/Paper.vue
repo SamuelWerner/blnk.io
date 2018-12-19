@@ -150,6 +150,7 @@
                     node.data = newValue
                   }
                   distanceDiff = diff.StartInsertPosition - diff.EndDeletePosition
+                  console.log(distanceDiff)
                 } else { // Insert
                   if (currentValue !== expectedValue) {
                     node.data = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.StartInsertPosition)
@@ -248,33 +249,11 @@
       restoreSelection (distanceDiff, position) {
         if (!this.savedSelection) return
         if (this.savedSelection.nodeStart < position) distanceDiff = 0
-        var charIndex = 0
         var range = document.createRange()
         range.setStart(this.$refs.paper, 0)
         range.collapse(true)
-        var nodeStack = [this.$refs.paper]
-        var node
-        var foundStart = false
-        var stop = false
-        while (!stop && (node = nodeStack.pop())) {
-          if (node.nodeType === 3) { // NodeType is Text
-            var nextCharIndex = charIndex + node.length
-            if (!foundStart && this.savedSelection.start >= charIndex && this.savedSelection.start <= nextCharIndex) {
-              range.setStart(node, this.savedSelection.start - charIndex + distanceDiff)
-              foundStart = true
-            }
-            if (foundStart && this.savedSelection.end >= charIndex && this.savedSelection.end <= nextCharIndex) {
-              range.setEnd(node, this.savedSelection.end - charIndex + distanceDiff)
-              stop = true
-            }
-            charIndex = nextCharIndex
-          } else {
-            var i = node.childNodes.length
-            while (i--) {
-              nodeStack.push(node.childNodes[i])
-            }
-          }
-        }
+        range.setStart(this.savedSelection.node, this.savedSelection.start + distanceDiff)
+        range.setEnd(this.savedSelection.node, this.savedSelection.end + distanceDiff)
         var sel = window.getSelection()
         sel.removeAllRanges()
         sel.addRange(range)
