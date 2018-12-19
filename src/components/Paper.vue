@@ -143,8 +143,6 @@
                 var diff = (difference[i][0])
                 if (!diff) return
                 let text = node.data
-                console.log('newValue' + newValue)
-                console.log('oldValue' + currentValue)
                 if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
                   distanceDiff += newValue.length - currentValue.length
                   if (currentValue !== expectedValue) {
@@ -163,7 +161,7 @@
                 that.$nextTick(() => {
                   // Nur die Caret Position wieder herstellen, wenn Caret auch in dem veränderten Knoten ist
                   if (that.savedSelection && that.savedSelection.node === node) {
-                    that.restoreSelection(distanceDiff, diff.StartInsertPosition)
+                    that.restoreSelection(distanceDiff, text.substr(0, diff.StartInsertPosition).length)
                   }
                 })
               }
@@ -248,7 +246,6 @@
       },
       // Stellt die Position des Caret in einem Div wieder her
       restoreSelection (distanceDiff, position) {
-        console.log(distanceDiff)
         if (!this.savedSelection) return
         if (this.savedSelection.nodeStart < position) distanceDiff = 0
         var range = document.createRange()
