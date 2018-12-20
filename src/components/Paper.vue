@@ -170,8 +170,8 @@
             }}
           )
           dd.apply(document.getElementById('paper'), diff)
-          that.oldBody = that.$refs.paper.innerHTML
-          that.oldBodySaving = that.$refs.paper.innerHTML
+          // that.oldBody = that.$refs.paper.innerHTML
+          // that.oldBodySaving = that.$refs.paper.innerHTML
         })
 
         this.socket.on('addCaret', function (data) { // TODO Funktion zum anzeigen der anderen Carets einfügen
