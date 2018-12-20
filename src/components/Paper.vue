@@ -128,10 +128,10 @@
 
         const that = this
         this.socket.on('textChange', async function (d) {
-          while (that.distributing) { // Wait until all changes in this Paper are committed
-            await that.Sleep(100)
-          }
-          await that.savePaper(doc)
+          // while (that.distributing) { // Wait until all changes in this Paper are committed
+          //   await that.Sleep(100)
+          // }
+          // await that.savePaper(doc)
           let difference = d['difference']
           let diff = JSON.parse(difference)
           let distanceDiff = 0 // diff[0].newValue.length - diff[0].oldValue.length
@@ -224,6 +224,14 @@
           let newB = document.createElement('div')
           oldB.innerHTML = oldBodySaving
           newB.innerHTML = newBodySaving
+          // var paras = oldB.getElementsByClassName('caret')
+          // while (paras[0]) {
+          //   paras[0].parentNode.removeChild(paras[0])
+          // }
+          // paras = newB.getElementsByClassName('caret')
+          // while (paras[0]) {
+          //   paras[0].parentNode.removeChild(paras[0])
+          // }
           var diff = dd.diff(oldB, newB)
           var diffJson = JSON.stringify(diff)
           this.socket.emit('savePaper', {difference: diffJson, hash: doc.hash})
@@ -256,6 +264,9 @@
         var sel = window.getSelection()
         sel.removeAllRanges()
         sel.addRange(range)
+        // let newNode = document.createElement('span')
+        // newNode.classList.add('caret')
+        // sel.getRangeAt(0).insertNode(newNode)
         this.saveSelection()
       },
       Sleep (milliseconds) {
@@ -442,6 +453,12 @@
 
   main {
     height: 100%;
+  }
+
+  .caret {
+    height: 10px;
+    width: 3px;
+    border: 1px solid red;
   }
 
   h1 {
