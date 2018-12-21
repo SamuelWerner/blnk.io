@@ -128,9 +128,9 @@
 
         const that = this
         this.socket.on('textChange', async function (d) {
-          // while (that.distributing) { // Wait until all changes in this Paper are committed
-          //   await that.Sleep(100)
-          // }
+          while (that.distributing) { // Wait until all changes in this Paper are committed
+            await that.Sleep(100)
+          }
           // await that.savePaper(doc)
           let difference = d['difference']
           let diff = JSON.parse(difference)
@@ -169,9 +169,10 @@
               return true
             }}
           )
+          await that.savePaper(doc)
           dd.apply(document.getElementById('paper'), diff)
-          // that.oldBody = that.$refs.paper.innerHTML
-          // that.oldBodySaving = that.$refs.paper.innerHTML
+          that.oldBody = that.$refs.paper.innerHTML
+          that.oldBodySaving = that.$refs.paper.innerHTML
         })
 
         this.socket.on('addCaret', function (data) { // TODO Funktion zum anzeigen der anderen Carets einfügen
