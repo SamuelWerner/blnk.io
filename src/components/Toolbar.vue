@@ -165,12 +165,6 @@
       </button>
     </div>
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-      <button v-scroll-to="'#pageBottom'" type="button" class="btn btn-light btn-tmenu" @click="insertText">
-        <img class="fktstripImg" src="../assets/baseline-vertical_align_bottom-24px.svg" />
-      </button>
-      <button v-scroll-to="'#pageTop'" type="button" class="btn btn-light btn-tmenu" @click="insertText">
-        <img class="fktstripImg" src="../assets/baseline-vertical_align_top-24px.svg" />
-      </button>
       <button type="button" class="btn btn-light btn-tmenu" @click="insertText"> <strong>txt</strong> </button>
     </div>
     <!--<p>Letzte Schriftart: {{ fontMessage }} - Letzte Schriftgröße: {{ sizeMessage }}</p>-->
