@@ -131,7 +131,7 @@
     background-color: #343a40 !important;
     margin: 0 auto;
     padding-bottom: 2rem;
-    min-height: calc(100vh - 59px);
+    min-height: calc(100vh - 68px);
   }
 
   .card {
