@@ -118,8 +118,6 @@
 
 <!-- Style Allgemein -->
 <style>
-
-
   @media (max-width: 500px) {
     .dialog {
       width: auto;
@@ -130,13 +128,10 @@
 <!-- Style nur diese Komponente -->
 <style scoped>
   main {
-    /*background-color: #f3f2f1 !important;*/
     background-color: #343a40 !important;
-  }
-
-  main {
     margin: 0 auto;
     padding-bottom: 2rem;
+    min-height: calc(100vh - 59px);
   }
 
   .card {
