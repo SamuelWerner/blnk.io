@@ -526,6 +526,10 @@
     transform: translateY(-50%);
   }
 
+  #sidebar button {
+    padding: 0.375rem 0.6rem;
+  }
+
   #paper {
     min-height:1500px;
     padding: 120px;
@@ -634,6 +638,12 @@
       font-size: 11px;
       padding: 0.3rem 0.5rem;
       top: 1rem !important;
+    }
+    #sidebar {
+      top: 90%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
     }
   }
 
