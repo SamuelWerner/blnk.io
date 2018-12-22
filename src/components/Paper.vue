@@ -153,11 +153,11 @@
                     if (!diff) return
                     if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
                       console.log('delete merge')
-                      distanceDiff += (result.substr(diff.StartInsertPosition, diff.EndDeletePosition)).length
-                      result = result.substr(0, diff.StartInsertPosition) + result.substr(diff.EndDeletePosition)
+                      distanceDiff += (newValue.substr(diff.StartInsertPosition, diff.EndDeletePosition)).length
+                      newValue = newValue.substr(0, diff.StartInsertPosition) + newValue.substr(diff.EndDeletePosition)
                     } else { // Insert
                       console.log('insert Merge')
-                      result = result.substr(0, diff.StartInsertPosition) + diff.newData + result.substr(diff.StartInsertPosition)
+                      newValue = newValue.substr(0, diff.StartInsertPosition) + diff.newData + result.substr(diff.StartInsertPosition)
                       distanceDiff += diff.newData.length
                     }
                     that.$nextTick(() => {
@@ -165,6 +165,7 @@
                       that.restoreSelection(distanceDiff, result.substr(0, diff.StartInsertPosition).length, result.length)
                     })
                   }
+                  console.log('first merge: ' + result)
                   var differenceNew = StringDiff(result, newValue)
                   for (let i in differenceNew.result) {
                     let diff = (differenceNew.result[i])
@@ -185,6 +186,7 @@
                   }
                   node.data = result
                 } else {
+                  console.log('override')
                   node.data = newValue
                 }
                 return true
