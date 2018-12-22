@@ -139,13 +139,14 @@
             var dd = new DiffDOM({
               textDiff: function (node, currentValue, expectedValue, newValue) {
                 var distanceDiff = 0 // diff[0].newValue.length - diff[0].oldValue.length
-                var text = node.data
+                var text = currentValue
                 // The text node currently does not contain what we expected it to contain, so we need to merge.
-                difference = StringDiff(node.data, newValue)
+                var differenceOld = StringDiff(expectedValue, currentValue)
+                var differenceNew = StringDiff(text, newValue)
 
                 if (that.savedSelection && that.savedSelection.node === node) {
-                  for (let i in difference.result) {
-                    var diff = (difference.result[i])
+                  for (let i in differenceOld.result) {
+                    let diff = (differenceOld.result[i])
                     if (!diff) return
                     if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
                       console.log('delete merge')
@@ -156,11 +157,26 @@
                       text = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.StartInsertPosition)
                       distanceDiff += diff.newData.length
                     }
-                    console.log(distanceDiff)
                     that.$nextTick(() => {
-                      console.log('restoreSelection')
                       // Nur die Caret Position wieder herstellen, wenn Caret auch in dem veränderten Knoten ist
-                      that.restoreSelection(distanceDiff, text.substr(0, diff.StartInsertPosition).length)
+                      that.restoreSelection(distanceDiff, text.substr(0, diff.StartInsertPosition).length, text.length)
+                    })
+                  }
+                  for (let i in differenceNew.result) {
+                    let diff = (differenceNew.result[i])
+                    if (!diff) return
+                    if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
+                      console.log('delete merge')
+                      distanceDiff += (text.substr(diff.StartInsertPosition, diff.EndDeletePosition)).length
+                      text = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.EndDeletePosition)
+                    } else { // Insert
+                      console.log('insert Merge')
+                      text = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.StartInsertPosition)
+                      distanceDiff += diff.newData.length
+                    }
+                    that.$nextTick(() => {
+                      // Nur die Caret Position wieder herstellen, wenn Caret auch in dem veränderten Knoten ist
+                      that.restoreSelection(distanceDiff, text.substr(0, diff.StartInsertPosition).length, text.length)
                     })
                   }
                   node.data = text
@@ -255,22 +271,30 @@
         }
       },
       // Stellt die Position des Caret in einem Div wieder her
-      restoreSelection (distanceDiff, position) {
-        console.log('nodeStart: ' + this.savedSelection.nodeStart + 'position: ' + position)
-        if (!this.savedSelection) return
-        if (this.savedSelection.nodeStart < position) distanceDiff = 0
-        var range = document.createRange()
-        range.setStart(this.$refs.paper, 0)
-        range.collapse(true)
-        range.setStart(this.savedSelection.node, this.savedSelection.start + distanceDiff)
-        range.setEnd(this.savedSelection.node, this.savedSelection.end + distanceDiff)
-        var sel = window.getSelection()
-        sel.removeAllRanges()
-        sel.addRange(range)
-        // let newNode = document.createElement('span')
-        // newNode.classList.add('caret')
-        // sel.getRangeAt(0).insertNode(newNode)
-        this.saveSelection()
+      restoreSelection (distanceDiff, position, textLength) {
+        try {
+          if (!this.savedSelection) return
+          if (this.savedSelection.nodeStart < position) distanceDiff = 0
+          var range = document.createRange()
+          range.setStart(this.$refs.paper, 0)
+          range.collapse(true)
+          if (textLength >= this.savedSelection.end + distanceDiff) {
+            range.setStart(this.savedSelection.node, this.savedSelection.start + distanceDiff)
+            range.setEnd(this.savedSelection.node, this.savedSelection.end + distanceDiff)
+          } else {
+            range.setStart(this.savedSelection.node, textLength)
+            range.setEnd(this.savedSelection.node, textLength)
+          }
+          var sel = window.getSelection()
+          sel.removeAllRanges()
+          sel.addRange(range)
+          // let newNode = document.createElement('span')
+          // newNode.classList.add('caret')
+          // sel.getRangeAt(0).insertNode(newNode)
+          this.saveSelection()
+        } catch (e) {
+          console.error(e)
+        }
       },
       Sleep (milliseconds) {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
