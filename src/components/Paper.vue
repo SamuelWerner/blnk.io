@@ -136,49 +136,36 @@
           while (that.differencesTextChange.length > 0) {
             var difference = that.differencesTextChange.shift()['difference']
             var diff = JSON.parse(difference)
-            var distanceDiff = 0 // diff[0].newValue.length - diff[0].oldValue.length
             var dd = new DiffDOM({
               textDiff: function (node, currentValue, expectedValue, newValue) {
+                var distanceDiff = 0 // diff[0].newValue.length - diff[0].oldValue.length
+                var text = node.data
                 // The text node currently does not contain what we expected it to contain, so we need to merge.
                 difference = StringDiff(node.data, newValue)
-                for (let i in difference) {
-                  var diff = (difference[i][0])
-                  if (!diff) return
-                  var text = node.data
-                  if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
-                    distanceDiff = newValue.length - currentValue.length
-                    if (currentValue !== expectedValue) {
-                      // merge
-                      if (that.savedSelection && that.savedSelection.node === node) {
-                        console.log('delete merge')
-                        node.data = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.EndDeletePosition)
-                      } else {
-                        node.data = newValue
-                      }
-                    } else { // replace
-                      node.data = newValue
+
+                if (that.savedSelection && that.savedSelection.node === node) {
+                  for (let i in difference.result) {
+                    var diff = (difference.result[i])
+                    if (!diff) return
+                    if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
+                      console.log('delete merge')
+                      distanceDiff += (text.substr(diff.StartInsertPosition, diff.EndDeletePosition)).length
+                      text = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.EndDeletePosition)
+                    } else { // Insert
+                      console.log('insert Merge')
+                      text = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.StartInsertPosition)
+                      distanceDiff += diff.newData.length
                     }
-                  } else { // Insert
-                    if (currentValue !== expectedValue) {
-                      // merge
-                      if (that.savedSelection && that.savedSelection.node === node) {
-                        console.log('Insert merge')
-                        node.data = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.StartInsertPosition)
-                      } else {
-                        node.data = newValue
-                      }
-                    } else { // replace
-                      node.data = newValue
-                    }
-                    distanceDiff = diff.newData.length
-                  }
-                  that.$nextTick(() => {
-                    console.log('restoreSelection')
-                    // Nur die Caret Position wieder herstellen, wenn Caret auch in dem veränderten Knoten ist
-                    if (that.savedSelection && that.savedSelection.node === node) {
+                    console.log(distanceDiff)
+                    that.$nextTick(() => {
+                      console.log('restoreSelection')
+                      // Nur die Caret Position wieder herstellen, wenn Caret auch in dem veränderten Knoten ist
                       that.restoreSelection(distanceDiff, text.substr(0, diff.StartInsertPosition).length)
-                    }
-                  })
+                    })
+                  }
+                  node.data = text
+                } else {
+                  node.data = newValue
                 }
                 return true
               }}
