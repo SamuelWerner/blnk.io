@@ -139,6 +139,9 @@
             var diff = JSON.parse(difference)
             var dd = new DiffDOM({
               textDiff: function (node, currentValue, expectedValue, newValue) {
+                console.log('currentValue: ' + currentValue)
+                console.log('expectedValue: ' + expectedValue)
+                console.log('newValue: ' + newValue)
                 var distanceDiff = 0 // diff[0].newValue.length - diff[0].oldValue.length
                 var result = expectedValue
                 // The text node currently does not contain what we expected it to contain, so we need to merge.
