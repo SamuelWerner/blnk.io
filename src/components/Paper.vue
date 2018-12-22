@@ -11,20 +11,8 @@
       <div class="col-md-1 order-md-2 order-1">
         <md-button href="/" style="float: right; margin-top: 0.7rem" type="button" class="md-icon-button md-raised">
           <img class="fktstripImg" style="margin: 0" src="../assets/baseline-clear-24px.svg" />
-          <md-tooltip md-delay="300" md-direction="left">Dokument schließen</md-tooltip>
         </md-button>
       </div>
-    </div>
-
-    <div id="sidebar">
-      <button v-scroll-to="'#pageTop'" type="button" class="btn btn-light btn-tmenu">
-        <img class="fktstripImg" src="../assets/baseline-vertical_align_top-24px.svg" />
-        <md-tooltip md-delay="300" md-direction="left">nach oben scrollen</md-tooltip>
-      </button><br>
-      <button v-scroll-to="'#pageBottom'" type="button" class="btn btn-light btn-tmenu">
-        <img class="fktstripImg" src="../assets/baseline-vertical_align_bottom-24px.svg" />
-        <md-tooltip md-delay="300" md-direction="left">nach unten scrollen</md-tooltip>
-      </button>
     </div>
 
     <div id="mobileBar" class="sticky">
@@ -104,7 +92,8 @@
         rename: '',
         socket: null,
         body: '',
-        timeoutHandle: null
+        timeoutHandle: null,
+        differencesTextChange: []
       }
     },
     async created () {
@@ -140,51 +129,64 @@
 
         const that = this
         this.socket.on('textChange', async function (d) {
-          while (that.distributing) { // Wait until all changes in this Paper are committed
+          that.differencesTextChange.push(d)
+          while (that.saving) { // Wait until all changes in this Paper are committed
             await that.Sleep(100)
           }
-          // await that.savePaper(doc)
-          let difference = d['difference']
-          let diff = JSON.parse(difference)
-          let distanceDiff = 0 // diff[0].newValue.length - diff[0].oldValue.length
-          let dd = new DiffDOM({
-            textDiff: function (node, currentValue, expectedValue, newValue) {
-              // The text node currently does not contain what we expected it to contain, so we need to merge.
-              difference = StringDiff(node.data, newValue)
-              for (let i in difference) {
-                var diff = (difference[i][0])
-                if (!diff) return
-                let text = node.data
-                if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
-                  distanceDiff += newValue.length - currentValue.length
-                  if (currentValue !== expectedValue) {
-                    node.data = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.EndDeletePosition)
-                  } else {
-                    node.data = newValue
+          while (that.differencesTextChange.length > 0) {
+            var difference = that.differencesTextChange.shift()['difference']
+            var diff = JSON.parse(difference)
+            var distanceDiff = 0 // diff[0].newValue.length - diff[0].oldValue.length
+            var dd = new DiffDOM({
+              textDiff: function (node, currentValue, expectedValue, newValue) {
+                // The text node currently does not contain what we expected it to contain, so we need to merge.
+                difference = StringDiff(node.data, newValue)
+                for (let i in difference) {
+                  var diff = (difference[i][0])
+                  if (!diff) return
+                  var text = node.data
+                  if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
+                    distanceDiff = newValue.length - currentValue.length
+                    if (currentValue !== expectedValue) {
+                      // merge
+                      if (that.savedSelection && that.savedSelection.node === node) {
+                        console.log('delete merge')
+                        node.data = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.EndDeletePosition)
+                      } else {
+                        node.data = newValue
+                      }
+                    } else { // replace
+                      node.data = newValue
+                    }
+                  } else { // Insert
+                    if (currentValue !== expectedValue) {
+                      // merge
+                      if (that.savedSelection && that.savedSelection.node === node) {
+                        console.log('Insert merge')
+                        node.data = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.StartInsertPosition)
+                      } else {
+                        node.data = newValue
+                      }
+                    } else { // replace
+                      node.data = newValue
+                    }
+                    distanceDiff = diff.newData.length
                   }
-                } else { // Insert
-                  if (currentValue !== expectedValue) {
-                    node.data = text.substr(0, diff.StartInsertPosition) + diff.newData + text.substr(diff.StartInsertPosition)
-                  } else {
-                    node.data = newValue
-                  }
-                  distanceDiff += diff.newData.length
+                  that.$nextTick(() => {
+                    console.log('restoreSelection')
+                    // Nur die Caret Position wieder herstellen, wenn Caret auch in dem veränderten Knoten ist
+                    if (that.savedSelection && that.savedSelection.node === node) {
+                      that.restoreSelection(distanceDiff, text.substr(0, diff.StartInsertPosition).length)
+                    }
+                  })
                 }
-                that.$nextTick(() => {
-                  // Nur die Caret Position wieder herstellen, wenn Caret auch in dem veränderten Knoten ist
-                  if (that.savedSelection && that.savedSelection.node === node) {
-                    that.restoreSelection(distanceDiff, text.substr(0, diff.StartInsertPosition).length)
-                  }
-                })
-              }
-
-              return true
-            }}
-          )
-          await that.savePaper(doc)
-          dd.apply(document.getElementById('paper'), diff)
-          that.oldBody = that.$refs.paper.innerHTML
-          that.oldBodySaving = that.$refs.paper.innerHTML
+                return true
+              }}
+            )
+            dd.apply(document.getElementById('paper'), diff)
+            that.oldBody = that.$refs.paper.innerHTML
+            that.oldBodySaving = that.$refs.paper.innerHTML
+          }
         })
 
         this.socket.on('addCaret', function (data) { // TODO Funktion zum anzeigen der anderen Carets einfügen
@@ -206,7 +208,7 @@
         this.timeoutHandle = window.setTimeout(async function () {
           await that.savePaper(doc)
           that.saving = false
-        }, 3000)
+        }, 2000)
       },
       async distributeChanges (e, doc) { // Jede Änderung wird sofort verteilt
         this.distributing = true
@@ -267,6 +269,7 @@
       },
       // Stellt die Position des Caret in einem Div wieder her
       restoreSelection (distanceDiff, position) {
+        console.log('nodeStart: ' + this.savedSelection.nodeStart + 'position: ' + position)
         if (!this.savedSelection) return
         if (this.savedSelection.nodeStart < position) distanceDiff = 0
         var range = document.createRange()
@@ -514,21 +517,8 @@
   #menuMobile {
     display: none;
     position: absolute;
-    top: 13px;
-    right: 13px;
-  }
-
-  #sidebar {
-    position: fixed;
-    top: 50%;
-    right: 0;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-  }
-
-  #sidebar button {
-    padding: 0.375rem 0.6rem;
+    top: 10px;
+    right: 10px;
   }
 
   #paper {
@@ -639,12 +629,6 @@
       font-size: 11px;
       padding: 0.3rem 0.5rem;
       top: 1rem !important;
-    }
-    #sidebar {
-      top: 90%;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
     }
   }
 
