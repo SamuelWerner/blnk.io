@@ -146,6 +146,7 @@
                 var result = expectedValue
                 // The text node currently does not contain what we expected it to contain, so we need to merge.
                 var differenceOld = StringDiff(currentValue, expectedValue)
+                var firstMerge = newValue
 
                 if (that.savedSelection && that.savedSelection.node === node) {
                   for (let i in differenceOld.result) {
@@ -153,11 +154,11 @@
                     if (!diff) return
                     if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
                       console.log('delete merge')
-                      distanceDiff += (newValue.substr(diff.StartInsertPosition, diff.EndDeletePosition)).length
-                      newValue = newValue.substr(0, diff.StartInsertPosition) + newValue.substr(diff.EndDeletePosition)
+                      distanceDiff += (firstMerge.substr(diff.StartInsertPosition, diff.EndDeletePosition)).length
+                      firstMerge = firstMerge.substr(0, diff.StartInsertPosition) + firstMerge.substr(diff.EndDeletePosition)
                     } else { // Insert
                       console.log('insert Merge')
-                      newValue = newValue.substr(0, diff.StartInsertPosition) + diff.newData + result.substr(diff.StartInsertPosition)
+                      firstMerge = firstMerge.substr(0, diff.StartInsertPosition) + diff.newData + firstMerge.substr(diff.StartInsertPosition)
                       distanceDiff += diff.newData.length
                     }
                     that.$nextTick(() => {
@@ -165,8 +166,8 @@
                       that.restoreSelection(distanceDiff, result.substr(0, diff.StartInsertPosition).length, result.length)
                     })
                   }
-                  console.log('first merge: ' + result)
-                  var differenceNew = StringDiff(result, newValue)
+                  console.log('first merge: ' + firstMerge)
+                  var differenceNew = StringDiff(result, firstMerge)
                   for (let i in differenceNew.result) {
                     let diff = (differenceNew.result[i])
                     if (!diff) return
