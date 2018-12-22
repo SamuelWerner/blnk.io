@@ -172,7 +172,7 @@
                     if (!diff) return
                     if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
                       console.log('delete merge')
-                      if (newValue.length >= currentValue.length) { // nicht löschen wenn Inhalt hinzugefügt wurde
+                      if (newValue.length < currentValue.length) { // nicht löschen wenn Inhalt hinzugefügt wurde
                         distanceDiff += (result.substr(diff.StartInsertPosition, diff.EndDeletePosition)).length
                         result = result.substr(0, diff.StartInsertPosition) + diff.newData + result.substr(diff.EndDeletePosition)
                       }
