@@ -145,7 +145,7 @@
                 var distanceDiff = 0 // diff[0].newValue.length - diff[0].oldValue.length
                 var result = expectedValue
                 // The text node currently does not contain what we expected it to contain, so we need to merge.
-                var differenceOld = StringDiff(expectedValue, currentValue)
+                var differenceOld = StringDiff(currentValue, expectedValue)
 
                 if (that.savedSelection && that.savedSelection.node === node) {
                   for (let i in differenceOld.result) {
