@@ -558,8 +558,21 @@
   #menuMobile {
     display: none;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 13px;
+    right: 13px;
+  }
+
+  #sidebar {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  #sidebar button {
+    padding: 0.375rem 0.6rem;
   }
 
   #paper {
@@ -686,6 +699,12 @@
       font-size: 11px;
       padding: 0.3rem 0.5rem;
       top: 1rem !important;
+    }
+    #sidebar {
+      top: 80%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
     }
   }
 
