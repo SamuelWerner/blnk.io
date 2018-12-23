@@ -11,8 +11,20 @@
       <div class="col-md-1 order-md-2 order-1">
         <md-button href="/" style="float: right; margin-top: 0.7rem" type="button" class="md-icon-button md-raised">
           <img class="fktstripImg" style="margin: 0" src="../assets/baseline-clear-24px.svg" />
+          <md-tooltip md-delay="300" md-direction="left">Dokument schließen</md-tooltip>
         </md-button>
       </div>
+    </div>
+
+    <div id="sidebar">
+      <button v-scroll-to="'#pageTop'" type="button" class="btn btn-light btn-tmenu">
+        <img class="fktstripImg" src="../assets/baseline-vertical_align_top-24px.svg" />
+        <md-tooltip md-delay="300" md-direction="left">nach oben scrollen</md-tooltip>
+      </button><br>
+      <button v-scroll-to="'#pageBottom'" type="button" class="btn btn-light btn-tmenu">
+        <img class="fktstripImg" src="../assets/baseline-vertical_align_bottom-24px.svg" />
+        <md-tooltip md-delay="300" md-direction="left">nach unten scrollen</md-tooltip>
+      </button>
     </div>
 
     <div id="mobileBar" class="sticky">
@@ -631,6 +643,22 @@
       font-size: 14px;
       padding: 0.65rem 0.9rem;
     }
+  }
+
+  #sidebar {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+
+  #sidebar button {
+    padding: 0.375rem 0.6rem;
+    top: 10px;
+    right: 10px;
   }
 
   @media (max-width: 767px) {
