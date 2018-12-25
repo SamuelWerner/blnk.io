@@ -675,7 +675,6 @@
   @media (max-width: 767px) {
     h1 {
       margin: 0 !important;
-      margin-top: 1rem !important;
       font-size: 1.7rem !important;
     }
     #paper {
