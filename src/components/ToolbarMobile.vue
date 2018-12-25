@@ -26,6 +26,8 @@
         <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/outline-font_download-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
+          <md-menu-item>zuletzt: {{ fontMessage }}</md-menu-item>
+          <md-divider></md-divider>
           <md-menu-item v-on:click="fontMessage='Arial'" @click="fontName ('Arial')" style="font-family: Arial"> Arial </md-menu-item>
           <md-menu-item v-on:click="fontMessage='Calibri'" @click="fontName ('Calibri')" style="font-family: Calibri"> Calibri </md-menu-item>
           <md-menu-item v-on:click="fontMessage='Comic Sans MS'" @click="fontName ('Comic Sans MS')" style="font-family: Comic Sans MS"> Comic Sans </md-menu-item>
@@ -46,13 +48,15 @@
         <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/baseline-format_size-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
-          <md-menu-item @click="fontSize (1)" > <p style="margin: 0; font-size: x-small">Größe 1</p> </md-menu-item>
-          <md-menu-item @click="fontSize (2)" > <p style="margin: 0; font-size: small">Größe 2</p> </md-menu-item>
-          <md-menu-item @click="fontSize (3)" > <p style="margin: 0; font-size: medium">Größe 3 (Standard)</p> </md-menu-item>
-          <md-menu-item @click="fontSize (4)" > <p style="margin: 0; font-size: large">Größe 4</p> </md-menu-item>
-          <md-menu-item @click="fontSize (5)" > <p style="margin: 0; font-size: x-large">Größe 5</p> </md-menu-item>
-          <md-menu-item @click="fontSize (6)" > <p style="margin: 0; font-size: xx-large">Größe 6</p> </md-menu-item>
-          <md-menu-item @click="fontSize (7)" > <p style="margin: 0; font-size: 3rem">Größe 7</p> </md-menu-item>
+          <md-menu-item>zuletzt: {{ sizeMessage }}</md-menu-item>
+          <md-divider></md-divider>
+          <md-menu-item v-on:click="sizeMessage='1'" @click="fontSize (1)" > <p style="margin: 0; font-size: x-small">Größe 1</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='2'" @click="fontSize (2)" > <p style="margin: 0; font-size: small">Größe 2</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='3'" @click="fontSize (3)" > <p style="margin: 0; font-size: medium">Größe 3 (Standard)</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='4'" @click="fontSize (4)" > <p style="margin: 0; font-size: large">Größe 4</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='5'" @click="fontSize (5)" > <p style="margin: 0; font-size: x-large">Größe 5</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='6'" @click="fontSize (6)" > <p style="margin: 0; font-size: xx-large">Größe 6</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='7'" @click="fontSize (7)" > <p style="margin: 0; font-size: 3rem">Größe 7</p> </md-menu-item>
         </md-menu-content>
       </md-menu>
     </div>
@@ -190,8 +194,8 @@
         showDialogRename: false,
         showDialogPage: false,
         pagecolor: 'white',
-        fontMessage: '...',
-        sizeMessage: '...'
+        fontMessage: 'Arial',
+        sizeMessage: '3'
       }
     },
     methods: {
