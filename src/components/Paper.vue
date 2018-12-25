@@ -50,7 +50,7 @@
           <md-menu-item @click="" disabled>Verschieben nach</md-menu-item>
           <md-menu-item @click="" disabled>Löschen</md-menu-item>
           <md-divider></md-divider>
-          <md-menu-item @click="showDialogPage = true" >Seiteneinrichtung</md-menu-item>
+          <md-menu-item @click="showDialogPage = true" disabled>Seiteneinrichtung</md-menu-item>
           <md-menu-item @click="" disabled>Drucken</md-menu-item>
         </md-menu-content>
       </md-menu>
@@ -647,6 +647,8 @@
     color: #a80337;
   }
 
+
+
   @media (max-width: 991px) {
     #paper {
       padding: 4rem;
@@ -677,7 +679,8 @@
   @media (max-width: 767px) {
     h1 {
       margin: 0 !important;
-      font-size: 1.8rem !important;
+      margin-top: 1rem !important;
+      font-size: 1.7rem !important;
     }
     #paper {
       padding: 2rem;
@@ -705,6 +708,9 @@
       -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
       transform: translateY(-50%);
+    }
+    .md-tooltip {
+      display: none;
     }
   }
 

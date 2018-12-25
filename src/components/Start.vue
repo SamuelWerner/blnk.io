@@ -6,7 +6,7 @@
     </div>
     -->
     <div class="banner">
-      <img src="../assets/Blnk-Logo.png" />
+      <img style="max-width: 1088px;" src="../assets/Blnk-Logo.png" />
     </div>
     <div class="container">
       <div class="card text-center">
@@ -79,7 +79,6 @@
 <script>
   import api from '@/api'
   export default {
-
     name: 'Start',
     data () {
       return {

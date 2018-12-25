@@ -75,6 +75,7 @@
         <img class="fktstripImg" src="../assets/baseline-strikethrough_s-24px.svg" />
       </button>-->
 
+      <!--
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftfarbe</md-tooltip>
         <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/baseline-format_color_text-24px.svg" /> </button>
@@ -87,7 +88,9 @@
           <md-menu-item @click="foreColor ('#FFEE84')" > <div class="color color-yellow"></div> Gelb </md-menu-item>
         </md-menu-content>
       </md-menu>
-    </div><!--
+      -->
+    </div>
+    <!--
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-light btn-tmenu" @click="subscript">
         <md-tooltip md-delay="300">Tiefgestellt</md-tooltip>

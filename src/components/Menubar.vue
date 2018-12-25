@@ -17,7 +17,7 @@
             <md-menu-item @click="" disabled>Verschieben nach</md-menu-item>
             <md-menu-item @click="" disabled>Löschen</md-menu-item>
             <md-divider></md-divider>
-            <md-menu-item @click="showDialogPage = true" >Seiteneinrichtung</md-menu-item>
+            <md-menu-item @click="showDialogPage = true" disabled>Seiteneinrichtung</md-menu-item>
             <md-menu-item @click="" disabled>Drucken</md-menu-item>
           </md-menu-content>
         </md-menu>
