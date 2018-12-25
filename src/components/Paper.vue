@@ -669,12 +669,13 @@
     transform: translateY(-50%);
   }
 
-
   #sidebar button {
     padding: 0.375rem 0.6rem;
     top: 10px;
     right: 10px;
   }
+
+
 
   @media (max-width: 767px) {
     h1 {
@@ -687,7 +688,7 @@
       min-height: 90vh;
     }
     .container-fluid {
-      padding: 0;
+      padding: 0 !important;
     }
     .row {
       display: none !important;

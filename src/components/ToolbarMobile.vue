@@ -307,6 +307,8 @@
     background-color: #f3f2f1;
     padding: 0.5rem 1rem 1rem 1rem;
     z-index: 1;
+    overflow: auto;
+    white-space: nowrap;
   }
 
   h1 {
