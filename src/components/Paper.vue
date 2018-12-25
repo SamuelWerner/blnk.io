@@ -69,7 +69,7 @@
     </div>
     <a id="buttonTop"></a>
     <a id="pageBottom"></a>
-    <p id="pageTitleScroll">Dokument: {{ doc.title }}</p>
+    <!--<p id="pageTitleScroll">Dokument: {{ doc.title }}</p>-->
   </main>
 </template>
 
@@ -564,11 +564,15 @@
 
   #sidebar {
     position: fixed;
+    bottom: 0;
+    right: 0;
+    /*
     top: 50%;
     right: 0;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+    */
   }
 
   #sidebar button {
@@ -660,15 +664,6 @@
     }
   }
 
-  #sidebar {
-    position: fixed;
-    top: 50%;
-    right: 0;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-  }
-
   #sidebar button {
     padding: 0.375rem 0.6rem;
     top: 10px;
@@ -704,12 +699,6 @@
       padding: 0.3rem 0.5rem;
       top: 1rem !important;
     }
-    #sidebar {
-      top: 80%;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
-    }
     .md-tooltip {
       display: none;
     }
@@ -718,6 +707,9 @@
   @media (max-width: 430px) {
     #paper {
       padding: 1rem;
+    }
+    h1 {
+      margin-top: 0 !important;
     }
   }
 
