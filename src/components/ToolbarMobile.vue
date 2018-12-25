@@ -181,6 +181,8 @@
       <button type="button" class="btn btn-light btn-tmenu" @click="insertText"> <strong>txt</strong> </button>
     </div>-->
     <!--<p>Letzte Schriftart: {{ fontMessage }} - Letzte Schriftgröße: {{ sizeMessage }}</p>-->
+
+    <div id="fadeToolbar"></div>
   </main>
 </template>
 
@@ -385,5 +387,22 @@
     background-color: #FFEE84;
   }
 
-
+  #fadeToolbar {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0);
+    background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(248,248,247,1) 55%, rgba(243,242,241,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,0)), color-stop(55%, rgba(248,248,247,1)), color-stop(100%, rgba(243,242,241,1)));
+    background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(248,248,247,1) 55%, rgba(243,242,241,1) 100%);
+    background: -o-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(248,248,247,1) 55%, rgba(243,242,241,1) 100%);
+    background: -ms-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(248,248,247,1) 55%, rgba(243,242,241,1) 100%);
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(248,248,247,1) 55%, rgba(243,242,241,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f3f2f1', GradientType=1 );
+  }
 </style>
