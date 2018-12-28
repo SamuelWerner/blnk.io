@@ -252,7 +252,9 @@
     .banner {
       display: none;
     }
-    .container {}
+    .container {
+      padding: 5px;
+    }
     .container-fluid {
       padding: 0.7rem 0 0 0;
     }

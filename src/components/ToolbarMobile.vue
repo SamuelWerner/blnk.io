@@ -1,5 +1,5 @@
 <template>
-  <main style="">
+  <main>
     <!-- Toolleiste -->
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-light btn-tmenu" @click="undo">
@@ -23,7 +23,7 @@
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftart</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/outline-font_download-24px.svg" /> </button>
+        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-left" > <img class="fktstripImg" src="../assets/outline-font_download-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
           <md-menu-item>zuletzt: {{ fontMessage }}</md-menu-item>
@@ -45,7 +45,7 @@
       </md-menu>
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftgröße</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/baseline-format_size-24px.svg" /> </button>
+        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-right" > <img class="fktstripImg" src="../assets/baseline-format_size-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
           <md-menu-item>zuletzt: {{ sizeMessage }}</md-menu-item>
@@ -82,7 +82,7 @@
       <!---->
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftfarbe</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/baseline-format_color_text-24px.svg" /> </button>
+        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-right" > <img class="fktstripImg" src="../assets/baseline-format_color_text-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
           <md-menu-item @click="foreColor ('#000000')" > <div class="color color-black"></div> Schwarz </md-menu-item>
@@ -133,7 +133,7 @@
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Zeilenabstand</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/baseline-format_line_spacing-24px.svg" /> </button>
+        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-left" > <img class="fktstripImg" src="../assets/baseline-format_line_spacing-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
           <md-menu-item @click="lineHight(1)" disabled>Einfach</md-menu-item>
@@ -181,8 +181,6 @@
       <button type="button" class="btn btn-light btn-tmenu" @click="insertText"> <strong>txt</strong> </button>
     </div>-->
     <!--<p>Letzte Schriftart: {{ fontMessage }} - Letzte Schriftgröße: {{ sizeMessage }}</p>-->
-
-    <div id="fadeToolbar"></div>
   </main>
 </template>
 
@@ -385,24 +383,5 @@
 
   .color-yellow {
     background-color: #FFEE84;
-  }
-
-  #fadeToolbar {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top: 50%;
-    right: 0;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0);
-    background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(248,248,247,1) 55%, rgba(243,242,241,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,0)), color-stop(55%, rgba(248,248,247,1)), color-stop(100%, rgba(243,242,241,1)));
-    background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(248,248,247,1) 55%, rgba(243,242,241,1) 100%);
-    background: -o-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(248,248,247,1) 55%, rgba(243,242,241,1) 100%);
-    background: -ms-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(248,248,247,1) 55%, rgba(243,242,241,1) 100%);
-    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(248,248,247,1) 55%, rgba(243,242,241,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f3f2f1', GradientType=1 );
   }
 </style>

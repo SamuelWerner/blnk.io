@@ -1,6 +1,6 @@
 <template>
   <main class="container-fluid" style="height:100%">
-    <div class="row sticky">
+    <div id="barDiv" class="row sticky">
       <div class="col-md-11 order-md-1 order-2">
         <!-- Menüleiste -->
         <Menubar :my-doc="doc"></Menubar>
@@ -95,6 +95,8 @@
         name: 'Delay',
         showDialogRename: false,
         showDialogPage: false,
+        showDialogCopyDokument: false,
+        showDialogOpenDokument: false,
         doc: [],
         model: {},
         oldBody: '',
@@ -125,6 +127,7 @@
       this.oldBodySaving = this.body
       // Socket Verbindung initalisieren
       this.newSocket(this.doc.hash, this.doc)
+      this.css()
     },
     methods: {
       async newSocket (id, doc) {
@@ -495,6 +498,15 @@
             return 0
           }
         }
+      },
+      css () {
+        window.onscroll = function () {
+          if (document.body.scrollTop > 68 || document.documentElement.scrollTop > 68) {
+            document.getElementById('barDiv').style.backgroundColor = '#343a40'
+          } else {
+            document.getElementById('barDiv').style.backgroundColor = '#f3f2f1'
+          }
+        }
       }
     }
   }
@@ -551,6 +563,10 @@
     z-index: 1;
   }
 
+  #barDiv {
+    transition: 0.25s;
+  }
+
   #mobileBar {
     display: none;
   }
@@ -580,7 +596,7 @@
   }
 
   #paper {
-    min-height:1500px;
+    min-height:1200px;
     padding: 120px;
     background-color: white;
   }
@@ -675,6 +691,7 @@
   @media (max-width: 767px) {
     h1 {
       margin: 0 !important;
+      margin-top: 0.5rem !important;
       font-size: 1.7rem !important;
     }
     #paper {

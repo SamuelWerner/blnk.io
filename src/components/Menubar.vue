@@ -2,7 +2,7 @@
     <main>
       <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
         <!-- Datei -->
-        <md-menu md-size="small" class="btn-fmenu" md-align-trigger >
+        <md-menu md-size="small" class="btn-fmenu" md-align-trigger>
           <md-button md-menu-trigger  type="button" class="md-default md-raised md-dense">Datei</md-button>
 
           <md-menu-content class="menu-content">

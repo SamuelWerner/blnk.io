@@ -23,7 +23,7 @@
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftart</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/outline-font_download-24px.svg" /> </button>
+        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-left" > <img class="fktstripImg" src="../assets/outline-font_download-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
           <md-menu-item>zuletzt: {{ fontMessage }}</md-menu-item>
@@ -45,7 +45,7 @@
       </md-menu>
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftgröße</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/baseline-format_size-24px.svg" /> </button>
+        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-right" > <img class="fktstripImg" src="../assets/baseline-format_size-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
           <md-menu-item>zuletzt: {{ sizeMessage }}</md-menu-item>
@@ -81,7 +81,7 @@
 
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftfarbe</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/baseline-format_color_text-24px.svg" /> </button>
+        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-right" > <img class="fktstripImg" src="../assets/baseline-format_color_text-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
           <md-menu-item @click="foreColor ('#000000')" > <div class="color color-black"></div> Schwarz </md-menu-item>
@@ -130,7 +130,7 @@
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Zeilenabstand</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu" > <img class="fktstripImg" src="../assets/baseline-format_line_spacing-24px.svg" /> </button>
+        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-left" > <img class="fktstripImg" src="../assets/baseline-format_line_spacing-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
           <md-menu-item @click="lineHight(1)" disabled>Einfach</md-menu-item>
@@ -290,10 +290,27 @@
   }
 </script>
 
+<style>
+  .btn-tmenu-menu-left {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .btn-tmenu-menu-right {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+</style>
+
 <style scoped>
   body {
     background-color:#f3f2f1 !important;
   }
+
+  main { /*
+    overflow: auto;
+    white-space: nowrap;
+  */}
 
   h1 {
     margin-top: 3rem !important;
@@ -332,6 +349,16 @@
   .btn-tmenu-menu {
     padding: 0;
     padding-bottom: 2px;
+  }
+
+  .btn-tmenu-menu-left {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .btn-tmenu-menu-right {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 
   .imgBig {

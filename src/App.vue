@@ -36,7 +36,7 @@
 
 <style>
   #logo-brand {
-    font-family: Franklin Gothic Heavy;
+    font-family: Franklin Gothic Heavy, sans-serif;
     font-size: 2.2rem;
     color: white;
     padding: 0;
