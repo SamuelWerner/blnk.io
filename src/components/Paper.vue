@@ -126,7 +126,7 @@
       this.oldBodySaving = this.body
       // Socket Verbindung initalisieren
       this.newSocket(this.doc.hash, this.doc)
-      this.css()
+      this.scrollDark()
     },
     methods: {
       async newSocket (id, doc) {
@@ -498,7 +498,7 @@
           }
         }
       },
-      css () {
+      scrollDark () {
         window.onscroll = function () {
           if (document.body.scrollTop > 68 || document.documentElement.scrollTop > 68) {
             document.getElementById('barDiv').style.backgroundColor = '#343a40'

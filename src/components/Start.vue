@@ -132,6 +132,14 @@
     padding: 0.6rem 0;
   }
 
+  #form {
+    width: 100% !important;
+  }
+
+  .md-input {
+    width: 100% !important;
+  }
+
   @media (max-width: 500px) {
     .dialog {
       width: auto;

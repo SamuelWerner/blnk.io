@@ -143,7 +143,6 @@
         </md-dialog-actions>
       </md-dialog>
       <!-- DIALOG end -->
-
     </main>
 </template>
 
