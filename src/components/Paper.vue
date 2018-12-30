@@ -17,11 +17,11 @@
     </div>
 
     <div id="sidebar">
-      <button v-scroll-to="'#pageTop'" type="button" class="btn btn-light btn-tmenu">
+      <button v-scroll-to="'#pageTop'" type="button" class="btn btn-light btn-tmenu btn-sidebar">
         <img class="fktstripImg" src="../assets/baseline-vertical_align_top-24px.svg" />
         <md-tooltip md-delay="300" md-direction="left">nach oben scrollen</md-tooltip>
       </button><br>
-      <button v-scroll-to="'#pageBottom'" type="button" class="btn btn-light btn-tmenu">
+      <button v-scroll-to="'#pageBottom'" type="button" class="btn btn-light btn-tmenu btn-sidebar">
         <img class="fktstripImg" src="../assets/baseline-vertical_align_bottom-24px.svg" />
         <md-tooltip md-delay="300" md-direction="left">nach unten scrollen</md-tooltip>
       </button>
@@ -67,7 +67,6 @@
          v-html="body" :disabled="1" ref="paper">
       </div>
     </div>
-    <a id="buttonTop"></a>
     <a id="pageBottom"></a>
     <!--<p id="pageTitleScroll">Dokument: {{ doc.title }}</p>-->
   </main>
@@ -503,8 +502,10 @@
         window.onscroll = function () {
           if (document.body.scrollTop > 68 || document.documentElement.scrollTop > 68) {
             document.getElementById('barDiv').style.backgroundColor = '#343a40'
+            // document.getElementById('sidebar').classList.add('darkSidebar')
           } else {
             document.getElementById('barDiv').style.backgroundColor = '#f3f2f1'
+            // document.getElementById('sidebar').classList.remove('darkSidebar')
           }
         }
       }
@@ -582,13 +583,10 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    /*
-    top: 50%;
-    right: 0;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    */
+  }
+
+  .darkSidebar button {
+    background-color: #343a40;
   }
 
   #sidebar button {
@@ -618,7 +616,9 @@
 
   .md-list-item-content {
     min-height: 35px !important;
-    padding: 0 1.4rem 0 2.8rem !important;
+    padding: 0 1.5rem 0 1.1rem;
+    /*padding: 0 1.4rem 0 2.8rem !important;*/
+    justify-content: left;
   }
 
   .md-divider {
@@ -626,45 +626,16 @@
     opacity: 0.8 !important;
   }
 
-  #buttonTop {
-    display: inline-block;
-    background-color: #f7f6d8;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    border-radius: 4px;
-    margin: 30px;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-    transition: background-color .3s, opacity .5s, visibility .5s;
-    opacity: 0;
-    visibility: hidden;
+  .md-item-empty {
+    height: 10px;
+    padding-right: 18px;
+    margin-right: 13px;
   }
 
-  #buttonTop:hover {
-    cursor: pointer;
-    background-color: #333;
-  }
-
-  #buttonTop:active {
-    background-color: #555;
-  }
-
-  #buttonTop.show {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  #buttonTop::after {
-    content: "\f077";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 1.5em;
-    line-height: 38px;
-    color: #a80337;
+  .md-item-filled img, .md-item-filled div {
+    height: 19px;
+    width: 19px;
+    margin-right: 12px;
   }
 
 

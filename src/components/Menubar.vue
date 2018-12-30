@@ -6,19 +6,26 @@
           <md-button md-menu-trigger  type="button" class="md-default md-raised md-dense">Datei</md-button>
 
           <md-menu-content class="menu-content">
-            <md-menu-item @click="" disabled>Freigeben</md-menu-item>
+            <md-menu-item @click="" disabled>
+              <div class="md-item-empty"></div>
+              Freigeben
+            </md-menu-item>
             <md-divider></md-divider>
-            <md-menu-item @click="" disabled>Neu</md-menu-item>
-            <md-menu-item @click="" href="/">Öffnen</md-menu-item>
-            <md-menu-item @click="showDialogCopyDokument = true">Kopie erstellen</md-menu-item>
-            <md-menu-item @click="" disabled>Herunterladen</md-menu-item>
+            <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-insert_drive_file-24px.svg" /></div>Neu</md-menu-item>
+            <md-menu-item @click="" href="/"><div class="md-item-filled"><img src="../assets/outline-folder_open-24px.svg" /></div>Öffnen</md-menu-item>
+            <md-menu-item @click="showDialogCopyDokument = true"><div class="md-item-filled"><img src="../assets/outline-file_copy-24px.svg" /></div>Kopie erstellen</md-menu-item>
+            <md-menu-item @click="" disabled><div class="md-item-empty"></div>Herunterladen</md-menu-item>
             <md-divider></md-divider>
-            <md-menu-item @click="showDialogRename = true">Umbenennen</md-menu-item>
-            <md-menu-item @click="" disabled>Verschieben nach</md-menu-item>
-            <md-menu-item @click="" disabled>Löschen</md-menu-item>
+            <md-menu-item @click="showDialogRename = true"><div class="md-item-filled"><img src="../assets/outline-create-24px.svg" /></div>Umbenennen</md-menu-item>
+            <md-menu-item @click="" disabled><div class="md-item-empty"></div>Verschieben nach</md-menu-item>
+            <md-menu-item @click="" disabled>
+              <div class="md-item-filled">
+                <img style="opacity: 0.2" src="../assets/baseline-delete-24px.svg" />
+              </div>Löschen
+            </md-menu-item>
             <md-divider></md-divider>
-            <md-menu-item @click="showDialogPage = true" disabled>Seiteneinrichtung</md-menu-item>
-            <md-menu-item @click="" disabled>Drucken</md-menu-item>
+            <md-menu-item @click="showDialogPage = true" disabled><div class="md-item-empty"></div>Seiteneinrichtung</md-menu-item>
+            <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-print-24px.svg" /></div>Drucken</md-menu-item>
           </md-menu-content>
         </md-menu>
         <!-- Bearbeiten -->
@@ -26,14 +33,14 @@
           <md-button md-menu-trigger  type="button" class="md-default md-raised md-dense">Bearbeiten</md-button>
 
           <md-menu-content class="menu-content">
-            <md-menu-item @click="undo" >Rückgängig machen</md-menu-item>
-            <md-menu-item @click="redo" >Wiederholen</md-menu-item>
+            <md-menu-item @click="undo" ><div class="md-item-filled"><img src="../assets/baseline-undo-24px.svg" /></div>Rückgängig machen</md-menu-item>
+            <md-menu-item @click="redo" ><div class="md-item-filled"><img src="../assets/baseline-redo-24px.svg" /></div>Wiederholen</md-menu-item>
             <md-divider></md-divider>
-            <md-menu-item @click="cut" >Ausschneiden</md-menu-item>
-            <md-menu-item @click="copy" >Kopieren</md-menu-item>
-            <md-menu-item @click="paste" disabled>Einfügen</md-menu-item>
-            <md-menu-item @click="" disabled>Löschen</md-menu-item>
-            <md-menu-item @click="selectAll"><!--markieren('paper')-->Alles auswählen</md-menu-item>
+            <md-menu-item @click="cut" ><div class="md-item-empty"></div>Ausschneiden</md-menu-item>
+            <md-menu-item @click="copy" ><div class="md-item-filled"><img src="../assets/outline-file_copy-24px.svg" /></div>Kopieren</md-menu-item>
+            <md-menu-item @click="paste" disabled><div class="md-item-empty"></div>Einfügen</md-menu-item>
+            <md-menu-item @click="" disabled><div class="md-item-empty"></div>Löschen</md-menu-item>
+            <md-menu-item @click="selectAll"><!--markieren('paper')--><div class="md-item-empty"></div>Alles auswählen</md-menu-item>
           </md-menu-content>
         </md-menu>
         <!-- Ansicht -->
@@ -41,8 +48,10 @@
           <md-button md-menu-trigger type="button" class="md-default md-raised md-dense">Ansicht</md-button>
 
           <md-menu-content class="menu-content">
-            <md-menu-item @click="" v-scroll-to="'#pageTop'">Seite nach oben scrollen</md-menu-item>
-            <md-menu-item @click="" v-scroll-to="'#pageBottom'">Seite nach unten scrollen</md-menu-item>
+            <md-menu-item @click="" v-scroll-to="'#pageTop'"><div class="md-item-filled"><img src="../assets/baseline-vertical_align_top-24px.svg" /></div>Seite nach oben scrollen</md-menu-item>
+            <md-menu-item @click="" v-scroll-to="'#pageBottom'"><div class="md-item-filled"><img src="../assets/baseline-vertical_align_bottom-24px.svg" /></div>Seite nach unten scrollen</md-menu-item>
+            <md-divider></md-divider>
+            <md-menu-item @click="fullScreen" ><div class="md-item-filled"><img src="../assets/outline-fullscreen-24px.svg" /></div>Vollbildmodus</md-menu-item>
           </md-menu-content>
         </md-menu>
         <!-- Einfügen -->
@@ -50,7 +59,8 @@
           <md-button md-menu-trigger type="button" class="md-default md-raised md-dense">Einfügen</md-button>
 
           <md-menu-content class="menu-content">
-            <md-menu-item @click="insertHorizontalRule">Horizontale Linie</md-menu-item>
+            <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-insert_photo-24px.svg" /></div>Bild</md-menu-item>
+            <md-menu-item @click="insertHorizontalRule"><div class="md-item-filled"><img src="../assets/outline-remove-24px.svg" /></div>Horizontale Linie</md-menu-item>
           </md-menu-content>
         </md-menu>
         <!-- Format -->
@@ -58,17 +68,17 @@
           <md-button md-menu-trigger type="button" class="md-default md-raised md-dense">Format</md-button>
 
           <md-menu-content class="menu-content">
-            <md-menu-item @click="" disabled></md-menu-item>
+            <md-menu-item @click="removeFormat" ><div class="md-item-filled"><img src="../assets/baseline-format_clear-24px.svg" /></div>Formatierung entfernen</md-menu-item>
           </md-menu-content>
         </md-menu>
-        <!-- Tools -->
+        <!-- Tools --> <!--
         <md-menu md-size="small" class="btn-fmenu" md-align-trigger >
           <md-button md-menu-trigger  type="button" class="md-default md-raised md-dense">Tools</md-button>
 
           <md-menu-content class="menu-content">
             <md-menu-item @click="" disabled></md-menu-item>
           </md-menu-content>
-        </md-menu>
+        </md-menu>-->
       </div>
 
       <!--<p style="float: right;">Name Dokument: {{ $parent.doc.title }}</p>-->
@@ -260,6 +270,29 @@
       },
       createLink () {
         document.execCommand('createLink', false, null)
+      },
+      fullScreen () {
+        var element = document.documentElement
+
+        if (element.requestFullScreen) {
+          if (!document.fullScreen) {
+            element.requestFullscreen()
+          } else {
+            document.exitFullScreen()
+          }
+        } else if (element.mozRequestFullScreen) {
+          if (!document.mozFullScreen) {
+            element.mozRequestFullScreen()
+          } else {
+            document.mozCancelFullScreen()
+          }
+        } else if (element.webkitRequestFullScreen) {
+          if (!document.webkitIsFullScreen) {
+            element.webkitRequestFullScreen()
+          } else {
+            document.webkitCancelFullScreen()
+          }
+        }
       }
     }
   }
