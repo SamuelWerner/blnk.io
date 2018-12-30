@@ -217,7 +217,7 @@
 
   .banner {
     text-align: center;
-    padding: 2rem;
+    padding: 3rem 2rem 2rem 2rem;
     margin-bottom: 0.7rem;
   }
 

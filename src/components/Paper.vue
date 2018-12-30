@@ -618,7 +618,7 @@
     min-height: 35px !important;
     padding: 0 1.5rem 0 1.1rem;
     /*padding: 0 1.4rem 0 2.8rem !important;*/
-    justify-content: left;
+    justify-content: left !important;
   }
 
   .md-divider {
