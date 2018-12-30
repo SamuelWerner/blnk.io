@@ -7,7 +7,7 @@
       </div>
       -->
       <div class="banner">
-        <img style="max-width: 1088px;" src="../assets/Blnk-Logo.png" />
+        <img src="../assets/Blnk-Logo.png" />
       </div>
       <div class="container">
         <div class="card text-center">
@@ -24,7 +24,7 @@
                 <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
                    <md-field class="inputBox">
                      <form id="form" @submit.prevent="saveDoc">
-                       <label>Titel eingeben...</label><md-input type="text" v-model="model.title" maxlength="20"></md-input>
+                       <label>Titel eingeben...</label><md-input type="text" v-model="model.title"></md-input>
                      </form>
                    </md-field>
                 <md-dialog-actions>
@@ -231,6 +231,7 @@
 
   .banner img {
     width: 30%;
+    max-width: 1088px;
   }
 
   .liButtons {
@@ -270,6 +271,9 @@
   }
 
   @media (max-width: 767px) {
+    main {
+      padding-bottom: 4rem;
+    }
     ul li {
       width: 50%;
     }
@@ -291,6 +295,10 @@
   }
 
   @media (max-width: 450px) {
+    main {
+      padding-bottom: 3rem;
+    }
+
     .docList {
       display: none;
     }
