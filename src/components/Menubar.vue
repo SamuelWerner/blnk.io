@@ -3,14 +3,10 @@
       <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
         <!-- Datei -->
         <md-menu md-size="small" class="btn-fmenu" md-align-trigger>
-          <md-button md-menu-trigger  type="button" class="md-default md-raised md-dense">Datei</md-button>
+          <md-button md-menu-trigger type="button" class="md-default md-raised md-dense">Datei</md-button>
 
           <md-menu-content class="menu-content">
-            <md-menu-item @click="" disabled>
-              <div class="md-item-empty"></div>
-              Freigeben
-            </md-menu-item>
-            <md-divider></md-divider>
+            <md-menu-item @click="" ><div class="md-item-empty"></div>Freigeben</md-menu-item><md-divider></md-divider>
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-insert_drive_file-24px.svg" /></div>Neu</md-menu-item>
             <md-menu-item @click="" href="/"><div class="md-item-filled"><img src="../assets/outline-folder_open-24px.svg" /></div>Öffnen</md-menu-item>
             <md-menu-item @click="showDialogCopyDokument = true"><div class="md-item-filled"><img src="../assets/outline-file_copy-24px.svg" /></div>Kopie erstellen</md-menu-item>
@@ -87,7 +83,7 @@
       <md-dialog class="dialog" :md-active.sync="showDialogRename">
         <md-dialog-title>Neuen Namen eingeben</md-dialog-title>
 
-        <md-field>
+        <md-field md-clearable>
           <form id="form" @submit.prevent="updateName">
             <label>Titel eingeben...</label><md-textarea type="text" v-model="$parent.doc.title"  maxlength="30" md-autogrow></md-textarea>
           </form>
@@ -104,9 +100,9 @@
       <md-dialog class="dialog" :md-active.sync="showDialogCopyDokument">
         <md-dialog-title>Kopie des aktuellen Doks anlegen</md-dialog-title>
 
-        <md-field>
+        <md-field md-clearable>
           <form id="copyDoc" @submit.prevent="copyDoc">
-            <label>Titel für Kopie eingeben...</label><md-input type="text" v-model="model.title"  maxlength="30"></md-input>
+            <label>Titel für Kopie eingeben...</label><md-input type="text" v-model="model.title" maxlength="30" md-autogrow></md-input>
           </form>
         </md-field>
 

@@ -141,6 +141,13 @@
     width: 100% !important;
   }
 
+  .dialog {
+    text-align: center;
+    width: 30rem;
+    padding: 0 2rem;
+  }
+
+
   @media (max-width: 500px) {
     .dialog {
       width: auto;
@@ -203,12 +210,6 @@
   .updatedAt {
     font-size: 9px;
     margin-bottom: 10px;
-  }
-
-  .dialog {
-    text-align: center;
-    width: 30rem;
-    padding: 0 2rem;
   }
 
   .docTitle {

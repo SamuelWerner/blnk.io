@@ -46,7 +46,7 @@
           <md-menu-item @click="showDialogCopyDokument = true">Kopie erstellen</md-menu-item>
           <md-menu-item @click="" disabled>Herunterladen</md-menu-item>
           <md-divider></md-divider>
-          <md-menu-item @click="showDialogRename = true">Umbenennen</md-menu-item>
+          <md-menu-item @click="showDialogRename = true" disabled>Umbenennen</md-menu-item>
           <md-menu-item @click="" disabled>Verschieben nach</md-menu-item>
           <md-menu-item @click="" disabled>Löschen</md-menu-item>
           <md-divider></md-divider>
