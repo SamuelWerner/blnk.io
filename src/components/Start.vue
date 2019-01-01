@@ -133,7 +133,7 @@
     padding: 0.6rem 0;
   }
 
-  #form {
+  form {
     width: 100% !important;
   }
 

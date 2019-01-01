@@ -102,7 +102,7 @@
 
         <md-field md-clearable>
           <form id="copyDoc" @submit.prevent="copyDoc">
-            <label>Titel für Kopie eingeben...</label><md-input type="text" v-model="model.title" maxlength="30" md-autogrow></md-input>
+            <label>Titel für Kopie eingeben...</label><md-textarea type="text" v-model="model.title" maxlength="30" md-autogrow></md-textarea>
           </form>
         </md-field>
 
@@ -325,5 +325,13 @@
     text-align: center;
     width: 30rem;
     padding: 0 2rem;
+  }
+
+  form {
+    width: 100% !important;
+  }
+
+  .md-textarea {
+    width: 100% !important;
   }
 </style>
