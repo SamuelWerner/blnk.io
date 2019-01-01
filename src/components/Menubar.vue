@@ -89,7 +89,7 @@
 
         <md-field>
           <form id="form" @submit.prevent="updateName">
-            <label>Titel eingeben...</label><md-input type="text" v-model="$parent.doc.title"  maxlength="30"></md-input>
+            <label>Titel eingeben...</label><md-textarea type="text" v-model="$parent.doc.title"  maxlength="30" md-autogrow></md-textarea>
           </form>
         </md-field>
 

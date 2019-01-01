@@ -7,7 +7,7 @@
       </div>
       -->
       <div class="banner">
-        <img src="../assets/Blnk-Logo.png" />
+        <a href="/"><img src="../assets/Blnk-Logo.png" /></a>
       </div>
       <div class="container">
         <div class="card text-center">
@@ -22,9 +22,9 @@
             <div>
               <md-dialog class="dialog" :md-active.sync="showDialog">
                 <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
-                   <md-field class="inputBox">
+                   <md-field class="inputBox" md-clearable>
                      <form id="form" @submit.prevent="saveDoc">
-                       <label>Titel eingeben...</label><md-input type="text" v-model="model.title"></md-input>
+                       <label>Titel eingeben...</label><md-textarea type="text" v-model="model.title" maxlength="30" md-autogrow></md-textarea>
                      </form>
                    </md-field>
                 <md-dialog-actions>
@@ -87,7 +87,8 @@
       return {
         showDialog: false,
         docs: [],
-        model: {}
+        model: {},
+        initial: 'Dok'
       }
     },
     async created () {
@@ -136,7 +137,7 @@
     width: 100% !important;
   }
 
-  .md-input {
+  .md-textarea {
     width: 100% !important;
   }
 
