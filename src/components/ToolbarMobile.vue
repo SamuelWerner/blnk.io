@@ -104,13 +104,13 @@
         <md-tooltip md-delay="300">Hochgestellt</md-tooltip>
         <img class="fktstripImg imgBig" src="../assets/font-style-superscript.svg" />
       </button>
-    </div><!---->
-    <!--<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+    </div>
+    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-light btn-tmenu" @click="createLink">
         <md-tooltip md-delay="300">Link einfügen</md-tooltip>
         <img class="fktstripImg" src="../assets/baseline-insert_link-24px.svg" />
       </button>
-    </div><-->
+    </div>
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-light btn-tmenu" @click="justifyLeft">
         <md-tooltip md-delay="300">Linksbündig</md-tooltip>
@@ -284,7 +284,9 @@
           '\n' + 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \n')
       },
       createLink () {
-        document.execCommand('createLink', false, null)
+        var url = prompt('Link einfügen: ', 'blnk-io.herokuapp.com/')
+        // console.log(url)
+        document.execCommand('createLink', false, 'http://' + url)
       },
       foreColor (textColor) {
         document.execCommand('foreColor', false, textColor)

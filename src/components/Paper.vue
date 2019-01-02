@@ -599,6 +599,10 @@
     background-color: white;
   }
 
+  #paper a {
+    cursor: pointer;
+  }
+
   .fktstripImg {
     height: 21px !important;
     width: 21px !important;
