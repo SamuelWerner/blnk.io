@@ -50,13 +50,13 @@
         <md-menu-content class="menu-content">
           <md-menu-item><div class="md-item-empty"></div>zuletzt: {{ sizeMessage }}</md-menu-item>
           <md-divider></md-divider>
-          <md-menu-item v-on:click="sizeMessage='1'" @click="fontSize (1)" > <div class="md-item-empty"></div><p style="margin: 0; font-size: x-small">Größe 1</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='2'" @click="fontSize (2)" > <div class="md-item-empty"></div><p style="margin: 0; font-size: small">Größe 2</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='3'" @click="fontSize (3)" > <div class="md-item-empty"></div><p style="margin: 0; font-size: medium">Größe 3 (Standard)</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='4'" @click="fontSize (4)" > <div class="md-item-empty"></div><p style="margin: 0; font-size: large">Größe 4</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='5'" @click="fontSize (5)" > <div class="md-item-empty"></div><p style="margin: 0; font-size: x-large">Größe 5</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='6'" @click="fontSize (6)" > <div class="md-item-empty"></div><p style="margin: 0; font-size: xx-large">Größe 6</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='7'" @click="fontSize (7)" > <div class="md-item-empty"></div><p style="margin: 0; font-size: 3rem">Größe 7</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='1'" @click="fontSize (1)" > <div class="md-item-empty"></div><p style="font-size: x-small">Größe 1</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='2'" @click="fontSize (2)" > <div class="md-item-empty"></div><p style="font-size: small">Größe 2</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='3'" @click="fontSize (3)" > <div class="md-item-empty"></div><p style="font-size: medium">Größe 3 (Standard)</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='4'" @click="fontSize (4)" > <div class="md-item-empty"></div><p style="font-size: large">Größe 4</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='5'" @click="fontSize (5)" > <div class="md-item-empty"></div><p style="font-size: x-large">Größe 5</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='6'" @click="fontSize (6)" > <div class="md-item-empty"></div><p style="font-size: xx-large">Größe 6</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='7'" @click="fontSize (7)" > <div class="md-item-empty"></div><p style="font-size: 3rem">Größe 7</p> </md-menu-item>
         </md-menu-content>
       </md-menu>
     </div>

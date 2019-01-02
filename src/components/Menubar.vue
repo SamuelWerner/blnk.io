@@ -14,11 +14,7 @@
             <md-divider></md-divider>
             <md-menu-item @click="showDialogRename = true"><div class="md-item-filled"><img src="../assets/outline-create-24px.svg" /></div>Umbenennen</md-menu-item>
             <md-menu-item @click="" disabled><div class="md-item-empty"></div>Verschieben nach</md-menu-item>
-            <md-menu-item @click="" disabled>
-              <div class="md-item-filled">
-                <img style="opacity: 0.2" src="../assets/baseline-delete-24px.svg" />
-              </div>Löschen
-            </md-menu-item>
+            <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/baseline-delete-24px.svg" /></div>Löschen</md-menu-item>
             <md-divider></md-divider>
             <md-menu-item @click="showDialogPage = true" disabled><div class="md-item-empty"></div>Seiteneinrichtung</md-menu-item>
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-print-24px.svg" /></div>Drucken</md-menu-item>
@@ -271,7 +267,7 @@
       createLink () {
         var url = prompt('Link einfügen: ', 'blnk-io.herokuapp.com/')
         // console.log(url)
-        document.execCommand('createLink', false, 'http://' + url)
+        document.execCommand('createLink', false, 'https://' + url)
       },
       unlink () {
         document.execCommand('unlink', false, null)
