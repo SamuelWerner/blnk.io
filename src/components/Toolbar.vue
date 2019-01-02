@@ -178,8 +178,11 @@
 
 
 <script>
+  import editorMixin from '../mixins/editorMixin'
+
   export default {
     name: 'Toolbar',
+    mixins: [editorMixin],
     data () {
       return {
         name: 'Delay',
@@ -191,109 +194,7 @@
         sizeMessage: '3'
       }
     },
-    methods: {
-      markieren (elementId) {
-        var elem = document.getElementById(elementId)
-        if (document.selection && document.selection.createRange) {
-          var textRange = document.selection.createRange()
-          textRange.moveToElementText(elem)
-          textRange.select()
-        } else if (document.createRange && window.getSelection) {
-          var range = document.createRange()
-          range.selectNode(elem)
-          var selection = window.getSelection()
-          selection.removeAllRanges()
-          selection.addRange(range)
-        }
-      },
-      selectAll () {
-        document.execCommand('selectAll', false, null)
-      },
-      undo () {
-        document.execCommand('undo', false, null)
-      },
-      redo () {
-        document.execCommand('redo', false, null)
-      },
-      cut () {
-        document.execCommand('cut', false, null)
-      },
-      copy () {
-        document.execCommand('copy', false, null)
-      },
-      paste () {
-        document.execCommand('paste', false, null)
-      },
-      makeBold () {
-        document.execCommand('bold', false, null)
-      },
-      makeItalic () {
-        document.execCommand('italic', false, null)
-      },
-      makeUnderline () {
-        document.execCommand('underline', false, null)
-      },
-      makeStrikeThrough () {
-        document.execCommand('strikeThrough', false, null)
-      },
-      insertHorizontalRule () {
-        document.execCommand('insertHorizontalRule', false, null)
-      },
-      insertOrderedList () {
-        document.execCommand('insertOrderedList', false, null)
-      },
-      insertUnorderedList () {
-        document.execCommand('insertUnorderedList', false, null)
-      },
-      justifyCenter () {
-        document.execCommand('justifyCenter', false, null)
-      },
-      justifyFull () {
-        document.execCommand('justifyFull', false, null)
-      },
-      justifyLeft () {
-        document.execCommand('justifyLeft', false, null)
-      },
-      justifyRight () {
-        document.execCommand('justifyRight', false, null)
-      },
-      removeFormat () {
-        document.execCommand('removeFormat', false, null)
-      },
-      subscript () {
-        document.execCommand('subscript', false, null)
-      },
-      superscript () {
-        document.execCommand('superscript', false, null)
-      },
-      indent () {
-        document.execCommand('indent', false, null)
-      },
-      outdent () {
-        document.execCommand('outdent', false, null)
-      },
-      insertText () {
-        document.execCommand('insertText', false, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. \n' +
-          '\n' + 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \n')
-      },
-      createLink () {
-        var url = prompt('Link einfügen: ', 'blnk-io.herokuapp.com/')
-        // console.log(url)
-        document.execCommand('createLink', false, 'https://' + url)
-      },
-      unlink () {
-        document.execCommand('unlink', false, null)
-      },
-      foreColor (textColor) {
-        document.execCommand('foreColor', false, textColor)
-      },
-      fontName (textFont) {
-        document.execCommand('fontName', false, textFont)
-      },
-      fontSize (textSize) {
-        document.execCommand('fontSize', false, textSize)
-      }
-    }
+    methods: {}
   }
 </script>
 

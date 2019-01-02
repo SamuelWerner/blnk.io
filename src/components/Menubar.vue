@@ -31,7 +31,7 @@
             <md-menu-item @click="cut" ><div class="md-item-empty"></div>Ausschneiden</md-menu-item>
             <md-menu-item @click="copy" ><div class="md-item-filled"><img src="../assets/outline-file_copy-24px.svg" /></div>Kopieren</md-menu-item>
             <md-menu-item @click="paste" disabled><div class="md-item-empty"></div>Einfügen</md-menu-item>
-            <md-menu-item @click="" disabled><div class="md-item-empty"></div>Löschen</md-menu-item>
+            <md-menu-item @click="deleteFrom" ><div class="md-item-filled"><img src="../assets/baseline-delete-24px.svg" /></div>Markierung löschen</md-menu-item>
             <md-menu-item @click="selectAll"><!--markieren('paper')--><div class="md-item-empty"></div>Alles auswählen</md-menu-item>
           </md-menu-content>
         </md-menu>
@@ -145,9 +145,12 @@
 
 <script>
   import api from '@/api'
+  import editorMixin from '../mixins/editorMixin'
+
   export default {
     name: 'Menubar',
     extends: 'Paper',
+    mixins: [editorMixin],
     data () {
       return {
         name: 'Delay',
@@ -176,124 +179,6 @@
         await api.updateDoc(doc.hash, doc)
         this.model = {} // reset form
         alert('Kopie von dem Dokument wurde erstellt und gespeichert.')
-      },
-      markieren (elementId) { /* selectAll?? */
-        var elem = document.getElementById(elementId)
-        if (document.selection && document.selection.createRange) {
-          var textRange = document.selection.createRange()
-          textRange.moveToElementText(elem)
-          textRange.select()
-        } else if (document.createRange && window.getSelection) {
-          var range = document.createRange()
-          range.selectNode(elem)
-          var selection = window.getSelection()
-          selection.removeAllRanges()
-          selection.addRange(range)
-        }
-      },
-      selectAll () {
-        document.execCommand('selectAll', false, null)
-      },
-      undo () {
-        document.execCommand('undo', false, null)
-      },
-      redo () {
-        document.execCommand('redo', false, null)
-      },
-      cut () {
-        document.execCommand('cut', false, null)
-      },
-      copy () {
-        document.execCommand('copy', false, null)
-      },
-      paste () {
-        document.execCommand('paste', false, null)
-      },
-      delete () {
-        document.execCommand('delete', false, null)
-      },
-      makeBold () {
-        document.execCommand('bold', false, null)
-      },
-      makeItalic () {
-        document.execCommand('italic', false, null)
-      },
-      makeUnderline () {
-        document.execCommand('underline', false, null)
-      },
-      makeStrikeThrough () {
-        document.execCommand('strikeThrough', false, null)
-      },
-      insertHorizontalRule () {
-        document.execCommand('insertHorizontalRule', false, null)
-      },
-      insertOrderedList () {
-        document.execCommand('insertOrderedList', false, null)
-      },
-      insertUnorderedList () {
-        document.execCommand('insertUnorderedList', false, null)
-      },
-      justifyCenter () {
-        document.execCommand('justifyCenter', false, null)
-      },
-      justifyFull () {
-        document.execCommand('justifyFull', false, null)
-      },
-      justifyLeft () {
-        document.execCommand('justifyLeft', false, null)
-      },
-      justifyRight () {
-        document.execCommand('justifyRight', false, null)
-      },
-      removeFormat () {
-        document.execCommand('removeFormat', false, null)
-      },
-      subscript () {
-        document.execCommand('subscript', false, null)
-      },
-      superscript () {
-        document.execCommand('superscript', false, null)
-      },
-      indent () {
-        document.execCommand('indent', false, null)
-      },
-      outdent () {
-        document.execCommand('outdent', false, null)
-      },
-      insertText () {
-        document.execCommand('insertText', false, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. \n' +
-          '\n' + 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \n')
-      },
-      createLink () {
-        var url = prompt('Link einfügen: ', 'blnk-io.herokuapp.com/')
-        // console.log(url)
-        document.execCommand('createLink', false, 'https://' + url)
-      },
-      unlink () {
-        document.execCommand('unlink', false, null)
-      },
-      fullScreen () {
-        var element = document.documentElement
-
-        if (element.requestFullScreen) {
-          if (!document.fullScreen) {
-            element.requestFullscreen()
-          } else {
-            document.exitFullScreen()
-          }
-        } else if (element.mozRequestFullScreen) {
-          if (!document.mozFullScreen) {
-            element.mozRequestFullScreen()
-          } else {
-            document.mozCancelFullScreen()
-          }
-        } else if (element.webkitRequestFullScreen) {
-          if (!document.webkitIsFullScreen) {
-            element.webkitRequestFullScreen()
-          } else {
-            document.webkitCancelFullScreen()
-          }
-        }
       }
     }
   }
