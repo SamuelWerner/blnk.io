@@ -59,6 +59,7 @@
 
           <md-menu-content class="menu-content">
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-insert_photo-24px.svg" /></div>Bild</md-menu-item>
+            <md-menu-item @click="createLink"><div class="md-item-filled"><img src="../assets/baseline-insert_link-24px.svg" /></div>Link</md-menu-item>
             <md-menu-item @click="insertHorizontalRule"><div class="md-item-filled"><img src="../assets/outline-remove-24px.svg" /></div>Horizontale Linie</md-menu-item>
           </md-menu-content>
         </md-menu>
@@ -67,6 +68,7 @@
           <md-button md-menu-trigger type="button" class="md-default md-raised md-dense">Format</md-button>
 
           <md-menu-content class="menu-content">
+            <md-menu-item @click="unlink" ><div class="md-item-filled"><img src="../assets/baseline-link_off-24px.svg" /></div>Link entfernen</md-menu-item>
             <md-menu-item @click="removeFormat" ><div class="md-item-filled"><img src="../assets/baseline-format_clear-24px.svg" /></div>Formatierung entfernen</md-menu-item>
           </md-menu-content>
         </md-menu>
@@ -267,7 +269,12 @@
           '\n' + 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \n')
       },
       createLink () {
-        document.execCommand('createLink', false, null)
+        var url = prompt('Link einfügen: ', 'blnk-io.herokuapp.com/')
+        // console.log(url)
+        document.execCommand('createLink', false, 'http://' + url)
+      },
+      unlink () {
+        document.execCommand('unlink', false, null)
       },
       fullScreen () {
         var element = document.documentElement

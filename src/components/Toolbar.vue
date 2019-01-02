@@ -279,7 +279,10 @@
       createLink () {
         var url = prompt('Link einfügen: ', 'blnk-io.herokuapp.com/')
         // console.log(url)
-        document.execCommand('createLink', false, 'http://' + url)
+        document.execCommand('createLink', false, 'https://' + url)
+      },
+      unlink () {
+        document.execCommand('unlink', false, null)
       },
       foreColor (textColor) {
         document.execCommand('foreColor', false, textColor)
