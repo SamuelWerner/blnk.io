@@ -746,8 +746,11 @@
   }
 
   @media print {
-    .sticky, #editName, #sidebar {
+    .sticky, #editName, #sidebar, .saving {
       display: none !important;
+    }
+    * {
+      background-color: #fff !important;
     }
     h1 {
       margin-top: 0 !important;
@@ -757,9 +760,9 @@
       content: "Dokument: "
     }
     #paper {
-      padding: 0;
+      padding: 0 !important;
     }
-    .shadow-lg {
+    #paper, .my-3, .rounded, .shadow-lg, .paper {
       -webkit-box-shadow: none !important;
       -moz-box-shadow: none !important;
       box-shadow: none !important;
