@@ -125,6 +125,10 @@
         savedSelection: null
       }
     },
+    beforeCreate () {
+      document.body.scrollTop = 0 // For Safari
+      document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
+    },
     async created () {
       // Beim Aufruf der Seite das Dokument aufbauen
       let newB = document.createElement('div')
