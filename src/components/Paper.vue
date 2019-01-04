@@ -747,11 +747,11 @@
 
   @media print {
     .sticky, #editName, #sidebar {
-      display: none;
+      display: none !important;
     }
     h1 {
-      margin-top: 0;
-      font-size: 1rem;
+      margin-top: 0 !important;
+      font-size: 1rem !important;
     }
     h1::before {
       content: "Dokument: "
