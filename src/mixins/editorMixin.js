@@ -90,7 +90,9 @@ export default {
     createLink () {
       var url = prompt('Link einfügen: ', 'blnk-io.herokuapp.com/')
       // console.log(url)
-      document.execCommand('createLink', false, 'https://' + url)
+      if (url != null) {
+        document.execCommand('createLink', false, 'https://' + url)
+      }
     },
     unlink () {
       document.execCommand('unlink', false, null)

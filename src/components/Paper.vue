@@ -9,9 +9,9 @@
       </div>
 
       <div class="col-md-1 order-md-2 order-1">
-        <md-button href="/" style="float: right; margin-top: 0.7rem" type="button" class="md-icon-button md-raised">
-          <img class="fktstripImg" style="margin: 0" src="../assets/baseline-clear-24px.svg" />
+        <md-button href="/" id="closeBtn" type="button" class="md-icon-button md-raised">
           <md-tooltip md-delay="300" md-direction="left">Dokument schließen</md-tooltip>
+          <img class="fktstripImg" style="margin: 0" src="../assets/baseline-clear-24px.svg" />
         </md-button>
       </div>
     </div>
@@ -57,7 +57,7 @@
     <div class="container">
       <b-alert class="saving" :show="saving" variant="info">speichert...</b-alert>
       <h1 @click="showDialogRename = true">{{ doc.title }}
-        <img id="editName" style="width: 1.1rem; vertical-align: 0; cursor: pointer" src="../assets/outline-create-24px.svg" />
+        <img id="editName"  src="../assets/outline-create-24px.svg" />
         <md-tooltip md-delay="700" md-direction="bottom">Umbenennen</md-tooltip>
       </h1> {{ rename }}
       <div style="outline:none" contenteditable="true"
@@ -591,6 +591,19 @@
     transition: 0.25s;
   }
 
+  #closeBtn {
+    float: right;
+    margin-top: 0.7rem;
+  }
+
+  #closeBtn img {
+    transition: 0.2s;
+  }
+
+  #closeBtn:hover img {
+    transform: rotate(90deg);
+  }
+
   #mobileBar {
     display: none;
   }
@@ -683,6 +696,16 @@
     width: 100% !important;
   }
 
+  #editName {
+    width: 1.1rem;
+    vertical-align: 0;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  h1:hover #editName {
+    transform: rotate(45deg);
+  }
 
 
   @media (max-width: 991px) {
@@ -733,6 +756,9 @@
     }
     .md-tooltip {
       display: none;
+    }
+    h1:hover #editName {
+      transform: none;
     }
   }
 

@@ -20,7 +20,7 @@
             <p class="card-text">Lege ein neues Dokument an und bearbeite es.</p>
 
             <div>
-              <md-dialog class="dialog" :md-active.sync="showDialog">
+              <md-dialog class="dialog" :md-active.sync="showDialog" :md-fullscreen="false">
                 <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
                    <md-field class="inputBox" md-clearable>
                      <form id="form" @submit.prevent="saveDoc">
@@ -34,7 +34,7 @@
               </md-dialog>
               <div style="width: max-content; margin: 0 auto;">
                 <md-button class="md-primary md-raised" @click="showDialog = true">+</md-button>
-                <md-tooltip md-delay="1100" md-direction="right">Neues Dokument anlegen</md-tooltip>
+                <!--<md-tooltip md-delay="1100" md-direction="right">Neues Dokument anlegen</md-tooltip>-->
               </div>
 
 
