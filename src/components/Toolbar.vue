@@ -305,18 +305,4 @@
   .color-yellow {
     background-color: #FFEE84;
   }
-
-  .dialog {
-    text-align: center;
-    width: 30rem;
-    padding: 0 2rem;
-  }
-
-  form {
-    width: 100% !important;
-  }
-
-  .md-textarea {
-    width: 100% !important;
-  }
 </style>

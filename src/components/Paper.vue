@@ -56,7 +56,7 @@
 
     <div class="container">
       <b-alert class="saving" :show="saving" variant="info">speichert...</b-alert>
-      <h1>{{ doc.title }}</h1> {{ rename }}
+      <h1 @click="showDialogRename = true">{{ doc.title }} <img @click="showDialogRename = true" style="width: 1.1rem; vertical-align: 0; cursor: pointer" src="../assets/outline-create-24px.svg" /></h1> {{ rename }}
       <div style="outline:none" contenteditable="true"
          id="paper" itemref="paper"
          class="my-3 rounded shadow-lg paper"
@@ -67,6 +67,23 @@
     </div>
     <a id="pageBottom"></a>
     <!--<p id="pageTitleScroll">Dokument: {{ doc.title }}</p>-->
+
+    <!-- DIALOG Umbenennen -->
+    <md-dialog class="dialog" :md-active.sync="showDialogRename">
+      <md-dialog-title>Neuen Namen eingeben</md-dialog-title>
+
+      <md-field md-clearable>
+        <form id="form" @submit.prevent="updateName">
+          <label>Titel eingeben...</label><md-textarea type="text" v-model="doc.title"  maxlength="30" md-autogrow></md-textarea>
+        </form>
+      </md-field>
+
+      <md-dialog-actions>
+        <md-button class="md-primary" @click="showDialogRename = false">Abbruch</md-button>
+        <md-button class="md-primary" @click="showDialogRename = false" type="submit" form="form">Umbenennen</md-button>
+      </md-dialog-actions>
+    </md-dialog>
+    <!-- DIALOG end -->
   </main>
 </template>
 
@@ -642,6 +659,20 @@
     height: 19px;
     width: 19px;
     margin-right: 12px;
+  }
+
+  .dialog {
+    text-align: center;
+    width: 30rem;
+    padding: 0 2rem;
+  }
+
+  form {
+    width: 100% !important;
+  }
+
+  .md-textarea {
+    width: 100% !important;
   }
 
 

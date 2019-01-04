@@ -31,7 +31,7 @@
             <md-menu-item @click="cut" ><div class="md-item-empty"></div>Ausschneiden</md-menu-item>
             <md-menu-item @click="copy" ><div class="md-item-filled"><img src="../assets/outline-file_copy-24px.svg" /></div>Kopieren</md-menu-item>
             <md-menu-item @click="paste" disabled><div class="md-item-empty"></div>Einfügen</md-menu-item>
-            <md-menu-item @click="deleteFrom" ><div class="md-item-filled"><img src="../assets/baseline-delete-24px.svg" /></div>Markierung löschen</md-menu-item>
+            <md-menu-item @click="deleteFrom" ><div class="md-item-filled"><img src="../assets/baseline-delete-24px.svg" /></div>Markiertes löschen</md-menu-item>
             <md-menu-item @click="selectAll"><!--markieren('paper')--><div class="md-item-empty"></div>Alles auswählen</md-menu-item>
           </md-menu-content>
         </md-menu>
@@ -210,19 +210,5 @@
 
   sub, sup {
     position: relative;
-  }
-
-  .dialog {
-    text-align: center;
-    width: 30rem;
-    padding: 0 2rem;
-  }
-
-  form {
-    width: 100% !important;
-  }
-
-  .md-textarea {
-    width: 100% !important;
   }
 </style>
