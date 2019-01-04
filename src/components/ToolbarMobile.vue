@@ -26,21 +26,21 @@
         <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-left" > <img class="fktstripImg" src="../assets/outline-font_download-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
-          <md-menu-item>zuletzt: {{ fontMessage }}</md-menu-item>
+          <md-menu-item><div class="md-item-empty"></div>zuletzt: {{ fontMessage }}</md-menu-item>
           <md-divider></md-divider>
-          <md-menu-item v-on:click="fontMessage='Arial'" @click="fontName ('Arial')" style="font-family: Arial"> Arial </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Calibri'" @click="fontName ('Calibri')" style="font-family: Calibri"> Calibri </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Comic Sans MS'" @click="fontName ('Comic Sans MS')" style="font-family: Comic Sans MS"> Comic Sans </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Courier'" @click="fontName ('Courier')" style="font-family: Courier"> Courier </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Droid Sans'" @click="fontName ('Droid Sans')" style="font-family: Droid Sans"> Droid Sans </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Georgia'" @click="fontName ('Georgia')" style="font-family: Georgia"> Georgia </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Helvetica'" @click="fontName ('Helvetica')" style="font-family: Helvetica"> Helvetica </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Impact'" @click="fontName ('Impact')" style="font-family: Impact"> Impact </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Roboto'" @click="fontName ('Roboto')" style="font-family: Roboto"> Roboto </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Segoe UI'" @click="fontName ('Segoe UI')" style="font-family: Segoe UI"> Segoe UI </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Times New Roman'" @click="fontName ('Times New Roman')" style="font-family: Times New Roman"> Times New Roman </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Ubuntu'" @click="fontName ('Ubuntu')" style="font-family: Ubuntu"> Ubuntu </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Verdana'" @click="fontName ('Verdana')" style="font-family: Verdana"> Verdana </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Arial'" @click="fontName ('Arial')" style="font-family: Arial"> <div class="md-item-empty"></div>Arial </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Calibri'" @click="fontName ('Calibri')" style="font-family: Calibri"> <div class="md-item-empty"></div>Calibri </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Comic Sans MS'" @click="fontName ('Comic Sans MS')" style="font-family: Comic Sans MS"> <div class="md-item-empty"></div>Comic Sans </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Courier'" @click="fontName ('Courier')" style="font-family: Courier"> <div class="md-item-empty"></div>Courier </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Droid Sans'" @click="fontName ('Droid Sans')" style="font-family: Droid Sans"> <div class="md-item-empty"></div>Droid Sans </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Georgia'" @click="fontName ('Georgia')" style="font-family: Georgia"> <div class="md-item-empty"></div>Georgia </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Helvetica'" @click="fontName ('Helvetica')" style="font-family: Helvetica"> <div class="md-item-empty"></div>Helvetica </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Impact'" @click="fontName ('Impact')" style="font-family: Impact"> <div class="md-item-empty"></div>Impact </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Roboto'" @click="fontName ('Roboto')" style="font-family: Roboto"> <div class="md-item-empty"></div>Roboto </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Segoe UI'" @click="fontName ('Segoe UI')" style="font-family: Segoe UI"> <div class="md-item-empty"></div>Segoe UI </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Times New Roman'" @click="fontName ('Times New Roman')" style="font-family: Times New Roman"> <div class="md-item-empty"></div>Times New Roman </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Ubuntu'" @click="fontName ('Ubuntu')" style="font-family: Ubuntu"> <div class="md-item-empty"></div>Ubuntu </md-menu-item>
+          <md-menu-item v-on:click="fontMessage='Verdana'" @click="fontName ('Verdana')" style="font-family: Verdana"> <div class="md-item-empty"></div>Verdana </md-menu-item>
         </md-menu-content>
       </md-menu>
       <md-menu md-size="small" md-align-trigger  >
@@ -48,15 +48,15 @@
         <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-right" > <img class="fktstripImg" src="../assets/baseline-format_size-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
-          <md-menu-item>zuletzt: {{ sizeMessage }}</md-menu-item>
+          <md-menu-item><div class="md-item-empty"></div>zuletzt: {{ sizeMessage }}</md-menu-item>
           <md-divider></md-divider>
-          <md-menu-item v-on:click="sizeMessage='1'" @click="fontSize (1)" > <p style="margin: 0; font-size: x-small">Größe 1</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='2'" @click="fontSize (2)" > <p style="margin: 0; font-size: small">Größe 2</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='3'" @click="fontSize (3)" > <p style="margin: 0; font-size: medium">Größe 3 (Standard)</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='4'" @click="fontSize (4)" > <p style="margin: 0; font-size: large">Größe 4</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='5'" @click="fontSize (5)" > <p style="margin: 0; font-size: x-large">Größe 5</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='6'" @click="fontSize (6)" > <p style="margin: 0; font-size: xx-large">Größe 6</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='7'" @click="fontSize (7)" > <p style="margin: 0; font-size: 3rem">Größe 7</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='1'" @click="fontSize (1)" > <div class="md-item-empty"></div><p style="font-size: x-small">Größe 1</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='2'" @click="fontSize (2)" > <div class="md-item-empty"></div><p style="font-size: small">Größe 2</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='3'" @click="fontSize (3)" > <div class="md-item-empty"></div><p style="font-size: medium">Größe 3 (Standard)</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='4'" @click="fontSize (4)" > <div class="md-item-empty"></div><p style="font-size: large">Größe 4</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='5'" @click="fontSize (5)" > <div class="md-item-empty"></div><p style="font-size: x-large">Größe 5</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='6'" @click="fontSize (6)" > <div class="md-item-empty"></div><p style="font-size: xx-large">Größe 6</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='7'" @click="fontSize (7)" > <div class="md-item-empty"></div><p style="font-size: 3rem">Größe 7</p> </md-menu-item>
         </md-menu-content>
       </md-menu>
     </div>
@@ -85,11 +85,11 @@
         <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-right" > <img class="fktstripImg" src="../assets/baseline-format_color_text-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
-          <md-menu-item @click="foreColor ('#000000')" > <div class="color color-black"></div> Schwarz </md-menu-item>
-          <md-menu-item @click="foreColor ('#0000FF')" > <div class="color color-blue"></div> Blau </md-menu-item>
-          <md-menu-item @click="foreColor ('#33CC33')" > <div class="color color-green"></div> Grün </md-menu-item>
-          <md-menu-item @click="foreColor ('#FF0000')" > <div class="color color-red"></div> Rot </md-menu-item>
-          <md-menu-item @click="foreColor ('#FFEE84')" > <div class="color color-yellow"></div> Gelb </md-menu-item>
+          <md-menu-item @click="foreColor ('#000000')" > <div class="md-item-filled"><div class="color color-black"></div></div> Schwarz </md-menu-item>
+          <md-menu-item @click="foreColor ('#0000FF')" > <div class="md-item-filled"><div class="color color-blue"></div></div> Blau </md-menu-item>
+          <md-menu-item @click="foreColor ('#33CC33')" > <div class="md-item-filled"><div class="color color-green"></div></div> Grün </md-menu-item>
+          <md-menu-item @click="foreColor ('#FF0000')" > <div class="md-item-filled"><div class="color color-red"></div></div> Rot </md-menu-item>
+          <md-menu-item @click="foreColor ('#FFEE84')" > <div class="md-item-filled"><div class="color color-yellow"></div></div> Gelb </md-menu-item>
         </md-menu-content>
       </md-menu>
       <!---->
@@ -136,14 +136,14 @@
         <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-left" > <img class="fktstripImg" src="../assets/baseline-format_line_spacing-24px.svg" /> </button>
 
         <md-menu-content class="menu-content">
-          <md-menu-item @click="lineHight(1)" disabled>Einfach</md-menu-item>
-          <md-menu-item @click="lineHight(1.15)" disabled>1,15</md-menu-item>
-          <md-menu-item @click="lineHight(1.5)" disabled>1,5</md-menu-item>
-          <md-menu-item @click="lineHight(2)" disabled>Doppelt</md-menu-item>
+          <md-menu-item @click="lineHight(1)" disabled><div class="md-item-empty"></div>Einfach</md-menu-item>
+          <md-menu-item @click="lineHight(1.15)" disabled><div class="md-item-empty"></div>1,15</md-menu-item>
+          <md-menu-item @click="lineHight(1.5)" disabled><div class="md-item-empty"></div>1,5</md-menu-item>
+          <md-menu-item @click="lineHight(2)" disabled><div class="md-item-empty"></div>Doppelt</md-menu-item>
           <md-divider></md-divider>
-          <md-menu-item @click="" disabled>Abstand vor Absatz einfügen</md-menu-item>
-          <md-menu-item @click="" disabled>Abstand nach Absatz einfügen</md-menu-item>
-          <md-menu-item @click="" disabled>Benutzerdefiniert</md-menu-item>
+          <md-menu-item @click="" disabled><div class="md-item-empty"></div>Abstand vor Absatz einfügen</md-menu-item>
+          <md-menu-item @click="" disabled><div class="md-item-empty"></div>Abstand nach Absatz einfügen</md-menu-item>
+          <md-menu-item @click="" disabled><div class="md-item-empty"></div>Benutzerdefiniert</md-menu-item>
 
         </md-menu-content>
       </md-menu>
@@ -268,7 +268,8 @@
   .color {
     width: 12px;
     height: 12px;
-    margin-right:10px
+    border-radius: 0.17rem;
+    border: 0.05rem solid grey;
   }
 
   .color-black {
