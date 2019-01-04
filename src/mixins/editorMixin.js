@@ -126,6 +126,9 @@ export default {
           document.webkitCancelFullScreen()
         }
       }
+    },
+    print () {
+      window.print()
     }
   }
 }

@@ -10,8 +10,8 @@
         <md-tooltip md-delay="300">Wiederholen</md-tooltip>
         <img class="fktstripImg" src="../assets/baseline-redo-24px.svg" />
       </button>
-      <button type="button" class="btn btn-light btn-tmenu">
-        <md-tooltip md-delay="300">Drucken</md-tooltip>
+      <button type="button" class="btn btn-light btn-tmenu" @click="print">
+        <!--<md-tooltip md-delay="300">Drucken</md-tooltip>-->
         <img class="fktstripImg" src="../assets/baseline-print-24px.svg" />
       </button>
       <button type="button" class="btn btn-light btn-tmenu">

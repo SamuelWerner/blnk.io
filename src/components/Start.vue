@@ -32,7 +32,12 @@
                   <md-button type="submit" form="form" class="md-primary" @click="showDialog = false">Erstellen</md-button>
                 </md-dialog-actions>
               </md-dialog>
-              <md-button class="md-primary md-raised" @click="showDialog = true">+</md-button>
+              <div style="width: max-content; margin: 0 auto;">
+                <md-button class="md-primary md-raised" @click="showDialog = true">+</md-button>
+                <md-tooltip md-delay="1100" md-direction="right">Neues Dokument anlegen</md-tooltip>
+              </div>
+
+
             </div>
           </div>
         </div>

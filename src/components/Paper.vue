@@ -42,7 +42,7 @@
           <md-divider></md-divider>
           <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-insert_drive_file-24px.svg" /></div>Neu</md-menu-item>
           <md-menu-item @click="" href="/"><div class="md-item-filled"><img src="../assets/outline-folder_open-24px.svg" /></div>Öffnen</md-menu-item>
-          <md-menu-item @click="showDialogCopyDokument = true"><div class="md-item-filled"><img src="../assets/outline-file_copy-24px.svg" /></div>Kopie erstellen</md-menu-item>
+          <md-menu-item @click="showDialogCopyDokument = true" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-file_copy-24px.svg" /></div>Kopie erstellen</md-menu-item>
           <md-menu-item @click="" disabled><div class="md-item-empty"></div>Herunterladen</md-menu-item>
           <md-divider></md-divider>
           <md-menu-item @click="showDialogRename = true" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-create-24px.svg" /></div>Umbenennen</md-menu-item>
@@ -56,7 +56,10 @@
 
     <div class="container">
       <b-alert class="saving" :show="saving" variant="info">speichert...</b-alert>
-      <h1 @click="showDialogRename = true">{{ doc.title }} <img @click="showDialogRename = true" style="width: 1.1rem; vertical-align: 0; cursor: pointer" src="../assets/outline-create-24px.svg" /></h1> {{ rename }}
+      <h1 @click="showDialogRename = true">{{ doc.title }}
+        <img id="editName" style="width: 1.1rem; vertical-align: 0; cursor: pointer" src="../assets/outline-create-24px.svg" />
+        <md-tooltip md-delay="700" md-direction="bottom">Umbenennen</md-tooltip>
+      </h1> {{ rename }}
       <div style="outline:none" contenteditable="true"
          id="paper" itemref="paper"
          class="my-3 rounded shadow-lg paper"
@@ -552,6 +555,7 @@
 
   h1 {
     margin-top: 3rem !important;
+    width: max-content;
   }
 
   .saving {
@@ -741,4 +745,24 @@
     }
   }
 
+  @media print {
+    .sticky, #editName, #sidebar {
+      display: none;
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 1rem;
+    }
+    h1::before {
+      content: "Dokument: "
+    }
+    #paper {
+      padding: 0;
+    }
+    .shadow-lg {
+      -webkit-box-shadow: none !important;
+      -moz-box-shadow: none !important;
+      box-shadow: none !important;
+    }
+  }
 </style>
