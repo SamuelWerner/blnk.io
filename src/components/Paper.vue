@@ -57,7 +57,7 @@
           <md-menu-item @click="" disabled><div class="md-item-empty"></div>Verschieben nach</md-menu-item>
           <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/baseline-delete-24px.svg" /></div>Löschen</md-menu-item>
           <md-divider></md-divider>
-          <md-menu-item @click="print" ><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-print-24px.svg" /></div>Drucken</md-menu-item>
+          <md-menu-item @click="print" ><div class="md-item-filled"><img src="../assets/outline-print-24px.svg" /></div>Drucken</md-menu-item>
         </md-menu-content>
       </md-menu>
     </div>
@@ -108,6 +108,7 @@
   import ToolbarMobile from './ToolbarMobile'
   import DiffDOM from 'diff-dom'
   import StringDiff from '../utils/string-diff'
+  import editorMixin from '../mixins/editorMixin'
 
   const usernames = {}
   const positions = {}
@@ -115,6 +116,7 @@
   export default {
     name: 'Paper',
     components: {Toolbar, Menubar, ToolbarMobile},
+    mixins: [editorMixin],
     data () {
       return {
         name: 'Delay',
@@ -746,7 +748,7 @@
 
   #menubarClose {
     position: absolute;
-    right: 5px;
+    right: 15px;
     bottom: 5px;
     width: 20px;
     height: 20px;
@@ -760,6 +762,7 @@
     display: none;
     background-color: #343a40;
     cursor: pointer;
+    z-index: 1;
   }
 
   #menuClosed img {
