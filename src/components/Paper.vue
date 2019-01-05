@@ -754,9 +754,8 @@
   }
 
   #menuClosed {
-    position: -webkit-sticky;
-    -webkit-position: sticky;
     position: sticky;
+    position: -webkit-sticky !important;
     top: 0px;
     display: none;
     background-color: #343a40;
@@ -804,13 +803,10 @@
     .container-fluid {
       padding: 0 !important;
     }
-    .row {
+    .row, .md-tooltip, #menuClosed {
       display: none !important;
     }
-    #menuMobile {
-      display: inline;
-    }
-    #mobileBar {
+    #menuMobile, #mobileBar {
       display: inline;
     }
     .saving {
@@ -818,14 +814,8 @@
       padding: 0.3rem 0.5rem;
       top: 1rem !important;
     }
-    .md-tooltip {
-      display: none;
-    }
     h1:hover #editName {
       transform: none;
-    }
-    #menuClosed {
-      display: none;
     }
   }
 
