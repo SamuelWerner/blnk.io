@@ -1,6 +1,5 @@
 <template>
   <main>
-    <md-content class="md-scrollbar">
     <!-- Toolleiste -->
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-light btn-tmenu" @click="undo">
@@ -182,7 +181,6 @@
       <button type="button" class="btn btn-light btn-tmenu" @click="insertText"> <strong>txt</strong> </button>
     </div>-->
     <!--<p>Letzte Schriftart: {{ fontMessage }} - Letzte Schriftgröße: {{ sizeMessage }}</p>-->
-    </md-content>
   </main>
 </template>
 

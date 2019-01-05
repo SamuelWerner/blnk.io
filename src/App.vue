@@ -2,7 +2,7 @@
   <div id="app">
     <a id="pageTop"></a>
     <b-navbar toggleable="md" type="dark" variant="dark" fixed=""> <!-- fixed="top" -->
-      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+      <!--<b-navbar-toggle target="nav_collapse"></b-navbar-toggle>-->
       <b-navbar-brand id="logo-brand" to="/">BLNK.IO</b-navbar-brand>
       <!--<b-navbar-brand to="/"><img src="./assets/Logo-Blnk.png" width="150"/></b-navbar-brand>-->
       <b-collapse is-nav id="nav_collapse">

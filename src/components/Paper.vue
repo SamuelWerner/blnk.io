@@ -824,6 +824,9 @@
     h1:hover #editName {
       transform: none;
     }
+    #menuClosed {
+      display: none;
+    }
   }
 
   @media (max-width: 430px) {
