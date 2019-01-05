@@ -36,8 +36,6 @@
                 <md-button class="md-primary md-raised" @click="showDialog = true">+</md-button>
                 <!--<md-tooltip md-delay="1100" md-direction="right">Neues Dokument anlegen</md-tooltip>-->
               </div>
-
-
             </div>
           </div>
         </div>

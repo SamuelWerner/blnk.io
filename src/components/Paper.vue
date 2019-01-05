@@ -66,7 +66,7 @@
       <b-alert class="saving" :show="saving" variant="info">speichert...</b-alert>
       <h1 @click="showDialogRename = true">{{ doc.title }}
         <img id="editName"  src="../assets/outline-create-24px.svg" />
-        <md-tooltip md-delay="700" md-direction="bottom">Umbenennen</md-tooltip>
+        <!--<md-tooltip md-delay="700" md-direction="bottom">Umbenennen</md-tooltip>-->
       </h1> {{ rename }}
       <div style="outline:none" contenteditable="true"
          id="paper" itemref="paper"
@@ -158,7 +158,8 @@
       this.oldBodySaving = this.body
       // Socket Verbindung initalisieren
       this.newSocket(this.doc.hash, this.doc)
-      this.scrollDark()
+      this.onScroll()
+      this.editable()
     },
     methods: {
       async newSocket (id, doc) {
@@ -530,18 +531,22 @@
           }
         }
       },
-      scrollDark () {
+      onScroll () {
+        var barDiv = document.getElementById('barDiv')
+        var sidebar = document.getElementById('sidebar')
+        var menubarClose = document.getElementById('menubarClose')
+        var mobileBar = document.getElementById('mobileBar')
         window.onscroll = function () {
           if (document.body.scrollTop > 68 || document.documentElement.scrollTop > 68) {
-            document.getElementById('barDiv').style.backgroundColor = '#343a40'
-            // document.getElementById('sidebar').classList.add('darkSidebar')
-            document.getElementById('sidebar').classList.add('sidebarShadow')
-            document.getElementById('menubarClose').getElementsByTagName('img')[0].style.filter = 'invert(1)'
+            barDiv.style.backgroundColor = '#343a40'
+            sidebar.classList.add('sidebarShadow')
+            menubarClose.getElementsByTagName('img')[0].style.filter = 'invert(1)'
+            mobileBar.getElementsByTagName('main')[0].style.backgroundColor = '#343a40'
           } else {
-            document.getElementById('barDiv').style.backgroundColor = '#f3f2f1'
-            // document.getElementById('sidebar').classList.remove('darkSidebar')
-            document.getElementById('sidebar').classList.remove('sidebarShadow')
-            document.getElementById('menubarClose').getElementsByTagName('img')[0].style.filter = 'invert(0)'
+            barDiv.style.backgroundColor = '#f3f2f1'
+            sidebar.classList.remove('sidebarShadow')
+            menubarClose.getElementsByTagName('img')[0].style.filter = 'invert(0)'
+            mobileBar.getElementsByTagName('main')[0].style.backgroundColor = '#f3f2f1'
           }
         }
       },
@@ -555,13 +560,23 @@
           await api.updateDoc(this.doc.hash, this.doc)
         }
       },
-      menubarClose () {
-        document.getElementById('barDiv').style.display = 'none'
-        document.getElementById('menuClosed').style.display = 'inline'
-      },
-      menubarOpen () {
-        document.getElementById('barDiv').style.display = 'flex'
-        document.getElementById('menuClosed').style.display = 'none'
+      editable () {
+        var content = document.getElementById('paper')
+
+        document.addEventListener('keydown', function (event) {
+          if (event.keyCode === 17) {
+            content.contentEditable = false
+          }
+        }, false)
+
+        document.addEventListener('keyup', function (event) {
+          if (event.keyCode === 17) {
+            content.contentEditable = true
+          }
+        }, false)
+
+        // Titel an Links anhängen
+        document.getElementById('paper').getElementsByTagName('a')[0].setAttribute('title', 'mytitle') // Cannot read property 'setAttribute' undefined ...
       }
     }
   }
@@ -620,7 +635,7 @@
   }
 
   #barDiv {
-    transition: 0.25s;
+    transition: 0.2s;
   }
 
   #closeBtn {
@@ -651,7 +666,7 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    transition: 0.6s;
+    transition: 0.4s;
   }
 
   .sidebarShadow {
@@ -822,6 +837,7 @@
     }
   }
 
+
   @media (max-width: 430px) {
     #paper {
       padding: 1rem;
@@ -830,6 +846,7 @@
       margin-top: 0 !important;
     }
   }
+
 
   @media print {
     .sticky, #editName, #sidebar, .saving, .menu-content {

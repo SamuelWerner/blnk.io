@@ -135,7 +135,7 @@
 
         <md-menu-content class="menu-content">
           <md-menu-item @click="lineHight(1)" disabled><div class="md-item-empty"></div>Einfach</md-menu-item>
-          <md-menu-item @click="lineHight(1.15)" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/baseline-check-24px.svg" /></div>1,15</md-menu-item>
+          <md-menu-item @click="lineHight(1.15)" ><div class="md-item-filled"><img src="../assets/baseline-check-24px.svg" /></div>1,15</md-menu-item>
           <md-menu-item @click="lineHight(1.5)" disabled><div class="md-item-empty"></div>1,5</md-menu-item>
           <md-menu-item @click="lineHight(2)" disabled><div class="md-item-empty"></div>Doppelt</md-menu-item>
           <md-divider></md-divider>

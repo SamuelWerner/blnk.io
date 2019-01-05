@@ -137,7 +137,7 @@
 
         <md-menu-content class="menu-content">
           <md-menu-item @click="lineHight(1)" disabled><div class="md-item-empty"></div>Einfach</md-menu-item>
-          <md-menu-item @click="lineHight(1.15)" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/baseline-check-24px.svg" /></div>1,15</md-menu-item>
+          <md-menu-item @click="lineHight(1.15)" ><div class="md-item-filled"><img src="../assets/baseline-check-24px.svg" /></div>1,15</md-menu-item>
           <md-menu-item @click="lineHight(1.5)" disabled><div class="md-item-empty"></div>1,5</md-menu-item>
           <md-menu-item @click="lineHight(2)" disabled><div class="md-item-empty"></div>Doppelt</md-menu-item>
           <md-divider></md-divider>
@@ -215,10 +215,11 @@
     position: sticky;
     top: 0;
     background-color: #f3f2f1;
-    padding: 0.5rem 1rem 1rem 1rem;
+    padding: 0.2rem 1rem 0.7rem 1rem;
     z-index: 1;
     overflow: auto;
     white-space: nowrap;
+    transition: 0.2s;
   }
 
   h1 {
