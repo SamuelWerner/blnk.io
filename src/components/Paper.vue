@@ -14,6 +14,14 @@
           <img class="fktstripImg" style="margin: 0" src="../assets/baseline-clear-24px.svg" />
         </md-button>
       </div>
+
+      <div @click="menubarClose" id="menubarClose">
+        <img src="../assets/baseline-keyboard_arrow_up-24px.svg" alt="">
+      </div>
+    </div>
+
+    <div @click="menubarOpen" id="menuClosed">
+      <img src="../assets/baseline-keyboard_arrow_down-24px.svg" alt="">
     </div>
 
     <div id="sidebar">
@@ -82,8 +90,8 @@
       </md-field>
 
       <md-dialog-actions>
-        <md-button class="md-primary" @click="showDialogRename = false">Abbruch</md-button>
-        <md-button class="md-primary" @click="showDialogRename = false" type="submit" form="form">Umbenennen</md-button>
+        <!--<md-button class="md-primary" @click="showDialogRename = false">Abbruch</md-button>-->
+        <md-button class="md-primary" @click="showDialogRename = false" type="submit" form="form">Fertig</md-button>
       </md-dialog-actions>
     </md-dialog>
     <!-- DIALOG end -->
@@ -525,9 +533,13 @@
           if (document.body.scrollTop > 68 || document.documentElement.scrollTop > 68) {
             document.getElementById('barDiv').style.backgroundColor = '#343a40'
             // document.getElementById('sidebar').classList.add('darkSidebar')
+            document.getElementById('sidebar').classList.add('sidebarShadow')
+            document.getElementById('menubarClose').getElementsByTagName('img')[0].style.filter = 'invert(1)'
           } else {
             document.getElementById('barDiv').style.backgroundColor = '#f3f2f1'
             // document.getElementById('sidebar').classList.remove('darkSidebar')
+            document.getElementById('sidebar').classList.remove('sidebarShadow')
+            document.getElementById('menubarClose').getElementsByTagName('img')[0].style.filter = 'invert(0)'
           }
         }
       },
@@ -540,6 +552,14 @@
         if (this.doc.hash) {
           await api.updateDoc(this.doc.hash, this.doc)
         }
+      },
+      menubarClose () {
+        document.getElementById('barDiv').style.display = 'none'
+        document.getElementById('menuClosed').style.display = 'inline'
+      },
+      menubarOpen () {
+        document.getElementById('barDiv').style.display = 'flex'
+        document.getElementById('menuClosed').style.display = 'none'
       }
     }
   }
@@ -629,6 +649,13 @@
     position: fixed;
     bottom: 0;
     right: 0;
+    transition: 0.6s;
+  }
+
+  .sidebarShadow {
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(138,138,138,1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(138,138,138,1);
+    box-shadow: 0px 0px 5px 0px rgba(138,138,138,1);
   }
 
   .darkSidebar button {
@@ -714,7 +741,34 @@
   }
 
   h1:hover #editName {
-    transform: rotate(45deg);
+    /* transform: rotate(45deg); */
+  }
+
+  #menubarClose {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  #menuClosed {
+    position: -webkit-sticky;
+    -webkit-position: sticky;
+    position: sticky;
+    top: 0px;
+    display: none;
+    background-color: #343a40;
+    cursor: pointer;
+  }
+
+  #menuClosed img {
+    -webkit-filter: invert(1); /* Safari 6.0 - 9.0 */
+    filter: invert(1);
+    height: 25px;
+    width: 25px;
+    margin-bottom: 5px;
   }
 
 

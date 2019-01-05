@@ -91,8 +91,8 @@
         </md-field>
 
         <md-dialog-actions>
-          <md-button class="md-primary" @click="showDialogRename = false">Abbruch</md-button>
-          <md-button class="md-primary" @click="showDialogRename = false" type="submit" form="form">Umbenennen</md-button>
+          <!--<md-button class="md-primary" @click="showDialogRename = false">Abbruch</md-button>-->
+          <md-button class="md-primary" @click="showDialogRename = false" type="submit" form="form">Fertig</md-button>
         </md-dialog-actions>
       </md-dialog>
       <!-- DIALOG end -->

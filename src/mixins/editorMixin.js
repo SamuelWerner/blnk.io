@@ -29,7 +29,7 @@ export default {
     copy () {
       document.execCommand('copy', false, null)
     },
-    paste () {
+    paste () { // dosn't work on Chrome
       document.execCommand('paste', false, null)
     },
     deleteFrom () {

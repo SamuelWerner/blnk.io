@@ -2,12 +2,24 @@
   <div id="app">
     <a id="pageTop"></a>
     <b-navbar toggleable="md" type="dark" variant="dark" fixed=""> <!-- fixed="top" -->
-      <!--<b-navbar-toggle target="nav_collapse"></b-navbar-toggle>-->
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-navbar-brand id="logo-brand" to="/">BLNK.IO</b-navbar-brand>
       <!--<b-navbar-brand to="/"><img src="./assets/Logo-Blnk.png" width="150"/></b-navbar-brand>-->
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
           <!--<b-nav-item to="/posts-manager">CRUD Example</b-nav-item>-->
+        </b-navbar-nav>
+
+        <b-navbar-nav class="ml-auto">
+
+          <b-nav-item-dropdown right>
+            <!-- Using button-content slot -->
+            <template slot="button-content">
+                <img style="filter: invert(1); margin-bottom: 2px;" src="../src/assets/baseline-person-24px.svg" alt="BV">
+            </template>
+            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item href="#">Signout</b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
