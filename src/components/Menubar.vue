@@ -6,7 +6,7 @@
           <md-button md-menu-trigger type="button" class="md-default md-raised md-dense">Datei</md-button>
 
           <md-menu-content class="menu-content">
-            <md-menu-item @click="" ><div class="md-item-empty"></div>Freigeben</md-menu-item><md-divider></md-divider>
+            <md-menu-item @click="" disabled><div class="md-item-empty"></div>Freigeben</md-menu-item><md-divider></md-divider>
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-insert_drive_file-24px.svg" /></div>Neu</md-menu-item>
             <md-menu-item @click="" href="/"><div class="md-item-filled"><img src="../assets/outline-folder_open-24px.svg" /></div>Öffnen</md-menu-item>
             <md-menu-item @click="showDialogCopyDokument = true"><div class="md-item-filled"><img src="../assets/outline-file_copy-24px.svg" /></div>Kopie erstellen</md-menu-item>
@@ -17,7 +17,7 @@
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/baseline-delete-24px.svg" /></div>Löschen</md-menu-item>
             <md-divider></md-divider>
             <md-menu-item @click="showDialogPage = true" disabled><div class="md-item-empty"></div>Seiteneinrichtung</md-menu-item>
-            <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-print-24px.svg" /></div>Drucken</md-menu-item>
+            <md-menu-item @click="print" ><div class="md-item-filled"><img src="../assets/outline-print-24px.svg" /></div>Drucken</md-menu-item>
           </md-menu-content>
         </md-menu>
         <!-- Bearbeiten -->
@@ -178,7 +178,7 @@
         doc.body = this.$parent.doc.body
         await api.updateDoc(doc.hash, doc)
         this.model = {} // reset form
-        alert('Kopie von dem Dokument wurde erstellt und gespeichert.')
+        alert('Kopie von diesem Dokument wurde erstellt und gespeichert.')
       }
     }
   }

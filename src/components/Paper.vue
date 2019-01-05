@@ -49,7 +49,7 @@
           <md-menu-item @click="" disabled><div class="md-item-empty"></div>Verschieben nach</md-menu-item>
           <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/baseline-delete-24px.svg" /></div>Löschen</md-menu-item>
           <md-divider></md-divider>
-          <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-print-24px.svg" /></div>Drucken</md-menu-item>
+          <md-menu-item @click="print" ><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-print-24px.svg" /></div>Drucken</md-menu-item>
         </md-menu-content>
       </md-menu>
     </div>
@@ -530,6 +530,16 @@
             // document.getElementById('sidebar').classList.remove('darkSidebar')
           }
         }
+      },
+      async updateName () {
+        this.socket.emit('titleChange', {
+          room: 'docChannel_' + this.doc.hash,
+          event: 'titleChange',
+          message: this.doc.title
+        })
+        if (this.doc.hash) {
+          await api.updateDoc(this.doc.hash, this.doc)
+        }
       }
     }
   }
@@ -772,7 +782,7 @@
   }
 
   @media print {
-    .sticky, #editName, #sidebar, .saving {
+    .sticky, #editName, #sidebar, .saving, .menu-content {
       display: none !important;
     }
     * {

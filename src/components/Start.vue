@@ -20,7 +20,7 @@
             <p class="card-text">Lege ein neues Dokument an und bearbeite es.</p>
 
             <div>
-              <md-dialog class="dialog" :md-active.sync="showDialog" :md-fullscreen="false">
+              <md-dialog class="dialog" :md-active.sync="showDialog">
                 <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
                    <md-field class="inputBox" md-clearable>
                      <form id="form" @submit.prevent="saveDoc">
@@ -126,18 +126,6 @@
 
 <!-- Style Allgemein -->
 <style>
-  #footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    color: #f7f7f7;
-    background-color: #2e3338;
-    font-size: 0.8rem;
-    padding: 0.6rem 0;
-  }
-
   form {
     width: 100% !important;
   }

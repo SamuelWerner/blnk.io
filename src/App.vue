@@ -42,4 +42,16 @@
     padding: 0;
     text-decoration: none;
   }
+
+  #footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #f7f7f7;
+    background-color: #2e3338;
+    font-size: 0.8rem;
+    padding: 0.6rem 0;
+  }
 </style>
