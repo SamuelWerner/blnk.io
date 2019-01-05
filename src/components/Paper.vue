@@ -754,7 +754,7 @@
   }
 
   #menuClosed {
-    position: sticky;
+    position: sticky !important;
     position: -webkit-sticky !important;
     top: 0px;
     display: none;
