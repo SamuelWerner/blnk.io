@@ -756,9 +756,9 @@
   }
 
   #menuClosed {
-    position: sticky !important;
-    position: -webkit-sticky !important;
-    top: 0px;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
     display: none;
     background-color: #343a40;
     cursor: pointer;
