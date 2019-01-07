@@ -197,8 +197,8 @@
   main {
     height: auto;
   }
-  body{
-    background-color:#f3f2f1 !important;
+  body {
+    background-color: #f3f2f1 !important;
   }
 
   h1 {
