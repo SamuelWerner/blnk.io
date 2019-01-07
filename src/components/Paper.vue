@@ -564,13 +564,13 @@
         var content = document.getElementById('paper')
 
         document.addEventListener('keydown', function (event) {
-          if (event.keyCode === 17) {
+          if (event.keyCode === 18) {
             content.contentEditable = false
           }
         }, false)
 
         document.addEventListener('keyup', function (event) {
-          if (event.keyCode === 17) {
+          if (event.keyCode === 18) {
             content.contentEditable = true
           }
         }, false)
