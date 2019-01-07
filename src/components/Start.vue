@@ -219,9 +219,9 @@
   }
 
   .liDiv:hover {
-    -webkit-box-shadow: 5px 5px 22px 2px rgba(0,0,0,1);
-    -moz-box-shadow: 5px 5px 22px 2px rgba(0,0,0,1);
-    box-shadow: 5px 5px 22px 2px rgba(0,0,0,1);
+    -webkit-box-shadow: 3px 3px 22px 2px rgba(0,0,0,1);
+    -moz-box-shadow: 3px 3px 22px 2px rgba(0,0,0,1);
+    box-shadow: 3px 3px 22px 2px rgba(0,0,0,1);
     transition: box-shadow 0.2s ease-in-out;
   }
 

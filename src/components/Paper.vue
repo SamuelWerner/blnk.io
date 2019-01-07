@@ -376,9 +376,6 @@
           }
         }
       },
-      createLink () {
-        document.execCommand('createLink', false, null)
-      },
       async onPaste (event, doc) {
         var pastedData = event.clipboardData.files[0]
         var that = this
@@ -563,19 +560,16 @@
       },
       editable () {
         var content = document.getElementById('paper')
-
         document.addEventListener('keydown', function (event) {
           if (event.keyCode === 18) {
             content.contentEditable = false
           }
         }, false)
-
         document.addEventListener('keyup', function (event) {
           if (event.keyCode === 18) {
             content.contentEditable = true
           }
         }, false)
-
         // Titel an Links anhängen
         document.getElementById('paper').getElementsByTagName('a')[0].setAttribute('title', 'mytitle') // Cannot read property 'setAttribute' undefined ...
       },

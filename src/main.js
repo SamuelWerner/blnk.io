@@ -10,12 +10,14 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 import moment from 'moment'
+import titleMixin from './mixins/titleMixin'
 
 var VueScrollTo = require('vue-scrollto')
 
 Vue.use(BootstrapVue)
 Vue.use(VueMaterial)
 Vue.use(VueScrollTo)
+Vue.mixin(titleMixin)
 
 Vue.config.productionTip = false
 

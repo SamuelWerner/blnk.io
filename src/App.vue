@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <a id="pageTop"></a>
-    <b-navbar toggleable="md" type="dark" variant="dark" fixed=""> <!-- fixed="top" -->
+    <b-navbar id="nav" toggleable="md" type="dark" variant="dark" fixed=""> <!-- fixed="top" -->
       <!--<b-navbar-toggle target="nav_collapse"></b-navbar-toggle>-->
       <b-navbar-brand id="logo-brand" href="/">BLNK.IO</b-navbar-brand>
       <!--<b-navbar-brand to="/"><img src="./assets/Logo-Blnk.png" width="150"/></b-navbar-brand>-->
@@ -31,6 +31,7 @@
 <script>
   export default {
     name: 'app',
+    title: 'BLNK.io',
     data () {
       return {
         activeUser: null
