@@ -46,7 +46,7 @@
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-create-24px.svg" /></div>Bearbeiten-Modus</md-menu-item>
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-remove_red_eye-24px.svg" /></div>ReadOnly-Modus</md-menu-item>
             <md-divider></md-divider>
-            <md-menu-item @click="fullScreen" ><div class="md-item-filled"><img src="../assets/outline-fullscreen-24px.svg" /></div>Vollbildmodus</md-menu-item>
+            <md-menu-item @click="fullScreen" ><div class="md-item-filled"><img id="imgtest" src="../assets/outline-fullscreen-24px.svg" /></div>Vollbildmodus</md-menu-item>
           </md-menu-content>
         </md-menu>
         <!-- Einfügen -->
@@ -64,9 +64,18 @@
           <md-button md-menu-trigger type="button" class="md-default md-raised md-dense">Format</md-button>
 
           <md-menu-content class="menu-content">
+            <md-menu-item @click="" ><div class="md-item-empty"></div>Text <div class="submenuIcon"><img src="../assets/outline-keyboard_arrow_right-24px.svg" alt=""></div></md-menu-item>
+            <md-menu-item @click="" ><div class="md-item-empty"></div>Absatzstile <div class="submenuIcon"><img src="../assets/outline-keyboard_arrow_right-24px.svg" alt=""></div></md-menu-item>
+            <md-menu-item @click="" ><div class="md-item-empty"></div>Ausrichten und Einrücken <div class="submenuIcon"><img src="../assets/outline-keyboard_arrow_right-24px.svg" alt=""></div></md-menu-item>
+            <md-menu-item @click="" ><div class="md-item-filled"><img src="../assets/baseline-format_line_spacing-24px.svg" /></div>Zeilenabstand <div class="submenuIcon"><img src="../assets/outline-keyboard_arrow_right-24px.svg" alt=""></div></md-menu-item>
+            <md-menu-item @click="" ><div class="md-item-filled"><img src="../assets/outline-view_column-24px.svg" /></div>Spalten <div class="submenuIcon"><img src="../assets/outline-keyboard_arrow_right-24px.svg" alt=""></div></md-menu-item>
+            <md-menu-item @click="" ><div class="md-item-empty"></div>Aufzählung und Nummerierung</md-menu-item>
+            <md-divider></md-divider>
             <md-menu-item @click="unlink" ><div class="md-item-filled"><img src="../assets/baseline-link_off-24px.svg" /></div>Link entfernen</md-menu-item>
             <md-menu-item @click="removeFormat" ><div class="md-item-filled"><img src="../assets/baseline-format_clear-24px.svg" /></div>Formatierung entfernen</md-menu-item>
           </md-menu-content>
+
+
         </md-menu>
         <!-- Tools --> <!--
         <md-menu md-size="small" class="btn-fmenu" md-align-trigger >
@@ -210,5 +219,20 @@
 
   sub, sup {
     position: relative;
+  }
+
+  .submenuIcon {
+    position: absolute;
+    right: 10px;
+    font-family: Courier, serif;
+    width: 20px;
+    height: 20px;
+    transition: 0.4s;
+  }
+
+  .md-list-item-content:hover .submenuIcon, .submenuIcon:hover {
+    -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.75);
   }
 </style>

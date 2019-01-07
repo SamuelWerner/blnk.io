@@ -22,6 +22,7 @@
 
     <div @click="menubarOpen" id="menuClosed">
       <img src="../assets/baseline-keyboard_arrow_down-24px.svg" alt="">
+      <md-tooltip md-delay="" md-direction="right">Menüs anzeigen</md-tooltip>
     </div>
 
     <div id="sidebar">
@@ -68,7 +69,7 @@
         <img id="editName"  src="../assets/outline-create-24px.svg" />
         <!--<md-tooltip md-delay="700" md-direction="bottom">Umbenennen</md-tooltip>-->
       </h1> {{ rename }}
-      <div style="outline:none" contenteditable="true"
+      <div style="outline: none" contenteditable="true"
          id="paper" itemref="paper"
          class="my-3 rounded shadow-lg paper"
          @paste.stop="onPaste($event, doc)"
@@ -577,6 +578,14 @@
 
         // Titel an Links anhängen
         document.getElementById('paper').getElementsByTagName('a')[0].setAttribute('title', 'mytitle') // Cannot read property 'setAttribute' undefined ...
+      },
+      menubarClose () {
+        document.getElementById('barDiv').style.display = 'none'
+        document.getElementById('menuClosed').style.display = 'inline'
+      },
+      menubarOpen () {
+        document.getElementById('barDiv').style.display = 'flex'
+        document.getElementById('menuClosed').style.display = 'none'
       }
     }
   }
@@ -773,7 +782,8 @@
   #menuClosed {
     position: -webkit-sticky; /* Safari */
     position: sticky;
-    top: 0;
+    top: 15px;
+    right: 0;
     display: none;
     background-color: #343a40;
     cursor: pointer;
@@ -786,6 +796,13 @@
     height: 25px;
     width: 25px;
     margin-bottom: 5px;
+  }
+
+  body:-webkit-full-screen h1,
+  body:-moz-full-screen h1,
+  body:-ms-fullscreen h1,
+  body:fullscreen h1 {
+    color: red;
   }
 
 

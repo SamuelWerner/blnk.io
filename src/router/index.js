@@ -20,6 +20,11 @@ let router = new Router({
       component: Paper
     },
     {
+      path: '/paper/',
+      name: 'Start',
+      component: Start
+    },
+    {
       path: '/',
       name: 'Start',
       component: Start

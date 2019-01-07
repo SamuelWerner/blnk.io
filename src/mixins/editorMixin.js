@@ -88,10 +88,18 @@ export default {
         '\n' + 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \n')
     },
     createLink () {
-      var url = prompt("'ALT' drücken, um Links im Dokument anzuwählen bzw. zu öffnen!\nLink einfügen: ", 'blnk-io.herokuapp.com/')
-      // console.log(url)
-      if (url != null) {
-        document.execCommand('createLink', false, 'https://' + url)
+      if (document.body.clientWidth >= 700) {
+        var url = prompt("'ALT' drücken, um Links im Dokument anzuwählen bzw. zu öffnen!\nLink einfügen: ", 'blnk-io.herokuapp.com/')
+        // console.log(url)
+        if (url != null) {
+          document.execCommand('createLink', false, 'https://' + url)
+        }
+      } else {
+        var url2 = prompt('Link einfügen: ', 'blnk-io.herokuapp.com/')
+        // console.log(url2)
+        if (url2 != null) {
+          document.execCommand('createLink', false, 'https://' + url2)
+        }
       }
     },
     unlink () {
@@ -131,14 +139,6 @@ export default {
     },
     print () {
       window.print()
-    },
-    menubarClose () {
-      document.getElementById('barDiv').style.display = 'none'
-      document.getElementById('menuClosed').style.display = 'inline'
-    },
-    menubarOpen () {
-      document.getElementById('barDiv').style.display = 'flex'
-      document.getElementById('menuClosed').style.display = 'none'
     }
   }
 }
