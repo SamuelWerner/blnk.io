@@ -132,7 +132,11 @@
           if (state === 'complete') {
             document.getElementById('interactive')
             document.getElementById('containerSpinner').style.display = 'none'
-            document.getElementById('docList').style.display = 'inline'
+            if (document.body.clientWidth >= 450) {
+              document.getElementById('docList').style.display = 'inline'
+            } else {
+              document.getElementById('docList').style.display = 'none'
+            }
           }
         }
       }
