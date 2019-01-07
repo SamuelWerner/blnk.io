@@ -40,9 +40,14 @@
           </div>
         </div>
 
-        <div class="docList">
-          <ul>
-            <li v-for="doc in docs" :key="doc.hash">
+        <div id="containerSpinner">
+          <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+        </div>
+
+
+        <div id="docList">
+          <ul id="ul">
+            <li id="li" v-for="doc in docs" :key="doc.hash">
               <div class="liDiv">
                 <img class="docWidgetSec" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
                 <span class="docTitle">{{ doc.title }}</span><br>
@@ -94,8 +99,11 @@
         initial: 'Dok'
       }
     },
+    async beforeCreate () {
+    },
     async created () {
       this.refreshDocs()
+      this.loadingSpinner()
     },
     methods: {
       async refreshDocs () {
@@ -117,6 +125,16 @@
       },
       async openDoc (id) {
         this.$router.push('/paper/' + id)
+      },
+      async loadingSpinner () {
+        document.onreadystatechange = function () {
+          var state = document.readyState
+          if (state === 'complete') {
+            document.getElementById('interactive')
+            document.getElementById('containerSpinner').style.display = 'none'
+            document.getElementById('docList').style.display = 'inline'
+          }
+        }
       }
     }
   }
@@ -158,6 +176,7 @@
   .card {
     margin: 0 10px;
     min-width: 220px;
+    border-radius: 2px;
   }
 
   .mobileDocList {
@@ -178,12 +197,16 @@
     min-width: 210px;
   }
 
+  #docList {
+    display: none;
+  }
+
   .liDiv {
     position: relative;
     padding: 20px 10px 10px 10px;
-    border-radius: calc(0.25rem - 1px);
+    border-radius: 2px;
     background-color: #fff/*#f7f7f7*/;
-    min-height: 17.5rem;
+    min-height: 17rem;
     float: left;
     text-align: center;
     word-wrap: break-word;
@@ -244,6 +267,12 @@
     width: 50px;
   }
 
+  #containerSpinner {
+    width: 100%;
+    text-align: center;
+    margin-top: 44px;
+  }
+
 
   @media (max-width: 1200px) {
     ul li {
@@ -292,7 +321,7 @@
       padding-bottom: 3rem;
     }
 
-    .docList {
+    #docList {
       display: none;
     }
 
