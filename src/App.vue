@@ -48,6 +48,10 @@
 </script>
 
 <style>
+  html {
+    font-size: 100%;
+  }
+
   #logo-brand {
     font-family: Franklin Gothic Heavy, sans-serif;
     font-size: 2.2rem;

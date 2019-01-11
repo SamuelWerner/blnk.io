@@ -82,7 +82,7 @@
         <div style="clear: left"></div>
       </div>
     </div>
-    <div id="footer" >&copy; THM | <a href="/impress">Impressum</a></div>
+    <div id="footer" >&copy; THM &nbsp;|&nbsp; <a href="/impress">Impressum</a></div>
   </main>
 </template>
 

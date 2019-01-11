@@ -76,7 +76,7 @@
        </md-tabs>
        <md-button class="md-raised md-dense" href="/">zurück</md-button>
      </div>
-     <div id="footer" >&copy; THM | <a href="/impress">Impressum</a></div>
+     <div id="footer" >&copy; THM &nbsp;|&nbsp; <a href="/impress">Impressum</a></div>
    </main>
 </template>
 
@@ -93,6 +93,10 @@
 </style>
 
 <style scoped>
+  body {
+    background-color: #f3f2f1 !important;
+  }
+
   main {
     padding-bottom: 7rem;
   }
