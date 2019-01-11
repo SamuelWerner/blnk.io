@@ -5,11 +5,14 @@ import Start from '@/components/Start'
 import Impressum from '@/components/Impressum'
 import { MdButton, MdContent, MdTabs } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
+// import Vuetify from 'vuetify'
+// import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(Router)
 Vue.use(MdButton)
 Vue.use(MdContent)
 Vue.use(MdTabs)
+// Vue.use(Vuetify)
 
 let router = new Router({
   mode: 'history',

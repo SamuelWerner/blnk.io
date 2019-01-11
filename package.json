@@ -30,7 +30,8 @@
     "vue-material": "^1.0.0-beta-10.2",
     "vue-router": "^3.0.2",
     "vue-scrollto": "^2.13.0",
-    "vue-socket.io": "^3.0.4"
+    "vue-socket.io": "^3.0.4",
+    "vuetify": "^1.4.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.5",

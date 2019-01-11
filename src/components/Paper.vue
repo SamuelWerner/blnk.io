@@ -25,7 +25,7 @@
       <md-tooltip md-delay="" md-direction="right">Menüs anzeigen</md-tooltip>
     </div>
 
-    <div id="sidebar">
+    <div id="sidebar" style="display: none">
       <button v-scroll-to="'#pageTop'" type="button" class="btn btn-light btn-tmenu btn-sidebar">
         <img class="fktstripImg" src="../assets/baseline-vertical_align_top-24px.svg" />
         <md-tooltip md-delay="300" md-direction="left">nach oben scrollen</md-tooltip>
@@ -35,6 +35,8 @@
         <md-tooltip md-delay="300" md-direction="left">nach unten scrollen</md-tooltip>
       </button>
     </div>
+
+    <a id="scrollTop" v-scroll-to="'#pageTop'"><img src="../assets/baseline-keyboard_arrow_up-24px.svg" alt=""></a>
 
     <div id="mobileBar" class="sticky">
       <ToolbarMobile></ToolbarMobile>
@@ -534,17 +536,20 @@
         var sidebar = document.getElementById('sidebar')
         var menubarClose = document.getElementById('menubarClose')
         var mobileBar = document.getElementById('mobileBar')
+        var scrollToTop = document.getElementById('scrollTop')
         window.onscroll = function () {
           if (document.body.scrollTop > 68 || document.documentElement.scrollTop > 68) {
             barDiv.style.backgroundColor = '#343a40'
             sidebar.classList.add('sidebarShadow')
             menubarClose.getElementsByTagName('img')[0].style.filter = 'invert(1)'
             mobileBar.getElementsByTagName('main')[0].style.backgroundColor = '#343a40'
+            scrollToTop.style.display = 'flex'
           } else {
             barDiv.style.backgroundColor = '#f3f2f1'
             sidebar.classList.remove('sidebarShadow')
             menubarClose.getElementsByTagName('img')[0].style.filter = 'invert(0)'
             mobileBar.getElementsByTagName('main')[0].style.backgroundColor = '#f3f2f1'
+            scrollToTop.style.display = 'none'
           }
         }
       },
@@ -687,7 +692,7 @@
   }
 
   #paper {
-    min-height:1200px;
+    min-height: 1200px;
     padding: 120px;
     background-color: white;
   }
@@ -797,6 +802,38 @@
   body:-ms-fullscreen h1,
   body:fullscreen h1 {
     color: red;
+  }
+
+  #scrollTop {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #343a40;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: none;
+    justify-content: center;
+    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12);
+  }
+
+  #scrollTop:hover {
+    opacity: 0.9;
+  }
+
+  #scrollTop img {
+    filter: invert(1);
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s ease;
+    -ms-transition: all 0.1s ease;
+    -o-transition: all 0.1s ease;
+    transition: all 0.1s ease;
   }
 
 

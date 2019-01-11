@@ -100,6 +100,7 @@
       }
     },
     async beforeCreate () {
+      this.startCss()
     },
     async created () {
       this.refreshDocs()
@@ -130,13 +131,15 @@
         document.onreadystatechange = function () {
           var state = document.readyState
           if (state === 'complete') {
-            document.getElementById('interactive')
-            document.getElementById('containerSpinner').style.display = 'none'
-            if (document.body.clientWidth >= 450) {
-              document.getElementById('docList').style.display = 'inline'
-            } else {
-              document.getElementById('docList').style.display = 'none'
-            }
+            setTimeout(function () {
+              document.getElementById('interactive')
+              document.getElementById('containerSpinner').style.display = 'none'
+              if (document.body.clientWidth >= 450) {
+                document.getElementById('docList').style.display = 'inline'
+              } else {
+                document.getElementById('docList').style.display = 'none'
+              }
+            }, 1000)
           }
         }
       }
@@ -159,7 +162,6 @@
     width: 30rem;
     padding: 0 2rem;
   }
-
 
   @media (max-width: 500px) {
     .dialog {
@@ -245,12 +247,12 @@
 
   .banner {
     text-align: center;
-    padding: 3rem 2rem 2rem 2rem;
+    padding: 7rem 2rem 2rem 2rem;
     margin-bottom: 0.7rem;
   }
 
   .banner img {
-    width: 30%;
+    width: 35%;
     max-width: 1088px;
   }
 
@@ -283,7 +285,7 @@
       width: 25%;
     }
     .banner {
-      padding: 1.3rem;
+      padding: 4rem 1.3rem 1.3rem 1.3rem;
     }
   }
 
@@ -292,7 +294,7 @@
       width: 33.3%;
     }
     .banner {
-      padding: 0.7rem;
+      padding: 2.5rem 0.7rem 0.7rem 0.7rem;
     }
   }
 
@@ -310,7 +312,7 @@
       padding: 6px;
     }
     .container-fluid {
-      padding: 0.7rem 0 0 0;
+      padding: 2rem 0 0 0;
     }
     .docWidgetMain {
       width: 60px;
@@ -323,6 +325,10 @@
   @media (max-width: 450px) {
     main {
       padding-bottom: 3rem;
+    }
+
+    .container-fluid {
+      padding: 1rem 0 0 0;
     }
 
     #docList {
