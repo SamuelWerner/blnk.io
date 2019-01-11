@@ -88,7 +88,7 @@
 
 <style>
   body {
-    background-color: #343a40 !important;
+    background-color: #f3f2f1 !important;
   }
 </style>
 
@@ -123,7 +123,7 @@
   }
 
   .md-tab {
-    background-color: #343a40 !important;
+    background-color: #f3f2f1 !important;
     color: red;
   }
 
