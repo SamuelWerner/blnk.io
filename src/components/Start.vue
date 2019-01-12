@@ -100,7 +100,7 @@
       }
     },
     async beforeCreate () {
-      this.startCss()
+      // this.startCss()
     },
     async created () {
       this.refreshDocs()
