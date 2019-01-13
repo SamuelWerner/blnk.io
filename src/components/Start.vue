@@ -103,12 +103,14 @@
       // this.startCss()
     },
     async created () {
-      this.refreshDocs()
-      this.loadingSpinner()
+      await this.refreshDocs()
+      document.getElementById('containerSpinner').style.display = 'none'
+      document.getElementById('docList').style.display = 'inline'
     },
     methods: {
       async refreshDocs () {
         this.docs = await api.getDocs()
+        return true
       },
       async saveDoc () {
         await api.createDoc(this.model)
@@ -126,22 +128,6 @@
       },
       async openDoc (id) {
         this.$router.push('/paper/' + id)
-      },
-      async loadingSpinner () {
-        document.onreadystatechange = function () {
-          var state = document.readyState
-          if (state === 'complete') {
-            setTimeout(function () {
-              document.getElementById('interactive')
-              document.getElementById('containerSpinner').style.display = 'none'
-              if (document.body.clientWidth >= 450) {
-                document.getElementById('docList').style.display = 'inline'
-              } else {
-                document.getElementById('docList').style.display = 'none'
-              }
-            }, 1000)
-          }
-        }
       }
     }
   }
