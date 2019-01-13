@@ -71,6 +71,9 @@
         <img id="editName"  src="../assets/outline-create-24px.svg" />
         <!--<md-tooltip md-delay="700" md-direction="bottom">Umbenennen</md-tooltip>-->
       </h1> {{ rename }}
+      <div id="containerSpinner" class="spinner">
+        <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+      </div>
       <div style="outline: none" contenteditable="true"
          id="paper" itemref="paper"
          class="my-3 rounded shadow-lg paper"
@@ -149,6 +152,7 @@
       // Beim Aufruf der Seite das Dokument aufbauen
       let newB = document.createElement('div')
       this.doc = await api.getDoc(this.$route.params.hash)
+      document.getElementById('containerSpinner').style.display = 'none'
       let changes = JSON.parse(this.doc.body).changes
       let dd = new DiffDOM()
       for (let change in changes) {
@@ -576,7 +580,9 @@
           }
         }, false)
         // Titel an Links anhängen
-        document.getElementById('paper').getElementsByTagName('a')[0].setAttribute('title', 'mytitle') // Cannot read property 'setAttribute' undefined ...
+        if (document.getElementById('paper').getElementsByTagName('a')[0]) {
+          document.getElementById('paper').getElementsByTagName('a')[0].setAttribute('title', 'mytitle') // Cannot read property 'setAttribute' undefined ...
+        }
       },
       menubarClose () {
         document.getElementById('barDiv').style.display = 'none'
@@ -918,5 +924,10 @@
       -moz-box-shadow: none !important;
       box-shadow: none !important;
     }
+  }
+  .spinner {
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 15px;
   }
 </style>
