@@ -65,15 +65,19 @@
       </md-menu>
     </div>
 
+
     <div class="container">
       <b-alert class="saving" :show="saving" variant="info">speichert...</b-alert>
-      <h1 @click="showDialogRename = true">{{ doc.title }}
+
+      <h1 @click="showDialogRename = true">
+        <div id="containerSpinner" class="spinner">
+          <md-progress-spinner md-mode="indeterminate" md-diameter="40" md-stroke="4"></md-progress-spinner>
+        </div>
+        {{ doc.title }}
         <img id="editName"  src="../assets/outline-create-24px.svg" />
         <!--<md-tooltip md-delay="700" md-direction="bottom">Umbenennen</md-tooltip>-->
       </h1> {{ rename }}
-      <div id="containerSpinner" class="spinner">
-        <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
-      </div>
+
       <div style="outline: none" contenteditable="true"
          id="paper" itemref="paper"
          class="my-3 rounded shadow-lg paper"
@@ -153,6 +157,7 @@
       let newB = document.createElement('div')
       this.doc = await api.getDoc(this.$route.params.hash)
       document.getElementById('containerSpinner').style.display = 'none'
+      document.getElementById('editName').style.display = 'inline-block'
       let changes = JSON.parse(this.doc.body).changes
       let dd = new DiffDOM()
       for (let change in changes) {
@@ -616,7 +621,7 @@
 
   h1 {
     margin-top: 3rem !important;
-    width: max-content;
+    display: inline-block;
   }
 
   .saving {
@@ -769,6 +774,7 @@
     vertical-align: 0;
     cursor: pointer;
     transition: 0.2s;
+    display: none;
   }
 
   h1:hover #editName {
@@ -803,13 +809,6 @@
     margin-bottom: 5px;
   }
 
-  body:-webkit-full-screen h1,
-  body:-moz-full-screen h1,
-  body:-ms-fullscreen h1,
-  body:fullscreen h1 {
-    color: red;
-  }
-
   #scrollTop {
     position: fixed;
     right: 20px;
@@ -840,6 +839,11 @@
     -ms-transition: all 0.1s ease;
     -o-transition: all 0.1s ease;
     transition: all 0.1s ease;
+  }
+
+  #containerSpinner {
+    display: inline-block;
+    margin-right: 10px;
   }
 
 
@@ -924,10 +928,5 @@
       -moz-box-shadow: none !important;
       box-shadow: none !important;
     }
-  }
-  .spinner {
-    position: absolute;
-    margin-left: 10px;
-    margin-top: 15px;
   }
 </style>
