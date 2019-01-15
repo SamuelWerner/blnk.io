@@ -80,8 +80,10 @@
     box-shadow: 0 1rem 5rem -0.5rem #000;
     border-bottom: 1px solid #575b5f;
     position: -webkit-sticky; /* Safari */
+    /*
     position: sticky;
     top: 0;
     z-index: 1;
+    */
   }
 </style>
