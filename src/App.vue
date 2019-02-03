@@ -70,20 +70,9 @@
     background-color: #2e3338;
     font-size: 0.8rem;
     padding: 0.6rem 0;
-    box-shadow: 0 -1rem 5rem -0.5rem #000;
     border-top: 1px solid #575b5f;
   }
 </style>
 
 <style scoped>
-  #nav {
-    box-shadow: 0 1rem 5rem -0.5rem #000;
-    border-bottom: 1px solid #575b5f;
-    position: -webkit-sticky; /* Safari */
-    /*
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    */
-  }
 </style>
