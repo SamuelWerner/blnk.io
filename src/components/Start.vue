@@ -13,7 +13,7 @@
       -->
 
       <div class="box products position-relative overflow-hidden p-5 mb-md-3 text-center">
-        <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <div class="col-md-12 py-lg-5 mx-auto my-5">
           <h1 class="display-1 font-weight-bold mb-4 line-1 anim-typewriter">BL_NK.IO</h1>
           <p class="lead font-weight-normal m-0">Google Docs von uns</p>
         </div>
