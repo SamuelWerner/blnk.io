@@ -12,15 +12,18 @@
       </div>
       -->
 
-      <div class="box products position-relative overflow-hidden p-5 mb-md-3 text-center">
+      <div class="box products position-relative overflow-hidden p-5 text-center" style="margin-bottom: 4.5rem;">
         <div class="col-md-12 py-lg-5 mx-auto my-5">
           <h1 class="display-1 font-weight-bold mb-4 line-1 anim-typewriter">BL_NK.IO</h1>
           <p class="lead font-weight-normal m-0">Google Docs von uns</p>
         </div>
         <div class="product-example product-example-1"></div>
         <div class="product-example product-example-2"></div>
+        <div class="product-example product-example-3"></div>
+        <div class="product-example product-example-4"></div>
       </div>
 
+      <!--
       <div class="row text-center" style="margin-bottom: 6rem;">
         <div class="col-lg-3 col-md-12 col-left">
           <div class="box procedure">
@@ -52,8 +55,9 @@
           </div>
         </div>
       </div>
+      -->
 
-      <div class="container">
+      <div class="container" style="margin-bottom: 4rem;">
         <div class="row text-center mb-md-3">
           <div class="col-lg-4 col-md-12 col-left">
             <div class="box p-5">
@@ -73,7 +77,7 @@
               <p><img class="docWidgetMain" src="../assets/baseline-person-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Profil</h2>
               <p class="lead font-weight-normal">Besuche dein Profil.</p>
-              <md-button class="md-primary md-raised" disabled> Profil </md-button>
+              <md-button class="md-primary md-raised"> Profil </md-button>
               <div class="helper">
                 <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
                   <i class="fas fa-question"></i>
@@ -98,7 +102,7 @@
           -->
         </div>
 
-        <div class="row text-center mb-md-5">
+        <div class="row text-center">
           <div class="col-lg-8 col-md-12 col-left">
             <div class="box p-5">
               <p><img class="docWidgetMain" src="../assets/outline-insert_drive_file-24px.svg" /></p>
@@ -160,11 +164,11 @@
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
           </md-tab>
-          <md-tab md-label="Neues Dok">
+          <md-tab md-label="Neues Dokument">
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
           </md-tab>
-          <md-tab md-label="Dok suchen">
+          <md-tab md-label="Dokument suchen">
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
           </md-tab>
@@ -175,7 +179,7 @@
         </md-dialog-actions>
       </md-dialog>
 
-      <div class="container mt-5" style="padding: 0 5px;">
+      <div class="container" style="padding: 0 5px;">
         <!--
         <div class="card text-center">
           <div class="card-header">
@@ -215,9 +219,10 @@
         <div id="docList">
           <div class="row">
             <div class="col-6">
-              <p class="lead">Zuletzt verwendete Dokumente:</p>
+              <p class="">Zuletzt verwendete Dokumente:</p>
             </div>
-            <div class="col-6 text-right">
+            <div class="col-6">
+              <!--
               <div class="md-layout-item" style="display: none">
                 <md-field>
                   <md-select name="eigentuemer" id="eigentuemer" placeholder="Eigentümer">
@@ -227,6 +232,12 @@
                   </md-select>
                 </md-field>
               </div>
+              -->
+              <select class="form-control form-eigentuemer">
+                <option>Beliebiger Eigentümer</option>
+                <option>Ich bin Eigentümer</option>
+                <option>Ich bin nicht Eigentümer</option>
+              </select>
             </div>
           </div>
 
@@ -270,6 +281,9 @@
         <div style="clear: left"></div>
       </div>
     </div>
+
+    <a id="scrollTop" v-scroll-to="'#pageTop'"><img src="../assets/baseline-keyboard_arrow_up-24px.svg" alt=""></a>
+
     <div id="footer" >&copy; THM &nbsp;|&nbsp; <a href="/impress">Impressum</a></div>
   </main>
 </template>
@@ -295,6 +309,7 @@
       await this.refreshDocs()
       document.getElementById('containerSpinner').style.display = 'none'
       document.getElementById('docList').style.display = 'inline' /* in mobile nicht anzeigen */
+      this.onScroll()
     },
     methods: {
       async refreshDocs () {
@@ -317,6 +332,18 @@
       },
       async openDoc (id) {
         this.$router.push('/paper/' + id)
+      },
+      onScroll () {
+        var scrollToTop = document.getElementById('scrollTop')
+        window.onscroll = function () {
+          if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+            scrollToTop.style.visibility = 'visible'
+            scrollToTop.style.opacity = '1'
+          } else {
+            scrollToTop.style.visibility = 'hidden'
+            scrollToTop.style.opacity = '0'
+          }
+        }
       }
     }
   }
@@ -336,6 +363,43 @@
     text-align: center;
     width: 30rem;
     padding: 0 2rem;
+  }
+
+  #scrollTop {
+    display: flex;;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #343a40;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    justify-content: center;
+    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12);
+    z-index: 9999;
+  }
+
+  #scrollTop:hover {
+    opacity: 0.5;
+  }
+
+  #scrollTop img {
+    filter: invert(1);
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s ease;
+    -ms-transition: all 0.1s ease;
+    -o-transition: all 0.1s ease;
+    transition: all 0.1s ease;
   }
 
   @media (max-width: 500px) {
@@ -366,12 +430,14 @@
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
+    z-index: 200;
+    text-shadow: 0px 0px 30px rgba(255, 255, 255, 1);
   }
 
   /* Animation */
   .anim-typewriter {
     animation:  typewriter 1.4s steps(16) 0.5s 1 normal both,
-                blinkTextCursor 600ms steps(16) 4 normal;
+                blinkTextCursor 600ms steps(16) 5 normal;
   }
   @keyframes typewriter {
     from {width: 0;}
@@ -433,17 +499,37 @@
   }
 
   .product-example-1 {
-    transform: rotate(22deg);
-    left: 8%;
-    top: -20%;
+    transform: rotate(-15deg);
+    left: 10%;
+    top: -13%;
     background-image: url("../assets/produkt2.jpg");
+    z-index: 50;
   }
 
   .product-example-2 {
     transform: rotate(22deg);
-    right: 8%;
+    right: 6%;
     bottom: -25%;
     background-image: url("../assets/produkt1.jpg");
+    z-index: 50;
+  }
+
+  .product-example-3 {
+    transform: rotate(-10deg) scale(0.7);
+    right: 12%;
+    top: -25%;
+    background-image: url("../assets/produkt2.jpg");
+    z-index: 40;
+    opacity: 0.7;
+  }
+
+  .product-example-4 {
+    transform: rotate(-5deg) scale(0.8);
+    left: 5%;
+    bottom: -25%;
+    background-image: url("../assets/produkt1.jpg");
+    z-index: 40;
+    opacity: 0.7;
   }
 
   .box-arrow-right {
@@ -509,18 +595,28 @@
     margin-right: 8px;
   }
 
-  .docListMenu {
+  .form-control.form-eigentuemer {
+    height: auto;
   }
 
-  .md-theme-default {
+  select.form-eigentuemer {
+    text-align-last: right;
   }
 
-  .md-list-item {
-    width: 100%;
+  .form-eigentuemer {
+    width: auto;
+    float: right;
+    background-color: transparent;
+    margin-right: 8px;
+    border: 0;
+    color: #fff;
+    padding-top: 0;
     padding-bottom: 0;
   }
 
-  .md-select .md-input {
+  .form-eigentuemer option {
+    color: black;
+    text-align: right;
   }
 
   .liDiv {
@@ -543,14 +639,17 @@
     transition: box-shadow 0.1s ease-in-out;
   }
 
+  .liDiv hr {
+    margin-bottom: 1.4rem;
+  }
+
   .updatedAt {
-    font-size: 9px;
+    font-size: 10px;
     margin-bottom: 10px;
   }
 
   .docTitle {
-    font-weight: normal;
-    margin: 0 5px 20px 5px;
+    font-size: 1rem;
   }
 
   li .md-button {
@@ -607,6 +706,15 @@
     width: 100%;
     text-align: center;
     margin-top: 44px;
+  }
+
+  #scrollTop {
+    background-color: white;
+    color: black;
+  }
+
+  #scrollTop img {
+    filter: invert(0);
   }
 
 
