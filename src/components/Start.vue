@@ -63,7 +63,7 @@
             <p><img class="docWidgetMain" src="../assets/baseline-exit_to_app-24px.svg" /></p>
             <h2 class="display-5 text-uppercase">Login</h2>
             <p class="lead font-weight-normal">Melde dich an / Registriere dich.</p>
-            <md-button class="md-primary md-raised">Login</md-button>
+            <md-button class="md-primary md-raised"> Login </md-button>
           </div>
         </div>
         <div class="col-lg-4 col-md-12 col-center">
@@ -71,15 +71,15 @@
             <p><img class="docWidgetMain" src="../assets/baseline-person-24px.svg" /></p>
             <h2 class="display-5 text-uppercase">Profil</h2>
             <p class="lead font-weight-normal">Besuche dein Profil.</p>
-            <md-button class="md-primary md-raised"> Profil </md-button>
+            <md-button class="md-primary md-raised" disabled> Profil </md-button>
           </div>
         </div>
         <div class="col-lg-4 col-md-12 col-right">
           <div class="box p-5">
             <p><img class="docWidgetMain" src="../assets/baseline-enter_to_app-24px.svg" /></p>
             <h2 class="display-5 text-uppercase">Logout</h2>
-            <p class="lead font-weight-normal">BMelde dich ab.</p>
-            <md-button class="md-primary md-raised"> Logout </md-button>
+            <p class="lead font-weight-normal">Melde dich ab.</p>
+            <md-button class="md-primary md-raised" disabled> Logout </md-button>
           </div>
         </div>
       </div>
@@ -92,6 +92,18 @@
             <p class="lead font-weight-normal">Lege ein neues Dokument an und bearbeite es.</p>
             <md-button class="md-primary md-raised" @click="showDialog = true"> Neu </md-button>
           </div>
+          <md-dialog class="dialog" :md-active.sync="showDialog">
+            <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
+            <md-field class="inputBox" md-clearable>
+              <form id="form" @submit.prevent="saveDoc">
+                <label>Titel eingeben...</label><md-textarea type="text" v-model="model.title" maxlength="30" md-autogrow></md-textarea>
+              </form>
+            </md-field>
+            <md-dialog-actions>
+              <md-button class="md-primary" @click="showDialog = false">Abbruch</md-button>
+              <md-button type="submit" form="form" class="md-primary" @click="showDialog = false">Erstellen</md-button>
+            </md-dialog-actions>
+          </md-dialog>
         </div>
         <div class="col-lg-6 col-md-12 col-right">
           <div class="box p-5">
