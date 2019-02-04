@@ -14,17 +14,16 @@
 
       <div class="box products position-relative overflow-hidden p-5 mb-md-3 text-center">
         <div class="col-md-5 p-lg-5 mx-auto my-5">
-          <h1 class="display-1 font-weight-bold">BLNK.IO</h1>
+          <h1 class="display-1 font-weight-bold">BL_NK.IO</h1>
           <p class="lead font-weight-normal m-0">Google Docs von uns</p>
         </div>
         <div class="product-example product-example-1"></div>
         <div class="product-example product-example-2"></div>
       </div>
 
-      <div class="row text-center" style="margin-bottom: 5rem;">
+      <div class="row text-center" style="margin-bottom: 6rem;">
         <div class="col-lg-3 col-md-12 col-left">
-          <div class="box">
-            <h2 class="display-5">1.</h2>
+          <div class="box procedure">
             <p class="lead font-weight-normal m-0">Dokumente erstellen.</p>
             <div class="box-arrow-right">
               <i class="material-icons">keyboard_arrow_right</i>
@@ -32,8 +31,7 @@
           </div>
         </div>
         <div class="col-lg-3 col-md-12 col-center">
-          <div class="box">
-            <h2 class="display-5">2.</h2>
+          <div class="box procedure">
             <p class="lead font-weight-normal m-0">Dokumente bearbeiten.</p>
             <div class="box-arrow-right">
               <i class="material-icons">keyboard_arrow_right</i>
@@ -41,8 +39,7 @@
           </div>
         </div>
         <div class="col-lg-3 col-md-12 col-center">
-          <div class="box">
-            <h2 class="display-5">3.</h2>
+          <div class="box procedure">
             <p class="lead font-weight-normal m-0">Dokumente teilen.</p>
             <div class="box-arrow-right">
               <i class="material-icons">keyboard_arrow_right</i>
@@ -50,94 +47,95 @@
           </div>
         </div>
         <div class="col-lg-3 col-md-12 col-right">
-          <div class="box">
-            <h2 class="display-5">4.</h2>
-            <p class="lead font-weight-normal m-0">Dok gemeinsam bearbeiten.</p>
+          <div class="box procedure">
+            <p class="lead font-weight-normal m-0">Gemeinsam bearbeiten.</p>
           </div>
         </div>
       </div>
 
-      <div class="row text-center mb-md-3">
-        <div class="col-lg-4 col-md-12 col-left">
-          <div class="box p-5">
-            <p><img class="docWidgetMain" src="../assets/baseline-exit_to_app-24px.svg" /></p>
-            <h2 class="display-5 text-uppercase">Login</h2>
-            <p class="lead font-weight-normal">Melde dich an / Registriere dich.</p>
-            <md-button class="md-primary md-raised"> Login </md-button>
-            <div class="helper">
-              <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
-                <i class="fas fa-question"></i>
-              </md-button>
+      <div class="container">
+        <div class="row text-center mb-md-3">
+          <div class="col-lg-4 col-md-12 col-left">
+            <div class="box p-5">
+              <p><img class="docWidgetMain" src="../assets/baseline-exit_to_app-24px.svg" /></p>
+              <h2 class="display-5 text-uppercase">Login</h2>
+              <p class="lead font-weight-normal">Melde dich an.</p>
+              <md-button class="md-primary md-raised"> Login </md-button>
+              <div class="helper">
+                <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                  <i class="fas fa-question"></i>
+                </md-button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-12 col-center">
+            <div class="box p-5">
+              <p><img class="docWidgetMain" src="../assets/baseline-person-24px.svg" /></p>
+              <h2 class="display-5 text-uppercase">Profil</h2>
+              <p class="lead font-weight-normal">Besuche dein Profil.</p>
+              <md-button class="md-primary md-raised" disabled> Profil </md-button>
+              <div class="helper">
+                <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                  <i class="fas fa-question"></i>
+                </md-button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-12 col-right">
+            <div class="box p-5">
+              <p><img class="docWidgetMain" style="transform: scale(-1)" src="../assets/baseline-enter_to_app-24px.svg" /></p>
+              <h2 class="display-5 text-uppercase">Logout</h2>
+              <p class="lead font-weight-normal">Melde dich ab.</p>
+              <md-button class="md-primary md-raised" disabled> Logout </md-button>
+              <div class="helper">
+                <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                  <i class="fas fa-question"></i>
+                </md-button>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-12 col-center">
-          <div class="box p-5">
-            <p><img class="docWidgetMain" src="../assets/baseline-person-24px.svg" /></p>
-            <h2 class="display-5 text-uppercase">Profil</h2>
-            <p class="lead font-weight-normal">Besuche dein Profil.</p>
-            <md-button class="md-primary md-raised" disabled> Profil </md-button>
-            <div class="helper">
-              <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
-                <i class="fas fa-question"></i>
-              </md-button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-12 col-right">
-          <div class="box p-5">
-            <p><img class="docWidgetMain" style="transform: scale(-1)" src="../assets/baseline-enter_to_app-24px.svg" /></p>
-            <h2 class="display-5 text-uppercase">Logout</h2>
-            <p class="lead font-weight-normal">Melde dich ab.</p>
-            <md-button class="md-primary md-raised" disabled> Logout </md-button>
-            <div class="helper">
-              <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
-                <i class="fas fa-question"></i>
-              </md-button>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="row text-center mb-md-3">
-        <div class="col-lg-6 col-md-12 col-left">
-          <div class="box p-5">
-            <p><img class="docWidgetMain" src="../assets/outline-insert_drive_file-24px.svg" /></p>
-            <h2 class="display-5 text-uppercase">Neues Dok</h2>
-            <p class="lead font-weight-normal">Lege ein neues Dokument an und bearbeite es.</p>
-            <md-button class="md-primary md-raised" @click="showDialog = true"> Neu </md-button>
-            <div class="helper">
-              <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
-                <i class="fas fa-question"></i>
-              </md-button>
+        <div class="row text-center mb-md-3">
+          <div class="col-lg-8 col-md-12 col-left">
+            <div class="box p-5">
+              <p><img class="docWidgetMain" src="../assets/outline-insert_drive_file-24px.svg" /></p>
+              <h2 class="display-5 text-uppercase">Neu</h2>
+              <p class="lead font-weight-normal">Lege ein neues Dokument an und bearbeite es.</p>
+              <md-button class="md-primary md-raised" @click="showDialog = true"> Neu </md-button>
+              <div class="helper">
+                <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                  <i class="fas fa-question"></i>
+                </md-button>
+              </div>
             </div>
+            <md-dialog class="dialog" :md-active.sync="showDialog">
+              <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
+              <md-field class="inputBox" md-clearable>
+                <form id="form" @submit.prevent="saveDoc">
+                  <label>Titel eingeben...</label><md-textarea type="text" v-model="model.title" maxlength="30" md-autogrow></md-textarea>
+                </form>
+              </md-field>
+              <md-dialog-actions>
+                <md-button class="md-primary" @click="showDialog = false">Abbruch</md-button>
+                <md-button type="submit" form="form" class="md-primary" @click="showDialog = false">Erstellen</md-button>
+              </md-dialog-actions>
+            </md-dialog>
           </div>
-          <md-dialog class="dialog" :md-active.sync="showDialog">
-            <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
-            <md-field class="inputBox" md-clearable>
-              <form id="form" @submit.prevent="saveDoc">
-                <label>Titel eingeben...</label><md-textarea type="text" v-model="model.title" maxlength="30" md-autogrow></md-textarea>
-              </form>
-            </md-field>
-            <md-dialog-actions>
-              <md-button class="md-primary" @click="showDialog = false">Abbruch</md-button>
-              <md-button type="submit" form="form" class="md-primary" @click="showDialog = false">Erstellen</md-button>
-            </md-dialog-actions>
-          </md-dialog>
-        </div>
-        <div class="col-lg-6 col-md-12 col-right">
-          <div class="box p-5">
-            <p><img class="docWidgetMain" src="../assets/baseline-search-24px.svg" /></p>
-            <h2 class="display-5 text-uppercase">Dok suchen</h2>
-            <p class="lead font-weight-normal">Suche nach einem bestimmten Dokument.</p>
-            <md-field style="width: 35%; margin: 0 auto;">
-              <label>Dok</label>
-              <md-input></md-input>
-            </md-field>
-            <div class="helper">
-              <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
-                <i class="fas fa-question"></i>
-              </md-button>
+          <div class="col-lg-4 col-md-12 col-right">
+            <div class="box p-5">
+              <p><img class="docWidgetMain" src="../assets/baseline-search-24px.svg" /></p>
+              <h2 class="display-5 text-uppercase">Suchen</h2>
+              <p class="lead font-weight-normal">nach einem Dokument.</p>
+              <md-field style="width: 60%; margin: 0 auto;">
+                <label>Name / Inhalt</label>
+                <md-input></md-input>
+              </md-field>
+              <div class="helper">
+                <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                  <i class="fas fa-question"></i>
+                </md-button>
+              </div>
             </div>
           </div>
         </div>
@@ -175,7 +173,7 @@
         </md-dialog-actions>
       </md-dialog>
 
-      <div class="container mt-5">
+      <div class="container mt-5" style="padding: 0 5px;">
         <!--
         <div class="card text-center">
           <div class="card-header">
@@ -224,8 +222,10 @@
 
                 <div class="liButtons">
                   <span class="updatedAt">geändert: {{doc.updatedAt | formatDate}}</span><br>
-                  <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.hash)">Öffnen</md-button><br>
-                  <md-button class="md-danger md-dense" @click.prevent="deleteDoc(doc.hash)">Löschen</md-button>
+                  <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.hash)" style="margin-bottom: 15px;">Öffnen</md-button>
+                  <md-button class="md-icon-button button-delete" @click.prevent="deleteDoc(doc.hash)">
+                    <md-icon>delete</md-icon>
+                  </md-button>
                 </div>
               </div>
             </li>
@@ -352,6 +352,12 @@
     opacity: 1;
   }
 
+  .procedure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .helper {
     visibility: hidden;
     opacity: 0;
@@ -439,7 +445,7 @@
   }
 
   ul li {
-    padding: 0 10px 20px 10px;
+    padding: 0 8px 16px 8px;
     width: 20%;
     float: left;
     min-width: 210px;
@@ -505,6 +511,20 @@
     margin-right: auto;
     left: 0;
     right: 0;
+  }
+
+  .button-delete {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+    transition: .2s;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .liDiv:hover .button-delete {
+    opacity: 1;
+    visibility: visible;
   }
 
   .docWidgetMain {
