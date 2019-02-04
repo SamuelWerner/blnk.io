@@ -14,7 +14,7 @@
 
       <div class="box products position-relative overflow-hidden p-5 mb-md-3 text-center">
         <div class="col-md-5 p-lg-5 mx-auto my-5">
-          <h1 class="display-1 font-weight-bold">BL_NK.IO</h1>
+          <h1 class="display-1 font-weight-bold mb-4 line-1 anim-typewriter">BL_NK.IO</h1>
           <p class="lead font-weight-normal m-0">Google Docs von uns</p>
         </div>
         <div class="product-example product-example-1"></div>
@@ -68,7 +68,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-12 col-center">
+          <div class="col-lg-8 col-md-12 col-right">
             <div class="box p-5">
               <p><img class="docWidgetMain" src="../assets/baseline-person-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Profil</h2>
@@ -81,6 +81,7 @@
               </div>
             </div>
           </div>
+          <!--
           <div class="col-lg-4 col-md-12 col-right">
             <div class="box p-5">
               <p><img class="docWidgetMain" style="transform: scale(-1)" src="../assets/baseline-enter_to_app-24px.svg" /></p>
@@ -94,9 +95,10 @@
               </div>
             </div>
           </div>
+          -->
         </div>
 
-        <div class="row text-center mb-md-3">
+        <div class="row text-center mb-md-5">
           <div class="col-lg-8 col-md-12 col-left">
             <div class="box p-5">
               <p><img class="docWidgetMain" src="../assets/outline-insert_drive_file-24px.svg" /></p>
@@ -211,7 +213,23 @@
 
 
         <div id="docList">
-          <p class="lead ">Zuletzt verwendete Dokumente:</p>
+          <div class="row">
+            <div class="col-6">
+              <p class="lead">Zuletzt verwendete Dokumente:</p>
+            </div>
+            <div class="col-6 text-right">
+              <div class="md-layout-item" style="display: none">
+                <md-field>
+                  <md-select name="eigentuemer" id="eigentuemer" placeholder="Eigentümer">
+                    <md-option value="australia">Beliebiger Eigentümer</md-option>
+                    <md-option value="brazil">Ich bin Eigentümer</md-option>
+                    <md-option value="japan">Ich bin nicht Eigentümer</md-option>
+                  </md-select>
+                </md-field>
+              </div>
+            </div>
+          </div>
+
           <ul id="ul">
             <li id="li" v-for="doc in docs" :key="doc.hash">
               <div class="liDiv">
@@ -338,7 +356,32 @@
 
   h1.display-1 {
     font-size: 7rem;
+    margin-top: 0 !important;
   }
+
+  .line-1{
+    position: relative;
+    margin: 0 auto;
+    border-right: 2px solid black;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  /* Animation */
+  .anim-typewriter {
+    animation:  typewriter 1.4s steps(16) 0.5s 1 normal both,
+                blinkTextCursor 600ms steps(16) 4 normal;
+  }
+  @keyframes typewriter {
+    from {width: 0;}
+    to {width: 544px;}
+  }
+  @keyframes blinkTextCursor {
+    from {border-right-color: black;}
+    to {border-right-color: transparent;}
+  }
+
 
   .box {
     background-color: #fff;
@@ -405,16 +448,19 @@
 
   .box-arrow-right {
     position: absolute;
-    right: -10px;
-    top: calc((100% - 40px)/2);
-    border: 8px solid #343a40;
+    right: -9px;
+    top: calc((100% - 35px)/2);
+    border: 0px solid #343a40;
     border-radius: 50%;
-    background-color: #fff;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #343a40;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
+    color: white;
   }
 
   .helper {
@@ -453,6 +499,28 @@
 
   #docList {
     display: none;
+  }
+
+  #docList .md-field {
+    padding-top: 0;
+    min-height: 0;
+    width: 50%;
+    float: right;
+    margin-right: 8px;
+  }
+
+  .docListMenu {
+  }
+
+  .md-theme-default {
+  }
+
+  .md-list-item {
+    width: 100%;
+    padding-bottom: 0;
+  }
+
+  .md-select .md-input {
   }
 
   .liDiv {
