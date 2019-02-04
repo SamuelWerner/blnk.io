@@ -64,6 +64,11 @@
             <h2 class="display-5 text-uppercase">Login</h2>
             <p class="lead font-weight-normal">Melde dich an / Registriere dich.</p>
             <md-button class="md-primary md-raised"> Login </md-button>
+            <div class="helper">
+              <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                <i class="fas fa-question"></i>
+              </md-button>
+            </div>
           </div>
         </div>
         <div class="col-lg-4 col-md-12 col-center">
@@ -72,14 +77,24 @@
             <h2 class="display-5 text-uppercase">Profil</h2>
             <p class="lead font-weight-normal">Besuche dein Profil.</p>
             <md-button class="md-primary md-raised" disabled> Profil </md-button>
+            <div class="helper">
+              <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                <i class="fas fa-question"></i>
+              </md-button>
+            </div>
           </div>
         </div>
         <div class="col-lg-4 col-md-12 col-right">
           <div class="box p-5">
-            <p><img class="docWidgetMain" src="../assets/baseline-enter_to_app-24px.svg" /></p>
+            <p><img class="docWidgetMain" style="transform: scale(-1)" src="../assets/baseline-enter_to_app-24px.svg" /></p>
             <h2 class="display-5 text-uppercase">Logout</h2>
             <p class="lead font-weight-normal">Melde dich ab.</p>
             <md-button class="md-primary md-raised" disabled> Logout </md-button>
+            <div class="helper">
+              <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                <i class="fas fa-question"></i>
+              </md-button>
+            </div>
           </div>
         </div>
       </div>
@@ -91,6 +106,11 @@
             <h2 class="display-5 text-uppercase">Neues Dok</h2>
             <p class="lead font-weight-normal">Lege ein neues Dokument an und bearbeite es.</p>
             <md-button class="md-primary md-raised" @click="showDialog = true"> Neu </md-button>
+            <div class="helper">
+              <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                <i class="fas fa-question"></i>
+              </md-button>
+            </div>
           </div>
           <md-dialog class="dialog" :md-active.sync="showDialog">
             <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
@@ -114,9 +134,46 @@
               <label>Dok</label>
               <md-input></md-input>
             </md-field>
+            <div class="helper">
+              <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                <i class="fas fa-question"></i>
+              </md-button>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Helper Dialog -->
+      <md-dialog :md-active.sync="showDialogHelper">
+        <md-dialog-title>Hilfe</md-dialog-title>
+
+        <md-tabs md-dynamic-height>
+          <md-tab md-label="Login">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+          </md-tab>
+          <md-tab md-label="Profil">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+          </md-tab>
+          <md-tab md-label="Logout">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+          </md-tab>
+          <md-tab md-label="Neues Dok">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+          </md-tab>
+          <md-tab md-label="Dok suchen">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+          </md-tab>
+        </md-tabs>
+
+        <md-dialog-actions>
+          <md-button class="md-primary" @click="showDialogHelper = false">Schließen</md-button>
+        </md-dialog-actions>
+      </md-dialog>
 
       <div class="container mt-5">
         <!--
@@ -207,6 +264,7 @@
     data () {
       return {
         showDialog: false,
+        showDialogHelper: false,
         docs: [],
         model: {},
         initial: 'Dok'
@@ -286,6 +344,18 @@
     background-color: #fff;
     height: 100%;
     padding: 1.5rem 1.5rem;
+    transition: 1s;
+  }
+
+  .box:hover .helper {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .helper {
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
   }
 
   .col-left,
@@ -339,6 +409,12 @@
     align-items: center;
     width: 45px;
     height: 45px;
+  }
+
+  .helper {
+    position: absolute;
+    right: 15px;
+    top: 5px;
   }
 
   .card {
