@@ -1,15 +1,113 @@
 <template>
   <main>
-    <div class="container-fluid">
+    <div class="container-fluid" style="max-width: 2200px">
       <!--
       <div style="text-align: left; margin: 2rem 0; padding: 2rem 2rem 2rem 5rem; background-color: #343a40">
         <img src="../assets/Logo-BLNK.svg" style="width: 40%" />
       </div>
       -->
+      <!--
       <div class="banner">
         <a href="/"><img src="../assets/Blnk-Logo.png" /></a>
       </div>
-      <div class="container">
+      -->
+
+      <div class="box products position-relative overflow-hidden p-5 mb-md-3 text-center">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+          <h1 class="display-1 font-weight-bold">BLNK.IO</h1>
+          <p class="lead font-weight-normal m-0">Google Docs von uns</p>
+        </div>
+        <div class="product-example product-example-1"></div>
+        <div class="product-example product-example-2"></div>
+      </div>
+
+      <div class="row text-center" style="margin-bottom: 5rem;">
+        <div class="col-lg-3 col-md-12 col-left">
+          <div class="box">
+            <h2 class="display-5">1.</h2>
+            <p class="lead font-weight-normal m-0">Dokumente erstellen.</p>
+            <div class="box-arrow-right">
+              <i class="material-icons">keyboard_arrow_right</i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-center">
+          <div class="box">
+            <h2 class="display-5">2.</h2>
+            <p class="lead font-weight-normal m-0">Dokumente bearbeiten.</p>
+            <div class="box-arrow-right">
+              <i class="material-icons">keyboard_arrow_right</i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-center">
+          <div class="box">
+            <h2 class="display-5">3.</h2>
+            <p class="lead font-weight-normal m-0">Dokumente teilen.</p>
+            <div class="box-arrow-right">
+              <i class="material-icons">keyboard_arrow_right</i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-right">
+          <div class="box">
+            <h2 class="display-5">4.</h2>
+            <p class="lead font-weight-normal m-0">Dok gemeinsam bearbeiten.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row text-center mb-md-3">
+        <div class="col-lg-4 col-md-12 col-left">
+          <div class="box p-5">
+            <p><img class="docWidgetMain" src="../assets/baseline-exit_to_app-24px.svg" /></p>
+            <h2 class="display-5 text-uppercase">Login</h2>
+            <p class="lead font-weight-normal">Melde dich an / Registriere dich.</p>
+            <md-button class="md-primary md-raised">Login</md-button>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-center">
+          <div class="box p-5">
+            <p><img class="docWidgetMain" src="../assets/baseline-person-24px.svg" /></p>
+            <h2 class="display-5 text-uppercase">Profil</h2>
+            <p class="lead font-weight-normal">Besuche dein Profil.</p>
+            <md-button class="md-primary md-raised"> Profil </md-button>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-right">
+          <div class="box p-5">
+            <p><img class="docWidgetMain" src="../assets/baseline-enter_to_app-24px.svg" /></p>
+            <h2 class="display-5 text-uppercase">Logout</h2>
+            <p class="lead font-weight-normal">BMelde dich ab.</p>
+            <md-button class="md-primary md-raised"> Logout </md-button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row text-center mb-md-3">
+        <div class="col-lg-6 col-md-12 col-left">
+          <div class="box p-5">
+            <p><img class="docWidgetMain" src="../assets/outline-insert_drive_file-24px.svg" /></p>
+            <h2 class="display-5 text-uppercase">Neues Dok</h2>
+            <p class="lead font-weight-normal">Lege ein neues Dokument an und bearbeite es.</p>
+            <md-button class="md-primary md-raised" @click="showDialog = true"> Neu </md-button>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-right">
+          <div class="box p-5">
+            <p><img class="docWidgetMain" src="../assets/baseline-search-24px.svg" /></p>
+            <h2 class="display-5 text-uppercase">Dok suchen</h2>
+            <p class="lead font-weight-normal">Suche nach einem bestimmten Dokument.</p>
+            <md-field style="width: 35%; margin: 0 auto;">
+              <label>Dok</label>
+              <md-input></md-input>
+            </md-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mt-5">
+        <!--
         <div class="card text-center">
           <div class="card-header">
             Featured
@@ -34,11 +132,11 @@
               </md-dialog>
               <div style="width: max-content; margin: 0 auto;">
                 <md-button class="md-primary md-raised" @click="showDialog = true">+</md-button>
-                <!--<md-tooltip md-delay="1100" md-direction="right">Neues Dokument anlegen</md-tooltip>-->
               </div>
             </div>
           </div>
         </div>
+        -->
 
         <div id="containerSpinner">
           <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
@@ -46,11 +144,14 @@
 
 
         <div id="docList">
+          <p class="lead ">Zuletzt verwendete Dokumente:</p>
           <ul id="ul">
             <li id="li" v-for="doc in docs" :key="doc.hash">
               <div class="liDiv">
-                <img class="docWidgetSec" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
-                <span class="docTitle">{{ doc.title }}</span><br>
+                <div @click.prevent="openDoc(doc.hash)" style="cursor: pointer;">
+                  <img class="docWidgetSec" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
+                  <span class="docTitle">{{ doc.title }}</span><br>
+                </div>
 
                 <div class="liButtons">
                   <span class="updatedAt">geändert: {{doc.updatedAt | formatDate}}</span><br>
@@ -105,7 +206,7 @@
     async created () {
       await this.refreshDocs()
       document.getElementById('containerSpinner').style.display = 'none'
-      document.getElementById('docList').style.display = 'inline'
+      document.getElementById('docList').style.display = 'inline' /* in mobile nicht anzeigen */
     },
     methods: {
       async refreshDocs () {
@@ -165,10 +266,78 @@
     padding-bottom: 7rem;
   }
 
+  h1.display-1 {
+    font-size: 7rem;
+  }
+
+  .box {
+    background-color: #fff;
+    height: 100%;
+    padding: 1.5rem 1.5rem;
+  }
+
+  .col-left,
+  .col-center {
+    padding-right: 8px;
+  }
+
+  .col-right,
+  .col-center {
+    padding-left: 8px;
+  }
+
+  .products {
+    overflow: hidden;
+  }
+
+  .product-example {
+    position: absolute;
+    width: 300px;
+    height: 480px;
+    border: 1px solid #D9D9D9;
+    border-radius: 5px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05);
+  }
+
+  .product-example-1 {
+    transform: rotate(22deg);
+    left: 8%;
+    top: -20%;
+    background-image: url("../assets/produkt2.jpg");
+  }
+
+  .product-example-2 {
+    transform: rotate(22deg);
+    right: 8%;
+    bottom: -25%;
+    background-image: url("../assets/produkt1.jpg");
+  }
+
+  .box-arrow-right {
+    position: absolute;
+    right: -10px;
+    top: calc((100% - 40px)/2);
+    border: 8px solid #343a40;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+  }
+
   .card {
     margin: 0 10px;
     min-width: 220px;
-    border-radius: 2px;
+    border-radius: 0;
+  }
+
+  #docList p {
+    color: white;
+    padding: 0 10px;
   }
 
   .mobileDocList {
@@ -176,7 +345,6 @@
   }
 
   ul {
-    margin: 1.5rem 0 0 0;
     padding: 0;
     list-style-type: none;
     width: 100%;
@@ -196,7 +364,7 @@
   .liDiv {
     position: relative;
     padding: 20px 10px 10px 10px;
-    border-radius: 2px;
+    border-radius: 1px;
     background-color: #fff/*#f7f7f7*/;
     min-height: 17rem;
     float: left;
@@ -207,10 +375,10 @@
   }
 
   .liDiv:hover {
-    -webkit-box-shadow: 3px 3px 22px 2px rgba(0,0,0,1);
-    -moz-box-shadow: 3px 3px 22px 2px rgba(0,0,0,1);
-    box-shadow: 3px 3px 22px 2px rgba(0,0,0,1);
-    transition: box-shadow 0.2s ease-in-out;
+    -webkit-box-shadow: inset 0px 0px 0px 3px rgba(68,138,255,1);
+    -moz-box-shadow: inset 0px 0px 0px 3px rgba(68,138,255,1);
+    box-shadow: inset 0px 0px 0px 3px rgba(68,138,255,1);
+    transition: box-shadow 0.1s ease-in-out;
   }
 
   .updatedAt {
@@ -233,7 +401,7 @@
 
   .banner {
     text-align: center;
-    padding: 7rem 2rem 2rem 2rem;
+    padding: 4rem;
     margin-bottom: 0.7rem;
   }
 
@@ -252,7 +420,7 @@
   }
 
   .docWidgetMain {
-    width: 80px;
+    width: 70px;
   }
 
   .docWidgetSec {
@@ -270,6 +438,7 @@
     ul li {
       width: 25%;
     }
+
     .banner {
       padding: 4rem 1.3rem 1.3rem 1.3rem;
     }
@@ -282,6 +451,21 @@
     .banner {
       padding: 2.5rem 0.7rem 0.7rem 0.7rem;
     }
+
+    .col-left,
+    .col-center {
+      padding-right: 15px;
+    }
+
+    .col-right,
+    .col-center {
+      padding-left: 15px;
+    }
+
+    .box-arrow-right {
+      display: none;
+    }
+
   }
 
   @media (max-width: 767px) {

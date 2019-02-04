@@ -10,7 +10,7 @@
 
       <div class="col-md-1 order-md-2 order-1">
         <md-button href="/" id="closeBtn" type="button" class="md-icon-button md-raised">
-          <md-tooltip md-delay="300" md-direction="left">Dokument schließen</md-tooltip>
+          <md-tooltip md-delay="1000" md-direction="left">Dokument schließen</md-tooltip>
           <img class="fktstripImg" style="margin: 0" src="../assets/baseline-clear-24px.svg" />
         </md-button>
       </div>
@@ -921,7 +921,7 @@
       content: "Dokument: "
     }
     #paper {
-      padding: 0 !important;
+      padding: 2.9rem !important;
     }
     #paper, .my-3, .rounded, .shadow-lg, .paper {
       -webkit-box-shadow: none !important;
