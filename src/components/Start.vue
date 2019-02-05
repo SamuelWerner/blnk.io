@@ -12,8 +12,8 @@
       </div>
       -->
 
-      <div class="box products position-relative overflow-hidden p-5 text-center" style="margin-bottom: 4.5rem;">
-        <div class="col-md-12 py-lg-5 mx-auto my-5">
+      <div class="box products position-relative overflow-hidden py-5 text-center" style="margin-bottom: 4.5rem;">
+        <div class="col-md-12 py-lg-5 px-0 mx-auto my-5">
           <h1 class="display-1 font-weight-bold mb-4 line-1 anim-typewriter">BL_NK.IO</h1>
           <p class="lead font-weight-normal m-0">Google Docs von uns</p>
         </div>
@@ -418,37 +418,6 @@
     padding-bottom: 7rem;
   }
 
-  h1.display-1 {
-    font-size: 7rem;
-    margin-top: 0 !important;
-  }
-
-  .line-1{
-    position: relative;
-    margin: 0 auto;
-    border-right: 2px solid black;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    z-index: 200;
-    text-shadow: 0px 0px 30px rgba(255, 255, 255, 1);
-  }
-
-  /* Animation */
-  .anim-typewriter {
-    animation:  typewriter 1.4s steps(16) 0.5s 1 normal both,
-                blinkTextCursor 600ms steps(16) 5 normal;
-  }
-  @keyframes typewriter {
-    from {width: 0;}
-    to {width: 544px;}
-  }
-  @keyframes blinkTextCursor {
-    from {border-right-color: black;}
-    to {border-right-color: transparent;}
-  }
-
-
   .box {
     background-color: #fff;
     height: 100%;
@@ -471,6 +440,16 @@
     visibility: hidden;
     opacity: 0;
     transition: 0.3s;
+    position: absolute;
+    right: 15px;
+    top: 5px;
+  }
+
+  .helper .md-icon-button {
+    width: 35px;
+    min-width: 35px;
+    height: 35px;
+    min-height: 35px;
   }
 
   .col-left,
@@ -485,6 +464,7 @@
 
   .products {
     overflow: hidden;
+    cursor: default;
   }
 
   .product-example {
@@ -503,7 +483,7 @@
     left: 10%;
     top: -13%;
     background-image: url("../assets/produkt2.jpg");
-    z-index: 50;
+    z-index: 4;
   }
 
   .product-example-2 {
@@ -511,7 +491,7 @@
     right: 6%;
     bottom: -25%;
     background-image: url("../assets/produkt1.jpg");
-    z-index: 50;
+    z-index: 4;
   }
 
   .product-example-3 {
@@ -519,7 +499,7 @@
     right: 12%;
     top: -25%;
     background-image: url("../assets/produkt2.jpg");
-    z-index: 40;
+    z-index: 3;
     opacity: 0.7;
   }
 
@@ -528,8 +508,38 @@
     left: 5%;
     bottom: -25%;
     background-image: url("../assets/produkt1.jpg");
-    z-index: 40;
+    z-index: 3;
     opacity: 0.7;
+  }
+
+  h1.display-1 {
+    font-size: 7rem;
+    margin-top: 0 !important;
+  }
+
+  .line-1{
+    position: relative;
+    margin: 0 auto;
+    border-right: 2px solid black;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    z-index: 5;
+    text-shadow: 0px 0px 30px rgba(255, 255, 255, 1);
+  }
+
+  /* Animation */
+  .anim-typewriter {
+    animation:  typewriter 1.4s steps(16) 0.5s 1 normal both,
+    blinkTextCursor 600ms steps(16) 5 normal;
+  }
+  @keyframes typewriter {
+    from {width: 0;}
+    to {width: 544px;}
+  }
+  @keyframes blinkTextCursor {
+    from {border-right-color: black;}
+    to {border-right-color: transparent;}
   }
 
   .box-arrow-right {
@@ -547,12 +557,6 @@
     width: 35px;
     height: 35px;
     color: white;
-  }
-
-  .helper {
-    position: absolute;
-    right: 15px;
-    top: 5px;
   }
 
   .card {
@@ -711,6 +715,7 @@
   #scrollTop {
     background-color: white;
     color: black;
+    z-index: 4;
   }
 
   #scrollTop img {
