@@ -631,6 +631,7 @@
 
   .form-control.form-eigentuemer {
     height: auto;
+    cursor: pointer;
   }
 
   select.form-eigentuemer {

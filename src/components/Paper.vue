@@ -816,10 +816,6 @@
     margin-right: 10px;
   }
 
-  #footer {
-    display: none;
-  }
-
 
   @media (max-width: 991px) {
     #paper {
