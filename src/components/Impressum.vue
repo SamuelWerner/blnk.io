@@ -77,7 +77,6 @@
        </md-tabs>
        <md-button class="md-raised md-dense" href="/">zurück</md-button>
      </div>
-     <div id="footer" >&copy; THM &nbsp;|&nbsp; <a href="/impress">Impressum</a></div>
    </main>
 </template>
 

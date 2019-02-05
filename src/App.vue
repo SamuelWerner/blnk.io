@@ -25,6 +25,8 @@
     </b-navbar>
     <!-- routes will be rendered here -->
     <router-view />
+    <!-- Footer -->
+    <div id="footer" ><a href="mailto:info@blnk.io.de?subject=Report%20Bug%20-%20BL_NK.IO" title="Report Bug by E-Mail"><div class="reportBug"><i class="material-icons">report</i>Report Bug</div></a>&copy; BL_NK.IO &nbsp;|&nbsp; <a href="/impress">Impressum</a></div>
   </div>
 </template>
 
@@ -69,8 +71,50 @@
     color: #f7f7f7;
     background-color: #2e3338;
     font-size: 0.8rem;
-    padding: 0.6rem 0;
+    padding: 0.8rem 0;
     border-top: 1px solid #575b5f;
+  }
+
+  a div.reportBug {
+    color: white;
+  }
+
+  a div.reportBug:hover {
+    color: #448aff;
+    text-decoration: none;
+  }
+
+  a div.reportBug:hover i {
+    color: white;
+  }
+
+  .reportBug {
+    position: absolute;
+    left: 12px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .reportBug i {
+    font-size: 1.1rem;
+    margin-right: 5px;
+    margin-top: 2px;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #888888;
   }
 </style>
 

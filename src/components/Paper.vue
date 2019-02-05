@@ -816,6 +816,10 @@
     margin-right: 10px;
   }
 
+  #footer {
+    display: none;
+  }
+
 
   @media (max-width: 991px) {
     #paper {
@@ -877,7 +881,7 @@
 
 
   @media print {
-    .sticky, #editName, #sidebar, .saving, .menu-content {
+    .sticky, #editName, #sidebar, .saving, .menu-content, #scrollTop {
       display: none !important;
     }
     * {

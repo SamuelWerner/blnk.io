@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="container-fluid" style="max-width: 2200px">
+    <div class="container-fluid">
       <!--
       <div style="text-align: left; margin: 2rem 0; padding: 2rem 2rem 2rem 5rem; background-color: #343a40">
         <img src="../assets/Logo-BLNK.svg" style="width: 40%" />
@@ -13,9 +13,9 @@
       -->
 
       <div class="box products position-relative overflow-hidden py-5 text-center" style="margin-bottom: 4.5rem;">
-        <div class="col-md-12 py-lg-5 px-0 mx-auto my-5">
+        <div id="productsScroll" class="col-md-12 py-lg-5 px-0 mx-auto my-5" style="transition: 1s">
           <h1 class="display-1 font-weight-bold mb-4 line-1 anim-typewriter">BL_NK.IO</h1>
-          <p class="lead font-weight-normal m-0">Google Docs von uns</p>
+          <p class="lead font-weight-normal m-0 anim-subtitle">Google Docs von uns</p>
         </div>
         <div class="product-example product-example-1"></div>
         <div class="product-example product-example-2"></div>
@@ -152,7 +152,7 @@
         <md-dialog-title>Hilfe</md-dialog-title>
 
         <md-tabs md-dynamic-height>
-          <md-tab md-label="Login">
+          <md-tab md-label="Login/Registrieren">
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
           </md-tab>
@@ -160,11 +160,7 @@
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
           </md-tab>
-          <md-tab md-label="Logout">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
-          </md-tab>
-          <md-tab md-label="Neues Dokument">
+          <md-tab md-label="Dokument erstellen">
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
           </md-tab>
@@ -242,6 +238,13 @@
           </div>
 
           <ul id="ul">
+            <li>
+              <div class="liDiv liDivDefault" @click="showDialog = true">
+                <div>
+                  <i class="material-icons">add</i>
+                </div>
+              </div>
+            </li>
             <li id="li" v-for="doc in docs" :key="doc.hash">
               <div class="liDiv">
                 <div @click.prevent="openDoc(doc.hash)" style="cursor: pointer;">
@@ -283,8 +286,6 @@
     </div>
 
     <a id="scrollTop" v-scroll-to="'#pageTop'"><img src="../assets/baseline-keyboard_arrow_up-24px.svg" alt=""></a>
-
-    <div id="footer" >&copy; THM &nbsp;|&nbsp; <a href="/impress">Impressum</a></div>
   </main>
 </template>
 
@@ -335,6 +336,7 @@
       },
       onScroll () {
         var scrollToTop = document.getElementById('scrollTop')
+        // var productsScroll = document.getElementById('productsScroll')
         window.onscroll = function () {
           if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
             scrollToTop.style.visibility = 'visible'
@@ -343,6 +345,13 @@
             scrollToTop.style.visibility = 'hidden'
             scrollToTop.style.opacity = '0'
           }
+          /*
+          if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+            productsScroll.classList.remove('py-lg-5')
+          } else {
+            productsScroll.classList.add('py-lg-5')
+          }
+          */
         }
       }
     }
@@ -415,7 +424,7 @@
     background-color: #343a40 !important;
     margin: 0 auto;
     min-height: calc(100vh - 68px);
-    padding-bottom: 7rem;
+    padding-bottom: 9rem;
   }
 
   .box {
@@ -528,10 +537,12 @@
     text-shadow: 0px 0px 30px rgba(255, 255, 255, 1);
   }
 
-  /* Animation */
+  /* Animation line-1 */
   .anim-typewriter {
-    animation:  typewriter 1.4s steps(16) 0.5s 1 normal both,
-    blinkTextCursor 600ms steps(16) 5 normal;
+    /* animation-name, animation-duration, animation-timing-function, animation-delay, animation-iteration-count, animation-direction, animation-fill-mode */
+    animation:  typewriter 1.4s steps(16) 0.6s 1 normal both,
+                blinkTextCursor 0.8s steps(2, start) 0s 6 normal,
+                cursorTransparent .1s ease 4s infinite;
   }
   @keyframes typewriter {
     from {width: 0;}
@@ -540,6 +551,25 @@
   @keyframes blinkTextCursor {
     from {border-right-color: black;}
     to {border-right-color: transparent;}
+  }
+  @keyframes cursorTransparent {
+    from {border-right: 2px solid transparent;}
+    to {border-right: 2px solid transparent;}
+  }
+
+  /* Animation Subtitle */
+  .anim-subtitle {
+    color: transparent;
+    animation:  subtitleFadeIn 2s ease-in 2s 1 normal,
+                subtitleStayIn .1s linear 4s infinite;
+  }
+  @keyframes subtitleFadeIn {
+    from {color: transparent;}
+    to {color: black;}
+  }
+  @keyframes subtitleStayIn {
+    from {color: black;}
+    to {color: black;}
   }
 
   .box-arrow-right {
@@ -623,12 +653,29 @@
     text-align: right;
   }
 
+  .liDivDefault {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .liDivDefault i {
+    font-size: 5rem;
+    color: #448aff;
+    text-shadow: 1px 1px 5px #ccc;
+  }
+
+  .liDivDefault:hover i {
+    text-shadow: none;
+  }
+
   .liDiv {
     position: relative;
     padding: 20px 10px 10px 10px;
     border-radius: 1px;
     background-color: #fff/*#f7f7f7*/;
-    min-height: 17rem;
+    min-height: 18rem;
     float: left;
     text-align: center;
     word-wrap: break-word;
@@ -640,7 +687,6 @@
     -webkit-box-shadow: inset 0px 0px 0px 3px rgba(68,138,255,1);
     -moz-box-shadow: inset 0px 0px 0px 3px rgba(68,138,255,1);
     box-shadow: inset 0px 0px 0px 3px rgba(68,138,255,1);
-    transition: box-shadow 0.1s ease-in-out;
   }
 
   .liDiv hr {
