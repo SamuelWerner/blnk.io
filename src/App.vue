@@ -124,6 +124,12 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #888888;
   }
+
+  @media (max-width: 450px) {
+    .reportBug {
+      display: none;
+    }
+  }
 </style>
 
 <style scoped>

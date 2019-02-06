@@ -1,9 +1,9 @@
 <template>
   <main>
     <div class="container-fluid">
-      <div class="box products position-relative overflow-hidden py-5 text-center" style="margin-bottom: 4.5rem;">
+      <div class="box products position-relative overflow-hidden py-5 text-center">
         <div id="productsScroll" class="col-md-12 py-lg-5 px-0 mx-auto my-5" style="transition: 1s">
-          <h1 class="display-1 font-weight-bold mb-4 line-1 anim-typewriter">BL_NK.IO</h1>
+          <h1 class="display-1 font-weight-bold mb-md-4 mb-sm-2 line-1 anim-typewriter">BL_NK.IO</h1>
           <p class="subtitle lead font-weight-normal m-0 anim-subtitle">Google Docs von uns</p>
         </div>
         <div class="product-example product-example-1"></div>
@@ -47,9 +47,9 @@
       -->
 
       <div class="container" style="margin-bottom: 4rem;">
-        <div class="row text-center mb-3">
-          <div class="col-lg-4 col-md-12 col-left">
-            <div class="box p-5">
+        <div class="row text-center mb-md-3 mb-sm-0">
+          <div class="col-lg-4 col-md-6 col-sm-12 col-6 col-left">
+            <div class="box boxModule p-md-5 p-sm-3 p-2">
               <p><img class="docWidgetMain" src="../assets/baseline-exit_to_app-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Login</h2>
               <p class="lead font-weight-normal">Melde dich an.</p>
@@ -61,8 +61,8 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-8 col-md-12 col-right">
-            <div class="box p-5">
+          <div class="col-lg-8 col-md-6 col-sm-12 col-6 col-right">
+            <div class="box boxModule p-md-5 p-sm-3 p-2">
               <p><img class="docWidgetMain" src="../assets/baseline-person-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Profil</h2>
               <p class="lead font-weight-normal">Besuche dein Profil.</p>
@@ -74,26 +74,11 @@
               </div>
             </div>
           </div>
-          <!--
-          <div class="col-lg-4 col-md-12 col-right">
-            <div class="box p-5">
-              <p><img class="docWidgetMain" style="transform: scale(-1)" src="../assets/baseline-enter_to_app-24px.svg" /></p>
-              <h2 class="display-5 text-uppercase">Logout</h2>
-              <p class="lead font-weight-normal">Melde dich ab.</p>
-              <md-button class="md-primary md-raised" disabled> Logout </md-button>
-              <div class="helper">
-                <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
-                  <i class="fas fa-question"></i>
-                </md-button>
-              </div>
-            </div>
-          </div>
-          -->
         </div>
 
         <div class="row text-center">
-          <div class="col-lg-8 col-md-12 col-left">
-            <div class="box p-5">
+          <div class="col-lg-8 col-md-6 col-sm-12 col-6 col-left">
+            <div class="box boxModule p-md-5 p-sm-3 p-2">
               <p><img class="docWidgetMain" src="../assets/outline-insert_drive_file-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Neu</h2>
               <p class="lead font-weight-normal">Lege ein neues Dokument an und bearbeite es.</p>
@@ -117,8 +102,8 @@
               </md-dialog-actions>
             </md-dialog>
           </div>
-          <div class="col-lg-4 col-md-12 col-right">
-            <div class="box p-5">
+          <div class="col-lg-4 col-md-6 col-sm-12 col-6 col-right">
+            <div class="box boxModule p-md-5 p-sm-3 p-2">
               <p><img class="docWidgetMain" src="../assets/baseline-search-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Suchen</h2>
               <p class="lead font-weight-normal">nach einem Dokument.</p>
@@ -203,10 +188,10 @@
 
         <div id="docList">
           <div class="row">
-            <div class="col-6">
+            <div class="col-md-6 col-sm-6 col-12">
               <p class="">Zuletzt verwendete Dokumente:</p>
             </div>
-            <div class="col-6 testCSS">
+            <div class="col-md-6 col-sm-6 d-none d-sm-block">
               <!--
               <div class="md-layout-item" style="display: none">
                 <md-field>
@@ -463,6 +448,7 @@
   .products {
     overflow: hidden;
     cursor: default;
+    margin-bottom: 4.5rem;
   }
 
   .product-example {
@@ -782,21 +768,42 @@
 
 
   @media (max-width: 1200px) {
-    ul li {
-      width: 25%;
+    .product-example-3,
+    .product-example-4 {
+      display: none;
     }
 
-    .banner {
-      padding: 4rem 1.3rem 1.3rem 1.3rem;
+    .product-example-1 {
+      left: -10%;
+      transform: rotate(22deg);
+    }
+
+    .product-example-2 {
+      right: -5%;
+      bottom: -20%;
+    }
+
+    ul li {
+      width: 25%;
     }
   }
 
   @media (max-width: 991px) {
+    .products {
+      margin-bottom: 2rem;
+    }
+
+    .product-example-1 {
+      left: -20%;
+    }
+
+    .product-example-2 {
+      right: -15%;
+      bottom: -40%;
+    }
+
     ul li {
       width: 33.3%;
-    }
-    .banner {
-      padding: 2.5rem 0.7rem 0.7rem 0.7rem;
     }
 
     .col-left,
@@ -808,16 +815,35 @@
     .col-center {
       padding-left: 15px;
     }
-
-    .box-arrow-right {
-      display: none;
-    }
-
   }
 
   @media (max-width: 767px) {
     main {
       padding-bottom: 4rem;
+    }
+    .products {
+      padding: 0;
+    }
+    .product-example {
+      transform: rotate(15deg);
+    }
+    .product-example-1 {
+      left: -30%;
+      top: -30%;
+    }
+    .product-example-2 {
+      right: -25%;
+      bottom: -40%;
+    }
+    h1.display-1 {
+      font-size: 5rem;
+      border-right: 0;
+    }
+    .anim-typewriter {
+      animation: none;
+    }
+    .col-sm-12 {
+      margin-bottom: 0.5rem;
     }
     ul li {
       width: 50%;
@@ -826,7 +852,7 @@
       padding: 6px;
     }
     .container-fluid {
-      padding: 2rem 0 0 0;
+      padding: 0;
     }
     .docWidgetMain {
       width: 60px;
@@ -837,20 +863,64 @@
   }
 
   @media (max-width: 450px) {
+    #docList,
+    .product-example-2 {
+      display: none;
+    }
+
     main {
       padding-bottom: 3rem;
     }
 
-    .container-fluid {
-      padding: 1rem 0 0 0;
+    .products {
+      margin-bottom: 0;
     }
 
-    #docList {
-      display: none;
+    .product-example-1 {
+      top: -10%;
+      left: 10%;
+      opacity: 0.3;
+    }
+
+    h1.display-1 {
+      font-size: 4rem;
     }
 
     .mobileDocList {
       display: inline;
+    }
+
+    .boxModule {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .boxModule p,
+    .boxModule h2 {
+      display: inline-block;
+      margin: 0;
+    }
+
+    .boxModule p img {
+      width: 50px;
+      margin: 0 15px 0 10px;
+    }
+
+    .boxModule h2,
+    .boxModule p.lead {
+      display: none;
+    }
+
+    .boxModule h2 {
+      font-size: 1.3rem;
+    }
+
+    .boxModule .md-button {
+      position: relative;
+      left: 0;
+      float: right;
     }
 
     ul li {
