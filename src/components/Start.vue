@@ -66,7 +66,7 @@
               <p class="lead font-weight-normal">Melde dich an.</p>
               <md-button class="md-primary md-raised"> Login </md-button>
               <div class="helper">
-                <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                <md-button class="md-icon-button" @click="showDialogHelper = true">
                   <i class="fas fa-question"></i>
                 </md-button>
               </div>
@@ -79,7 +79,7 @@
               <p class="lead font-weight-normal">Besuche dein Profil.</p>
               <md-button class="md-primary md-raised"> Profil </md-button>
               <div class="helper">
-                <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                <md-button class="md-icon-button" @click="showDialogHelper = true">
                   <i class="fas fa-question"></i>
                 </md-button>
               </div>
@@ -110,7 +110,7 @@
               <p class="lead font-weight-normal">Lege ein neues Dokument an und bearbeite es.</p>
               <md-button class="md-primary md-raised" @click="showDialog = true"> Neu </md-button>
               <div class="helper">
-                <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                <md-button class="md-icon-button" @click="showDialogHelper = true">
                   <i class="fas fa-question"></i>
                 </md-button>
               </div>
@@ -138,7 +138,7 @@
                 <md-input></md-input>
               </md-field>
               <div class="helper">
-                <md-button class="md-icon-button md-raised" @click="showDialogHelper = true">
+                <md-button class="md-icon-button" @click="showDialogHelper = true">
                   <i class="fas fa-question"></i>
                 </md-button>
               </div>
@@ -692,7 +692,7 @@
 
   .liDiv {
     position: relative;
-    padding: 20px 10px 10px 10px;
+    padding: 20px 10px 20px 10px;
     border-radius: 1px;
     background-color: #fff/*#f7f7f7*/;
     min-height: 18rem;
