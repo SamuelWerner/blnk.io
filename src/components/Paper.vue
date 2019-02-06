@@ -80,7 +80,7 @@
 
       <div style="outline: none" contenteditable="true"
          id="paper" itemref="paper"
-         class="my-3 rounded shadow-lg paper"
+         class="rounded shadow paper"
          @paste.stop="onPaste($event, doc)"
          @input.stop="documentChanges($event, doc)" @click="saveSelection()"
          v-html="body" :disabled="1" ref="paper">
@@ -708,6 +708,8 @@
     min-height: 1200px;
     padding: 120px;
     background-color: white;
+    margin-top: 1rem;
+    margin-bottom: 8rem;
   }
 
   #paper a {

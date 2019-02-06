@@ -26,7 +26,15 @@
     <!-- routes will be rendered here -->
     <router-view />
     <!-- Footer -->
-    <div id="footer" ><a href="mailto:info@blnk.io.de?subject=Report%20Bug%20-%20BL_NK.IO" title="Report Bug by E-Mail"><div class="reportBug"><i class="material-icons">report</i>Report Bug</div></a>&copy; BL_NK.IO &nbsp;|&nbsp; <a href="/impress">Impressum</a></div>
+    <div id="footer" >
+      <a href="mailto:info@blnk.io.de?subject=Report%20Bug%20-%20BLNK.IO&amp;body=Hallo%20BLNK.IO%20Team,%0D%0A%0D%0AZusammenfassung:%0D%0A%0D%0ASchritte%20zum%20Nachvollziehen:%0D%0A%0D%0AErwartetes%20Ergebnis:%0D%0A%0D%0AErhaltenes%20Ergebnis:%0D%0A%0D%0AMehr%20Informationen:%0D%0A%0D%0A" title="Report Bug by E-Mail">
+        <div class="reportBug">
+          <i class="material-icons">report</i>
+          Report Bug
+        </div>
+      </a>
+      &copy; BL_NK.IO &nbsp;|&nbsp; <a href="/impress">Impressum</a>
+    </div>
   </div>
 </template>
 

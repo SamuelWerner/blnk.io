@@ -242,6 +242,7 @@
               <div class="liDiv liDivDefault" @click="showDialog = true">
                 <div>
                   <i class="material-icons">add</i>
+                  <!--<p>neues Dokument <br>erstellen</p>-->
                 </div>
               </div>
             </li>
@@ -393,7 +394,6 @@
     cursor: pointer;
     visibility: hidden;
     opacity: 0;
-    justify-content: center;
     box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12);
     z-index: 9999;
   }
@@ -560,8 +560,8 @@
   /* Animation Subtitle */
   .anim-subtitle {
     color: transparent;
-    animation:  subtitleFadeIn 2s ease-in 2s 1 normal,
-                subtitleStayIn .1s linear 4s infinite;
+    animation:  subtitleFadeIn 1s ease-in 2s 1 normal,
+                subtitleStayIn .1s linear 3s infinite;
   }
   @keyframes subtitleFadeIn {
     from {color: transparent;}
@@ -667,8 +667,27 @@
     text-shadow: 1px 1px 5px #ccc;
   }
 
+  .liDivDefault p {
+    color: black !important;
+    visibility: hidden;
+    opacity: 0;
+    transition: .2s;
+    position: absolute;
+    bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    font-size: 0.9rem;
+  }
+
   .liDivDefault:hover i {
     text-shadow: none;
+  }
+
+  .liDivDefault:hover p {
+    visibility: visible;
+    opacity: 1;
   }
 
   .liDiv {
