@@ -1,21 +1,10 @@
 <template>
   <main>
     <div class="container-fluid">
-      <!--
-      <div style="text-align: left; margin: 2rem 0; padding: 2rem 2rem 2rem 5rem; background-color: #343a40">
-        <img src="../assets/Logo-BLNK.svg" style="width: 40%" />
-      </div>
-      -->
-      <!--
-      <div class="banner">
-        <a href="/"><img src="../assets/Blnk-Logo.png" /></a>
-      </div>
-      -->
-
       <div class="box products position-relative overflow-hidden py-5 text-center" style="margin-bottom: 4.5rem;">
         <div id="productsScroll" class="col-md-12 py-lg-5 px-0 mx-auto my-5" style="transition: 1s">
           <h1 class="display-1 font-weight-bold mb-4 line-1 anim-typewriter">BL_NK.IO</h1>
-          <p class="lead font-weight-normal m-0 anim-subtitle">Google Docs von uns</p>
+          <p class="subtitle lead font-weight-normal m-0 anim-subtitle">Google Docs von uns</p>
         </div>
         <div class="product-example product-example-1"></div>
         <div class="product-example product-example-2"></div>
@@ -58,7 +47,7 @@
       -->
 
       <div class="container" style="margin-bottom: 4rem;">
-        <div class="row text-center mb-md-3">
+        <div class="row text-center mb-3">
           <div class="col-lg-4 col-md-12 col-left">
             <div class="box p-5">
               <p><img class="docWidgetMain" src="../assets/baseline-exit_to_app-24px.svg" /></p>
@@ -217,7 +206,7 @@
             <div class="col-6">
               <p class="">Zuletzt verwendete Dokumente:</p>
             </div>
-            <div class="col-6">
+            <div class="col-6 testCSS">
               <!--
               <div class="md-layout-item" style="display: none">
                 <md-field>
@@ -537,6 +526,12 @@
     text-shadow: 0px 0px 30px rgba(255, 255, 255, 1);
   }
 
+  .subtitle {
+    position: relative;
+    z-index: 5;
+    text-shadow: 0px 0px 30px rgba(255, 255, 255, 1);
+  }
+
   /* Animation line-1 */
   .anim-typewriter {
     /* animation-name, animation-duration, animation-timing-function, animation-delay, animation-iteration-count, animation-direction, animation-fill-mode */
@@ -636,9 +631,6 @@
 
   select.form-eigentuemer {
     text-align-last: right;
-  }
-
-  .form-eigentuemer {
     width: auto;
     float: right;
     background-color: transparent;
@@ -829,9 +821,6 @@
     }
     ul li {
       width: 50%;
-    }
-    .banner {
-      display: none;
     }
     .container {
       padding: 6px;

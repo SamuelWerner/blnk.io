@@ -1,6 +1,6 @@
 <template>
   <main class="container-fluid" style="height:100%">
-    <div id="barDiv" class="row sticky">
+    <div id="barDiv" class="row ribbon sticky">
       <div class="col-md-11 order-md-1 order-2">
         <!-- Menüleiste -->
         <Menubar :my-doc="doc"></Menubar>
@@ -851,7 +851,7 @@
     .container-fluid {
       padding: 0 !important;
     }
-    .row, .md-tooltip, #menuClosed {
+    .ribbon, .md-tooltip, #menuClosed {
       display: none !important;
     }
     #menuMobile, #mobileBar {
