@@ -189,20 +189,9 @@
         <div id="docList">
           <div class="row">
             <div class="col-md-6 col-sm-6 col-12">
-              <p class="">Zuletzt verwendete Dokumente:</p>
+              <p>Zuletzt verwendete Dokumente:</p>
             </div>
             <div class="col-md-6 col-sm-6 d-none d-sm-block">
-              <!--
-              <div class="md-layout-item" style="display: none">
-                <md-field>
-                  <md-select name="eigentuemer" id="eigentuemer" placeholder="Eigentümer">
-                    <md-option value="australia">Beliebiger Eigentümer</md-option>
-                    <md-option value="brazil">Ich bin Eigentümer</md-option>
-                    <md-option value="japan">Ich bin nicht Eigentümer</md-option>
-                  </md-select>
-                </md-field>
-              </div>
-              -->
               <select class="form-control form-eigentuemer">
                 <option>Beliebiger Eigentümer</option>
                 <option>Ich bin Eigentümer</option>
@@ -216,7 +205,6 @@
               <div class="liDiv liDivDefault" @click="showDialog = true">
                 <div>
                   <i class="material-icons">add</i>
-                  <!--<p>neues Dokument <br>erstellen</p>-->
                 </div>
               </div>
             </li>
@@ -249,7 +237,7 @@
 
                 <div class="liButtons">
                   <span class="updatedAt">{{doc.updatedAt | formatDate}}</span>
-                  <md-button class="md-secondary md-raised md-dense" @click.prevent="deleteDoc(doc.hash)">Löschen</md-button>
+                  <md-button class="md-icon-button button-delete-mobile" @click.prevent="deleteDoc(doc.hash)"><md-icon>delete</md-icon></md-button>
                   <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.hash)">Öffnen</md-button>
                 </div>
               </div>
@@ -284,7 +272,13 @@
     async created () {
       await this.refreshDocs()
       document.getElementById('containerSpinner').style.display = 'none'
-      document.getElementById('docList').style.display = 'inline' /* in mobile nicht anzeigen */
+      if (window.innerWidth < 450) {
+        document.getElementById('docList').style.display = 'none'
+        document.getElementById('mobileDocList').style.display = 'inline'
+      } else {
+        document.getElementById('docList').style.display = 'inline'
+        document.getElementById('mobileDocList').style.display = 'none'
+      }
       this.onScroll()
     },
     methods: {
@@ -645,27 +639,8 @@
     text-shadow: 1px 1px 5px #ccc;
   }
 
-  .liDivDefault p {
-    color: black !important;
-    visibility: hidden;
-    opacity: 0;
-    transition: .2s;
-    position: absolute;
-    bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    font-size: 0.9rem;
-  }
-
   .liDivDefault:hover i {
     text-shadow: none;
-  }
-
-  .liDivDefault:hover p {
-    visibility: visible;
-    opacity: 1;
   }
 
   .liDiv {
@@ -863,6 +838,10 @@
       padding-bottom: 3rem;
     }
 
+    .container {
+      margin-bottom: 2rem !important;
+    }
+
     .products {
       margin-bottom: 0;
     }
@@ -910,7 +889,9 @@
     ul li {
       width: 100%;
       height: auto;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
+      padding-left: 10px;
+      padding-right: 10px;
     }
 
     .docWidgetSec {
@@ -930,6 +911,11 @@
     .liButtons {
       position: relative;
       text-align: right;
+    }
+
+    .button-delete-mobile {
+      position: relative;
+      margin: 0;
     }
 
     .updatedAt {
