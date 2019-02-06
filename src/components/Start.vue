@@ -47,9 +47,9 @@
       -->
 
       <div class="container" style="margin-bottom: 4rem;">
-        <div class="row text-center mb-md-3 mb-sm-0">
-          <div class="col-lg-4 col-md-6 col-sm-12 col-6 col-left">
-            <div class="box boxModule p-md-5 p-sm-3 p-2">
+        <div class="row text-center mb-md-3 mb-sm-3 mb-3">
+          <div class="col-lg-4 col-md-6 col-sm-6 col-6 col-left">
+            <div class="box boxModule p-md-5 p-sm-3 p-3">
               <p><img class="docWidgetMain" src="../assets/baseline-exit_to_app-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Login</h2>
               <p class="lead font-weight-normal">Melde dich an.</p>
@@ -61,8 +61,8 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-8 col-md-6 col-sm-12 col-6 col-right">
-            <div class="box boxModule p-md-5 p-sm-3 p-2">
+          <div class="col-lg-8 col-md-6 col-sm-6 col-6 col-right">
+            <div class="box boxModule p-md-5 p-sm-3 p-3">
               <p><img class="docWidgetMain" src="../assets/baseline-person-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Profil</h2>
               <p class="lead font-weight-normal">Besuche dein Profil.</p>
@@ -77,8 +77,8 @@
         </div>
 
         <div class="row text-center">
-          <div class="col-lg-8 col-md-6 col-sm-12 col-6 col-left">
-            <div class="box boxModule p-md-5 p-sm-3 p-2">
+          <div class="col-lg-8 col-md-6 col-sm-6 col-6 col-left">
+            <div class="box boxModule p-md-5 p-sm-3 p-3">
               <p><img class="docWidgetMain" src="../assets/outline-insert_drive_file-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Neu</h2>
               <p class="lead font-weight-normal">Lege ein neues Dokument an und bearbeite es.</p>
@@ -102,8 +102,8 @@
               </md-dialog-actions>
             </md-dialog>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-12 col-6 col-right">
-            <div class="box boxModule p-md-5 p-sm-3 p-2">
+          <div class="col-lg-4 col-md-6 col-sm-6 col-6 col-right">
+            <div class="box boxModule p-md-5 p-sm-3 p-3">
               <p><img class="docWidgetMain" src="../assets/baseline-search-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Suchen</h2>
               <p class="lead font-weight-normal">nach einem Dokument.</p>
@@ -805,16 +805,6 @@
     ul li {
       width: 33.3%;
     }
-
-    .col-left,
-    .col-center {
-      padding-right: 15px;
-    }
-
-    .col-right,
-    .col-center {
-      padding-left: 15px;
-    }
   }
 
   @media (max-width: 767px) {
@@ -849,7 +839,7 @@
       width: 50%;
     }
     .container {
-      padding: 6px;
+      padding-top: 15px;
     }
     .container-fluid {
       padding: 0;
@@ -864,7 +854,8 @@
 
   @media (max-width: 450px) {
     #docList,
-    .product-example-2 {
+    .product-example-2,
+    .helper {
       display: none;
     }
 
@@ -879,7 +870,7 @@
     .product-example-1 {
       top: -10%;
       left: 10%;
-      opacity: 0.3;
+      opacity: 0.2;
     }
 
     h1.display-1 {
@@ -891,21 +882,16 @@
     }
 
     .boxModule {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
+      height: 10rem;
     }
 
     .boxModule p,
     .boxModule h2 {
-      display: inline-block;
-      margin: 0;
     }
 
     .boxModule p img {
       width: 50px;
-      margin: 0 15px 0 10px;
+      margin: 10px 0 0 0;
     }
 
     .boxModule h2,
@@ -917,10 +903,8 @@
       font-size: 1.3rem;
     }
 
-    .boxModule .md-button {
-      position: relative;
-      left: 0;
-      float: right;
+    .md-field {
+      width: 80% !important;
     }
 
     ul li {
