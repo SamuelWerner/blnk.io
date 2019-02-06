@@ -69,7 +69,7 @@
     <div class="container">
       <b-alert class="saving" :show="saving" variant="info">speichert...</b-alert>
 
-      <h1 @click="showDialogRename = true">
+      <h1 class="docTitle" @click="showDialogRename = true">
         <div id="containerSpinner" class="spinner">
           <md-progress-spinner md-mode="indeterminate" md-diameter="40" md-stroke="4"></md-progress-spinner>
         </div>
@@ -621,7 +621,7 @@
     border: 1px solid red;
   }
 
-  h1 {
+  h1.docTitle {
     margin-top: 3rem !important;
     display: inline-block;
   }
@@ -781,7 +781,7 @@
     display: none;
   }
 
-  h1:hover #editName {
+  h1.docTitle:hover #editName {
     /* transform: rotate(45deg); */
   }
 
@@ -839,7 +839,7 @@
 
 
   @media (max-width: 767px) {
-    h1 {
+    h1.docTitle {
       margin: 0 !important;
       margin-top: 0.5rem !important;
       font-size: 1.7rem !important;
@@ -862,7 +862,7 @@
       padding: 0.3rem 0.5rem;
       top: 1rem !important;
     }
-    h1:hover #editName {
+    h1.docTitle:hover #editName {
       transform: none;
     }
   }
@@ -872,7 +872,7 @@
     #paper {
       padding: 1rem;
     }
-    h1 {
+    h1.docTitle {
       margin-top: 0 !important;
     }
   }
@@ -885,11 +885,11 @@
     * {
       background-color: #fff !important;
     }
-    h1 {
+    h1.docTitle {
       margin-top: 0 !important;
       font-size: 1rem !important;
     }
-    h1::before {
+    h1.docTitle::before {
       content: "Dokument: "
     }
     #paper {
