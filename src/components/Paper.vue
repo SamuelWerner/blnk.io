@@ -771,7 +771,7 @@
 
   .md-textarea,
   .md-input {
-    width: 100% !important;
+    /* width: 100% !important; */
   }
 
   #editName {

@@ -96,6 +96,7 @@
                   <label>Titel eingeben...</label><md-input type="text" v-model="model.title" maxlength="30"></md-input>
                 </form>
               </md-field>
+              <p class="dialog-helper"></p>
               <md-dialog-actions>
                 <md-button class="md-primary" @click="showDialog = false">Abbruch</md-button>
                 <md-button type="submit" form="form" class="md-primary" @click="showDialog = false">Erstellen</md-button>
@@ -292,7 +293,7 @@
         await this.refreshDocs()
       },
       async deleteDoc (hash) {
-        if (confirm('Wirklich löschen?')) {
+        if (confirm('Wirklich löschen?\n(Dies kann einen kurzen Moment dauern)')) {
           if (this.model.hash === hash) {
             this.model = {}
           }
@@ -342,6 +343,16 @@
     text-align: center;
     width: 30rem;
     padding: 0 2rem;
+  }
+
+  .dialog-helper {
+    text-align: right;
+    font-size: 0.7rem;
+    margin-top: 1rem;
+  }
+
+  .dialog-helper::before {
+    content: "Dies kann einen kurzen Moment dauern."
   }
 
   #scrollTop {
