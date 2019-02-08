@@ -627,7 +627,7 @@
   }
 
   .saving {
-    float: right !important;
+    float: right;
     position: -webkit-sticky !important; /* Safari */
     position: sticky !important;
     top: 2rem !important;
