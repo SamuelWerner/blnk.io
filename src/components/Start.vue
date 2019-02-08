@@ -93,7 +93,7 @@
               <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
               <md-field class="inputBox" md-clearable>
                 <form id="form" @submit.prevent="saveDoc">
-                  <label>Titel eingeben...</label><md-textarea type="text" v-model="model.title" maxlength="30" md-autogrow></md-textarea>
+                  <label>Titel eingeben...</label><md-input type="text" v-model="model.title" maxlength="30"></md-input>
                 </form>
               </md-field>
               <md-dialog-actions>
@@ -165,7 +165,7 @@
                 <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
                    <md-field class="inputBox" md-clearable>
                      <form id="form" @submit.prevent="saveDoc">
-                       <label>Titel eingeben...</label><md-textarea type="text" v-model="model.title" maxlength="30" md-autogrow></md-textarea>
+                       <label>Titel eingeben...</label><md-input type="text" v-model="model.title" maxlength="30"></md-input>
                      </form>
                    </md-field>
                 <md-dialog-actions>
@@ -333,7 +333,8 @@
     width: 100% !important;
   }
 
-  .md-textarea {
+  .md-textarea,
+  .md-input {
     width: 100% !important;
   }
 

@@ -95,7 +95,7 @@
 
       <md-field md-clearable>
         <form id="form" @submit.prevent="updateName">
-          <label>Titel eingeben...</label><md-textarea type="text" v-model="doc.title"  maxlength="30" md-autogrow></md-textarea>
+          <label>Titel eingeben...</label><md-input type="text" v-model="doc.title"  maxlength="30"></md-input>
         </form>
       </md-field>
 
@@ -769,7 +769,8 @@
     width: 100% !important;
   }
 
-  .md-textarea {
+  .md-textarea,
+  .md-input {
     width: 100% !important;
   }
 
@@ -879,7 +880,7 @@
 
 
   @media print {
-    .sticky, #editName, #sidebar, .saving, .menu-content, #scrollTop {
+    .sticky, #editName, #sidebar, .saving, .menu-content, #scrollTop, #footer {
       display: none !important;
     }
     * {
