@@ -18,12 +18,17 @@
       <div @click="menubarClose" id="menubarClose">
         <img src="../assets/baseline-keyboard_arrow_up-24px.svg" alt="">
       </div>
+
+      <div id="docIdent" @click="showDialogRename = true">{{ doc.title }}</div>
     </div>
 
-    <div @click="menubarOpen" id="menuClosed">
-      <img src="../assets/baseline-keyboard_arrow_down-24px.svg" alt="">
-      <md-tooltip md-delay="" md-direction="right">Menüs anzeigen</md-tooltip>
+    <div class="menubarOpenWrapper">
+      <div @click="menubarOpen" id="menuClosed">
+        <img src="../assets/baseline-keyboard_arrow_down-24px.svg" alt="">
+        <md-tooltip md-delay="" md-direction="right">Menüs anzeigen</md-tooltip>
+      </div>
     </div>
+
 
     <div id="sidebar" style="display: none">
       <button v-scroll-to="'#pageTop'" type="button" class="btn btn-light btn-tmenu btn-sidebar">
@@ -546,6 +551,7 @@
         var menubarClose = document.getElementById('menubarClose')
         var mobileBar = document.getElementById('mobileBar')
         var scrollToTop = document.getElementById('scrollTop')
+        var docIdent = document.getElementById('docIdent')
         window.onscroll = function () {
           if (document.body.scrollTop > 68 || document.documentElement.scrollTop > 68) {
             barDiv.style.backgroundColor = '#343a40'
@@ -561,6 +567,13 @@
             mobileBar.getElementsByTagName('main')[0].style.backgroundColor = '#f3f2f1'
             scrollToTop.style.visibility = 'hidden'
             scrollToTop.style.opacity = '0'
+          }
+          if (document.body.scrollTop > 179 || document.documentElement.scrollTop > 179) {
+            docIdent.style.visibility = 'visible'
+            docIdent.style.opacity = '1'
+          } else {
+            docIdent.style.visibility = 'hidden'
+            docIdent.style.opacity = '0'
           }
         }
       },
@@ -670,6 +683,23 @@
 
   #closeBtn:hover img {
     transform: rotate(90deg);
+  }
+
+  #docIdent {
+    position: absolute;
+    right: 75px;
+    top: 25px;
+    color: white;
+    visibility: hidden;
+    transition: visibility .3s, opacity .3s, box-shadow 0s;
+    padding: .15rem .4rem;
+    cursor: text;
+  }
+
+  #docIdent:hover {
+    -webkit-box-shadow: 0px 0px 0px 1px #7A7A7A;
+    -moz-box-shadow: 0px 0px 0px 1px #7A7A7A;
+    box-shadow: 0px 0px 0px 1px #7A7A7A;
   }
 
   #mobileBar {
@@ -795,23 +825,30 @@
     cursor: pointer;
   }
 
-  #menuClosed {
+  .menubarOpenWrapper {
     position: -webkit-sticky; /* Safari */
     position: sticky;
-    top: 15px;
-    right: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  #menuClosed {
+    float: right;
     display: none;
     background-color: #343a40;
     cursor: pointer;
     z-index: 1;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 0 5px 0px 5px;
   }
 
   #menuClosed img {
     -webkit-filter: invert(1); /* Safari 6.0 - 9.0 */
     filter: invert(1);
-    height: 25px;
-    width: 25px;
-    margin-bottom: 5px;
+    height: 20px;
+    width: 20px;
+    margin-bottom: 3px;
   }
 
   #containerSpinner {

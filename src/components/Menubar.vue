@@ -97,7 +97,7 @@
 
         <md-field md-clearable>
           <form id="form" @submit.prevent="updateName">
-            <label>Titel eingeben...</label><md-textarea type="text" v-model="$parent.doc.title"  maxlength="30" md-autogrow></md-textarea>
+            <label>Titel eingeben...</label><md-input type="text" v-model="$parent.doc.title"  maxlength="30"></md-input>
           </form>
         </md-field>
 
@@ -114,7 +114,7 @@
 
         <md-field md-clearable>
           <form id="copyDoc" @submit.prevent="copyDoc">
-            <label>Titel für Kopie eingeben...</label><md-textarea type="text" v-model="model.title" maxlength="30" md-autogrow></md-textarea>
+            <label>Titel für Kopie eingeben...</label><md-input type="text" v-model="model.title" maxlength="30"></md-input>
           </form>
         </md-field>
 
