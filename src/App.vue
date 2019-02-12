@@ -123,6 +123,7 @@
   ::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #888888;
+    width: 100px;
   }
 
   @media (max-width: 450px) {

@@ -211,18 +211,20 @@
             </li>
             <li id="li" v-for="doc in docs" :key="doc.hash">
               <div class="liDiv">
-                <div @click.prevent="openDoc(doc.hash)" style="cursor: pointer;">
+                <div class="liDivOpen" @click.prevent="openDoc(doc.hash)">
                   <img class="docWidgetSec" src="../assets/outline-insert_drive_file-24px.svg" /><hr>
                   <span class="docTitle">{{ doc.title }}</span><br>
+                  <div class="liDivUpdatedAt">
+                    <span class="updatedAt">zuletzt: {{doc.updatedAt | formatDate}}</span>
+                  </div>
                 </div>
 
                 <div class="liButtons">
-                  <span class="updatedAt">geändert: {{doc.updatedAt | formatDate}}</span><br>
                   <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.hash)" style="margin-bottom: 15px;">Öffnen</md-button>
-                  <md-button class="md-icon-button button-delete" @click.prevent="deleteDoc(doc.hash)">
-                    <md-icon>delete</md-icon>
-                  </md-button>
                 </div>
+                <md-button class="md-icon-button button-delete" @click.prevent="deleteDoc(doc.hash)">
+                  <md-icon>delete</md-icon>
+                </md-button>
               </div>
             </li>
           </ul>
@@ -657,10 +659,9 @@
 
   .liDiv {
     position: relative;
-    padding: 20px 10px 20px 10px;
     border-radius: 1px;
     background-color: #fff/*#f7f7f7*/;
-    min-height: 18rem;
+    height: 18rem;
     float: left;
     text-align: center;
     word-wrap: break-word;
@@ -676,6 +677,21 @@
 
   .liDiv hr {
     margin-bottom: 1.4rem;
+  }
+
+  .liDivOpen {
+    padding: 20px 10px 0 10px;
+    cursor: pointer;
+    height: 100%;
+  }
+
+  .liDivUpdatedAt {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    bottom: 55px;
   }
 
   .updatedAt {
@@ -713,6 +729,7 @@
     margin-right: auto;
     left: 0;
     right: 0;
+    width: max-content;
   }
 
   .button-delete {
@@ -908,11 +925,12 @@
 
     .docWidgetSec {
       width: 30px;
+      margin-right: 3px;
     }
 
     .liDiv {
       padding: 12px 8px 8px 10px;
-      min-height: 0;
+      height: auto;
       text-align: left;
     }
 
@@ -923,6 +941,13 @@
     .liButtons {
       position: relative;
       text-align: right;
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+    }
+
+    .md-button {
+      margin-bottom: 0;
     }
 
     .button-delete-mobile {
