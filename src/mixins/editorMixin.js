@@ -114,6 +114,12 @@ export default {
     fontSize (textSize) {
       document.execCommand('fontSize', false, textSize)
     },
+    hiliteColor (backgroundColor) {
+      document.execCommand('hiliteColor', false, backgroundColor)
+    },
+    contentReadOnly () {
+      document.execCommand('contentReadOnly', false, true)
+    },
     fullScreen () {
       var element = document.documentElement
 

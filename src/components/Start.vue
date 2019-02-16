@@ -53,9 +53,9 @@
               <p><img class="docWidgetMain" src="../assets/baseline-exit_to_app-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Login</h2>
               <p class="lead font-weight-normal">Melde dich an.</p>
-              <md-button class="md-primary md-raised"> Login </md-button>
+              <md-button class="md-primary md-raised" disabled> Login </md-button>
               <div class="helper">
-                <md-button class="md-icon-button" @click="showDialogHelper = true">
+                <md-button class="md-icon-button" @click="showDialogHelper = true" disabled>
                   <i class="fas fa-question"></i>
                 </md-button>
               </div>
@@ -66,9 +66,9 @@
               <p><img class="docWidgetMain" src="../assets/baseline-person-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Profil</h2>
               <p class="lead font-weight-normal">Besuche dein Profil.</p>
-              <md-button class="md-primary md-raised"> Profil </md-button>
+              <md-button class="md-primary md-raised" disabled> Profil </md-button>
               <div class="helper">
-                <md-button class="md-icon-button" @click="showDialogHelper = true">
+                <md-button class="md-icon-button" @click="showDialogHelper = true" disabled>
                   <i class="fas fa-question"></i>
                 </md-button>
               </div>
@@ -109,7 +109,7 @@
               <h2 class="display-5 text-uppercase">Suchen</h2>
               <p class="lead font-weight-normal">nach einem Dokument.</p>
               <md-field style="width: 60%; margin: 0 auto;">
-                <label>Name / Inhalt</label>
+                <label>Name</label>
                 <md-input></md-input>
               </md-field>
               <div class="helper">

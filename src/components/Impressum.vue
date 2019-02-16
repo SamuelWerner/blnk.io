@@ -25,12 +25,25 @@
                  <div class="md-subhead"></div>
                </md-card-header>
                <md-card-content>
-                 christopher.sang -at- gmx.de
+                 <table>
+                   <tr>
+                     <th>Christopher Sang</th>
+                     <th>christopher.sang -at- iem.thm.de</th>
+                   </tr>
+                   <tr>
+                     <th>Samuel Werner</th>
+                     <th>samuel.werner -at- iem.thm.de</th>
+                   </tr>
+                   <tr>
+                     <th>Oliver Springer</th>
+                     <th>oliver.springer -at- iem.thm.de</th>
+                   </tr>
+                 </table>
                </md-card-content>
              </md-ripple>
            </md-card>
 
-           <md-card md-with-hover>
+           <md-card md-with-hover style="display: none">
              <md-ripple>
                <md-card-header>
                  <div class="md-title">Quellen</div>
@@ -135,6 +148,11 @@
 
   .md-button {
     margin: 0 0 0 16px;
+  }
+
+  th {
+    font-weight: normal;
+    padding-right: 10px;
   }
 
   @media (max-width: 500px) {
