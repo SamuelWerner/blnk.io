@@ -70,18 +70,22 @@
       </md-menu>
     </div>
 
+    <div class="saving-wrapper">
+      <div class="saving" :show="saving" title="speichert...">
+        <i class="material-icons">save</i>
+        <md-progress-spinner class="spinner-saving spinner-saving-desktop" :md-diameter="35" :md-stroke="2" md-mode="indeterminate"></md-progress-spinner>
+        <md-progress-spinner class="spinner-saving spinner-saving-mobile" :md-diameter="30" :md-stroke="2" md-mode="indeterminate"></md-progress-spinner>
+      </div>
+    </div>
 
     <div class="container">
-      <b-alert class="saving" :show="saving" variant="info">speichert...</b-alert>
-
       <h1 class="docTitle" @click="showDialogRename = true">
         <div id="containerSpinner" class="spinner">
-          <md-progress-spinner md-mode="indeterminate" md-diameter="40" md-stroke="4"></md-progress-spinner>
+          <md-progress-spinner md-mode="indeterminate" :md-diameter="40" :md-stroke="4"></md-progress-spinner>
         </div>
         {{ doc.title }}
         <img id="editName"  src="../assets/outline-create-24px.svg" />
-        <!--<md-tooltip md-delay="700" md-direction="bottom">Umbenennen</md-tooltip>-->
-      </h1> {{ rename }}
+      </h1>
 
       <div style="outline: none" contenteditable="true"
          id="paper" itemref="paper"
@@ -92,7 +96,6 @@
       </div>
     </div>
     <a id="pageBottom"></a>
-    <!--<p id="pageTitleScroll">Dokument: {{ doc.title }}</p>-->
 
     <!-- DIALOG Umbenennen -->
     <md-dialog class="dialog" :md-active.sync="showDialogRename">
@@ -105,7 +108,6 @@
       </md-field>
 
       <md-dialog-actions>
-        <!--<md-button class="md-primary" @click="showDialogRename = false">Abbruch</md-button>-->
         <md-button class="md-primary" @click="showDialogRename = false" type="submit" form="form">Fertig</md-button>
       </md-dialog-actions>
     </md-dialog>
@@ -639,12 +641,24 @@
     display: inline-block;
   }
 
+  .saving-wrapper {
+    position: fixed;
+    bottom: 15px;
+  }
+
   .saving {
-    float: right;
-    position: -webkit-sticky !important; /* Safari */
-    position: sticky !important;
-    top: 2rem !important;
-    z-index: 100 !important;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    color: black;
+    opacity: 0.9;
+  }
+
+  .spinner-saving {
+    position: absolute;
+    left: -6px;
+    bottom: -6px;
   }
 
   .error {
@@ -856,15 +870,19 @@
     margin-right: 10px;
   }
 
+  .spinner-saving-desktop {
+    display: inline;
+  }
+
+  .spinner-saving-mobile {
+    display: none;
+  }
+
 
   @media (max-width: 991px) {
     #paper {
       padding: 4rem;
       min-height: 110vh;
-    }
-    .saving {
-      font-size: 14px;
-      padding: 0.65rem 0.9rem;
     }
   }
 
@@ -875,12 +893,15 @@
   }
 
 
-
   @media (max-width: 767px) {
     h1.docTitle {
       margin: 0 !important;
-      margin-top: 0.5rem !important;
+      margin-top: 1rem !important;
       font-size: 1.7rem !important;
+    }
+    .saving-wrapper {
+      padding: 0 7px;
+      bottom: 7px;
     }
     #paper {
       padding: 2rem;
@@ -895,11 +916,6 @@
     #menuMobile, #mobileBar {
       display: inline;
     }
-    .saving {
-      font-size: 11px;
-      padding: 0.3rem 0.5rem;
-      top: 1rem !important;
-    }
     h1.docTitle:hover #editName {
       transform: none;
     }
@@ -910,8 +926,14 @@
     #paper {
       padding: 1rem;
     }
-    h1.docTitle {
-      margin-top: 0 !important;
+    .saving i {
+       font-size: 1.1rem;
+    }
+    .spinner-saving-desktop {
+      display: none;
+    }
+    .spinner-saving-mobile {
+      display: inline;
     }
   }
 

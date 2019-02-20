@@ -99,6 +99,8 @@
         </button>
 
         <md-menu-content class="menu-content">
+          <md-menu-item @click="foreColor ('#212529')">Standard Farbe</md-menu-item>
+          <md-divider></md-divider>
           <div class="colorPicker">
             <div class="row-colorPicker"> <!--black-->
               <button @click="foreColor ('#000000')" class="color-colorPicker" style="background-color: #000000;"></button>
@@ -161,12 +163,12 @@
 
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Hervorhebungsfarbe</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-right" >
-          <i class="material-icons">border_color</i>
+        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-right" style="">
+          <i class="material-icons" style="font-size: 22px; margin-top: 2px;">border_color</i>
         </button>
 
         <md-menu-content class="menu-content">
-          <md-menu-item @click="hiliteColor ('#ffffff')"><div class="md-item-filled"><img src="../assets/baseline-format_color_reset-24px.svg" /></div>Keine Farbe</md-menu-item>
+          <md-menu-item @click="hiliteColor ('#ffffff')"><div class="md-item-filled"><img src="../assets/baseline-format_color_reset-24px.svg"/></div>Keine Farbe</md-menu-item>
           <md-divider></md-divider>
           <div class="colorPicker">
             <div class="row-colorPicker"> <!--black-->
