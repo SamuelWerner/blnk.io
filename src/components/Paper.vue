@@ -871,11 +871,11 @@
   }
 
   .spinner-saving-desktop {
-    display: inline;
+    display: inline !important;
   }
 
   .spinner-saving-mobile {
-    display: none;
+    display: none !important;
   }
 
 
@@ -930,10 +930,10 @@
        font-size: 1.1rem;
     }
     .spinner-saving-desktop {
-      display: none;
+      display: none !important;
     }
     .spinner-saving-mobile {
-      display: inline;
+      display: inline !important;
     }
   }
 
