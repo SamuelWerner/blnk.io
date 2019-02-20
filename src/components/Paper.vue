@@ -656,7 +656,7 @@
   }
 
   .spinner-saving {
-    position: absolute;
+    position: absolute !important;
     left: -6px;
     bottom: -6px;
   }
