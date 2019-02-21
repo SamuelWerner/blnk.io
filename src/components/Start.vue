@@ -109,9 +109,12 @@
               <h2 class="display-5 text-uppercase">Suchen</h2>
               <p class="lead font-weight-normal">nach einem Dokument.</p>
               <md-field style="width: 60%; margin: 0 auto;">
-                <label>Name</label>
-                <md-input></md-input>
+                <form id="formSearch" @submit.prevent="searchDocs">
+                  <label>Name</label>
+                  <md-input v-model="model.searchString"></md-input>
+                </form>
               </md-field>
+              <md-button type="submit" form="formSearch" class="md-primary">Los</md-button>
               <div class="helper">
                 <md-button class="md-icon-button" @click="showDialogHelper = true">
                   <i class="fas fa-question"></i>
@@ -277,10 +280,10 @@
       document.getElementById('containerSpinner').style.display = 'none'
       if (window.innerWidth < 450) {
         document.getElementById('docList').style.display = 'none'
-        document.getElementById('mobileDocList').style.display = 'inline'
+        // document.getElementById('mobileDocList').style.display = 'inline'
       } else {
         document.getElementById('docList').style.display = 'inline'
-        document.getElementById('mobileDocList').style.display = 'none'
+        // document.getElementById('mobileDocList').style.display = 'none'
       }
       this.onScroll()
     },
@@ -288,6 +291,25 @@
       async refreshDocs () {
         this.docs = await api.getDocs()
         return true
+      },
+      async searchDocs () {
+        document.getElementById('containerSpinner').style.display = 'inline'
+        document.getElementById('docList').style.display = 'none'
+        this.docs = await api.getDocs()
+        var tmpDocs = []
+        for (var i = 0; i < this.docs.length; i++) {
+          if (this.docs[i].title.includes(this.model.searchString)) {
+            tmpDocs.push(this.docs[i])
+          }
+        }
+        this.docs = tmpDocs
+        document.getElementById('containerSpinner').style.display = 'none'
+        if (window.innerWidth < 450) {
+          document.getElementById('docList').style.display = 'none'
+        } else {
+          document.getElementById('docList').style.display = 'inline'
+        }
+        this.onScroll()
       },
       async saveDoc () {
         await api.createDoc(this.model)
