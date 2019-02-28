@@ -114,33 +114,6 @@
         </md-dialog-actions>
       </md-dialog>
       <!-- DIALOG end -->
-
-      <!-- DIALOG Seiteneinrichtung -->
-      <md-dialog class="dialog" :md-active.sync="showDialogPage">
-        <md-dialog-title>Seitenränder und -farbe ändern</md-dialog-title>
-
-        <div class="md-layout md-gutter">
-          <div class="md-layout-item">
-            <md-field>
-              <label :for="pagecolor">Seitenfarbe</label>
-              <md-select v-model="pagecolor" name="pagecolor" id="pagecolor">
-                <md-option value="red">Rot</md-option>
-                <md-option value="blue">Blau</md-option>
-                <md-option value="yellow">Gelb</md-option>
-                <md-option value="green">Grün</md-option>
-                <md-option value="black">Schwarz</md-option>
-                <md-option value="white">Weiß</md-option>
-              </md-select>
-            </md-field>
-          </div>
-        </div>
-
-        <md-dialog-actions>
-          <md-button class="md-primary" @click="showDialogPage = false">Abbruch</md-button>
-          <md-button class="md-primary" @click="showDialogPage = false; pagecolor = value" type="submit" form="form2">Übernehmen</md-button>
-        </md-dialog-actions>
-      </md-dialog>
-      <!-- DIALOG end -->
     </main>
 </template>
 
@@ -158,7 +131,6 @@
         showDialogRename: false,
         showDialogCopyDokument: false,
         showDialogOpenDokument: false,
-        showDialogPage: false,
         pagecolor: 'white',
         model: {}
       }
