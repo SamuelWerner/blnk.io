@@ -269,7 +269,7 @@
             if (!(anotherUser[i]['username'] === this.readUsername())) {
               innerhtml = innerhtml + '.otherUser' + i + ' {background-color: ' + '}' // TODO randomize colors
               // TODO add class to div container
-              let paper = document.getElementById('paper')
+              // let paper = document.getElementById('paper')
               let currentDiv = anotherUser[i]['positionCol']
               console.log(currentDiv)
             }
