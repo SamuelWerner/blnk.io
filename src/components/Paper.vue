@@ -92,6 +92,8 @@
          class="rounded shadow paper"
          @paste.stop="onPaste($event, doc)"
          @input.stop="documentChanges($event, doc)" @click="saveSelection()"
+         @keyup="addCaret(doc)"
+         @mouseup="addCaret(doc)"
          v-html="body" :disabled="1" ref="paper">
       </div>
     </div>
@@ -269,9 +271,34 @@
           }
         })
 
-        this.socket.on('addCaret', function (data) { // TODO Funktion zum anzeigen der anderen Carets einfügen
-          var username = this.getUsername()
-          positions.push({ username, data })
+        this.socket.on('updateUsers', function (data) {
+          let anotherUser = data['message']
+          let innerhtml = ''
+          let style = document.createElement('style')
+          style.type = 'text/css'
+          console.log(anotherUser)
+          for (let i = 0; i < anotherUser.length; i++) {
+            if (!(anotherUser[i]['username'] === this.readUsername())) {
+              innerhtml = innerhtml + '.otherUser' + i + ' {background-color: ' + '}' // TODO randomize colors
+              // TODO add class to div container
+              let paper = document.getElementById('paper')
+              let currentDiv = anotherUser[i]['positionCol']
+              console.log(currentDiv)
+            }
+          }
+          style.innerHTML = innerhtml
+          document.getElementsByTagName('head')[0].appendChild(style)
+          let userList = document.createElement('ul')
+          innerhtml = ''
+          userList.type = 'text/html'
+          for (let i = 0; i < anotherUser.length; i++) {
+            if (!(anotherUser[i]['username'] === this.readUsername())) {
+              innerhtml += '<li>User ' + (i + 1) + '</li>'
+            } else {
+              innerhtml += '<li>BL_NK</li>'
+            }
+          }
+          // TODO select where the list should be shown / appended
         })
       },
       async joinRoom (id) {
@@ -446,22 +473,22 @@
         return canvas.toDataURL('image/jpeg', 0.6)
       },
       addCaret (doc) {
-        // var username = this.readUsername()
-        // var positionRow = this.readCaretPosition(doc.srcElement)
-        // var positionCol = this.getDivContainer()
-        // var user = {username, positionRow, positionCol}
-        // this.socket.emit('addCaret', {
-        //   room: 'docChannel_' + this.doc.id,
-        //   event: 'addCaret',
-        //   message: user
-        // })
+        let username = this.readUsername()
+        let positionRow = this.readCaretPosition(doc.srcElement)
+        let positionCol = this.getDivContainer()
+        let user = {username, positionRow, positionCol}
+        this.socket.emit('addCaret', {
+          room: 'docChannel_' + this.doc.id,
+          event: 'addCaret',
+          message: user
+        })
       },
       getDivContainer () {
-        var sel
-        var range
-        var sibling
-        var gen
-        var doc = document.getElementById('paper')
+        let sel
+        let range
+        let sibling
+        let gen
+        let doc = document.getElementById('paper')
         if (window.getSelection) {
           sel = window.getSelection()
           if (sel.rangeCount) {

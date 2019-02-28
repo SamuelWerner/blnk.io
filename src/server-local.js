@@ -146,7 +146,6 @@ database
       })
       socket.on('addCaret', function (data) {
         let room = data['room']
-        let event = data['event']
         if (positions.length > 0) {
           for (let i = 0; i < positions.length; i++) {
             if (positions[i]['username'] === data['message']['username']) {
@@ -158,11 +157,23 @@ database
         } else {
           positions.push(data['message'])
         }
+        socket.to(room).emit('updateUsers', {message: positions})
+        sendToRoom(room, 'updateUsers', {message: positions})
+        console.log('test')
+      })
+      socket.on('disconnect', function () {
         console.log(positions)
-        socket.to(room).emit(event, positions)
+        console.log('Disconnected ' + socket)
+        let index = positions.indexOf(socket)
+        positions.splice(index, 1)
+        console.log(positions)
       })
       console.log('a user connected')
     })
+
+    function sendToRoom (room, event, message) {
+      io.sockets.emit(event, message)
+    }
   })
 
 let Doc = database.define('docs2', {
