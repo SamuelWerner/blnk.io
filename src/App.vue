@@ -9,11 +9,10 @@
         <b-navbar-nav>
           <!--<b-nav-item to="/posts-manager">CRUD Example</b-nav-item>-->
         </b-navbar-nav>
-
+        <!--
         <b-navbar-nav class="ml-auto">
 
           <b-nav-item-dropdown right>
-            <!-- Using button-content slot -->
             <template slot="button-content">
                 <img style="filter: invert(1); margin-bottom: 2px;" src="../src/assets/baseline-person-24px.svg" alt="BV">
             </template>
@@ -21,6 +20,7 @@
             <b-dropdown-item href="#">Abmelden</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
+        -->
       </b-collapse>
     </b-navbar>
     <!-- routes will be rendered here -->

@@ -29,18 +29,6 @@
       </div>
     </div>
 
-
-    <div id="sidebar" style="display: none">
-      <button v-scroll-to="'#pageTop'" type="button" class="btn btn-light btn-tmenu btn-sidebar">
-        <img class="fktstripImg" src="../assets/baseline-vertical_align_top-24px.svg" />
-        <md-tooltip md-delay="300" md-direction="left">nach oben scrollen</md-tooltip>
-      </button><br>
-      <button v-scroll-to="'#pageBottom'" type="button" class="btn btn-light btn-tmenu btn-sidebar">
-        <img class="fktstripImg" src="../assets/baseline-vertical_align_bottom-24px.svg" />
-        <md-tooltip md-delay="300" md-direction="left">nach unten scrollen</md-tooltip>
-      </button>
-    </div>
-
     <a id="scrollTop" v-scroll-to="'#pageTop'"><img src="../assets/baseline-keyboard_arrow_up-24px.svg" alt=""></a>
 
     <div id="mobileBar" class="sticky">
@@ -549,7 +537,6 @@
       },
       onScroll () {
         var barDiv = document.getElementById('barDiv')
-        var sidebar = document.getElementById('sidebar')
         var menubarClose = document.getElementById('menubarClose')
         var mobileBar = document.getElementById('mobileBar')
         var scrollToTop = document.getElementById('scrollTop')
@@ -557,14 +544,12 @@
         window.onscroll = function () {
           if (document.body.scrollTop > 68 || document.documentElement.scrollTop > 68) {
             barDiv.style.backgroundColor = '#343a40'
-            sidebar.classList.add('sidebarShadow')
             menubarClose.getElementsByTagName('img')[0].style.filter = 'invert(1)'
             mobileBar.getElementsByTagName('main')[0].style.backgroundColor = '#343a40'
             scrollToTop.style.visibility = 'visible'
             scrollToTop.style.opacity = '1'
           } else {
             barDiv.style.backgroundColor = '#f3f2f1'
-            sidebar.classList.remove('sidebarShadow')
             menubarClose.getElementsByTagName('img')[0].style.filter = 'invert(0)'
             mobileBar.getElementsByTagName('main')[0].style.backgroundColor = '#f3f2f1'
             scrollToTop.style.visibility = 'hidden'
@@ -661,6 +646,14 @@
     bottom: -6px;
   }
 
+  .spinner-saving-desktop {
+    display: inline !important;
+  }
+
+  .spinner-saving-mobile {
+    display: none !important;
+  }
+
   .error {
     float: right !important;
     position: -webkit-sticky !important; /* Safari */
@@ -668,9 +661,6 @@
     top: 2rem !important;
     z-index: 11 !important;
   }
-
-  .container-fluid {}
-  .container {}
 
   .sticky {
     position: -webkit-sticky; /* Safari */
@@ -725,19 +715,6 @@
     position: absolute;
     top: 13px;
     right: 13px;
-  }
-
-  #sidebar {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    transition: 0.4s;
-  }
-
-  .sidebarShadow {
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(138,138,138,1);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(138,138,138,1);
-    box-shadow: 0px 0px 5px 0px rgba(138,138,138,1);
   }
 
   .darkSidebar button {
@@ -813,11 +790,6 @@
     width: 100% !important;
   }
 
-  .md-textarea,
-  .md-input {
-    /* width: 100% !important; */
-  }
-
   #editName {
     width: 1.1rem;
     vertical-align: 0;
@@ -868,14 +840,6 @@
   #containerSpinner {
     display: inline-block;
     margin-right: 10px;
-  }
-
-  .spinner-saving-desktop {
-    display: inline !important;
-  }
-
-  .spinner-saving-mobile {
-    display: none !important;
   }
 
 

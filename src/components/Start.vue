@@ -12,40 +12,6 @@
         <div class="product-example product-example-4"></div>
       </div>
 
-      <!--
-      <div class="row text-center" style="margin-bottom: 6rem;">
-        <div class="col-lg-3 col-md-12 col-left">
-          <div class="box procedure">
-            <p class="lead font-weight-normal m-0">Dokumente erstellen.</p>
-            <div class="box-arrow-right">
-              <i class="material-icons">keyboard_arrow_right</i>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-12 col-center">
-          <div class="box procedure">
-            <p class="lead font-weight-normal m-0">Dokumente bearbeiten.</p>
-            <div class="box-arrow-right">
-              <i class="material-icons">keyboard_arrow_right</i>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-12 col-center">
-          <div class="box procedure">
-            <p class="lead font-weight-normal m-0">Dokumente teilen.</p>
-            <div class="box-arrow-right">
-              <i class="material-icons">keyboard_arrow_right</i>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-12 col-right">
-          <div class="box procedure">
-            <p class="lead font-weight-normal m-0">Gemeinsam bearbeiten.</p>
-          </div>
-        </div>
-      </div>
-      -->
-
       <div class="container" style="margin-bottom: 4rem;">
         <div class="row text-center mb-md-3 mb-sm-3 mb-3">
           <div class="col-lg-4 col-md-6 col-sm-6 col-6 col-left">
@@ -131,20 +97,16 @@
 
         <md-tabs md-dynamic-height>
           <md-tab md-label="Login/Registrieren">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate.</p>
           </md-tab>
           <md-tab md-label="Profil">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate.</p>
           </md-tab>
           <md-tab md-label="Dokument erstellen">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+            <p>Über <em>NEU</em> ein Neues Dokument anlegen und benennen.<br>Das Dokument wird in der Ansicht weiter unten aufgelistet und kann dort geöffnet werden.</p>
           </md-tab>
           <md-tab md-label="Dokument suchen">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate. Neque quae culpa suscipit praesentium inventore ducimus ipsa aut.</p>
+            <p>Nach einem bereits vorhandenen Dokument suchen:<br>Namen des Dokuments oder Teile des Namens eingeben und Suche starten.</p>
           </md-tab>
         </md-tabs>
 
@@ -154,41 +116,10 @@
       </md-dialog>
 
       <div class="container" style="padding: 0 5px;">
-        <!--
-        <div class="card text-center">
-          <div class="card-header">
-            Featured
-          </div>
-          <div class="card-body">
-            <p><img class="docWidgetMain" src="../assets/outline-insert_drive_file-24px.svg" /></p>
-            <h5 class="card-title">Neues Dokument anlegen</h5>
-            <p class="card-text">Lege ein neues Dokument an und bearbeite es.</p>
-
-            <div>
-              <md-dialog class="dialog" :md-active.sync="showDialog">
-                <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
-                   <md-field class="inputBox" md-clearable>
-                     <form id="form" @submit.prevent="saveDoc">
-                       <label>Titel eingeben...</label><md-input type="text" v-model="model.title" maxlength="30"></md-input>
-                     </form>
-                   </md-field>
-                <md-dialog-actions>
-                  <md-button class="md-primary" @click="showDialog = false">Abbruch</md-button>
-                  <md-button type="submit" form="form" class="md-primary" @click="showDialog = false">Erstellen</md-button>
-                </md-dialog-actions>
-              </md-dialog>
-              <div style="width: max-content; margin: 0 auto;">
-                <md-button class="md-primary md-raised" @click="showDialog = true">+</md-button>
-              </div>
-            </div>
-          </div>
-        </div>
-        -->
 
         <div id="containerSpinner">
           <md-progress-spinner :md-diameter="50" :md-stroke="5" md-mode="indeterminate"></md-progress-spinner>
         </div>
-
 
         <div id="docList">
           <div class="row">
@@ -330,7 +261,6 @@
       },
       onScroll () {
         var scrollToTop = document.getElementById('scrollTop')
-        // var productsScroll = document.getElementById('productsScroll')
         window.onscroll = function () {
           if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
             scrollToTop.style.visibility = 'visible'
@@ -339,13 +269,6 @@
             scrollToTop.style.visibility = 'hidden'
             scrollToTop.style.opacity = '0'
           }
-          /*
-          if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
-            productsScroll.classList.remove('py-lg-5')
-          } else {
-            productsScroll.classList.add('py-lg-5')
-          }
-          */
         }
       }
     }
@@ -798,17 +721,14 @@
     .product-example-4 {
       display: none;
     }
-
     .product-example-1 {
       left: -10%;
       transform: rotate(22deg);
     }
-
     .product-example-2 {
       right: -5%;
       bottom: -20%;
     }
-
     ul li {
       width: 25%;
     }
@@ -818,16 +738,13 @@
     .products {
       margin-bottom: 2rem;
     }
-
     .product-example-1 {
       left: -20%;
     }
-
     .product-example-2 {
       right: -15%;
       bottom: -40%;
     }
-
     ul li {
       width: 33.3%;
     }

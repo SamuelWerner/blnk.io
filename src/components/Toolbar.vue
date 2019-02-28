@@ -30,19 +30,19 @@
         <md-menu-content class="menu-content">
           <md-menu-item><div class="md-item-filled"><img src="../assets/baseline-check-24px.svg" /></div>zuletzt: {{ fontMessage }}</md-menu-item>
           <md-divider></md-divider>
-          <md-menu-item v-on:click="fontMessage='Arial'" @click="fontName ('Arial')" style="font-family: Arial"> <div class="md-item-empty"></div>Arial </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Calibri'" @click="fontName ('Calibri')" style="font-family: Calibri"> <div class="md-item-empty"></div>Calibri </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Comic Sans MS'" @click="fontName ('Comic Sans MS')" style="font-family: Comic Sans MS"> <div class="md-item-empty"></div>Comic Sans </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Courier'" @click="fontName ('Courier')" style="font-family: Courier"> <div class="md-item-empty"></div>Courier </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Droid Sans'" @click="fontName ('Droid Sans')" style="font-family: Droid Sans"> <div class="md-item-empty"></div>Droid Sans </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Georgia'" @click="fontName ('Georgia')" style="font-family: Georgia"> <div class="md-item-empty"></div>Georgia </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Helvetica'" @click="fontName ('Helvetica')" style="font-family: Helvetica"> <div class="md-item-empty"></div>Helvetica </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Impact'" @click="fontName ('Impact')" style="font-family: Impact"> <div class="md-item-empty"></div>Impact </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Roboto'" @click="fontName ('Roboto')" style="font-family: Roboto"> <div class="md-item-empty"></div>Roboto </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Segoe UI'" @click="fontName ('Segoe UI')" style="font-family: Segoe UI"> <div class="md-item-empty"></div>Segoe UI </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Times New Roman'" @click="fontName ('Times New Roman')" style="font-family: Times New Roman"> <div class="md-item-empty"></div>Times New Roman </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Ubuntu'" @click="fontName ('Ubuntu')" style="font-family: Ubuntu"> <div class="md-item-empty"></div>Ubuntu </md-menu-item>
-          <md-menu-item v-on:click="fontMessage='Verdana'" @click="fontName ('Verdana')" style="font-family: Verdana"> <div class="md-item-empty"></div>Verdana </md-menu-item>
+          <md-menu-item @click="fontMessage='Arial'; fontName ('Arial')" style="font-family: Arial"> <div class="md-item-empty"></div>Arial </md-menu-item>
+          <md-menu-item @click="fontMessage='Calibri'; fontName ('Calibri')" style="font-family: Calibri"> <div class="md-item-empty"></div>Calibri </md-menu-item>
+          <md-menu-item @click="fontMessage='Comic Sans MS'; fontName ('Comic Sans MS')" style="font-family: Comic Sans MS"> <div class="md-item-empty"></div>Comic Sans </md-menu-item>
+          <md-menu-item @click="fontMessage='Courier'; fontName ('Courier')" style="font-family: Courier"> <div class="md-item-empty"></div>Courier </md-menu-item>
+          <md-menu-item @click="fontMessage='Droid Sans'; fontName ('Droid Sans')"style="font-family: Droid Sans"> <div class="md-item-empty"></div>Droid Sans </md-menu-item>
+          <md-menu-item @click="fontMessage='Georgia'; fontName ('Georgia')" style="font-family: Georgia"> <div class="md-item-empty"></div>Georgia </md-menu-item>
+          <md-menu-item @click="fontMessage='Helvetica'; fontName ('Helvetica')" style="font-family: Helvetica"> <div class="md-item-empty"></div>Helvetica </md-menu-item>
+          <md-menu-item @click="fontMessage='Impact'; fontName ('Impact')" style="font-family: Impact"> <div class="md-item-empty"></div>Impact </md-menu-item>
+          <md-menu-item @click="fontMessage='Roboto'; fontName ('Roboto')" style="font-family: Roboto"> <div class="md-item-empty"></div>Roboto </md-menu-item>
+          <md-menu-item @click="fontMessage='Segoe UI'; fontName ('Segoe UI')" style="font-family: Segoe UI"> <div class="md-item-empty"></div>Segoe UI </md-menu-item>
+          <md-menu-item @click="fontMessage='Times New Roman'; fontName ('Times New Roman')" style="font-family: Times New Roman"> <div class="md-item-empty"></div>Times New Roman </md-menu-item>
+          <md-menu-item @click="fontMessage='Ubuntu'; fontName ('Ubuntu')" style="font-family: Ubuntu"> <div class="md-item-empty"></div>Ubuntu </md-menu-item>
+          <md-menu-item @click="fontMessage='Verdana'; fontName ('Verdana')" style="font-family: Verdana"> <div class="md-item-empty"></div>Verdana </md-menu-item>
         </md-menu-content>
       </md-menu>
 
@@ -55,21 +55,13 @@
         <md-menu-content class="menu-content">
           <md-menu-item><div class="md-item-filled"><img src="../assets/baseline-check-24px.svg" /></div>zuletzt: {{ sizeMessage }} </md-menu-item>
           <md-divider></md-divider>
-          <md-menu-item v-on:click="sizeMessage='7.5'" @click="fontSize (1)" > <div class="md-item-empty"></div><p>7.5</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='10'" @click="fontSize (2)" > <div class="md-item-empty"></div><p>10</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='12'" @click="fontSize (3)" > <div class="md-item-empty"></div><p>12</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='13.5'" @click="fontSize (4)" > <div class="md-item-empty"></div><p>13.5</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='18'" @click="fontSize (5)" > <div class="md-item-empty"></div><p>18</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='24'" @click="fontSize (6)" > <div class="md-item-empty"></div><p>24</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='36'" @click="fontSize (7)" > <div class="md-item-empty"></div><p>36</p> </md-menu-item>
-          <!--
-          <md-menu-item v-on:click="sizeMessage='1'" @click="fontSize (1)" > <div class="md-item-empty"></div><p style="font-size: x-small">Größe 1</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='2'" @click="fontSize (2)" > <div class="md-item-empty"></div><p style="font-size: small">Größe 2</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='3'" @click="fontSize (3)" > <div class="md-item-empty"></div><p style="font-size: medium">Größe 3 (Standard)</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='4'" @click="fontSize (4)" > <div class="md-item-empty"></div><p style="font-size: large">Größe 4</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='5'" @click="fontSize (5)" > <div class="md-item-empty"></div><p style="font-size: x-large">Größe 5</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='6'" @click="fontSize (6)" > <div class="md-item-empty"></div><p style="font-size: xx-large">Größe 6</p> </md-menu-item>
-          <md-menu-item v-on:click="sizeMessage='7'" @click="fontSize (7)" > <div class="md-item-empty"></div><p style="font-size: 3rem">Größe 7</p> </md-menu-item>-->
+          <md-menu-item v-on:click="sizeMessage='7.5'; fontSize (1)"> <div class="md-item-empty"></div><p>7.5</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='10'; fontSize (2)"> <div class="md-item-empty"></div><p>10</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='12'; fontSize (3)"> <div class="md-item-empty"></div><p>12</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='13.5'; fontSize (4)"> <div class="md-item-empty"></div><p>13.5</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='18'; fontSize (5)"> <div class="md-item-empty"></div><p>18</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='24'; fontSize (6)"> <div class="md-item-empty"></div><p>24</p> </md-menu-item>
+          <md-menu-item v-on:click="sizeMessage='36'; fontSize (7)"> <div class="md-item-empty"></div><p>36</p> </md-menu-item>
         </md-menu-content>
       </md-menu>
     </div>
@@ -151,13 +143,6 @@
               <button @click="foreColor ('#ead1dc')" class="color-colorPicker" style="background-color: #ead1dc;"></button>
             </div>
           </div>
-          <!--
-          <md-menu-item @click="foreColor ('#000000')" > <div class="md-item-filled"><div class="color color-black"></div></div> Schwarz </md-menu-item>
-          <md-menu-item @click="foreColor ('#0000FF')" > <div class="md-item-filled"><div class="color color-blue"></div></div> Blau </md-menu-item>
-          <md-menu-item @click="foreColor ('#33CC33')" > <div class="md-item-filled"><div class="color color-green"></div></div> Grün </md-menu-item>
-          <md-menu-item @click="foreColor ('#FF0000')" > <div class="md-item-filled"><div class="color color-red"></div></div> Rot </md-menu-item>
-          <md-menu-item @click="foreColor ('#FFEE84')" > <div class="md-item-filled"><div class="color color-yellow"></div></div> Gelb </md-menu-item>
-          -->
         </md-menu-content>
       </md-menu>
 
@@ -220,13 +205,6 @@
               <button @click="hiliteColor ('#ead1dc')" class="color-colorPicker" style="background-color: #ead1dc;"></button>
             </div>
           </div>
-          <!--
-          <md-menu-item @click="foreColor ('#000000')" > <div class="md-item-filled"><div class="color color-black"></div></div> Schwarz </md-menu-item>
-          <md-menu-item @click="foreColor ('#0000FF')" > <div class="md-item-filled"><div class="color color-blue"></div></div> Blau </md-menu-item>
-          <md-menu-item @click="foreColor ('#33CC33')" > <div class="md-item-filled"><div class="color color-green"></div></div> Grün </md-menu-item>
-          <md-menu-item @click="foreColor ('#FF0000')" > <div class="md-item-filled"><div class="color color-red"></div></div> Rot </md-menu-item>
-          <md-menu-item @click="foreColor ('#FFEE84')" > <div class="md-item-filled"><div class="color color-yellow"></div></div> Gelb </md-menu-item>
-          -->
         </md-menu-content>
       </md-menu>
     </div>
@@ -313,7 +291,6 @@
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-light btn-tmenu" @click="insertText"> <strong>txt</strong> </button>
     </div>
-    <!--<p>Letzte Schriftart: {{ fontMessage }} - Letzte Schriftgröße: {{ sizeMessage }}</p>-->
   </main>
 </template>
 
