@@ -266,7 +266,7 @@
           style.type = 'text/css'
           console.log(anotherUser)
           for (let i = 0; i < anotherUser.length; i++) {
-            if (!(anotherUser[i]['username'] === this.readUsername())) {
+            if (!(anotherUser[i]['username'] === that.readUsername())) {
               innerhtml = innerhtml + '.otherUser' + i + ' {background-color: ' + '}' // TODO randomize colors
               // TODO add class to div container
               // let paper = document.getElementById('paper')
@@ -279,14 +279,21 @@
           let userList = document.createElement('ul')
           innerhtml = ''
           userList.type = 'text/html'
+          userList.id = 'userList'
           for (let i = 0; i < anotherUser.length; i++) {
-            if (!(anotherUser[i]['username'] === this.readUsername())) {
+            if (!(anotherUser[i]['username'] === that.readUsername())) {
               innerhtml += '<li>User ' + (i + 1) + '</li>'
             } else {
               innerhtml += '<li>BL_NK</li>'
             }
           }
           // TODO select where the list should be shown / appended
+          if (document.getElementById('userList')) {
+            document.getElementById('userList').innerHTML = innerhtml
+          } else {
+            userList.innerHTML = innerhtml
+            document.getElementById('barDiv').appendChild(userList)
+          }
         })
       },
       async joinRoom (id) {
