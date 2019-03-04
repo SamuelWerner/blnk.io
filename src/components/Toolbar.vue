@@ -2,7 +2,7 @@
   <main>
     <!-- Toolleiste -->
     <div class="btn-group" role="group">
-      <button type="button" class="btn btn-tmenu" @click="undo">
+      <button type="button" class="btn btn-tmenu radiusLeft" @click="undo">
         <md-tooltip md-delay="300">Rückgängig machen</md-tooltip>
         <i class="material-icons toolbar-icon">undo</i>
       </button>
@@ -13,7 +13,7 @@
       <button type="button" class="btn btn-tmenu" @click="print">
         <i class="material-icons toolbar-icon">print</i>
       </button>
-      <button type="button" class="btn btn-tmenu" @click="removeFormat">
+      <button type="button" class="btn btn-tmenu radiusRight" @click="removeFormat">
         <md-tooltip md-delay="300">Formatierung entfernen</md-tooltip>
         <i class="material-icons toolbar-icon">format_clear</i>
       </button>
@@ -22,7 +22,7 @@
     <div class="btn-group" role="group">
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftart</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-tmenu btn-tmenu-menu-left" >
+        <button md-menu-trigger type="button" class="btn btn-tmenu radiusLeft">
           <i class="fas fa-font" style="font-size: 18px;"></i>
         </button>
 
@@ -47,7 +47,7 @@
 
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftgröße</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-tmenu btn-tmenu-menu-right" >
+        <button md-menu-trigger type="button" class="btn btn-tmenu radiusRight">
           <i class="material-icons toolbar-icon">format_size</i>
         </button>
 
@@ -66,7 +66,7 @@
     </div>
 
     <div class="btn-group" role="group">
-      <button type="button" class="btn btn-tmenu" @click="makeBold">
+      <button type="button" class="btn btn-tmenu radiusLeft" @click="makeBold">
         <md-tooltip md-delay="300">Fett</md-tooltip>
         <i class="material-icons toolbar-icon">format_bold</i>
       </button>
@@ -85,7 +85,7 @@
 
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftfarbe</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-tmenu btn-tmenu-menu-center" >
+        <button md-menu-trigger type="button" class="btn btn-tmenu" >
           <i class="material-icons toolbar-icon">format_color_text</i>
         </button>
 
@@ -147,7 +147,7 @@
 
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Hervorhebungsfarbe</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-tmenu btn-tmenu-menu-right">
+        <button md-menu-trigger type="button" class="btn btn-tmenu radiusRight">
           <i class="material-icons toolbar-icon">border_color</i>
         </button>
 
@@ -209,24 +209,24 @@
     </div>
 
     <div class="btn-group" role="group">
-      <button type="button" class="btn btn-tmenu" @click="subscript">
+      <button type="button" class="btn btn-tmenu radiusLeft" @click="subscript">
         <md-tooltip md-delay="300">Tiefgestellt</md-tooltip>
         <img class="imgBig" src="../assets/font-style-subscript.svg" />
       </button>
-      <button type="button" class="btn btn-tmenu" @click="superscript">
+      <button type="button" class="btn btn-tmenu radiusRight" @click="superscript">
         <md-tooltip md-delay="300">Hochgestellt</md-tooltip>
         <img class="imgBig" src="../assets/font-style-superscript.svg" />
       </button>
     </div>
     <div class="btn-group" role="group">
-      <button type="button" class="btn btn-tmenu" @click="createLink">
+      <button type="button" class="btn btn-tmenu radiusLeft radiusRight" @click="createLink">
         <md-tooltip md-delay="300">Link einfügen</md-tooltip>
         <i class="material-icons toolbar-icon">link</i>
       </button>
     </div>
 
     <div class="btn-group" role="group">
-      <button type="button" class="btn btn-tmenu" @click="justifyLeft">
+      <button type="button" class="btn btn-tmenu radiusLeft" @click="justifyLeft">
         <md-tooltip md-delay="300">Linksbündig</md-tooltip>
         <i class="material-icons toolbar-icon">format_align_left</i>
       </button>
@@ -238,7 +238,7 @@
         <md-tooltip md-delay="300">Rechtsbündig</md-tooltip>
         <i class="material-icons toolbar-icon">format_align_right</i>
       </button>
-      <button type="button" class="btn btn-tmenu" @click="justifyFull">
+      <button type="button" class="btn btn-tmenu radiusRight" @click="justifyFull">
         <md-tooltip md-delay="300">Blocksatz</md-tooltip>
         <i class="material-icons toolbar-icon">format_align_justify</i>
       </button>
@@ -247,7 +247,7 @@
     <div class="btn-group" role="group">
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Zeilenabstand</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-tmenu btn-tmenu-menu-left" >
+        <button md-menu-trigger type="button" class="btn btn-tmenu radiusLeft" >
           <i class="material-icons toolbar-icon">format_line_spacing</i>
         </button>
 
@@ -276,7 +276,7 @@
         <md-tooltip md-delay="300">Einzug verkleinern</md-tooltip>
         <i class="material-icons toolbar-icon">format_indent_decrease</i>
       </button>
-      <button type="button" class="btn btn-tmenu" @click="indent">
+      <button type="button" class="btn btn-tmenu radiusRight" @click="indent">
         <md-tooltip md-delay="300">Einzug vergrößern</md-tooltip>
         <i class="material-icons toolbar-icon">format_indent_increase</i>
       </button>
@@ -312,20 +312,6 @@
 </script>
 
 <style>
-  .btn-tmenu-menu-left {
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-  }
-
-  .btn-tmenu-menu-right {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-  }
-
-  .btn-tmenu-menu-center {
-    border-radius: 0 !important;
-  }
-
   .btn-tmenu {
     display: flex;
     justify-content: center;
@@ -333,13 +319,22 @@
     width: 40px;
     height: 36px;
     background-color: white !important;
-    border-radius: 45%;
+    border-radius: 0 !important;
     box-shadow: 0 .2rem .25rem rgba(0,0,0,.075) !important;
   }
 
   .btn-tmenu:hover {
     background-color: #DEDEDE !important;
     transition: 0.1s;
+  }
+
+  .radiusLeft {
+    border-top-left-radius: 45% !important;
+    border-bottom-left-radius: 45% !important;
+  }
+  .radiusRight {
+    border-top-right-radius: 45% !important;
+    border-bottom-right-radius: 45% !important;
   }
 
   .toolbar-icon {
