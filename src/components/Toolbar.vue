@@ -313,9 +313,9 @@
 
 <style>
   .btn-tmenu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
     width: 40px;
     height: 36px;
     background-color: white !important;
