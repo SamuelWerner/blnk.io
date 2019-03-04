@@ -1,27 +1,27 @@
 <template>
   <main class="container-fluid" style="height:100%">
     <div id="barDiv" class="row ribbon sticky">
-      <div class="col-md-11 order-md-1 order-2">
+      <div>
         <!-- Menüleiste -->
         <Menubar :my-doc="doc"></Menubar>
+
         <!-- Toolbar -->
         <Toolbar></Toolbar>
       </div>
 
-      <div class="col-md-1 order-md-2 order-1">
-        <md-button href="/" id="closeBtn" type="button" class="md-icon-button md-raised">
-          <md-tooltip md-delay="1000" md-direction="left">Dokument schließen</md-tooltip>
-          <img class="fktstripImg" style="margin: 0" src="../assets/baseline-clear-24px.svg" />
-        </md-button>
-      </div>
+      <!-- X-Button -->
+      <md-button href="/" id="closeBtn" type="button" class="md-icon-button md-raised">
+        <md-tooltip md-delay="1000" md-direction="left">Dokument schließen</md-tooltip>
+        <img class="fktstripImg" style="margin: 0" src="../assets/baseline-clear-24px.svg" />
+      </md-button>
 
+      <!-- Ribbon einklappen -->
       <div @click="menubarClose" id="menubarClose">
         <img src="../assets/baseline-keyboard_arrow_up-24px.svg" alt="">
       </div>
-
-      <div id="docIdent" @click="showDialogRename = true">{{ doc.title }}</div>
     </div>
 
+    <!-- bei eingeklapptem Ribbon: -->
     <div class="menubarOpenWrapper">
       <div @click="menubarOpen" id="menuClosed">
         <img src="../assets/baseline-keyboard_arrow_down-24px.svg" alt="">
@@ -29,12 +29,15 @@
       </div>
     </div>
 
+    <!-- Scroll-Top-Button -->
     <a id="scrollTop" v-scroll-to="'#pageTop'"><img src="../assets/baseline-keyboard_arrow_up-24px.svg" alt=""></a>
 
+    <!-- Toolbar Mobile -->
     <div id="mobileBar" class="sticky">
       <ToolbarMobile></ToolbarMobile>
     </div>
 
+    <!-- Menu Mobile -->
     <div id="menuMobile">
       <md-menu md-size="small" md-align-trigger :md-offset-x="-300" :md-offset-y="-36">
         <md-button md-menu-trigger href="" style="float: right;" type="button" class="md-icon-button md-raised">
@@ -571,30 +574,32 @@
       },
       onScroll () {
         var barDiv = document.getElementById('barDiv')
-        var menubarClose = document.getElementById('menubarClose')
-        var mobileBar = document.getElementById('mobileBar')
+        // var menubarClose = document.getElementById('menubarClose')
+        // var mobileBar = document.getElementById('mobileBar')
         var scrollToTop = document.getElementById('scrollTop')
         var docIdent = document.getElementById('docIdent')
         window.onscroll = function () {
-          if (document.body.scrollTop > 68 || document.documentElement.scrollTop > 68) {
-            barDiv.style.backgroundColor = '#343a40'
-            menubarClose.getElementsByTagName('img')[0].style.filter = 'invert(1)'
-            mobileBar.getElementsByTagName('main')[0].style.backgroundColor = '#343a40'
+          if (document.body.scrollTop > 450 || document.documentElement.scrollTop > 450) {
+            // barDiv.style.backgroundColor = '#343a40'
+            // menubarClose.getElementsByTagName('img')[0].style.filter = 'invert(1)'
+            // mobileBar.getElementsByTagName('main')[0].style.backgroundColor = '#343a40'
             scrollToTop.style.visibility = 'visible'
             scrollToTop.style.opacity = '1'
           } else {
-            barDiv.style.backgroundColor = '#f3f2f1'
-            menubarClose.getElementsByTagName('img')[0].style.filter = 'invert(0)'
-            mobileBar.getElementsByTagName('main')[0].style.backgroundColor = '#f3f2f1'
+            // barDiv.style.backgroundColor = '#f3f2f1'
+            // menubarClose.getElementsByTagName('img')[0].style.filter = 'invert(0)'
+            // mobileBar.getElementsByTagName('main')[0].style.backgroundColor = '#f3f2f1'
             scrollToTop.style.visibility = 'hidden'
             scrollToTop.style.opacity = '0'
           }
-          if (document.body.scrollTop > 179 || document.documentElement.scrollTop > 179) {
+          if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
             docIdent.style.visibility = 'visible'
             docIdent.style.opacity = '1'
+            barDiv.style.boxShadow = '0 .2rem 1rem rgba(0,0,0,.3)'
           } else {
             docIdent.style.visibility = 'hidden'
             docIdent.style.opacity = '0'
+            barDiv.style.boxShadow = '0 1px 3px -2px gray'
           }
         }
       },
@@ -701,18 +706,22 @@
     position: sticky;
     top: 0;
     background-color: #f3f2f1;
-    padding: 0.5rem 0 1rem 0;
+    padding: 0 0 0.7rem 0;
     box-shadow: 0 1px 3px -2px gray;
     z-index: 1;
   }
 
   #barDiv {
     transition: 0.2s;
+    padding-left: 1rem;
+    overflow: hidden;
   }
 
   #closeBtn {
-    float: right;
-    margin-top: 0.7rem;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    margin: 0;
   }
 
   #closeBtn img {
@@ -723,23 +732,6 @@
     transform: rotate(90deg);
   }
 
-  #docIdent {
-    position: absolute;
-    right: 75px;
-    top: 25px;
-    color: white;
-    visibility: hidden;
-    transition: visibility .3s, opacity .3s, box-shadow 0s;
-    padding: .15rem .4rem;
-    cursor: text;
-  }
-
-  #docIdent:hover {
-    -webkit-box-shadow: 0px 0px 0px 1px #7A7A7A;
-    -moz-box-shadow: 0px 0px 0px 1px #7A7A7A;
-    box-shadow: 0px 0px 0px 1px #7A7A7A;
-  }
-
   #mobileBar {
     display: none;
   }
@@ -747,8 +739,8 @@
   #menuMobile {
     display: none;
     position: absolute;
-    top: 13px;
-    right: 13px;
+    top: 9px;
+    right: 9px;
   }
 
   .darkSidebar button {
@@ -765,6 +757,7 @@
     background-color: white;
     margin-top: 1rem;
     margin-bottom: 8rem;
+    z-index: 200;
   }
 
   #paper a {
@@ -874,6 +867,36 @@
   #containerSpinner {
     display: inline-block;
     margin-right: 10px;
+  }
+
+  #userList {
+    margin: 0.7rem 0 0 3rem;
+    padding: 0;
+  }
+
+  #userList li {
+    list-style: none;
+    display: inline;
+    margin-right: 10px;
+  }
+
+  #userList li:first-child {
+    color: red;
+  }
+  #userList li:nth-child(2) {
+    color: blue;
+  }
+  #userList li:nth-child(3) {
+    color: green;
+  }
+  #userList li:nth-child(4) {
+    color: purple;
+  }
+  #userList li:nth-child(5) {
+    color: gold;
+  }
+  #userList li:nth-child(6) {
+    color: grey;
   }
 
 

@@ -1,30 +1,29 @@
 <template>
   <main>
     <!-- Toolleiste -->
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-light btn-tmenu" @click="undo">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-tmenu" @click="undo">
         <md-tooltip md-delay="300">Rückgängig machen</md-tooltip>
-        <i class="material-icons">undo</i>
+        <i class="material-icons toolbar-icon">undo</i>
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="redo">
+      <button type="button" class="btn btn-tmenu" @click="redo">
         <md-tooltip md-delay="300">Wiederholen</md-tooltip>
-        <i class="material-icons">redo</i>
+        <i class="material-icons toolbar-icon">redo</i>
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="print">
-        <!--<md-tooltip md-delay="300">Drucken</md-tooltip>-->
-        <i class="material-icons">print</i>
+      <button type="button" class="btn btn-tmenu" @click="print">
+        <i class="material-icons toolbar-icon">print</i>
       </button>
-      <button type="button" class="btn btn-light btn-tmenu">
-        <md-tooltip md-delay="300">Format übertragen</md-tooltip>
-        <i class="material-icons">format_paint</i>
+      <button type="button" class="btn btn-tmenu" @click="removeFormat">
+        <md-tooltip md-delay="300">Formatierung entfernen</md-tooltip>
+        <i class="material-icons toolbar-icon">format_clear</i>
       </button>
     </div>
 
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+    <div class="btn-group" role="group">
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftart</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-left" >
-          <i class="fas fa-font" style="font-size: 20px;"></i>
+        <button md-menu-trigger type="button" class="btn btn-tmenu btn-tmenu-menu-left" >
+          <i class="fas fa-font" style="font-size: 18px;"></i>
         </button>
 
         <md-menu-content class="menu-content">
@@ -48,8 +47,8 @@
 
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftgröße</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-right" >
-          <i class="material-icons">format_size</i>
+        <button md-menu-trigger type="button" class="btn btn-tmenu btn-tmenu-menu-right" >
+          <i class="material-icons toolbar-icon">format_size</i>
         </button>
 
         <md-menu-content class="menu-content">
@@ -66,28 +65,28 @@
       </md-menu>
     </div>
 
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-light btn-tmenu" @click="makeBold">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-tmenu" @click="makeBold">
         <md-tooltip md-delay="300">Fett</md-tooltip>
-        <i class="material-icons">format_bold</i>
+        <i class="material-icons toolbar-icon">format_bold</i>
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="makeItalic">
+      <button type="button" class="btn btn-tmenu" @click="makeItalic">
         <md-tooltip md-delay="300">Kursiv</md-tooltip>
-        <i class="material-icons">format_italic</i>
+        <i class="material-icons toolbar-icon">format_italic</i>
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="makeUnderline">
+      <button type="button" class="btn btn-tmenu" @click="makeUnderline">
         <md-tooltip md-delay="300">Unterstrichen</md-tooltip>
-        <i class="material-icons">format_underlined</i>
+        <i class="material-icons toolbar-icon">format_underlined</i>
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="makeStrikeThrough">
+      <button type="button" class="btn btn-tmenu" @click="makeStrikeThrough">
         <md-tooltip md-delay="300">Durchgestrichen</md-tooltip>
-        <i class="material-icons">strikethrough_s</i>
+        <i class="material-icons toolbar-icon">strikethrough_s</i>
       </button>
 
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftfarbe</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-center" >
-          <i class="material-icons">format_color_text</i>
+        <button md-menu-trigger type="button" class="btn btn-tmenu btn-tmenu-menu-center" >
+          <i class="material-icons toolbar-icon">format_color_text</i>
         </button>
 
         <md-menu-content class="menu-content">
@@ -148,8 +147,8 @@
 
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Hervorhebungsfarbe</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-right" style="">
-          <i class="material-icons" style="font-size: 22px; margin-top: 2px;">border_color</i>
+        <button md-menu-trigger type="button" class="btn btn-tmenu btn-tmenu-menu-right">
+          <i class="material-icons toolbar-icon">border_color</i>
         </button>
 
         <md-menu-content class="menu-content">
@@ -209,47 +208,47 @@
       </md-menu>
     </div>
 
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-light btn-tmenu" @click="subscript">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-tmenu" @click="subscript">
         <md-tooltip md-delay="300">Tiefgestellt</md-tooltip>
-        <img class="fktstripImg imgBig" src="../assets/font-style-subscript.svg" />
+        <img class="imgBig" src="../assets/font-style-subscript.svg" />
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="superscript">
+      <button type="button" class="btn btn-tmenu" @click="superscript">
         <md-tooltip md-delay="300">Hochgestellt</md-tooltip>
-        <img class="fktstripImg imgBig" src="../assets/font-style-superscript.svg" />
+        <img class="imgBig" src="../assets/font-style-superscript.svg" />
       </button>
     </div>
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-light btn-tmenu" @click="createLink">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-tmenu" @click="createLink">
         <md-tooltip md-delay="300">Link einfügen</md-tooltip>
-        <i class="material-icons">link</i>
+        <i class="material-icons toolbar-icon">link</i>
       </button>
     </div>
 
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-light btn-tmenu" @click="justifyLeft">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-tmenu" @click="justifyLeft">
         <md-tooltip md-delay="300">Linksbündig</md-tooltip>
-        <i class="material-icons">format_align_left</i>
+        <i class="material-icons toolbar-icon">format_align_left</i>
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="justifyCenter">
+      <button type="button" class="btn btn-tmenu" @click="justifyCenter">
         <md-tooltip md-delay="300">Zentriert</md-tooltip>
-        <i class="material-icons">format_align_center</i>
+        <i class="material-icons toolbar-icon">format_align_center</i>
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="justifyRight">
+      <button type="button" class="btn btn-tmenu" @click="justifyRight">
         <md-tooltip md-delay="300">Rechtsbündig</md-tooltip>
-        <i class="material-icons">format_align_right</i>
+        <i class="material-icons toolbar-icon">format_align_right</i>
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="justifyFull">
+      <button type="button" class="btn btn-tmenu" @click="justifyFull">
         <md-tooltip md-delay="300">Blocksatz</md-tooltip>
-        <i class="material-icons">format_align_justify</i>
+        <i class="material-icons toolbar-icon">format_align_justify</i>
       </button>
     </div>
 
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+    <div class="btn-group" role="group">
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Zeilenabstand</md-tooltip>
-        <button md-menu-trigger type="button" class="btn btn-light btn-tmenu btn-tmenu-menu btn-tmenu-menu-left" >
-          <i class="material-icons">format_line_spacing</i>
+        <button md-menu-trigger type="button" class="btn btn-tmenu btn-tmenu-menu-left" >
+          <i class="material-icons toolbar-icon">format_line_spacing</i>
         </button>
 
         <md-menu-content class="menu-content">
@@ -265,32 +264,28 @@
         </md-menu-content>
       </md-menu>
 
-      <button type="button" class="btn btn-light btn-tmenu" @click="insertOrderedList">
+      <button type="button" class="btn btn-tmenu" @click="insertOrderedList">
         <md-tooltip md-delay="300">Nummerierte Liste</md-tooltip>
-        <i class="material-icons">format_list_numbered</i>
+        <i class="material-icons toolbar-icon">format_list_numbered</i>
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="insertUnorderedList">
+      <button type="button" class="btn btn-tmenu" @click="insertUnorderedList">
         <md-tooltip md-delay="300">Aufzählungsliste</md-tooltip>
-        <i class="material-icons">format_list_bulleted</i>
+        <i class="material-icons toolbar-icon">format_list_bulleted</i>
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="outdent">
+      <button type="button" class="btn btn-tmenu" @click="outdent">
         <md-tooltip md-delay="300">Einzug verkleinern</md-tooltip>
-        <i class="material-icons">format_indent_decrease</i>
+        <i class="material-icons toolbar-icon">format_indent_decrease</i>
       </button>
-      <button type="button" class="btn btn-light btn-tmenu" @click="indent">
+      <button type="button" class="btn btn-tmenu" @click="indent">
         <md-tooltip md-delay="300">Einzug vergrößern</md-tooltip>
-        <i class="material-icons">format_indent_increase</i>
+        <i class="material-icons toolbar-icon">format_indent_increase</i>
       </button>
     </div>
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-light btn-tmenu" @click="removeFormat">
-        <md-tooltip md-delay="300">Formatierung entfernen</md-tooltip>
-        <i class="material-icons">format_clear</i>
-      </button>
+    <!--
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-tmenu" @click="insertText"> <strong>txt</strong> </button>
     </div>
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-light btn-tmenu" @click="insertText"> <strong>txt</strong> </button>
-    </div>
+    -->
   </main>
 </template>
 
@@ -330,35 +325,6 @@
   .btn-tmenu-menu-center {
     border-radius: 0 !important;
   }
-</style>
-
-<style scoped>
-  body {
-    background-color: #f3f2f1 !important;
-  }
-
-  main { /*
-    overflow: auto;
-    white-space: nowrap;
-  */}
-
-  h1 {
-    margin-top: 3rem !important;
-  }
-
-  .btn-group {
-    margin: 0.7rem 0.1rem 0 0;
-  }
-
-  .fktstripImg {
-    height: 21px !important;
-    width: 21px !important;
-  }
-
-  .menu-content {
-    max-height: 1000rem;
-    z-index: 9999;
-  }
 
   .btn-tmenu {
     display: flex;
@@ -367,67 +333,22 @@
     width: 40px;
     height: 36px;
     background-color: white !important;
-    border: white;
+    border-radius: 45%;
+    box-shadow: 0 .2rem .25rem rgba(0,0,0,.075) !important;
   }
 
   .btn-tmenu:hover {
     background-color: #DEDEDE !important;
-    transition: 0.5s;
+    transition: 0.1s;
   }
 
-  sub, sup {
-    position: relative;
-  }
-
-  .btn-tmenu-menu {
-    padding: 0;
-  }
-
-  .btn-tmenu-menu-left {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  .btn-tmenu-menu-right {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+  .toolbar-icon {
+    font-size: 22px;
   }
 
   .imgBig {
     width: 17px !important;
     height: 17px !important;
-  }
-
-  .menu-item-img {
-    width: 15px;
-    height: 15px;
-  }
-
-  .color {
-    width: 12px;
-    height: 12px;
-    border-radius: 0.17rem;
-    border: 0.05rem solid grey;
-  }
-
-  .color-black {
-    background-color: black;
-  }
-
-  .color-blue {
-    background-color: #0000FF;
-  }
-
-  .color-green {
-    background-color: #33CC33;
-  }
-
-  .color-red {
-    background-color: #FF0000;
-  }
-
-  .color-yellow {
-    background-color: #FFEE84;
   }
 
   .colorPicker {
@@ -453,5 +374,37 @@
     -webkit-box-shadow: 0px 0px 0px 2px rgba(0,0,0,1) !important;
     -moz-box-shadow: 0px 0px 0px 2px rgba(0,0,0,1) !important;
     box-shadow: 0px 0px 0px 2px rgba(0,0,0,1) !important;
+  }
+</style>
+
+<style scoped>
+  body {
+    background-color: #f3f2f1 !important;
+  }
+
+  h1 {
+    margin-top: 3rem !important;
+  }
+
+  .btn-group {
+    margin-top: 0.6rem;
+  }
+
+  .menu-content {
+    max-height: 1000rem;
+    z-index: 9999;
+  }
+
+  sub, sup {
+    position: relative;
+  }
+
+  .btn-tmenu-menu {
+    padding: 0;
+  }
+
+  .menu-item-img {
+    width: 15px;
+    height: 15px;
   }
 </style>

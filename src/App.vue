@@ -64,7 +64,8 @@
 
   #logo-brand {
     font-family: Franklin Gothic Heavy, sans-serif;
-    font-size: 2.2rem;
+    font-size: 2rem;
+    line-height: 1.3;
     color: white;
     padding: 0;
     text-decoration: none;
