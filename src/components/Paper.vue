@@ -730,7 +730,7 @@
   }
 
   #closeBtn:hover img {
-    transform: rotate(90deg);
+    /* transform: rotate(90deg); */
   }
 
   #mobileBar {
@@ -875,15 +875,14 @@
     right: 7%;
     top: -25px;
     transition: .2s;
-    padding: 0.5rem 0.5rem 2rem 2rem;
-  }
-
-  #userList div {
-    color: transparent;
+    padding: 0.5rem 0.5rem 1rem 1rem;
+    z-index: 500;
   }
 
   #userList:hover {
     transform: translateY(25px);
+    background-color: rgba(243, 242, 241, 0.4);
+
   }
 
   #userList li {
@@ -895,7 +894,7 @@
     border-radius: 17px;
     border-left: 11px solid white;
     border-right: 11px solid white;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     cursor: pointer;
     overflow: hidden;
@@ -904,22 +903,23 @@
     height: 34px;
     background-color: #fff;
     transition: .2s;
-    margin-right: 5px;
-    box-shadow: 0 .2rem .25rem rgba(0,0,0,.075);
+    box-shadow: 0 .2rem .25rem rgba(0,0,0,.1);
+    position: relative;
   }
 
   #userList:hover li {
     width: 65px;
+    margin-right: 13px;
   }
 
   #userList li:hover {
-    box-shadow: 0 .2rem .25rem rgba(0,0,0,.15);
+    box-shadow: 0 .2rem .3rem rgba(0,0,0,.2);
   }
 
   #userList li:first-child {
     color: transparent;
-    background-color: #ffcccc;
-    border-color: #ffcccc;
+    background-color: #ffb2b2;
+    border-color: #ffb2b2;
   }
   #userList:hover li:first-child {
     color: #330000;
@@ -927,8 +927,9 @@
 
   #userList li:nth-child(2) {
     color: transparent;
-    background-color: #ccccff;
-    border-color: #ccccff;
+    background-color: #b2b2ff;
+    border-color: #b2b2ff;
+    left: -8px;
   }
   #userList:hover li:nth-child(2) {
     color: #000033;
@@ -936,8 +937,9 @@
 
   #userList li:nth-child(3) {
     color: transparent;
-    background-color: #cce5cc;
-    border-color: #cce5cc;
+    background-color: #b2d8b2;
+    border-color: #b2d8b2;
+    left: -16px;
   }
   #userList:hover li:nth-child(3) {
     color: #001900;
@@ -945,21 +947,44 @@
 
   #userList li:nth-child(4) {
     color: transparent;
-    background-color: #e5cce5;
-    border-color: #e5cce5;
+    background-color: #ffff99;
+    border-color: #ffff99;
+    left: -24px;
   }
   #userList:hover li:nth-child(4) {
-    color: #190019;
+    color: #332b00;
   }
 
   #userList li:nth-child(5) {
     color: transparent;
-    background-color: #fff7cc;
-    border-color: #fff7cc;
+    background-color: #d8b2d8;
+    border-color: #d8b2d8;
+    left: -32px;
   }
   #userList:hover li:nth-child(5) {
-    color: #332b00;
+    color: #190019;
   }
+
+  #userList li:nth-child(6) {
+    color: transparent;
+    background-color: #ffd27f;
+    border-color: #ffd27f;
+    left: -40px;
+  }
+  #userList:hover li:nth-child(6) {
+    color: #332100;
+  }
+
+  #userList li:nth-child(7) {
+    color: transparent;
+    background-color: #b2f4fe;
+    border-color: #b2f4fe;
+    left: -48px;
+  }
+  #userList:hover li:nth-child(7) {
+    color: #002c32;
+  }
+
 
 
   @media (max-width: 991px) {
