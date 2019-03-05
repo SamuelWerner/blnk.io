@@ -81,6 +81,8 @@
         </md-menu>
       </div>
 
+      <div id="docIdent" @click="showDialogRename = true">{{ $parent.doc.title }}</div>
+
       <!-- DIALOG Umbenennen -->
       <md-dialog class="dialog" :md-active.sync="showDialogRename">
         <md-dialog-title>Neuen Namen eingeben</md-dialog-title>
@@ -192,5 +194,23 @@
     width: 20px;
     height: 20px;
     transition: 0.4s;
+  }
+
+  #docIdent {
+    position: relative;
+    top: 8px;
+    visibility: hidden;
+    transition: visibility .3s, opacity .3s, box-shadow 0s;
+    padding: .15rem .4rem;
+    cursor: text;
+    font-weight: 500;
+    font-size: 14px;
+    display: inline-block;
+  }
+
+  #docIdent:hover {
+    -webkit-box-shadow: 0px 0px 0px 1px #BABABA;
+    -moz-box-shadow: 0px 0px 0px 1px #BABABA;
+    box-shadow: 0px 0px 0px 1px #BABABA;
   }
 </style>
