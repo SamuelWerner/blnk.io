@@ -150,6 +150,7 @@ database
           for (let i = 0; i < positions.length; i++) {
             if (positions[i]['username'] === data['message']['username']) {
               positions[i] = data['message']
+              break
             } else if (i === positions.length - 1) {
               positions.push(data['message'])
             }
@@ -159,12 +160,11 @@ database
         }
         socket.to(room).emit('updateUsers', {message: positions})
         sendToRoom(room, 'updateUsers', {message: positions})
-        console.log('test')
       })
       socket.on('disconnect', function () {
         console.log(positions)
-        console.log('Disconnected ' + socket)
-        let index = positions.indexOf(socket)
+        console.log('Disconnected ' + socket.id)
+        let index = positions.indexOf(socket.id)
         positions.splice(index, 1)
         console.log(positions)
       })

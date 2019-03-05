@@ -260,6 +260,7 @@
         })
 
         this.socket.on('updateUsers', function (data) {
+          // TODO call function when user connects to file
           let anotherUser = data['message']
           let innerhtml = ''
           let style = document.createElement('style')
@@ -272,6 +273,7 @@
               // let paper = document.getElementById('paper')
               let currentDiv = anotherUser[i]['positionCol']
               console.log(currentDiv)
+              // TODO set contenteditable for everyone and then remove it for the occupied ones
             }
           }
           style.innerHTML = innerhtml
@@ -287,7 +289,6 @@
               innerhtml += '<li>BL_NK</li>'
             }
           }
-          // TODO select where the list should be shown / appended
           if (document.getElementById('userList')) {
             document.getElementById('userList').innerHTML = innerhtml
           } else {
