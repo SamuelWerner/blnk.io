@@ -871,33 +871,94 @@
   }
 
   #userList {
-    margin: 0.7rem 0 0 3rem;
-    padding: 0;
+    position: absolute;
+    right: 7%;
+    top: -25px;
+    transition: .2s;
+    padding: 0.5rem 0.5rem 2rem 2rem;
+  }
+
+  #userList div {
+    color: transparent;
+  }
+
+  #userList:hover {
+    transform: translateY(25px);
   }
 
   #userList li {
     list-style: none;
-    display: inline;
-    margin-right: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 17px;
+    border-left: 11px solid white;
+    border-right: 11px solid white;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 34px;
+    height: 34px;
+    background-color: #fff;
+    transition: .2s;
+    margin-right: 5px;
+    box-shadow: 0 .2rem .25rem rgba(0,0,0,.075);
+  }
+
+  #userList:hover li {
+    width: 65px;
+  }
+
+  #userList li:hover {
+    box-shadow: 0 .2rem .25rem rgba(0,0,0,.15);
   }
 
   #userList li:first-child {
-    color: red;
+    color: transparent;
+    background-color: #ffcccc;
+    border-color: #ffcccc;
   }
+  #userList:hover li:first-child {
+    color: #330000;
+  }
+
   #userList li:nth-child(2) {
-    color: blue;
+    color: transparent;
+    background-color: #ccccff;
+    border-color: #ccccff;
   }
+  #userList:hover li:nth-child(2) {
+    color: #000033;
+  }
+
   #userList li:nth-child(3) {
-    color: green;
+    color: transparent;
+    background-color: #cce5cc;
+    border-color: #cce5cc;
   }
+  #userList:hover li:nth-child(3) {
+    color: #001900;
+  }
+
   #userList li:nth-child(4) {
-    color: purple;
+    color: transparent;
+    background-color: #e5cce5;
+    border-color: #e5cce5;
   }
+  #userList:hover li:nth-child(4) {
+    color: #190019;
+  }
+
   #userList li:nth-child(5) {
-    color: gold;
+    color: transparent;
+    background-color: #fff7cc;
+    border-color: #fff7cc;
   }
-  #userList li:nth-child(6) {
-    color: grey;
+  #userList:hover li:nth-child(5) {
+    color: #332b00;
   }
 
 

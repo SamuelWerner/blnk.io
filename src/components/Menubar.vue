@@ -206,6 +206,7 @@
     font-weight: 500;
     font-size: 14px;
     display: inline-block;
+    color: black;
   }
 
   #docIdent:hover {
