@@ -62,7 +62,7 @@
     </div>
 
     <div class="saving-wrapper">
-      <div class="saving" :show="saving" title="speichert...">
+      <div class="saving" v-show="saving" title="speichert...">
         <i class="material-icons">save</i>
         <md-progress-spinner class="spinner-saving spinner-saving-desktop" :md-diameter="35" :md-stroke="2" md-mode="indeterminate"></md-progress-spinner>
         <md-progress-spinner class="spinner-saving spinner-saving-mobile" :md-diameter="30" :md-stroke="2" md-mode="indeterminate"></md-progress-spinner>
@@ -575,21 +575,13 @@
       },
       onScroll () {
         var barDiv = document.getElementById('barDiv')
-        // var menubarClose = document.getElementById('menubarClose')
-        // var mobileBar = document.getElementById('mobileBar')
         var scrollToTop = document.getElementById('scrollTop')
         var docIdent = document.getElementById('docIdent')
         window.onscroll = function () {
           if (document.body.scrollTop > 450 || document.documentElement.scrollTop > 450) {
-            // barDiv.style.backgroundColor = '#343a40'
-            // menubarClose.getElementsByTagName('img')[0].style.filter = 'invert(1)'
-            // mobileBar.getElementsByTagName('main')[0].style.backgroundColor = '#343a40'
             scrollToTop.style.visibility = 'visible'
             scrollToTop.style.opacity = '1'
           } else {
-            // barDiv.style.backgroundColor = '#f3f2f1'
-            // menubarClose.getElementsByTagName('img')[0].style.filter = 'invert(0)'
-            // mobileBar.getElementsByTagName('main')[0].style.backgroundColor = '#f3f2f1'
             scrollToTop.style.visibility = 'hidden'
             scrollToTop.style.opacity = '0'
           }
@@ -875,14 +867,15 @@
     right: 7%;
     top: -25px;
     transition: .2s;
-    padding: 0.5rem 0.5rem 1rem 1rem;
+    padding: 0.5rem 0.5rem 1.6rem 3rem;
     z-index: 500;
+    border-bottom-left-radius: 1rem;
   }
 
   #userList:hover {
     transform: translateY(25px);
     background-color: rgba(243, 242, 241, 0.4);
-
+    padding: 0.5rem;
   }
 
   #userList li {
@@ -905,6 +898,7 @@
     transition: .2s;
     box-shadow: 0 .2rem .25rem rgba(0,0,0,.1);
     position: relative;
+    color: transparent;
   }
 
   #userList:hover li {
@@ -917,7 +911,6 @@
   }
 
   #userList li:first-child {
-    color: transparent;
     background-color: #ffb2b2;
     border-color: #ffb2b2;
   }
@@ -926,7 +919,6 @@
   }
 
   #userList li:nth-child(2) {
-    color: transparent;
     background-color: #b2b2ff;
     border-color: #b2b2ff;
     left: -8px;
@@ -936,7 +928,6 @@
   }
 
   #userList li:nth-child(3) {
-    color: transparent;
     background-color: #b2d8b2;
     border-color: #b2d8b2;
     left: -16px;
@@ -946,7 +937,6 @@
   }
 
   #userList li:nth-child(4) {
-    color: transparent;
     background-color: #ffff99;
     border-color: #ffff99;
     left: -24px;
@@ -956,7 +946,6 @@
   }
 
   #userList li:nth-child(5) {
-    color: transparent;
     background-color: #d8b2d8;
     border-color: #d8b2d8;
     left: -32px;
@@ -966,7 +955,6 @@
   }
 
   #userList li:nth-child(6) {
-    color: transparent;
     background-color: #ffd27f;
     border-color: #ffd27f;
     left: -40px;
@@ -976,7 +964,6 @@
   }
 
   #userList li:nth-child(7) {
-    color: transparent;
     background-color: #b2f4fe;
     border-color: #b2f4fe;
     left: -48px;
