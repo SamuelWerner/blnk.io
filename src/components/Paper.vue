@@ -609,19 +609,15 @@
       editable () {
         var content = document.getElementById('paper')
         document.addEventListener('keydown', function (event) {
-          if (event.keyCode === 18) {
+          if (event.keyCode === 16) {
             content.contentEditable = false
           }
         }, false)
         document.addEventListener('keyup', function (event) {
-          if (event.keyCode === 18) {
+          if (event.keyCode === 16) {
             content.contentEditable = true
           }
         }, false)
-        // Titel an Links anhängen
-        if (document.getElementById('paper').getElementsByTagName('a')[0]) {
-          document.getElementById('paper').getElementsByTagName('a')[0].setAttribute('title', 'mytitle') // Cannot read property 'setAttribute' undefined ...
-        }
       },
       menubarClose () {
         document.getElementById('barDiv').style.display = 'none'

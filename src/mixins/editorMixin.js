@@ -89,7 +89,7 @@ export default {
     },
     createLink () {
       if (document.body.clientWidth >= 700) {
-        var url = prompt("'ALT' drücken, um Links im Dokument anzuwählen bzw. zu öffnen!\nLink einfügen: ", 'blnk-io.herokuapp.com/')
+        var url = prompt("'SHIFT' drücken, um Links im Dokument anzuwählen bzw. zu öffnen!\nLink einfügen: ", 'blnk-io.herokuapp.com/')
         // console.log(url)
         if (url != null) {
           document.execCommand('createLink', false, 'https://' + url)
