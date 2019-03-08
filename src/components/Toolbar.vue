@@ -78,7 +78,7 @@
         <md-tooltip md-delay="300">Unterstrichen</md-tooltip>
         <i class="material-icons toolbar-icon">format_underlined</i>
       </button>
-      <button type="button" class="btn btn-tmenu" @click="makeStrikeThrough">
+      <button type="button" class="btn btn-tmenu strikeThrough" @click="makeStrikeThrough">
         <md-tooltip md-delay="300">Durchgestrichen</md-tooltip>
         <i class="material-icons toolbar-icon">strikethrough_s</i>
       </button>
@@ -208,7 +208,7 @@
       </md-menu>
     </div>
 
-    <div class="btn-group" role="group">
+    <div class="btn-group subSuperScript" role="group">
       <button type="button" class="btn btn-tmenu radiusLeft" @click="subscript">
         <md-tooltip md-delay="300">Tiefgestellt</md-tooltip>
         <img class="imgBig" src="../assets/font-style-subscript.svg" />
@@ -218,7 +218,7 @@
         <img class="imgBig" src="../assets/font-style-superscript.svg" />
       </button>
     </div>
-    <div class="btn-group" role="group">
+    <div class="btn-group link" role="group">
       <button type="button" class="btn btn-tmenu radiusLeft radiusRight" @click="createLink">
         <md-tooltip md-delay="300">Link einfügen</md-tooltip>
         <i class="material-icons toolbar-icon">link</i>
@@ -244,7 +244,7 @@
       </button>
     </div>
 
-    <div class="btn-group" role="group">
+    <div class="btn-group control" role="group">
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Zeilenabstand</md-tooltip>
         <button md-menu-trigger type="button" class="btn btn-tmenu radiusLeft" >
@@ -401,5 +401,26 @@
   .menu-item-img {
     width: 15px;
     height: 15px;
+  }
+
+  @media (max-width: 1050px) {
+    .subSuperScript, .strikeThrough {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 930px) {
+    .control {
+      display: none !important;
+    }
+    .subSuperScript, .strikeThrough {
+      display: inline-flex !important;
+    }
+  }
+
+  @media (max-width: 850px) {
+    .subSuperScript {
+      display: none !important;
+    }
   }
 </style>
