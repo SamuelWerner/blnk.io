@@ -8,7 +8,7 @@
           <md-menu-content class="menu-content">
             <md-menu-item @click="" disabled><div class="md-item-empty"></div>Freigeben</md-menu-item><md-divider></md-divider>
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-insert_drive_file-24px.svg" /></div>Neu</md-menu-item>
-            <md-menu-item @click="showDialogOpen = true"> <!--href="/#docList"--> <div class="md-item-filled"><img src="../assets/outline-folder_open-24px.svg" /></div>Öffnen</md-menu-item>
+            <md-menu-item @click="showDialogOpen = true" v-on:click="refreshDocs"> <!--href="/#docList"--> <div class="md-item-filled"><img src="../assets/outline-folder_open-24px.svg" /></div>Öffnen</md-menu-item>
             <md-menu-item @click="showDialogCopyDokument = true"><div class="md-item-filled"><img src="../assets/outline-file_copy-24px.svg" /></div>Kopie erstellen</md-menu-item>
             <md-menu-item @click="" disabled><div class="md-item-empty"></div>Herunterladen</md-menu-item>
             <md-divider></md-divider>
@@ -182,7 +182,7 @@
         }
       },
       async openDoc (id) {
-        this.$router.push('/paper/' + id)
+        this.$router.push('/paper/' + id) /* anpassen */
       }
     }
   }
@@ -270,7 +270,7 @@
     display: inline-block;
     font-size: 12px;
     margin-top: 10px;
-    margin-right: 10px;
+    margin-right: 20px;
   }
 
   .md-button {
