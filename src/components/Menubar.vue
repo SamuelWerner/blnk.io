@@ -6,7 +6,7 @@
           <md-button md-menu-trigger type="button" class="md-default md-raised md-dense">Datei</md-button>
 
           <md-menu-content class="menu-content">
-            <md-menu-item @click="" disabled><div class="md-item-empty"></div>Freigeben</md-menu-item><md-divider></md-divider>
+            <md-menu-item @click="showDialogRelease = true"><div class="md-item-empty"></div>Freigeben</md-menu-item><md-divider></md-divider>
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-insert_drive_file-24px.svg" /></div>Neu</md-menu-item>
             <md-menu-item @click="showDialogOpen = true" v-on:click="refreshDocs"> <!--href="/#docList"--> <div class="md-item-filled"><img src="../assets/outline-folder_open-24px.svg" /></div>Öffnen</md-menu-item>
             <md-menu-item @click="showDialogCopyDokument = true"><div class="md-item-filled"><img src="../assets/outline-file_copy-24px.svg" /></div>Kopie erstellen</md-menu-item>
@@ -117,6 +117,7 @@
       </md-dialog>
       <!-- DIALOG end -->
 
+      <!-- DIALOG Dok öffnen -->
       <md-dialog :md-active.sync="showDialogOpen">
         <md-dialog-title>Dokument öffnen</md-dialog-title>
 
@@ -139,6 +140,24 @@
           <md-button class="md-primary" @click="showDialogOpen = false">schließen</md-button>
         </md-dialog-actions>
       </md-dialog>
+      <!-- DIALOG end -->
+
+      <!-- DIALOG Dok freigeben -->
+      <md-dialog :md-active.sync="showDialogRelease">
+        <md-dialog-title>Dokument freigeben</md-dialog-title>
+
+        <md-dialog-content>
+          <p style="margin-bottom: .5rem">Link zum kopieren:</p>
+          <div contenteditable="true" id="linkDiv" @click="mark">
+            https://blnk-io.herokuapp.com/paper/{{ $parent.doc.hash }}
+          </div>
+        </md-dialog-content>
+
+        <md-dialog-actions>
+          <md-button class="md-primary" @click="showDialogRelease = false">schließen</md-button>
+        </md-dialog-actions>
+      </md-dialog>
+      <!-- DIALOG end -->
 
       <!--<md-button class="md-primary md-raised" @click="showDialogOpen = true">Show Dialog</md-button>-->
     </main>
@@ -159,6 +178,7 @@
         showDialogCopyDokument: false,
         showDialogOpenDokument: false,
         showDialogOpen: false,
+        showDialogRelease: false,
         pagecolor: 'white',
         docs: [],
         model: {}
@@ -275,5 +295,17 @@
 
   .md-button {
     margin-right: 0;
+  }
+
+  #linkDiv {
+    border: 1px solid #C1CDCD;
+    padding: .25rem .5rem;
+    max-width: 450px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  #linkDiv:hover {
+    border: 1px solid #448aff;
   }
 </style>

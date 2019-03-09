@@ -250,7 +250,7 @@
         await this.refreshDocs()
       },
       async deleteDoc (hash) {
-        if (confirm('Wirklich löschen?\n(Dies kann einen kurzen Moment dauern)')) {
+        if (confirm('Dokument wirklich löschen?\n(Dies kann einen kurzen Moment dauern)')) {
           if (this.model.hash === hash) {
             this.model = {}
           }

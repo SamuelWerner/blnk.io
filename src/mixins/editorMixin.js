@@ -146,6 +146,9 @@ export default {
     print () {
       window.print()
     },
+    mark () {
+      this.selectAll()
+    },
     contrast () {
       var paper = document.getElementById('paper')
       var back = document.getElementsByClassName('container-fluid')[0]
