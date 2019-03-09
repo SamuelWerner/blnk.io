@@ -6,7 +6,7 @@
           <md-button md-menu-trigger type="button" class="md-default md-raised md-dense">Datei</md-button>
 
           <md-menu-content class="menu-content">
-            <md-menu-item @click="showDialogRelease = true"><div class="md-item-empty"></div>Freigeben</md-menu-item><md-divider></md-divider>
+            <md-menu-item @click="showDialogRelease = true"><div class="md-item-filled"><img src="../assets/baseline-link-24px.svg" /></div>Freigeben</md-menu-item><md-divider></md-divider>
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-insert_drive_file-24px.svg" /></div>Neu</md-menu-item>
             <md-menu-item @click="showDialogOpen = true" v-on:click="refreshDocs"> <!--href="/#docList"--> <div class="md-item-filled"><img src="../assets/outline-folder_open-24px.svg" /></div>Öffnen</md-menu-item>
             <md-menu-item @click="showDialogCopyDokument = true"><div class="md-item-filled"><img src="../assets/outline-file_copy-24px.svg" /></div>Kopie erstellen</md-menu-item>
@@ -83,7 +83,7 @@
 
       <div id="docIdent" @click="showDialogRename = true">{{ $parent.doc.title }}</div>
 
-      <!-- DIALOG Umbenennen -->
+      <!-- DIALOG Dok umbenennen -->
       <md-dialog class="dialog" :md-active.sync="showDialogRename">
         <md-dialog-title>Neuen Namen eingeben</md-dialog-title>
 
@@ -146,20 +146,21 @@
       <md-dialog :md-active.sync="showDialogRelease">
         <md-dialog-title>Dokument freigeben</md-dialog-title>
 
-        <md-dialog-content>
-          <p style="margin-bottom: .5rem">Link zum kopieren:</p>
-          <div contenteditable="true" id="linkDiv" @click="mark">
-            https://blnk-io.herokuapp.com/paper/{{ $parent.doc.hash }}
-          </div>
+        <md-dialog-content style="padding: 5px 24px">
+          <textarea style="" contenteditable="true" id="linkDiv" @click="mark">https://blnk-io.herokuapp.com/paper/{{ $parent.doc.hash }}</textarea>
+          <md-button style="margin: 0 0 0 5px;" class="md-default" v-on:click="linkCopy" @click="showSnackbar = true">Link Kopieren</md-button>
         </md-dialog-content>
 
         <md-dialog-actions>
           <md-button class="md-primary" @click="showDialogRelease = false">schließen</md-button>
         </md-dialog-actions>
+
+        <md-snackbar md-position="left" :md-duration="2000" :md-active.sync="showSnackbar" md-persistent>
+          <span>Link in die Zwischenablage kopiert.</span>
+          <md-button class="md-primary" @click="showSnackbar = false">Ok</md-button>
+        </md-snackbar>
       </md-dialog>
       <!-- DIALOG end -->
-
-      <!--<md-button class="md-primary md-raised" @click="showDialogOpen = true">Show Dialog</md-button>-->
     </main>
 </template>
 
@@ -179,6 +180,7 @@
         showDialogOpenDokument: false,
         showDialogOpen: false,
         showDialogRelease: false,
+        showSnackbar: false,
         pagecolor: 'white',
         docs: [],
         model: {}
@@ -203,6 +205,11 @@
       },
       async openDoc (id) {
         this.$router.push('/paper/' + id) /* anpassen */
+      },
+      linkCopy () {
+        var input = document.getElementById('linkDiv')
+        input.select()
+        this.copy()
       }
     }
   }
@@ -301,8 +308,12 @@
     border: 1px solid #C1CDCD;
     padding: .25rem .5rem;
     max-width: 450px;
+    min-width: 400px;
     white-space: nowrap;
     overflow: hidden;
+    height: 36px;
+    display: inline-block;
+    resize: none;
   }
 
   #linkDiv:hover {
