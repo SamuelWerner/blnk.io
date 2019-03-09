@@ -121,6 +121,7 @@
           <md-progress-spinner :md-diameter="50" :md-stroke="5" md-mode="indeterminate"></md-progress-spinner>
         </div>
 
+        <!-- Doclist -->
         <div id="docList">
           <div class="row">
             <div class="col-md-6 col-sm-6 col-12">
@@ -165,6 +166,7 @@
         </div>
         <div style="clear: left"></div>
 
+        <!-- Doclist Mobile -->
         <div class="mobileDocList">
           <ul>
             <li v-for="doc in docs" :key="doc.hash">

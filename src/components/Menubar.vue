@@ -8,7 +8,7 @@
           <md-menu-content class="menu-content">
             <md-menu-item @click="" disabled><div class="md-item-empty"></div>Freigeben</md-menu-item><md-divider></md-divider>
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-insert_drive_file-24px.svg" /></div>Neu</md-menu-item>
-            <md-menu-item @click="" href="/"><div class="md-item-filled"><img src="../assets/outline-folder_open-24px.svg" /></div>Öffnen</md-menu-item>
+            <md-menu-item @click="showDialogOpen = true"> <!--href="/#docList"--> <div class="md-item-filled"><img src="../assets/outline-folder_open-24px.svg" /></div>Öffnen</md-menu-item>
             <md-menu-item @click="showDialogCopyDokument = true"><div class="md-item-filled"><img src="../assets/outline-file_copy-24px.svg" /></div>Kopie erstellen</md-menu-item>
             <md-menu-item @click="" disabled><div class="md-item-empty"></div>Herunterladen</md-menu-item>
             <md-divider></md-divider>
@@ -116,6 +116,31 @@
         </md-dialog-actions>
       </md-dialog>
       <!-- DIALOG end -->
+
+      <md-dialog :md-active.sync="showDialogOpen">
+        <md-dialog-title>Dokument öffnen</md-dialog-title>
+
+        <md-dialog-content>
+          <li class="dialogLi" v-for="doc in docs" :key="doc.hash">
+            <div class="liDiv">
+              <img class="docWidgetSec" src="../assets/outline-insert_drive_file-24px.svg" />
+              <span class="docTitle">{{ doc.title }}</span><br>
+
+              <div class="liButtons">
+                <span class="updatedAt">{{doc.updatedAt | formatDate}}</span>
+                <md-button class="md-icon-button button-delete-mobile" @click.prevent="deleteDoc(doc.hash)"><md-icon>delete</md-icon></md-button>
+                <md-button class="md-primary md-raised md-dense" @click.prevent="openDoc(doc.hash)">Öffnen</md-button>
+              </div>
+            </div>
+          </li>
+        </md-dialog-content>
+
+        <md-dialog-actions>
+          <md-button class="md-primary" @click="showDialogOpen = false">schließen</md-button>
+        </md-dialog-actions>
+      </md-dialog>
+
+      <!--<md-button class="md-primary md-raised" @click="showDialogOpen = true">Show Dialog</md-button>-->
     </main>
 </template>
 
@@ -133,27 +158,31 @@
         showDialogRename: false,
         showDialogCopyDokument: false,
         showDialogOpenDokument: false,
+        showDialogOpen: false,
         pagecolor: 'white',
+        docs: [],
         model: {}
       }
     },
+    async created () {
+      await this.refreshDocs()
+    },
     methods: {
-      async updateName () {
-        this.$parent.socket.emit('titleChange', {
-          room: 'docChannel_' + this.$parent.doc.hash,
-          event: 'titleChange',
-          message: this.$parent.doc.title
-        })
-        if (this.$parent.doc.hash) {
-          await api.updateDoc(this.$parent.doc.hash, this.$parent.doc)
+      async refreshDocs () {
+        this.docs = await api.getDocs()
+        return true
+      },
+      async deleteDoc (hash) {
+        if (confirm('Wirklich löschen?\n(Dies kann einen kurzen Moment dauern)')) {
+          if (this.model.hash === hash) {
+            this.model = {}
+          }
+          await api.deleteDoc(hash)
+          await this.refreshDocs()
         }
       },
-      async copyDoc () {
-        var doc = await api.createDoc(this.model)
-        doc.body = this.$parent.doc.body
-        await api.updateDoc(doc.hash, doc)
-        this.model = {} // reset form
-        alert('Kopie von diesem Dokument wurde erstellt und gespeichert.')
+      async openDoc (id) {
+        this.$router.push('/paper/' + id)
       }
     }
   }
@@ -213,5 +242,38 @@
     -webkit-box-shadow: 0px 0px 0px 1px #BABABA;
     -moz-box-shadow: 0px 0px 0px 1px #BABABA;
     box-shadow: 0px 0px 0px 1px #BABABA;
+  }
+
+  .dialogLi {
+    list-style: none;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+    padding-bottom: 10px;
+  }
+
+  .dialogLi:first-child {
+    margin-top: 5px;
+  }
+
+  .dialogLi:last-child {
+    border: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .docWidgetSec {
+    margin-bottom: 5px;
+    margin-right: 5px;
+  }
+
+  .updatedAt {
+    display: inline-block;
+    font-size: 12px;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+
+  .md-button {
+    margin-right: 0;
   }
 </style>
