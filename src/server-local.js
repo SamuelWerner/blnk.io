@@ -103,13 +103,14 @@ database
     })
 
     // Socket.io
-    var positions = []
-    var io = require('socket.io')(http)
+    var positions = new Map()
+    const io = require('socket.io')(http)
     io.on('connection', function (socket) {
       var currentRoomId // room = document
-      socket.on('room', function (room) {
+      socket.on('joinRoom', function (room) {
         socket.join(room)
         currentRoomId = room
+        if (!positions.has(currentRoomId)) positions.set(currentRoomId, [])
       })
 
       socket.on('titleChange', function (data) {
@@ -147,27 +148,27 @@ database
         })
       })
       socket.on('addCaret', function (data) {
-        if (positions.length > 0) {
-          for (let i = 0; i < positions.length; i++) {
-            if (positions[i]['username'] === data['message']['username']) {
-              positions[i] = data['message']
+        if (positions.get(currentRoomId).length > 0) {
+          for (let i = 0; i < positions.get(currentRoomId).length; i++) {
+            if (positions.get(currentRoomId)[i]['username'] === data['message']['username']) {
+              positions.get(currentRoomId)[i] = data['message']
               break
-            } else if (i === positions.length - 1) {
-              positions.push(data['message'])
+            } else if (i === positions.get(currentRoomId).length - 1) {
+              positions.get(currentRoomId).push(data['message'])
             }
           }
         } else {
-          positions.push(data['message'])
+          positions.get(currentRoomId).push(data['message'])
         }
-        socket.to(currentRoomId).emit('updateUsers', {message: positions})
+        socket.to(currentRoomId).emit('updateUsers', {message: positions.get(currentRoomId), roomID: currentRoomId})
         // Send to all including Sender
-        io.sockets.in(currentRoomId).emit('updateUsers', {message: positions})
+        io.sockets.in(currentRoomId).emit('updateUsers', {message: positions.get(currentRoomId)})
       })
       socket.on('disconnect', function () {
         // Delete User from Position
-        for (var i = 0; i < positions.length; i++) {
-          if (positions[i]['username'] === socket.id) {
-            positions.splice(i, 1)
+        for (var i = 0; i < positions.get(currentRoomId).length; i++) {
+          if (positions.get(currentRoomId)[i]['username'] === socket.id) {
+            positions.get(currentRoomId).splice(i, 1)
           }
         }
         // Send to all excluding sender

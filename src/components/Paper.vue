@@ -310,7 +310,7 @@
       },
       async joinRoom () {
         console.log(this.doc.hash)
-        this.socket.emit('room', 'docChannel_' + this.doc.hash)
+        this.socket.emit('joinRoom', 'docChannel_' + this.doc.hash)
       },
       async documentChanges (e, doc) {
         this.saving = true
