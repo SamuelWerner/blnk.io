@@ -74,7 +74,7 @@
         <div id="containerSpinner" class="spinner">
           <md-progress-spinner md-mode="indeterminate" :md-diameter="40" :md-stroke="4"></md-progress-spinner>
         </div>
-        {{ doc.title }}
+        {{ doc.title }} {{socketID}}
         <img id="editName"  src="../assets/outline-create-24px.svg" />
       </h1>
 
@@ -83,8 +83,6 @@
          class="rounded shadow paper"
          @paste.stop="onPaste($event, doc)"
          @input.stop="documentChanges($event, doc)" @click="saveSelection()"
-         @keyup="addCaret(doc)"
-         @mouseup="addCaret(doc)"
          v-html="body" :disabled="1" ref="paper">
       </div>
     </div>
@@ -145,7 +143,8 @@
         body: '',
         timeoutHandle: null,
         differencesTextChange: [],
-        savedSelection: null
+        savedSelection: null,
+        socketID: ''
       }
     },
     beforeCreate () {
@@ -180,8 +179,6 @@
         } else {
           this.socket = io('https://blnk-io.herokuapp.com/')
         }
-        // Benutzer meldet sich an dem Dokument an
-        this.joinRoom(id)
 
         this.socket.on('titleChange', function (data) {
           doc.title = data
@@ -262,8 +259,22 @@
           }
         })
 
+        this.socket.on('connect', () => {
+          // Benutzer meldet sich an dem Dokument an
+          this.joinRoom()
+          this.addCaret(this.doc, this.socket.id)
+          this.socketID = this.socket.id
+        })
+
+        this.socket.on('disconnectUser', function (data) {
+          console.log(data['user'])
+          let user = (data['user'])
+          let userElement = document.getElementById(user)
+          if (userElement) userElement.remove()
+        })
+
         this.socket.on('updateUsers', function (data) {
-          // TODO call function when user connects to file
+          that.socketID = that.readUsername()
           let anotherUser = data['message']
           let innerhtml = ''
           let style = document.createElement('style')
@@ -274,8 +285,8 @@
               innerhtml = innerhtml + '.otherUser' + i + ' {background-color: ' + '}' // TODO randomize colors
               // TODO add class to div container
               // let paper = document.getElementById('paper')
-              let currentDiv = anotherUser[i]['positionCol']
-              console.log(currentDiv)
+              // let currentDiv = anotherUser[i]['positionCol']
+              // console.log(currentDiv)
               // TODO set contenteditable for everyone and then remove it for the occupied ones
             }
           }
@@ -287,9 +298,9 @@
           userList.id = 'userList'
           for (let i = 0; i < anotherUser.length; i++) {
             if (!(anotherUser[i]['username'] === that.readUsername())) {
-              innerhtml += '<li>User ' + (i + 1) + '</li>'
+              innerhtml += '<li id="' + anotherUser[i]['username'] + '">User ' + (i + 1) + '</li>'
             } else {
-              innerhtml += '<li>BL_NK</li>'
+              innerhtml += '<li id="' + that.readUsername() + '">BL_NK</li>'
             }
           }
           if (document.getElementById('userList')) {
@@ -300,8 +311,9 @@
           }
         })
       },
-      async joinRoom (id) {
-        this.socket.emit('room', 'docChannel_' + id)
+      async joinRoom () {
+        console.log(this.doc.hash)
+        this.socket.emit('room', 'docChannel_' + this.doc.hash)
       },
       async documentChanges (e, doc) {
         this.saving = true
@@ -471,15 +483,16 @@
 
         return canvas.toDataURL('image/jpeg', 0.6)
       },
-      addCaret (doc) {
-        let username = this.readUsername()
+      addCaret (doc, username) {
+        console.log(username)
         let positionRow = this.readCaretPosition(doc.srcElement)
         let positionCol = this.getDivContainer()
         let user = {username, positionRow, positionCol}
         this.socket.emit('addCaret', {
-          room: 'docChannel_' + this.doc.id,
+          room: 'docChannel_' + this.doc.hash,
           event: 'addCaret',
-          message: user
+          message: user,
+          username: username
         })
       },
       getDivContainer () {

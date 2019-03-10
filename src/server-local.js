@@ -102,12 +102,14 @@ database
       }
     })
 
-    // Websocket
+    // Socket.io
     var positions = []
     var io = require('socket.io')(http)
     io.on('connection', function (socket) {
+      var currentRoomId // room = document
       socket.on('room', function (room) {
         socket.join(room)
+        currentRoomId = room
       })
 
       socket.on('titleChange', function (data) {
@@ -145,7 +147,6 @@ database
         })
       })
       socket.on('addCaret', function (data) {
-        let room = data['room']
         if (positions.length > 0) {
           for (let i = 0; i < positions.length; i++) {
             if (positions[i]['username'] === data['message']['username']) {
@@ -158,22 +159,21 @@ database
         } else {
           positions.push(data['message'])
         }
-        socket.to(room).emit('updateUsers', {message: positions})
-        sendToRoom(room, 'updateUsers', {message: positions})
+        socket.to(currentRoomId).emit('updateUsers', {message: positions})
+        // Send to all including Sender
+        io.sockets.in(currentRoomId).emit('updateUsers', {message: positions})
       })
       socket.on('disconnect', function () {
-        console.log(positions)
-        console.log('Disconnected ' + socket.id)
-        let index = positions.indexOf(socket.id)
-        positions.splice(index, 1)
-        console.log(positions)
+        // Delete User from Position
+        for (var i = 0; i < positions.length; i++) {
+          if (positions[i]['username'] === socket.id) {
+            positions.splice(i, 1)
+          }
+        }
+        // Send to all excluding sender
+        socket.to(currentRoomId).emit('disconnectUser', {user: socket.id})
       })
-      console.log('a user connected')
     })
-
-    function sendToRoom (room, event, message) {
-      io.sockets.emit(event, message)
-    }
   })
 
 let Doc = database.define('docs2', {
