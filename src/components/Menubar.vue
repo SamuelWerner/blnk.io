@@ -147,7 +147,7 @@
         <md-dialog-title>Dokument freigeben</md-dialog-title>
 
         <md-dialog-content style="padding: 5px 24px">
-          <textarea style="" contenteditable="true" id="linkDiv" @click="mark">https://blnk-io.herokuapp.com/paper/{{ $parent.doc.hash }}</textarea>
+          <textarea contenteditable="true" id="linkDiv" @click="mark">https://blnk-io.herokuapp.com/paper/{{ $parent.doc.hash }}</textarea>
           <md-button style="margin: 0 0 0 5px;" class="md-default" v-on:click="linkCopy" @click="showSnackbar = true">Link Kopieren</md-button>
         </md-dialog-content>
 
@@ -257,9 +257,9 @@
     top: 8px;
     visibility: hidden;
     transition: visibility .3s, opacity .3s, box-shadow 0s;
-    padding: .15rem .4rem;
+    padding: .15rem .45rem;
     cursor: text;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 14px;
     display: inline-block;
     color: black;
@@ -308,15 +308,24 @@
     border: 1px solid #C1CDCD;
     padding: .25rem .5rem;
     max-width: 450px;
-    min-width: 400px;
+    min-width: 350px;
     white-space: nowrap;
     overflow: hidden;
     height: 36px;
     display: inline-block;
     resize: none;
+    -webkit-box-shadow: inset -17px 0px 38px -25px rgba(171,171,171,1);
+    -moz-box-shadow: inset -17px 0px 38px -25px rgba(171,171,171,1);
+    box-shadow: inset -17px 0px 38px -25px rgba(171,171,171,1);
   }
 
   #linkDiv:hover {
     border: 1px solid #448aff;
+  }
+
+  @media (max-width: 450px) {
+    #linkDiv {
+      min-width: 0;
+    }
   }
 </style>

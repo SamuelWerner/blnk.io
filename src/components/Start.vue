@@ -12,6 +12,7 @@
         <div class="product-example product-example-4"></div>
       </div>
 
+      <!-- BOX Login -->
       <div class="container" style="margin-bottom: 4rem;">
         <div class="row text-center mb-md-3 mb-sm-3 mb-3">
           <div class="col-lg-4 col-md-6 col-sm-6 col-6 col-left">
@@ -27,6 +28,8 @@
               </div>
             </div>
           </div>
+
+          <!-- BOX Profil -->
           <div class="col-lg-8 col-md-6 col-sm-6 col-6 col-right">
             <div class="box boxModule p-md-5 p-sm-3 p-3">
               <p><img class="docWidgetMain" src="../assets/baseline-person-24px.svg" /></p>
@@ -42,6 +45,7 @@
           </div>
         </div>
 
+        <!-- BOX Neues Doc -->
         <div class="row text-center">
           <div class="col-lg-8 col-md-6 col-sm-6 col-6 col-left">
             <div class="box boxModule p-md-5 p-sm-3 p-3">
@@ -69,18 +73,22 @@
               </md-dialog-actions>
             </md-dialog>
           </div>
+
+          <!-- BOX Doc suchen -->
           <div class="col-lg-4 col-md-6 col-sm-6 col-6 col-right">
             <div class="box boxModule p-md-5 p-sm-3 p-3">
               <p><img class="docWidgetMain" src="../assets/baseline-search-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Suchen</h2>
               <p class="lead font-weight-normal">nach einem Dokument.</p>
-              <md-field style="width: 60%; margin: 0 auto;">
+              <md-field style="width: 55%; display: inline-block; margin-bottom: 5px">
                 <form id="formSearch" @submit.prevent="searchDocs">
                   <label>Name</label>
                   <md-input v-model="model.searchString"></md-input>
                 </form>
               </md-field>
-              <md-button type="submit" form="formSearch" class="md-primary">Los</md-button>
+              <md-button type="submit" form="formSearch" class="md-icon-button md-dense md-secondary" style="margin-top: 20px;">
+                <md-icon>search</md-icon>
+              </md-button>
               <div class="helper">
                 <md-button class="md-icon-button" @click="showDialogHelper = true">
                   <i class="fas fa-question"></i>
@@ -95,20 +103,23 @@
       <md-dialog :md-active.sync="showDialogHelper">
         <md-dialog-title>Hilfe</md-dialog-title>
 
-        <md-tabs md-dynamic-height>
-          <md-tab md-label="Login/Registrieren">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate.</p>
-          </md-tab>
-          <md-tab md-label="Profil">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate.</p>
-          </md-tab>
-          <md-tab md-label="Dokument erstellen">
-            <p>Über <em>NEU</em> ein Neues Dokument anlegen und benennen.<br>Das Dokument wird in der Ansicht weiter unten aufgelistet und kann dort geöffnet werden.</p>
-          </md-tab>
-          <md-tab md-label="Dokument suchen">
-            <p>Nach einem bereits vorhandenen Dokument suchen:<br>Namen des Dokuments oder Teile des Namens eingeben und Suche starten.</p>
-          </md-tab>
-        </md-tabs>
+        <div class="container-fluid">
+          <md-tabs class="md-transparent" md-dynamic-height md-elevation="1" md-alignment="fixed" md-active-tab="tab3">
+            <md-tab md-label="Login/Registrieren">
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate.</p>
+            </md-tab>
+            <md-tab md-label="Profil">
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam mollitia dolorum dolores quae commodi impedit possimus qui, atque at voluptates cupiditate.</p>
+            </md-tab>
+            <md-tab id="tab3" md-label="Doc erstellen">
+              <p>Über <em>NEU</em> ein Neues Dokument anlegen und benennen.<br>Das Dokument wird in der Ansicht weiter unten aufgelistet und kann dort geöffnet werden.</p>
+            </md-tab>
+            <md-tab md-label="Doc suchen">
+              <p>Nach einem bereits vorhandenen Dokument suchen:<br>Namen des Dokuments oder Teile des Namens eingeben und Suche starten.</p>
+              <p>Suche zurücksetzen: Suchen-Feld leeren und suchen</p>
+            </md-tab>
+          </md-tabs>
+        </div>
 
         <md-dialog-actions>
           <md-button class="md-primary" @click="showDialogHelper = false">Schließen</md-button>
@@ -128,11 +139,13 @@
               <p>Zuletzt verwendete Dokumente:</p>
             </div>
             <div class="col-md-6 col-sm-6 d-none d-sm-block">
+              <!--
               <select class="form-control form-eigentuemer">
                 <option>Beliebiger Eigentümer</option>
                 <option>Ich bin Eigentümer</option>
                 <option>Ich bin nicht Eigentümer</option>
               </select>
+              -->
             </div>
           </div>
 
