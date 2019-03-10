@@ -223,14 +223,7 @@
     },
     async created () {
       await this.refreshDocs()
-      document.getElementById('containerSpinner').style.display = 'none'
-      if (window.innerWidth < 450) {
-        document.getElementById('docList').style.display = 'none'
-        // document.getElementById('mobileDocList').style.display = 'inline'
-      } else {
-        document.getElementById('docList').style.display = 'inline'
-        // document.getElementById('mobileDocList').style.display = 'none'
-      }
+      this.hideSpinner()
       this.onScroll()
     },
     methods: {
@@ -239,8 +232,7 @@
         return true
       },
       async searchDocs () {
-        document.getElementById('containerSpinner').style.display = 'inline'
-        document.getElementById('docList').style.display = 'none'
+        this.showSpinner()
         this.docs = await api.getDocs()
         var tmpDocs = []
         for (var i = 0; i < this.docs.length; i++) {
@@ -249,18 +241,15 @@
           }
         }
         this.docs = tmpDocs
-        document.getElementById('containerSpinner').style.display = 'none'
-        if (window.innerWidth < 450) {
-          document.getElementById('docList').style.display = 'none'
-        } else {
-          document.getElementById('docList').style.display = 'inline'
-        }
+        this.hideSpinner()
         this.onScroll()
       },
       async saveDoc () {
+        this.showSpinner()
         api.createDoc(this.model)
         this.model = {} // reset form
         this.refreshDocs()
+        this.hideSpinner()
       },
       async deleteDoc (hash) {
         if (confirm('Dokument wirklich löschen?\n(Dies kann einen kurzen Moment dauern)')) {
@@ -285,6 +274,18 @@
             scrollToTop.style.opacity = '0'
           }
         }
+      },
+      hideSpinner () {
+        document.getElementById('containerSpinner').style.display = 'none'
+        if (window.innerWidth < 450) {
+          document.getElementById('docList').style.display = 'none'
+        } else {
+          document.getElementById('docList').style.display = 'inline'
+        }
+      },
+      showSpinner () {
+        document.getElementById('containerSpinner').style.display = 'inline'
+        document.getElementById('docList').style.display = 'none'
       }
     }
   }
