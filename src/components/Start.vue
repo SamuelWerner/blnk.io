@@ -256,8 +256,10 @@
           if (this.model.hash === hash) {
             this.model = {}
           }
+          this.showSpinner()
           await api.deleteDoc(hash)
           this.refreshDocs()
+          this.hideSpinner()
         }
       },
       async openDoc (id) {
