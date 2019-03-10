@@ -258,17 +258,17 @@
         this.onScroll()
       },
       async saveDoc () {
-        await api.createDoc(this.model)
+        api.createDoc(this.model)
         this.model = {} // reset form
-        await this.refreshDocs()
+        this.refreshDocs()
       },
       async deleteDoc (hash) {
         if (confirm('Dokument wirklich löschen?\n(Dies kann einen kurzen Moment dauern)')) {
           if (this.model.hash === hash) {
             this.model = {}
           }
-          await api.deleteDoc(hash)
-          await this.refreshDocs()
+          api.deleteDoc(hash)
+          this.refreshDocs()
         }
       },
       async openDoc (id) {
