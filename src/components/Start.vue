@@ -246,7 +246,7 @@
       },
       async saveDoc () {
         this.showSpinner()
-        api.createDoc(this.model)
+        await api.createDoc(this.model)
         this.model = {} // reset form
         await this.refreshDocs()
         this.hideSpinner()
