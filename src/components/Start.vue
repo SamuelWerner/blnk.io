@@ -248,7 +248,7 @@
         this.showSpinner()
         api.createDoc(this.model)
         this.model = {} // reset form
-        this.refreshDocs()
+        await this.refreshDocs()
         this.hideSpinner()
       },
       async deleteDoc (hash) {
@@ -258,7 +258,7 @@
           }
           this.showSpinner()
           await api.deleteDoc(hash)
-          this.refreshDocs()
+          await this.refreshDocs()
           this.hideSpinner()
         }
       },
