@@ -74,7 +74,7 @@
         <div id="containerSpinner" class="spinner">
           <md-progress-spinner md-mode="indeterminate" :md-diameter="40" :md-stroke="4"></md-progress-spinner>
         </div>
-        {{ doc.title }} {{socketID}}
+        {{ doc.title }}
         <img id="editName"  src="../assets/outline-create-24px.svg" />
       </h1>
 
@@ -143,8 +143,7 @@
         body: '',
         timeoutHandle: null,
         differencesTextChange: [],
-        savedSelection: null,
-        socketID: ''
+        savedSelection: null
       }
     },
     beforeCreate () {
@@ -263,7 +262,6 @@
           // Benutzer meldet sich an dem Dokument an
           this.joinRoom()
           this.addCaret(this.doc, this.socket.id)
-          this.socketID = this.socket.id
         })
 
         this.socket.on('disconnectUser', function (data) {
@@ -274,7 +272,6 @@
         })
 
         this.socket.on('updateUsers', function (data) {
-          that.socketID = that.readUsername()
           let anotherUser = data['message']
           let innerhtml = ''
           let style = document.createElement('style')
