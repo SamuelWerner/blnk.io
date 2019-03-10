@@ -295,9 +295,9 @@
           userList.id = 'userList'
           for (let i = 0; i < anotherUser.length; i++) {
             if (!(anotherUser[i]['username'] === that.readUsername())) {
-              innerhtml += '<li id="' + anotherUser[i]['username'] + '">User ' + (i + 1) + '</li>'
+              innerhtml += '<li id="' + anotherUser[i]['username'] + '"><img src="https://api.adorable.io/avatars/15/' + (i + 1) + '"></img> </li>'
             } else {
-              innerhtml += '<li id="' + that.readUsername() + '">BL_NK</li>'
+              innerhtml += '<li id="' + that.readUsername() + '"><img src="https://api.adorable.io/avatars/15/' + (i + 1) + '"></img></li>'
             }
           }
           if (document.getElementById('userList')) {
