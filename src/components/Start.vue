@@ -267,7 +267,7 @@
           if (this.model.hash === hash) {
             this.model = {}
           }
-          api.deleteDoc(hash)
+          await api.deleteDoc(hash)
           this.refreshDocs()
         }
       },
