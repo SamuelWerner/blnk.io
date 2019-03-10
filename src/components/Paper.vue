@@ -1,5 +1,5 @@
 <template>
-  <main class="container-fluid" style="height:100%">
+  <main class="container-fluid" style="padding-bottom: 10rem">
     <div id="barDiv" class="row ribbon sticky">
       <div>
         <!-- Menüleiste -->
@@ -745,7 +745,6 @@
     padding: 120px;
     background-color: white;
     margin-top: 1rem;
-    margin-bottom: 8rem;
     z-index: 200;
   }
 
