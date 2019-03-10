@@ -194,15 +194,12 @@
             var diff = JSON.parse(difference)
             var dd = new DiffDOM({
               textDiff: function (node, currentValue, expectedValue, newValue) {
-                console.log('currentValue: ' + currentValue)
-                console.log('expectedValue: ' + expectedValue)
-                console.log('newValue: ' + newValue)
-                var distanceDiff = 0 // diff[0].newValue.length - diff[0].oldValue.length
+                var distanceDiff = 0
                 var result = expectedValue
                 // The text node currently does not contain what we expected it to contain, so we need to merge.
                 var differenceOld = StringDiff(currentValue, expectedValue)
                 var firstMerge = newValue
-
+                // TODO: Merge funktioniert nicht bei n Benutzern. Zwischenlösung: Spalte sperren.
                 if (that.savedSelection && that.savedSelection.node === node) {
                   for (let i in differenceOld.result) {
                     let diff = (differenceOld.result[i])
@@ -221,22 +218,17 @@
                       that.restoreSelection(distanceDiff, result.substr(0, diff.StartInsertPosition).length, result.length)
                     })
                   }
-                  console.log('first merge: ' + firstMerge)
                   var differenceNew = StringDiff(result, firstMerge)
                   for (let i in differenceNew.result) {
                     let diff = (differenceNew.result[i])
                     if (!diff) return
                     if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
                       if (newValue.length < currentValue.length) { // nicht löschen wenn Inhalt hinzugefügt wurde
-                        console.log('delete merge nvl ' + newValue.length + 'cvl' + currentValue.length)
                         distanceDiff += (result.substr(diff.StartInsertPosition, diff.EndDeletePosition)).length
                         result = result.substr(0, diff.StartInsertPosition) + result.substr(diff.EndDeletePosition)
-                        console.log('result delete merge' + result)
                       }
                     } else { // Insert
-                      console.log('insert Merge')
                       result = result.substr(0, diff.StartInsertPosition) + diff.newData + result.substr(diff.StartInsertPosition)
-                      console.log('insert merge result: ' + result)
                       distanceDiff += diff.newData.length
                     }
                     that.$nextTick(() => {
@@ -246,7 +238,6 @@
                   }
                   node.data = result
                 } else {
-                  console.log('override')
                   node.data = newValue
                 }
                 return true
@@ -354,14 +345,6 @@
           let newB = document.createElement('div')
           oldB.innerHTML = oldBodySaving
           newB.innerHTML = newBodySaving
-          // var paras = oldB.getElementsByClassName('caret')
-          // while (paras[0]) {
-          //   paras[0].parentNode.removeChild(paras[0])
-          // }
-          // paras = newB.getElementsByClassName('caret')
-          // while (paras[0]) {
-          //   paras[0].parentNode.removeChild(paras[0])
-          // }
           var diff = dd.diff(oldB, newB)
           var diffJson = JSON.stringify(diff)
           this.socket.emit('savePaper', {difference: diffJson, hash: doc.hash})
