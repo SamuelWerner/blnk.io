@@ -10,7 +10,7 @@
       </div>
 
       <!-- X-Button -->
-      <md-button href="/" id="closeBtn" type="button" class="md-icon-button md-raised">
+      <md-button href="/" id="closeBtn" type="button" class="md-icon-button md-dense md-raised">
         <md-tooltip md-delay="1000" md-direction="left">Dokument schließen</md-tooltip>
         <img class="fktstripImg" style="margin: 0" src="../assets/baseline-clear-24px.svg" />
       </md-button>
@@ -23,10 +23,10 @@
 
     <!-- bei eingeklapptem Ribbon: -->
     <div class="menubarOpenWrapper">
-      <div @click="menubarOpen" id="menuClosed">
-        <img src="../assets/baseline-keyboard_arrow_down-24px.svg" alt="">
-        <md-tooltip md-delay="" md-direction="right">Menüs anzeigen</md-tooltip>
-      </div>
+      <md-button @click="menubarOpen" class="md-icon-button md-dense md-raised" id="menuClosed">
+        <md-tooltip md-delay="300" md-direction="left">Menü ausklappen</md-tooltip>
+        <md-icon>keyboard_arrow_down</md-icon>
+      </md-button>
     </div>
 
     <!-- Scroll-Top-Button -->
@@ -746,6 +746,7 @@
     background-color: white;
     margin-top: 1rem;
     z-index: 200;
+    word-wrap: break-word;
   }
 
   #paper a {
@@ -836,12 +837,14 @@
   #menuClosed {
     float: right;
     display: none;
-    background-color: #343a40;
     cursor: pointer;
     z-index: 1;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
     padding: 0 5px 0px 5px;
+    margin: 15px 0 0 0;
+  }
+
+  #menuClosed i {
+    color: black;
   }
 
   #menuClosed img {
