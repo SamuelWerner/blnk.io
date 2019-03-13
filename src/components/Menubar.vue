@@ -295,9 +295,9 @@
 
   .updatedAt {
     display: inline-block;
-    font-size: 12px;
+    font-size: 11px;
     margin-top: 10px;
-    margin-right: 20px;
+    margin-right: 100px;
   }
 
   .md-button {
@@ -321,6 +321,12 @@
 
   #linkDiv:hover {
     border: 1px solid #448aff;
+  }
+
+  @media (max-width: 775px) {
+    .updatedAt {
+      margin-right: 30px;
+    }
   }
 
   @media (max-width: 450px) {

@@ -578,7 +578,7 @@
             scrollToTop.style.visibility = 'hidden'
             scrollToTop.style.opacity = '0'
           }
-          if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+          if (document.body.scrollTop > 160 || document.documentElement.scrollTop > 160) {
             docIdent.style.visibility = 'visible'
             docIdent.style.opacity = '1'
             barDiv.style.boxShadow = '0 .2rem 1rem rgba(0,0,0,.3)'
@@ -855,8 +855,8 @@
 
   #userList {
     position: absolute;
-    right: 7%;
-    top: -25px;
+    right: 5%;
+    top: -28px;
     transition: .2s;
     padding: 0.5rem 0.5rem 1.6rem 3rem;
     z-index: 500;
@@ -892,9 +892,20 @@
     color: transparent;
   }
 
+  #userList img {
+    opacity: 0;
+    transition: .2s;
+    width: 30px;
+    border-radius: 20%;
+  }
+
   #userList:hover li {
     width: 65px;
     margin-right: 13px;
+  }
+
+  #userList:hover img {
+    opacity: 1;
   }
 
   #userList li:hover {
@@ -912,7 +923,7 @@
   #userList li:nth-child(2) {
     background-color: #b2b2ff;
     border-color: #b2b2ff;
-    left: -8px;
+    left: -10px;
   }
   #userList:hover li:nth-child(2) {
     color: #000033;
@@ -921,7 +932,7 @@
   #userList li:nth-child(3) {
     background-color: #b2d8b2;
     border-color: #b2d8b2;
-    left: -16px;
+    left: -20px;
   }
   #userList:hover li:nth-child(3) {
     color: #001900;
@@ -930,7 +941,7 @@
   #userList li:nth-child(4) {
     background-color: #ffff99;
     border-color: #ffff99;
-    left: -24px;
+    left: -30px;
   }
   #userList:hover li:nth-child(4) {
     color: #332b00;
@@ -939,7 +950,7 @@
   #userList li:nth-child(5) {
     background-color: #d8b2d8;
     border-color: #d8b2d8;
-    left: -32px;
+    left: -40px;
   }
   #userList:hover li:nth-child(5) {
     color: #190019;
@@ -948,7 +959,7 @@
   #userList li:nth-child(6) {
     background-color: #ffd27f;
     border-color: #ffd27f;
-    left: -40px;
+    left: -50px;
   }
   #userList:hover li:nth-child(6) {
     color: #332100;
@@ -957,10 +968,28 @@
   #userList li:nth-child(7) {
     background-color: #b2f4fe;
     border-color: #b2f4fe;
-    left: -48px;
+    left: -60px;
   }
   #userList:hover li:nth-child(7) {
     color: #002c32;
+  }
+
+  #userList li:nth-child(8) {
+    background-color: #ffbbfc;
+    border-color: #ffbbfc;
+    left: -70px;
+  }
+  #userList:hover li:nth-child(8) {
+    color: #330631;
+  }
+
+  #userList li:nth-child(9) {
+    background-color: #bfbfbf;
+    border-color: #bfbfbf;
+    left: -80px;
+  }
+  #userList:hover li:nth-child(9) {
+    color: #191919;
   }
 
 
@@ -977,6 +1006,7 @@
     top: 10px;
     right: 10px;
   }
+
 
 
   @media (max-width: 767px) {
