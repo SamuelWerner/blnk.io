@@ -746,6 +746,17 @@
     /*cursor: pointer;*/ /*Nur Pointer, wenn man Link auch per Klick öffnen kann*/
   }
 
+  #paper img {
+    transition: .2s;
+    cursor: default;
+  }
+
+  #paper img:hover {
+    -webkit-box-shadow: 0px 0px 0px 1px #BFBFBF;
+    -moz-box-shadow: 0px 0px 0px 1px #BFBFBF;
+    box-shadow: 0px 0px 0px 1px #BFBFBF;
+  }
+
   .fktstripImg {
     height: 21px !important;
     width: 21px !important;

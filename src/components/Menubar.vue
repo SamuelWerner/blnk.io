@@ -203,6 +203,13 @@
           await this.refreshDocs()
         }
       },
+      async copyDoc () {
+        var doc = await api.createDoc(this.model)
+        doc.body = this.$parent.doc.body
+        await api.updateDoc(doc.hash, doc)
+        this.model = {} // reset form
+        alert('Kopie von diesem Dokument wurde erstellt und gespeichert.')
+      },
       async openDoc (id) {
         this.$router.push('/paper/' + id) /* anpassen */
       },
