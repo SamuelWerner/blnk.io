@@ -77,17 +77,22 @@
           <!-- BOX Doc suchen -->
           <div class="col-lg-4 col-md-6 col-sm-6 col-6 col-right">
             <div class="box boxModule p-md-5 p-sm-3 p-3">
-              <p><img class="docWidgetMain" src="../assets/baseline-search-24px.svg" /></p>
+              <p id="search-icon"><img class="docWidgetMain" src="../assets/baseline-search-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Suchen</h2>
               <p class="lead font-weight-normal">nach einem Dokument.</p>
-              <md-field style="width: 55%; display: inline-block; margin-bottom: 5px">
+              <md-field id="search-field">
                 <form id="formSearch" @submit.prevent="searchDocs">
                   <label>Name</label>
-                  <md-input v-model="model.searchString"></md-input>
+                  <md-input v-model="model.searchString" ></md-input>
                 </form>
               </md-field>
-              <md-button type="submit" form="formSearch" class="md-icon-button md-dense md-secondary" style="margin-top: 20px;">
+              <md-button type="submit" form="formSearch" class="md-icon-button md-dense md-secondary search-buttons">
                 <md-icon>search</md-icon>
+                <md-tooltip md-direction="bottom">Suchen</md-tooltip>
+              </md-button>
+              <md-button @click="refreshDocs" class="md-icon-button md-dense md-secondary search-buttons">
+                <md-icon>close</md-icon>
+                <md-tooltip md-direction="bottom">Suche zurücksetzen</md-tooltip>
               </md-button>
               <div class="helper">
                 <md-button class="md-icon-button" @click="showDialogHelper = true">
@@ -116,7 +121,7 @@
             </md-tab>
             <md-tab md-label="Doc suchen">
               <p>Nach einem bereits vorhandenen Dokument suchen:<br>Namen des Dokuments oder Teile des Namens eingeben und Suche starten.</p>
-              <p>Suche zurücksetzen: Suchen-Feld leeren und suchen</p>
+              <p>Die Suche kann über den zweiten Button wieder zurückgesetzt werden.</p>
             </md-tab>
           </md-tabs>
         </div>
@@ -733,12 +738,36 @@
     filter: invert(0);
   }
 
+  #search-field {
+    width: 55%;
+    display: inline-block;
+    margin-bottom: 5px;
+  }
 
-  @media (max-width: 1200px) {
+  .search-buttons {
+    margin-top: 20px;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  @media (max-width: 1500px) {
     .product-example-3,
     .product-example-4 {
       display: none;
     }
+    .product-example-1 {
+      left: -5%;
+      transform: rotate(22deg);
+      top: -24%;
+    }
+    .product-example-2 {
+      right: -2%;
+      bottom: -20%;
+    }
+  }
+
+
+  @media (max-width: 1200px) {
     .product-example-1 {
       left: -10%;
       transform: rotate(22deg);
@@ -811,6 +840,9 @@
     .docWidgetSec {
       width: 45px;
     }
+    .md-tooltip {
+      display: none !important;
+    }
   }
 
   @media (max-width: 450px) {
@@ -847,7 +879,6 @@
     }
 
     .boxModule {
-      height: 10rem;
     }
 
     .boxModule p,
@@ -870,6 +901,24 @@
 
     .md-field {
       width: 80% !important;
+    }
+
+    #search-icon {
+      margin-bottom: 0;
+    }
+
+    #search-field {
+      margin: 0 0 5px;
+      width: 90% !important;
+      display: inline-block;
+    }
+
+    .search-buttons {
+      margin: 0;
+    }
+
+    .search-buttons i {
+      font-size: 22px !important;
     }
 
     ul li {
