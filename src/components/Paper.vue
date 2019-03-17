@@ -82,7 +82,11 @@
          id="paper" itemref="paper"
          class="rounded shadow paper"
          @paste.stop="onPaste($event, doc)"
-         @input.stop="documentChanges($event, doc)" @click="saveSelection()"
+         @input.stop="documentChanges($event, doc)"
+         @click="saveSelection()"
+         @keyup.enter="addIds()"
+         @mouseup="addCaret(doc, readUsername())"
+         @keyup="addCaret(doc, readUsername())"
          v-html="body" :disabled="1" ref="paper">
       </div>
     </div>
@@ -190,18 +194,18 @@
             await that.Sleep(100)
           }
           while (that.differencesTextChange.length > 0) {
-            var difference = that.differencesTextChange.shift()['difference']
-            var diff = JSON.parse(difference)
-            var dd = new DiffDOM({
+            let difference = that.differencesTextChange.shift()['difference']
+            let diff = JSON.parse(difference)
+            let dd = new DiffDOM({
               textDiff: function (node, currentValue, expectedValue, newValue) {
                 console.log('currentValue: ' + currentValue)
                 console.log('expectedValue: ' + expectedValue)
                 console.log('newValue: ' + newValue)
-                var distanceDiff = 0 // diff[0].newValue.length - diff[0].oldValue.length
-                var result = expectedValue
+                let distanceDiff = 0 // diff[0].newValue.length - diff[0].oldValue.length
+                let result = expectedValue
                 // The text node currently does not contain what we expected it to contain, so we need to merge.
-                var differenceOld = StringDiff(currentValue, expectedValue)
-                var firstMerge = newValue
+                let differenceOld = StringDiff(currentValue, expectedValue)
+                let firstMerge = newValue
 
                 if (that.savedSelection && that.savedSelection.node === node) {
                   for (let i in differenceOld.result) {
@@ -222,7 +226,7 @@
                     })
                   }
                   console.log('first merge: ' + firstMerge)
-                  var differenceNew = StringDiff(result, firstMerge)
+                  let differenceNew = StringDiff(result, firstMerge)
                   for (let i in differenceNew.result) {
                     let diff = (differenceNew.result[i])
                     if (!diff) return
@@ -265,7 +269,6 @@
         })
 
         this.socket.on('disconnectUser', function (data) {
-          console.log(data['user'])
           let user = (data['user'])
           let userElement = document.getElementById(user)
           if (userElement) userElement.remove()
@@ -273,37 +276,68 @@
 
         this.socket.on('updateUsers', function (data) {
           let anotherUser = data['message']
-          let innerhtml = ''
+          let innerHTML = ''
           let style = document.createElement('style')
           style.type = 'text/css'
-          console.log(anotherUser)
-          for (let i = 0; i < anotherUser.length; i++) {
-            if (!(anotherUser[i]['username'] === that.readUsername())) {
-              innerhtml = innerhtml + '.otherUser' + i + ' {background-color: ' + '}' // TODO randomize colors
-              // TODO add class to div container
-              // let paper = document.getElementById('paper')
-              // let currentDiv = anotherUser[i]['positionCol']
-              // console.log(currentDiv)
-              // TODO set contenteditable for everyone and then remove it for the occupied ones
+          // Resetting the classes and contentEditable
+          let content = document.getElementById('paper')
+          content.contentEditable = 'true'
+          for (let i = 0; i < content.children.length; i++) {
+            content.children[i].contentEditable = true
+          }
+          let oldLock = document.getElementsByClassName('locked')
+          if (oldLock.length > 0) {
+            for (let i = 0; i < oldLock.length; i++) {
+              oldLock[i].classList.remove('locked')
             }
           }
-          style.innerHTML = innerhtml
-          document.getElementsByTagName('head')[0].appendChild(style)
+          for (let i = 0; i < anotherUser.length; i++) {
+            let className = 'otherUser' + i
+            if (document.getElementsByClassName(className).length > 0) {
+              document.getElementsByClassName(className)[0].classList.remove(className)
+            }
+          }
+          // Add the classes to the occupied divs and remove contentEditable
+          for (let i = 0; i < anotherUser.length; i++) {
+            let red, green, blue
+            red = (i * 5) % 255
+            green = (i * 100) % 255
+            blue = (i * 200) % 255
+            if (!(anotherUser[i]['username'] === that.readUsername())) {
+              innerHTML = innerHTML + '.otherUser' + i + ' {background-color: rgba(' + red + ', ' + green + ', ' + blue + ', 0.3)}'
+              if (anotherUser[i]['positionCol'] || anotherUser[i]['positionCol'] === 0) {
+                let currentDiv = anotherUser[i]['positionCol']
+                document.getElementById(currentDiv).className = 'locked otherUser' + i
+              }
+            }
+          }
+          let locked = document.getElementsByClassName('locked')
+          for (let i = 0; i < locked.length; i++) {
+            locked[i].contentEditable = false
+          }
+          if (document.getElementById('otherUsers')) {
+            document.getElementById('otherUsers').innerHTML = innerHTML
+          } else {
+            style.innerHTML = innerHTML
+            style.id = 'otherUsers'
+            document.getElementsByTagName('head')[0].appendChild(style)
+          }
+          // Create list of other users in this document
           let userList = document.createElement('ul')
-          innerhtml = ''
+          innerHTML = ''
           userList.type = 'text/html'
           userList.id = 'userList'
           for (let i = 0; i < anotherUser.length; i++) {
             if (!(anotherUser[i]['username'] === that.readUsername())) {
-              innerhtml += '<li id="' + anotherUser[i]['username'] + '"><img src="https://api.adorable.io/avatars/15/' + (i + 1) + '"></img> </li>'
+              innerHTML += '<li id="' + anotherUser[i]['username'] + '"><img src="https://api.adorable.io/avatars/15/' + (i + 1) + '"></img> </li>'
             } else {
-              innerhtml += '<li id="' + that.readUsername() + '"><img src="https://api.adorable.io/avatars/15/' + (i + 1) + '"></img></li>'
+              innerHTML += '<li id="' + that.readUsername() + '"><img src="https://api.adorable.io/avatars/15/' + (i + 1) + '"></img></li>'
             }
           }
           if (document.getElementById('userList')) {
-            document.getElementById('userList').innerHTML = innerhtml
+            document.getElementById('userList').innerHTML = innerHTML
           } else {
-            userList.innerHTML = innerhtml
+            userList.innerHTML = innerHTML
             document.getElementById('barDiv').appendChild(userList)
           }
         })
@@ -319,7 +353,7 @@
 
         // mit dem Speichern warten bis der Benutzer keine Eingabe mehr macht
         window.clearTimeout(this.timeoutHandle)
-        var that = this
+        let that = this
         this.timeoutHandle = window.setTimeout(async function () {
           await that.savePaper(doc)
           that.saving = false
@@ -331,14 +365,14 @@
         let newBody = this.$refs.paper.innerHTML
         this.oldBody = newBody
 
-        var dd = new DiffDOM()
+        let dd = new DiffDOM()
         if (doc.hash) {
           let oldB = document.createElement('div')
           let newB = document.createElement('div')
           oldB.innerHTML = oldBody
           newB.innerHTML = newBody
-          var diff = dd.diff(oldB, newB)
-          var diffJson = JSON.stringify(diff)
+          let diff = dd.diff(oldB, newB)
+          let diffJson = JSON.stringify(diff)
           await this.socket.emit('distributeChanges', {room: 'docChannel_' + doc.hash, difference: diffJson, hash: doc.hash})
           this.distributing = false
         }
@@ -348,13 +382,13 @@
         let newBodySaving = this.$refs.paper.innerHTML
         this.oldBodySaving = newBodySaving
 
-        var dd = new DiffDOM()
+        let dd = new DiffDOM()
         if (doc.hash) {
           let oldB = document.createElement('div')
           let newB = document.createElement('div')
           oldB.innerHTML = oldBodySaving
           newB.innerHTML = newBodySaving
-          // var paras = oldB.getElementsByClassName('caret')
+          // let paras = oldB.getElementsByClassName('caret')
           // while (paras[0]) {
           //   paras[0].parentNode.removeChild(paras[0])
           // }
@@ -362,8 +396,8 @@
           // while (paras[0]) {
           //   paras[0].parentNode.removeChild(paras[0])
           // }
-          var diff = dd.diff(oldB, newB)
-          var diffJson = JSON.stringify(diff)
+          let diff = dd.diff(oldB, newB)
+          let diffJson = JSON.stringify(diff)
           this.socket.emit('savePaper', {difference: diffJson, hash: doc.hash})
           this.saving = false
         }
@@ -371,13 +405,13 @@
       // Speichert die Position des Caret in einem Div
       saveSelection () {
         if (window.getSelection()) {
-          var sel = window.getSelection()
+          let sel = window.getSelection()
           if (sel.getRangeAt && sel.rangeCount) {
-            var range = window.getSelection().getRangeAt(0)
-            var preSelectionRange = range.cloneRange()
+            let range = window.getSelection().getRangeAt(0)
+            let preSelectionRange = range.cloneRange()
             preSelectionRange.selectNodeContents(range.startContainer)
             preSelectionRange.setEnd(range.startContainer, range.startOffset)
-            var start = preSelectionRange.toString().length
+            let start = preSelectionRange.toString().length
             this.savedSelection = {
               start: start,
               end: start + range.toString().length,
@@ -394,7 +428,7 @@
         try {
           if (!this.savedSelection) return
           if (this.savedSelection.nodeStart < position) distanceDiff = 0
-          var range = document.createRange()
+          let range = document.createRange()
           range.setStart(this.$refs.paper, 0)
           range.collapse(true)
           if (textLength >= this.savedSelection.end + distanceDiff) {
@@ -404,7 +438,7 @@
             range.setStart(this.savedSelection.node, textLength)
             range.setEnd(this.savedSelection.node, textLength)
           }
-          var sel = window.getSelection()
+          let sel = window.getSelection()
           sel.removeAllRanges()
           sel.addRange(range)
           // let newNode = document.createElement('span')
@@ -430,17 +464,17 @@
         }
       },
       async onPaste (event, doc) {
-        var pastedData = event.clipboardData.files[0]
-        var that = this
+        let pastedData = event.clipboardData.files[0]
+        let that = this
         // Image paste
         if (pastedData && pastedData.type.indexOf('image') === 0) {
           event.preventDefault()
 
-          var reader = new FileReader()
+          let reader = new FileReader()
           reader.readAsDataURL(pastedData)
           reader.onloadend = function () {
-            var base64data = reader.result
-            var image = new Image()
+            let base64data = reader.result
+            let image = new Image()
             image.src = base64data
             image.id = 'img' + Math.floor(Math.random() * 9999999)
             image.addEventListener('load', function _func () {
@@ -453,14 +487,14 @@
         }
       },
       reduceImageSize (img) {
-        var canvas = document.createElement('canvas')
-        var ctx = canvas.getContext('2d')
+        let canvas = document.createElement('canvas')
+        let ctx = canvas.getContext('2d')
         ctx.drawImage(img, 0, 0)
 
-        var MAX_WIDTH = 800
-        var MAX_HEIGHT = 600
-        var width = img.width
-        var height = img.height
+        let MAX_WIDTH = 800
+        let MAX_HEIGHT = 600
+        let width = img.width
+        let height = img.height
 
         if (width > height) {
           if (width > MAX_WIDTH) {
@@ -481,10 +515,9 @@
         return canvas.toDataURL('image/jpeg', 0.6)
       },
       addCaret (doc, username) {
-        console.log(username)
-        let positionRow = this.readCaretPosition(doc.srcElement)
+        // let positionRow = this.readCaretPosition(doc.srcElement)
         let positionCol = this.getDivContainer()
-        let user = {username, positionRow, positionCol}
+        let user = {username, positionCol}
         this.socket.emit('addCaret', {
           room: 'docChannel_' + this.doc.hash,
           event: 'addCaret',
@@ -495,35 +528,25 @@
       getDivContainer () {
         let sel
         let range
-        let sibling
-        let gen
+        let container
         let doc = document.getElementById('paper')
         if (window.getSelection) {
           sel = window.getSelection()
           if (sel.rangeCount) {
             range = sel.getRangeAt(0)
-            if (range.commonAncestorContainer.parentNode === doc) {
-              gen = 0
-            } else if (range.commonAncestorContainer.parentNode.parentNode === doc) {
-              gen = 1
-            }
-            if (gen === 0) {
-              return gen
-            } else {
-              for (var i = 1; i < doc.childNodes.length; i++) {
-                if (range.commonAncestorContainer.textContent === doc.childNodes[i].textContent) {
-                  sibling = i
-                  return {gen, sibling}
-                }
+            for (let i = 0; i < doc.childNodes.length; i++) {
+              if (range.commonAncestorContainer.textContent === doc.childNodes[i].textContent) {
+                container = i
+                return container
               }
             }
           }
         }
       },
       readCaretPosition (doc) {
-        var caretPos = 0
-        var sel
-        var range
+        let caretPos = 0
+        let sel
+        let range
         if (window.getSelection) {
           sel = window.getSelection()
           if (sel.rangeCount) {
@@ -535,9 +558,9 @@
         } else if (document.selection && document.selection.createRange) {
           range = document.selection.createRange()
           if (range.parentElement() === doc || range.parentElement.parentElement() === doc) {
-            var tempEl = document.createElement('span')
+            let tempEl = document.createElement('span')
             doc.insertBefore(tempEl, doc.firstChild)
-            var tempRange = range.duplicate()
+            let tempRange = range.duplicate()
             tempRange.moveToElementText(tempEl)
             tempRange.setEndPoint('EndToEnd', range)
             caretPos = tempRange.text.length
@@ -551,10 +574,10 @@
       getCaretPosition (doc) {
         if (document.selection) {
           doc.focus()
-          var range = doc.selection.createRange()
-          var rangelen = range.text.length
+          let range = doc.selection.createRange()
+          let rangelen = range.text.length
           range.moveStart('character', -doc.value.length)
-          var start = range.text.length - rangelen
+          let start = range.text.length - rangelen
           return {'start': start, 'end': start + rangelen}
         } else if (doc.selectionStart || doc.selectionStart === '0') {
           return {'start': doc.selectionStart, 'end': doc.selectionEnd}
@@ -567,7 +590,7 @@
           doc.focus()
           doc.setSelectionRange(start, end)
         } else if (doc.createTextRange) {
-          var range = doc.createTextRange()
+          let range = doc.createTextRange()
           range.collapse(true)
           range.moveEnd('character', end)
           range.moveStart('character', start)
@@ -575,7 +598,7 @@
         }
       },
       getUsername () {
-        for (var i = 0; i < positions.length; i++) {
+        for (let i = 0; i < positions.length; i++) {
           if (i === usernames.length) {
             return i
           } else {
@@ -583,10 +606,35 @@
           }
         }
       },
+      addIds () {
+        let content = document.getElementById('paper')
+        for (let i = 0; i < content.children.length; i++) {
+          content.children[i].id = i
+        }
+        if (content.children.length === 1) {
+          let newDiv = document.createElement('div')
+          let sndDiv = document.createElement('div')
+          newDiv.contentEditable = true
+          sndDiv.contentEditable = true
+          let textNode1 = document.createTextNode(content.innerText)
+          content.innerText = ''
+          newDiv.appendChild(textNode1)
+          sndDiv.style.minHeight = '1px'
+          content.insertBefore(newDiv, content.childNodes[0])
+          console.log(sndDiv)
+          content.appendChild(sndDiv)
+          let range = document.createRange()
+          let sel = window.getSelection()
+          range.setStart(content.childNodes[1], 0)
+          range.collapse(true)
+          sel.removeAllRanges()
+          sel.addRange(range)
+        }
+      },
       onScroll () {
-        var barDiv = document.getElementById('barDiv')
-        var scrollToTop = document.getElementById('scrollTop')
-        var docIdent = document.getElementById('docIdent')
+        let barDiv = document.getElementById('barDiv')
+        let scrollToTop = document.getElementById('scrollTop')
+        let docIdent = document.getElementById('docIdent')
         window.onscroll = function () {
           if (document.body.scrollTop > 450 || document.documentElement.scrollTop > 450) {
             scrollToTop.style.visibility = 'visible'
@@ -617,7 +665,7 @@
         }
       },
       editable () {
-        var content = document.getElementById('paper')
+        let content = document.getElementById('paper')
         document.addEventListener('keydown', function (event) {
           if (event.keyCode === 16) {
             content.contentEditable = false
