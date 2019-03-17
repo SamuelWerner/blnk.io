@@ -69,17 +69,8 @@ database
         })
       })
       socket.on('addCaret', function (data) {
-        let occupied = false
         if (positions.get(currentRoomId).length > 0) {
           for (let i = 0; i < positions.get(currentRoomId).length; i++) {
-            if (positions.get(currentRoomId)[i]['positionCol'] === data['message']['positionCol']) {
-              occupied = true
-            }
-          }
-          for (let i = 0; i < positions.get(currentRoomId).length; i++) {
-            if (occupied) {
-              break
-            }
             if (positions.get(currentRoomId)[i]['username'] === data['message']['username']) {
               positions.get(currentRoomId)[i] = data['message']
               break
