@@ -148,8 +148,17 @@ database
         })
       })
       socket.on('addCaret', function (data) {
+        let occupied = false
         if (positions.get(currentRoomId).length > 0) {
           for (let i = 0; i < positions.get(currentRoomId).length; i++) {
+            if (positions.get(currentRoomId)[i]['positionCol'] === data['message']['positionCol']) {
+              occupied = true
+            }
+          }
+          for (let i = 0; i < positions.get(currentRoomId).length; i++) {
+            if (occupied) {
+              break
+            }
             if (positions.get(currentRoomId)[i]['username'] === data['message']['username']) {
               positions.get(currentRoomId)[i] = data['message']
               break
@@ -160,7 +169,6 @@ database
         } else {
           positions.get(currentRoomId).push(data['message'])
         }
-        console.log(positions)
         socket.to(currentRoomId).emit('updateUsers', {message: positions.get(currentRoomId), roomID: currentRoomId})
         // Send to all including Sender
         io.sockets.in(currentRoomId).emit('updateUsers', {message: positions.get(currentRoomId)})

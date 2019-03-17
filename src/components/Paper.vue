@@ -267,70 +267,12 @@
 
         this.socket.on('updateUsers', function (data) {
           let anotherUser = data['message']
-          let innerHTML = ''
-          let style = document.createElement('style')
-          style.type = 'text/css'
           // Resetting the classes and contentEditable
-          let content = document.getElementById('paper')
-          content.contentEditable = 'true'
-          for (let i = 0; i < content.children.length; i++) {
-            content.children[i].contentEditable = true
-          }
-          let oldLock = document.getElementsByClassName('locked')
-          if (oldLock.length > 0) {
-            for (let i = 0; i < oldLock.length; i++) {
-              oldLock[i].classList.remove('locked')
-            }
-          }
-          for (let i = 0; i < anotherUser.length; i++) {
-            let className = 'otherUser' + i
-            if (document.getElementsByClassName(className).length > 0) {
-              document.getElementsByClassName(className)[0].classList.remove(className)
-            }
-          }
+          that.removeClasses(anotherUser)
           // Add the classes to the occupied divs and remove contentEditable
-          for (let i = 0; i < anotherUser.length; i++) {
-            let red, green, blue
-            red = (i * 5) % 255
-            green = (i * 100) % 255
-            blue = (i * 200) % 255
-            if (!(anotherUser[i]['username'] === that.readUsername())) {
-              innerHTML = innerHTML + '.otherUser' + i + ' {background-color: rgba(' + red + ', ' + green + ', ' + blue + ', 0.3)}'
-              if (anotherUser[i]['positionCol'] || anotherUser[i]['positionCol'] === 0) {
-                let currentDiv = anotherUser[i]['positionCol']
-                document.getElementById(currentDiv).className = 'locked otherUser' + i
-              }
-            }
-          }
-          let locked = document.getElementsByClassName('locked')
-          for (let i = 0; i < locked.length; i++) {
-            locked[i].contentEditable = false
-          }
-          if (document.getElementById('otherUsers')) {
-            document.getElementById('otherUsers').innerHTML = innerHTML
-          } else {
-            style.innerHTML = innerHTML
-            style.id = 'otherUsers'
-            document.getElementsByTagName('head')[0].appendChild(style)
-          }
+          that.addClasses(anotherUser)
           // Create list of other users in this document
-          let userList = document.createElement('ul')
-          innerHTML = ''
-          userList.type = 'text/html'
-          userList.id = 'userList'
-          for (let i = 0; i < anotherUser.length; i++) {
-            if (!(anotherUser[i]['username'] === that.readUsername())) {
-              innerHTML += '<li id="' + anotherUser[i]['username'] + '"><img src="https://api.adorable.io/avatars/15/' + (i + 1) + '"></img> </li>'
-            } else {
-              innerHTML += '<li id="' + that.readUsername() + '"><img src="https://api.adorable.io/avatars/15/' + (i + 1) + '"></img></li>'
-            }
-          }
-          if (document.getElementById('userList')) {
-            document.getElementById('userList').innerHTML = innerHTML
-          } else {
-            userList.innerHTML = innerHTML
-            document.getElementById('barDiv').appendChild(userList)
-          }
+          that.addUserList(anotherUser)
         })
       },
       async joinRoom () {
@@ -612,6 +554,74 @@
           range.collapse(true)
           sel.removeAllRanges()
           sel.addRange(range)
+        }
+      },
+      removeClasses (anotherUser) {
+        let content = document.getElementById('paper')
+        content.contentEditable = 'true'
+        for (let i = 0; i < content.children.length; i++) {
+          content.children[i].contentEditable = true
+        }
+        let oldLock = document.getElementsByClassName('locked')
+        if (oldLock.length > 0) {
+          for (let i = 0; i < oldLock.length; i++) {
+            oldLock[i].classList.remove('locked')
+          }
+        }
+        for (let i = 0; i < anotherUser.length; i++) {
+          let className = 'otherUser' + i
+          if (document.getElementsByClassName(className).length > 0) {
+            document.getElementsByClassName(className)[0].classList.remove(className)
+          }
+        }
+      },
+      addClasses (anotherUser) {
+        let innerHTML = ''
+        let style = document.createElement('style')
+        style.type = 'text/css'
+        style.id = 'otherUsers'
+        for (let i = 0; i < anotherUser.length; i++) {
+          let red, green, blue
+          red = (i * 5) % 255
+          green = (i * 100) % 255
+          blue = (i * 200) % 255
+          if (!(anotherUser[i]['username'] === this.readUsername())) {
+            innerHTML = innerHTML + '.otherUser' + i + ' {background-color: rgba(' + red + ', ' + green + ', ' + blue + ', 0.3)}'
+            if (anotherUser[i]['positionCol'] || anotherUser[i]['positionCol'] === 0) {
+              let currentDiv = anotherUser[i]['positionCol']
+              document.getElementById(currentDiv).className = 'locked otherUser' + i
+            }
+          }
+        }
+        let locked = document.getElementsByClassName('locked')
+        for (let i = 0; i < locked.length; i++) {
+          locked[i].contentEditable = false
+        }
+        this.appendElement('otherUsers', style, innerHTML, 'head')
+      },
+      addUserList (anotherUser) {
+        let userList = document.createElement('ul')
+        let innerHTML = ''
+        userList.type = 'text/html'
+        userList.id = 'userList'
+        for (let i = 0; i < anotherUser.length; i++) {
+          if (!(anotherUser[i]['username'] === this.readUsername())) {
+            innerHTML += '<li id="' + anotherUser[i]['username'] + '"><img src="https://api.adorable.io/avatars/15/' + (i + 1) + '"></img> </li>'
+          } else {
+            innerHTML += '<li id="' + this.readUsername() + '"><img src="https://api.adorable.io/avatars/15/' + (i + 1) + '"></img></li>'
+          }
+        }
+        this.appendElement('userList', userList, innerHTML, 'barDiv')
+      },
+      appendElement (elementID, element, innerHTML, target) {
+        if (document.getElementById(elementID)) {
+          document.getElementById(elementID).innerHTML = innerHTML
+        } else if (target === 'head') {
+          element.innerHTML = innerHTML
+          document.getElementsByTagName('head')[0].appendChild(element)
+        } else {
+          element.innerHTML = innerHTML
+          document.getElementById(target).appendChild(element)
         }
       },
       onScroll () {
