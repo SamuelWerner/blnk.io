@@ -46,8 +46,6 @@
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-create-24px.svg" /></div>Bearbeiten-Modus</md-menu-item>
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-remove_red_eye-24px.svg" /></div>ReadOnly-Modus</md-menu-item>
             <md-divider></md-divider>
-            <md-menu-item @click="contrast" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/baseline-accessibility-24px.svg" /></div>Kontrast</md-menu-item>
-            <md-divider></md-divider>
             <md-menu-item @click="fullScreen" ><div class="md-item-filled"><img id="imgtest" src="../assets/outline-fullscreen-24px.svg" /></div>Vollbildmodus</md-menu-item>
           </md-menu-content>
         </md-menu>
