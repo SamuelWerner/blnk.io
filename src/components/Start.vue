@@ -16,7 +16,7 @@
       <div class="container" style="margin-bottom: 4rem;">
         <div class="row text-center mb-md-3 mb-sm-3 mb-3">
           <div class="col-lg-4 col-md-6 col-sm-6 col-6 col-left">
-            <div class="box boxModule p-md-5 p-sm-3 p-3">
+            <div class="box boxModule boxLogin p-md-5 p-sm-3 p-3">
               <p><img class="docWidgetMain" src="../assets/baseline-exit_to_app-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Login</h2>
               <p class="lead font-weight-normal">Melde dich an.</p>
@@ -31,7 +31,7 @@
 
           <!-- BOX Profil -->
           <div class="col-lg-8 col-md-6 col-sm-6 col-6 col-right">
-            <div class="box boxModule p-md-5 p-sm-3 p-3">
+            <div class="box boxModule boxProfil p-md-5 p-sm-3 p-3">
               <p><img class="docWidgetMain" src="../assets/baseline-person-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Profil</h2>
               <p class="lead font-weight-normal">Besuche dein Profil.</p>
@@ -48,10 +48,10 @@
         <!-- BOX Neues Doc -->
         <div class="row text-center">
           <div class="col-lg-8 col-md-6 col-sm-6 col-6 col-left">
-            <div class="box boxModule p-md-5 p-sm-3 p-3">
+            <div class="box boxModule boxNeu p-md-5 p-sm-3 p-3">
               <p><img class="docWidgetMain" src="../assets/outline-insert_drive_file-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Neu</h2>
-              <p class="lead font-weight-normal">Lege ein neues Dokument an und bearbeite es.</p>
+              <p class="lead font-weight-normal mb-4">Lege ein neues Dokument an und bearbeite es.</p>
               <md-button class="md-primary md-raised" @click="showDialog = true"> Neu </md-button>
               <div class="helper">
                 <md-button class="md-icon-button" @click="showDialogHelper = true">
@@ -66,7 +66,7 @@
                   <label>Titel eingeben...</label><md-input type="text" v-model="model.title" maxlength="30"></md-input>
                 </form>
               </md-field>
-              <p class="dialog-helper"></p>
+              <p style="display: none" class="dialog-helper"></p>
               <md-dialog-actions>
                 <md-button class="md-primary" @click="showDialog = false">Abbruch</md-button>
                 <md-button type="submit" form="form" class="md-primary" @click="showDialog = false">Erstellen</md-button>
@@ -76,7 +76,7 @@
 
           <!-- BOX Doc suchen -->
           <div class="col-lg-4 col-md-6 col-sm-6 col-6 col-right">
-            <div class="box boxModule p-md-5 p-sm-3 p-3">
+            <div class="box boxModule boxSuchen p-md-5 p-sm-3 p-3">
               <p id="search-icon"><img class="docWidgetMain" src="../assets/baseline-search-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Suchen</h2>
               <p class="lead font-weight-normal">nach einem Dokument.</p>
@@ -257,7 +257,7 @@
         this.hideSpinner()
       },
       async deleteDoc (hash) {
-        if (confirm('Dokument wirklich löschen?\n(Dies kann einen kurzen Moment dauern)')) {
+        if (confirm('Dokument wirklich löschen?')) {
           if (this.model.hash === hash) {
             this.model = {}
           }
@@ -819,8 +819,10 @@
       font-size: 5rem;
       border-right: 0;
     }
-    .anim-typewriter {
+    .anim-typewriter,
+    .anim-subtitle {
       animation: none;
+      color: #212529;
     }
     .col-sm-12 {
       margin-bottom: 0.5rem;
@@ -878,11 +880,13 @@
       display: inline;
     }
 
-    .boxModule {
+    .boxProfil,
+    .boxLogin {
+      padding-bottom: 1.5rem !important;
     }
 
-    .boxModule p,
-    .boxModule h2 {
+    .boxNeu {
+      padding-top: 1.5rem !important;
     }
 
     .boxModule p img {

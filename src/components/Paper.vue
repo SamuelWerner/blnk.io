@@ -1035,7 +1035,7 @@
       min-height: 90vh;
     }
     .container-fluid {
-      padding: 0 !important;
+      padding: 0 0 5rem 0 !important;
     }
     .ribbon, .md-tooltip, #menuClosed {
       display: none !important;
