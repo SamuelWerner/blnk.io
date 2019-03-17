@@ -16,7 +16,7 @@
       <div class="container" style="margin-bottom: 4rem;">
         <div class="row text-center mb-md-3 mb-sm-3 mb-3">
           <div class="col-lg-4 col-md-6 col-sm-6 col-6 col-left">
-            <div class="box boxModule p-md-5 p-sm-3 p-3">
+            <div class="box boxModule boxLogin p-md-5 p-sm-3 p-3">
               <p><img class="docWidgetMain" src="../assets/baseline-exit_to_app-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Login</h2>
               <p class="lead font-weight-normal">Melde dich an.</p>
@@ -31,7 +31,7 @@
 
           <!-- BOX Profil -->
           <div class="col-lg-8 col-md-6 col-sm-6 col-6 col-right">
-            <div class="box boxModule p-md-5 p-sm-3 p-3">
+            <div class="box boxModule boxProfil p-md-5 p-sm-3 p-3">
               <p><img class="docWidgetMain" src="../assets/baseline-person-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Profil</h2>
               <p class="lead font-weight-normal">Besuche dein Profil.</p>
@@ -48,10 +48,10 @@
         <!-- BOX Neues Doc -->
         <div class="row text-center">
           <div class="col-lg-8 col-md-6 col-sm-6 col-6 col-left">
-            <div class="box boxModule p-md-5 p-sm-3 p-3">
+            <div class="box boxModule boxNeu p-md-5 p-sm-3 p-3">
               <p><img class="docWidgetMain" src="../assets/outline-insert_drive_file-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Neu</h2>
-              <p class="lead font-weight-normal">Lege ein neues Dokument an und bearbeite es.</p>
+              <p class="lead font-weight-normal mb-4">Lege ein neues Dokument an und bearbeite es.</p>
               <md-button class="md-primary md-raised" @click="showDialog = true"> Neu </md-button>
               <div class="helper">
                 <md-button class="md-icon-button" @click="showDialogHelper = true">
@@ -66,7 +66,7 @@
                   <label>Titel eingeben...</label><md-input type="text" v-model="model.title" maxlength="30"></md-input>
                 </form>
               </md-field>
-              <p class="dialog-helper"></p>
+              <p style="display: none" class="dialog-helper"></p>
               <md-dialog-actions>
                 <md-button class="md-primary" @click="showDialog = false">Abbruch</md-button>
                 <md-button type="submit" form="form" class="md-primary" @click="showDialog = false">Erstellen</md-button>
@@ -76,18 +76,23 @@
 
           <!-- BOX Doc suchen -->
           <div class="col-lg-4 col-md-6 col-sm-6 col-6 col-right">
-            <div class="box boxModule p-md-5 p-sm-3 p-3">
-              <p><img class="docWidgetMain" src="../assets/baseline-search-24px.svg" /></p>
+            <div class="box boxModule boxSuchen p-md-5 p-sm-3 p-3">
+              <p id="search-icon"><img class="docWidgetMain" src="../assets/baseline-search-24px.svg" /></p>
               <h2 class="display-5 text-uppercase">Suchen</h2>
               <p class="lead font-weight-normal">nach einem Dokument.</p>
-              <md-field style="width: 55%; display: inline-block; margin-bottom: 5px">
+              <md-field id="search-field">
                 <form id="formSearch" @submit.prevent="searchDocs">
                   <label>Name</label>
-                  <md-input v-model="model.searchString"></md-input>
+                  <md-input v-model="model.searchString" ></md-input>
                 </form>
               </md-field>
-              <md-button type="submit" form="formSearch" class="md-icon-button md-dense md-secondary" style="margin-top: 20px;">
+              <md-button type="submit" form="formSearch" class="md-icon-button md-dense md-secondary search-buttons">
                 <md-icon>search</md-icon>
+                <md-tooltip md-direction="bottom">Suchen</md-tooltip>
+              </md-button>
+              <md-button @click="refreshDocs" class="md-icon-button md-dense md-secondary search-buttons">
+                <md-icon>close</md-icon>
+                <md-tooltip md-direction="bottom">Suche zurücksetzen</md-tooltip>
               </md-button>
               <div class="helper">
                 <md-button class="md-icon-button" @click="showDialogHelper = true">
@@ -116,7 +121,7 @@
             </md-tab>
             <md-tab md-label="Doc suchen">
               <p>Nach einem bereits vorhandenen Dokument suchen:<br>Namen des Dokuments oder Teile des Namens eingeben und Suche starten.</p>
-              <p>Suche zurücksetzen: Suchen-Feld leeren und suchen</p>
+              <p>Die Suche kann über den zweiten Button wieder zurückgesetzt werden.</p>
             </md-tab>
           </md-tabs>
         </div>
@@ -223,14 +228,7 @@
     },
     async created () {
       await this.refreshDocs()
-      document.getElementById('containerSpinner').style.display = 'none'
-      if (window.innerWidth < 450) {
-        document.getElementById('docList').style.display = 'none'
-        // document.getElementById('mobileDocList').style.display = 'inline'
-      } else {
-        document.getElementById('docList').style.display = 'inline'
-        // document.getElementById('mobileDocList').style.display = 'none'
-      }
+      this.hideSpinner()
       this.onScroll()
     },
     methods: {
@@ -239,8 +237,7 @@
         return true
       },
       async searchDocs () {
-        document.getElementById('containerSpinner').style.display = 'inline'
-        document.getElementById('docList').style.display = 'none'
+        this.showSpinner()
         this.docs = await api.getDocs()
         var tmpDocs = []
         for (var i = 0; i < this.docs.length; i++) {
@@ -249,26 +246,25 @@
           }
         }
         this.docs = tmpDocs
-        document.getElementById('containerSpinner').style.display = 'none'
-        if (window.innerWidth < 450) {
-          document.getElementById('docList').style.display = 'none'
-        } else {
-          document.getElementById('docList').style.display = 'inline'
-        }
+        this.hideSpinner()
         this.onScroll()
       },
       async saveDoc () {
-        api.createDoc(this.model)
+        this.showSpinner()
+        await api.createDoc(this.model)
         this.model = {} // reset form
-        this.refreshDocs()
+        await this.refreshDocs()
+        this.hideSpinner()
       },
       async deleteDoc (hash) {
-        if (confirm('Dokument wirklich löschen?\n(Dies kann einen kurzen Moment dauern)')) {
+        if (confirm('Dokument wirklich löschen?')) {
           if (this.model.hash === hash) {
             this.model = {}
           }
+          this.showSpinner()
           await api.deleteDoc(hash)
-          this.refreshDocs()
+          await this.refreshDocs()
+          this.hideSpinner()
         }
       },
       async openDoc (id) {
@@ -285,6 +281,18 @@
             scrollToTop.style.opacity = '0'
           }
         }
+      },
+      hideSpinner () {
+        document.getElementById('containerSpinner').style.display = 'none'
+        if (window.innerWidth < 450) {
+          document.getElementById('docList').style.display = 'none'
+        } else {
+          document.getElementById('docList').style.display = 'inline'
+        }
+      },
+      showSpinner () {
+        document.getElementById('containerSpinner').style.display = 'inline'
+        document.getElementById('docList').style.display = 'none'
       }
     }
   }
@@ -730,12 +738,36 @@
     filter: invert(0);
   }
 
+  #search-field {
+    width: 55%;
+    display: inline-block;
+    margin-bottom: 5px;
+  }
 
-  @media (max-width: 1200px) {
+  .search-buttons {
+    margin-top: 20px;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  @media (max-width: 1500px) {
     .product-example-3,
     .product-example-4 {
       display: none;
     }
+    .product-example-1 {
+      left: -5%;
+      transform: rotate(22deg);
+      top: -24%;
+    }
+    .product-example-2 {
+      right: -2%;
+      bottom: -20%;
+    }
+  }
+
+
+  @media (max-width: 1200px) {
     .product-example-1 {
       left: -10%;
       transform: rotate(22deg);
@@ -787,8 +819,10 @@
       font-size: 5rem;
       border-right: 0;
     }
-    .anim-typewriter {
+    .anim-typewriter,
+    .anim-subtitle {
       animation: none;
+      color: #212529;
     }
     .col-sm-12 {
       margin-bottom: 0.5rem;
@@ -807,6 +841,9 @@
     }
     .docWidgetSec {
       width: 45px;
+    }
+    .md-tooltip {
+      display: none !important;
     }
   }
 
@@ -843,12 +880,13 @@
       display: inline;
     }
 
-    .boxModule {
-      height: 10rem;
+    .boxProfil,
+    .boxLogin {
+      padding-bottom: 1.5rem !important;
     }
 
-    .boxModule p,
-    .boxModule h2 {
+    .boxNeu {
+      padding-top: 1.5rem !important;
     }
 
     .boxModule p img {
@@ -867,6 +905,24 @@
 
     .md-field {
       width: 80% !important;
+    }
+
+    #search-icon {
+      margin-bottom: 0;
+    }
+
+    #search-field {
+      margin: 0 0 5px;
+      width: 90% !important;
+      display: inline-block;
+    }
+
+    .search-buttons {
+      margin: 0;
+    }
+
+    .search-buttons i {
+      font-size: 22px !important;
     }
 
     ul li {

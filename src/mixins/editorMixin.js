@@ -89,7 +89,7 @@ export default {
     },
     createLink () {
       if (document.body.clientWidth >= 700) {
-        var url = prompt("'SHIFT' drücken, um Links im Dokument anzuwählen bzw. zu öffnen!\nLink einfügen: ", 'blnk-io.herokuapp.com/')
+        var url = prompt("'STRG + SHIFT' drücken, um Links im Dokument zu öffnen!\nLink einfügen: ", 'blnk-io.herokuapp.com/')
         // console.log(url)
         if (url != null) {
           document.execCommand('createLink', false, 'https://' + url)
@@ -148,30 +148,6 @@ export default {
     },
     mark () {
       this.selectAll()
-    },
-    contrast () {
-      var paper = document.getElementById('paper')
-      var back = document.getElementsByClassName('container-fluid')[0]
-      var title = document.getElementsByTagName('h1')[0]
-      var menu = document.getElementById('barDiv')
-      var editName = document.getElementById('editName')
-      var menubarClose = document.getElementById('menubarClose')
-      // var sidebar = document.getElementById('sidebar')
-      if (paper.style.backgroundColor !== '#22262a') {
-        paper.style.backgroundColor = '#22262a'
-        back.style.backgroundColor = '#343a40'
-        menu.style.backgroundColor = '#343a40'
-        title.style.color = 'white'
-        paper.style.color = 'white'
-        editName.style.filter = 'invert(1)'
-        paper.children.color = 'white'
-        menubarClose.getElementsByTagName('img')[0].style.filter = 'invert(1)'
-      } else {
-        console.log('test')
-      }
-      window.onscroll = function () {
-        paper.style.backgroundColor = '#22262a'
-      }
     }
   }
 }

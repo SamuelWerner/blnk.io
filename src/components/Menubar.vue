@@ -46,8 +46,6 @@
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-create-24px.svg" /></div>Bearbeiten-Modus</md-menu-item>
             <md-menu-item @click="" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/outline-remove_red_eye-24px.svg" /></div>ReadOnly-Modus</md-menu-item>
             <md-divider></md-divider>
-            <md-menu-item @click="contrast" disabled><div class="md-item-filled"><img style="opacity: 0.2" src="../assets/baseline-accessibility-24px.svg" /></div>Kontrast</md-menu-item>
-            <md-divider></md-divider>
             <md-menu-item @click="fullScreen" ><div class="md-item-filled"><img id="imgtest" src="../assets/outline-fullscreen-24px.svg" /></div>Vollbildmodus</md-menu-item>
           </md-menu-content>
         </md-menu>
@@ -203,6 +201,13 @@
           await this.refreshDocs()
         }
       },
+      async copyDoc () {
+        var doc = await api.createDoc(this.model)
+        doc.body = this.$parent.doc.body
+        await api.updateDoc(doc.hash, doc)
+        this.model = {} // reset form
+        alert('Kopie von diesem Dokument wurde erstellt und gespeichert.')
+      },
       async openDoc (id) {
         this.$router.push('/paper/' + id) /* anpassen */
       },
@@ -295,9 +300,9 @@
 
   .updatedAt {
     display: inline-block;
-    font-size: 12px;
+    font-size: 11px;
     margin-top: 10px;
-    margin-right: 20px;
+    margin-right: 100px;
   }
 
   .md-button {
@@ -321,6 +326,12 @@
 
   #linkDiv:hover {
     border: 1px solid #448aff;
+  }
+
+  @media (max-width: 775px) {
+    .updatedAt {
+      margin-right: 30px;
+    }
   }
 
   @media (max-width: 450px) {

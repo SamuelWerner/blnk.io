@@ -198,15 +198,12 @@
             let diff = JSON.parse(difference)
             let dd = new DiffDOM({
               textDiff: function (node, currentValue, expectedValue, newValue) {
-                console.log('currentValue: ' + currentValue)
-                console.log('expectedValue: ' + expectedValue)
-                console.log('newValue: ' + newValue)
-                let distanceDiff = 0 // diff[0].newValue.length - diff[0].oldValue.length
-                let result = expectedValue
+                var distanceDiff = 0
+                var result = expectedValue
                 // The text node currently does not contain what we expected it to contain, so we need to merge.
-                let differenceOld = StringDiff(currentValue, expectedValue)
-                let firstMerge = newValue
-
+                var differenceOld = StringDiff(currentValue, expectedValue)
+                var firstMerge = newValue
+                // TODO: Merge funktioniert nicht bei n Benutzern. Zwischenlösung: Spalte sperren.
                 if (that.savedSelection && that.savedSelection.node === node) {
                   for (let i in differenceOld.result) {
                     let diff = (differenceOld.result[i])
@@ -225,22 +222,17 @@
                       that.restoreSelection(distanceDiff, result.substr(0, diff.StartInsertPosition).length, result.length)
                     })
                   }
-                  console.log('first merge: ' + firstMerge)
-                  let differenceNew = StringDiff(result, firstMerge)
+                  var differenceNew = StringDiff(result, firstMerge)
                   for (let i in differenceNew.result) {
                     let diff = (differenceNew.result[i])
                     if (!diff) return
                     if (diff.EndDeletePosition - diff.StartInsertPosition > 0) { // Delete
                       if (newValue.length < currentValue.length) { // nicht löschen wenn Inhalt hinzugefügt wurde
-                        console.log('delete merge nvl ' + newValue.length + 'cvl' + currentValue.length)
                         distanceDiff += (result.substr(diff.StartInsertPosition, diff.EndDeletePosition)).length
                         result = result.substr(0, diff.StartInsertPosition) + result.substr(diff.EndDeletePosition)
-                        console.log('result delete merge' + result)
                       }
                     } else { // Insert
-                      console.log('insert Merge')
                       result = result.substr(0, diff.StartInsertPosition) + diff.newData + result.substr(diff.StartInsertPosition)
-                      console.log('insert merge result: ' + result)
                       distanceDiff += diff.newData.length
                     }
                     that.$nextTick(() => {
@@ -250,7 +242,6 @@
                   }
                   node.data = result
                 } else {
-                  console.log('override')
                   node.data = newValue
                 }
                 return true
@@ -388,16 +379,8 @@
           let newB = document.createElement('div')
           oldB.innerHTML = oldBodySaving
           newB.innerHTML = newBodySaving
-          // let paras = oldB.getElementsByClassName('caret')
-          // while (paras[0]) {
-          //   paras[0].parentNode.removeChild(paras[0])
-          // }
-          // paras = newB.getElementsByClassName('caret')
-          // while (paras[0]) {
-          //   paras[0].parentNode.removeChild(paras[0])
-          // }
-          let diff = dd.diff(oldB, newB)
-          let diffJson = JSON.stringify(diff)
+          var diff = dd.diff(oldB, newB)
+          var diffJson = JSON.stringify(diff)
           this.socket.emit('savePaper', {difference: diffJson, hash: doc.hash})
           this.saving = false
         }
@@ -643,7 +626,7 @@
             scrollToTop.style.visibility = 'hidden'
             scrollToTop.style.opacity = '0'
           }
-          if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+          if (document.body.scrollTop > 160 || document.documentElement.scrollTop > 160) {
             docIdent.style.visibility = 'visible'
             docIdent.style.opacity = '1'
             barDiv.style.boxShadow = '0 .2rem 1rem rgba(0,0,0,.3)'
@@ -667,12 +650,12 @@
       editable () {
         let content = document.getElementById('paper')
         document.addEventListener('keydown', function (event) {
-          if (event.keyCode === 16) {
+          if (event.ctrlKey && event.keyCode === 16) { /* 17 STRG, 16 SHIFT */
             content.contentEditable = false
           }
         }, false)
         document.addEventListener('keyup', function (event) {
-          if (event.keyCode === 16) {
+          if (event.ctrlKey && event.keyCode === 16) {
             content.contentEditable = true
           }
         }, false)
@@ -811,6 +794,17 @@
     /*cursor: pointer;*/ /*Nur Pointer, wenn man Link auch per Klick öffnen kann*/
   }
 
+  #paper img {
+    transition: .2s;
+    cursor: default;
+  }
+
+  #paper img:hover {
+    -webkit-box-shadow: 0px 0px 0px 1px #BFBFBF;
+    -moz-box-shadow: 0px 0px 0px 1px #BFBFBF;
+    box-shadow: 0px 0px 0px 1px #BFBFBF;
+  }
+
   .fktstripImg {
     height: 21px !important;
     width: 21px !important;
@@ -920,18 +914,17 @@
 
   #userList {
     position: absolute;
-    right: 7%;
-    top: -25px;
-    transition: .2s;
-    padding: 0.5rem 0.5rem 1.6rem 3rem;
+    right: 5%;
+    top: 1rem;
+    transition: padding 0s, all .2s;
+    padding: 0rem 0.5rem 0.5rem 0.5rem;
     z-index: 500;
     border-bottom-left-radius: 1rem;
   }
 
   #userList:hover {
-    transform: translateY(25px);
+    /*transform: translateY(25px);*/
     background-color: rgba(243, 242, 241, 0.4);
-    padding: 0.5rem;
   }
 
   #userList li {
@@ -948,22 +941,34 @@
     cursor: pointer;
     overflow: hidden;
     white-space: nowrap;
-    width: 34px;
-    height: 34px;
+    width: 28px;
+    height: 28px;
     background-color: #fff;
-    transition: .2s;
+    transition: .5s;
     box-shadow: 0 .2rem .25rem rgba(0,0,0,.1);
     position: relative;
     color: transparent;
   }
 
+  #userList img {
+    opacity: 0;
+    transition: .2s;
+    width: 30px;
+    border-radius: 20%;
+  }
+
   #userList:hover li {
     width: 65px;
     margin-right: 13px;
+    height: 32px;
+  }
+
+  #userList:hover img {
+    opacity: 1;
   }
 
   #userList li:hover {
-    box-shadow: 0 .2rem .3rem rgba(0,0,0,.2);
+    box-shadow: 0 .2rem .3rem rgba(0,0,0,.4);
   }
 
   #userList li:first-child {
@@ -977,7 +982,7 @@
   #userList li:nth-child(2) {
     background-color: #b2b2ff;
     border-color: #b2b2ff;
-    left: -8px;
+    left: -16px;
   }
   #userList:hover li:nth-child(2) {
     color: #000033;
@@ -986,7 +991,7 @@
   #userList li:nth-child(3) {
     background-color: #b2d8b2;
     border-color: #b2d8b2;
-    left: -16px;
+    left: -32px;
   }
   #userList:hover li:nth-child(3) {
     color: #001900;
@@ -995,7 +1000,7 @@
   #userList li:nth-child(4) {
     background-color: #ffff99;
     border-color: #ffff99;
-    left: -24px;
+    left: -48px;
   }
   #userList:hover li:nth-child(4) {
     color: #332b00;
@@ -1004,7 +1009,7 @@
   #userList li:nth-child(5) {
     background-color: #d8b2d8;
     border-color: #d8b2d8;
-    left: -32px;
+    left: -64px;
   }
   #userList:hover li:nth-child(5) {
     color: #190019;
@@ -1013,7 +1018,7 @@
   #userList li:nth-child(6) {
     background-color: #ffd27f;
     border-color: #ffd27f;
-    left: -40px;
+    left: -80px;
   }
   #userList:hover li:nth-child(6) {
     color: #332100;
@@ -1022,10 +1027,28 @@
   #userList li:nth-child(7) {
     background-color: #b2f4fe;
     border-color: #b2f4fe;
-    left: -48px;
+    left: -96px;
   }
   #userList:hover li:nth-child(7) {
     color: #002c32;
+  }
+
+  #userList li:nth-child(8) {
+    background-color: #ffbbfc;
+    border-color: #ffbbfc;
+    left: -112px;
+  }
+  #userList:hover li:nth-child(8) {
+    color: #330631;
+  }
+
+  #userList li:nth-child(9) {
+    background-color: #bfbfbf;
+    border-color: #bfbfbf;
+    left: -128px;
+  }
+  #userList:hover li:nth-child(9) {
+    color: #191919;
   }
 
 
@@ -1044,6 +1067,7 @@
   }
 
 
+
   @media (max-width: 767px) {
     h1.docTitle {
       margin: 0 !important;
@@ -1059,7 +1083,7 @@
       min-height: 90vh;
     }
     .container-fluid {
-      padding: 0 !important;
+      padding: 0 0 5rem 0 !important;
     }
     .ribbon, .md-tooltip, #menuClosed {
       display: none !important;
