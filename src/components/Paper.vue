@@ -595,7 +595,7 @@
             scrollToTop.style.visibility = 'hidden'
             scrollToTop.style.opacity = '0'
           }
-          if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+          if (document.body.scrollTop > 160 || document.documentElement.scrollTop > 160) {
             docIdent.style.visibility = 'visible'
             docIdent.style.opacity = '1'
             barDiv.style.boxShadow = '0 .2rem 1rem rgba(0,0,0,.3)'
