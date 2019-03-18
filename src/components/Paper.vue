@@ -619,12 +619,12 @@
       editable () {
         var content = document.getElementById('paper')
         document.addEventListener('keydown', function (event) {
-          if (event.keyCode === 16) {
+          if (event.ctrlKey && event.keyCode === 16) { /* 17 STRG, 16 SHIFT */
             content.contentEditable = false
           }
         }, false)
         document.addEventListener('keyup', function (event) {
-          if (event.keyCode === 16) {
+          if (event.ctrlKey && event.keyCode === 16) {
             content.contentEditable = true
           }
         }, false)
@@ -763,6 +763,17 @@
     /*cursor: pointer;*/ /*Nur Pointer, wenn man Link auch per Klick öffnen kann*/
   }
 
+  #paper img {
+    transition: .2s;
+    cursor: default;
+  }
+
+  #paper img:hover {
+    -webkit-box-shadow: 0px 0px 0px 1px #BFBFBF;
+    -moz-box-shadow: 0px 0px 0px 1px #BFBFBF;
+    box-shadow: 0px 0px 0px 1px #BFBFBF;
+  }
+
   .fktstripImg {
     height: 21px !important;
     width: 21px !important;
@@ -872,18 +883,17 @@
 
   #userList {
     position: absolute;
-    right: 7%;
-    top: -25px;
-    transition: .2s;
-    padding: 0.5rem 0.5rem 1.6rem 3rem;
+    right: 5%;
+    top: 1rem;
+    transition: padding 0s, all .2s;
+    padding: 0rem 0.5rem 0.5rem 0.5rem;
     z-index: 500;
     border-bottom-left-radius: 1rem;
   }
 
   #userList:hover {
-    transform: translateY(25px);
+    /*transform: translateY(25px);*/
     background-color: rgba(243, 242, 241, 0.4);
-    padding: 0.5rem;
   }
 
   #userList li {
@@ -900,13 +910,20 @@
     cursor: pointer;
     overflow: hidden;
     white-space: nowrap;
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 30px;
     background-color: #fff;
-    transition: .2s;
+    transition: .4s;
     box-shadow: 0 .2rem .25rem rgba(0,0,0,.1);
     position: relative;
     color: transparent;
+  }
+
+  #userList img {
+    opacity: 0;
+    transition: .2s;
+    width: 30px;
+    border-radius: 20%;
   }
 
   #userList:hover li {
@@ -914,8 +931,12 @@
     margin-right: 13px;
   }
 
+  #userList:hover img {
+    opacity: 1;
+  }
+
   #userList li:hover {
-    box-shadow: 0 .2rem .3rem rgba(0,0,0,.2);
+    box-shadow: 0 .2rem .3rem rgba(0,0,0,.4);
   }
 
   #userList li:first-child {
@@ -929,7 +950,7 @@
   #userList li:nth-child(2) {
     background-color: #b2b2ff;
     border-color: #b2b2ff;
-    left: -8px;
+    left: -16px;
   }
   #userList:hover li:nth-child(2) {
     color: #000033;
@@ -938,7 +959,7 @@
   #userList li:nth-child(3) {
     background-color: #b2d8b2;
     border-color: #b2d8b2;
-    left: -16px;
+    left: -32px;
   }
   #userList:hover li:nth-child(3) {
     color: #001900;
@@ -947,7 +968,7 @@
   #userList li:nth-child(4) {
     background-color: #ffff99;
     border-color: #ffff99;
-    left: -24px;
+    left: -48px;
   }
   #userList:hover li:nth-child(4) {
     color: #332b00;
@@ -956,7 +977,7 @@
   #userList li:nth-child(5) {
     background-color: #d8b2d8;
     border-color: #d8b2d8;
-    left: -32px;
+    left: -64px;
   }
   #userList:hover li:nth-child(5) {
     color: #190019;
@@ -965,7 +986,7 @@
   #userList li:nth-child(6) {
     background-color: #ffd27f;
     border-color: #ffd27f;
-    left: -40px;
+    left: -80px;
   }
   #userList:hover li:nth-child(6) {
     color: #332100;
@@ -974,10 +995,28 @@
   #userList li:nth-child(7) {
     background-color: #b2f4fe;
     border-color: #b2f4fe;
-    left: -48px;
+    left: -96px;
   }
   #userList:hover li:nth-child(7) {
     color: #002c32;
+  }
+
+  #userList li:nth-child(8) {
+    background-color: #ffbbfc;
+    border-color: #ffbbfc;
+    left: -112px;
+  }
+  #userList:hover li:nth-child(8) {
+    color: #330631;
+  }
+
+  #userList li:nth-child(9) {
+    background-color: #bfbfbf;
+    border-color: #bfbfbf;
+    left: -128px;
+  }
+  #userList:hover li:nth-child(9) {
+    color: #191919;
   }
 
 
@@ -1011,7 +1050,7 @@
       min-height: 90vh;
     }
     .container-fluid {
-      padding: 0 !important;
+      padding: 0 0 5rem 0 !important;
     }
     .ribbon, .md-tooltip, #menuClosed {
       display: none !important;
