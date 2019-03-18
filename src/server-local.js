@@ -160,7 +160,6 @@ database
         } else {
           positions.get(currentRoomId).push(data['message'])
         }
-        console.log(positions)
         socket.to(currentRoomId).emit('updateUsers', {message: positions.get(currentRoomId), roomID: currentRoomId})
         // Send to all including Sender
         io.sockets.in(currentRoomId).emit('updateUsers', {message: positions.get(currentRoomId)})
