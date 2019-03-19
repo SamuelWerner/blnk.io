@@ -1,30 +1,13 @@
 <template>
   <div id="app">
     <a id="pageTop"></a>
-    <b-navbar id="nav" toggleable="md" type="dark" variant="dark" fixed=""> <!-- fixed="top" -->
-      <!--<b-navbar-toggle target="nav_collapse"></b-navbar-toggle>-->
+    <b-navbar id="nav" toggleable="md" type="dark" variant="dark">
       <b-navbar-brand id="logo-brand" href="/">BL_NK.IO</b-navbar-brand>
-      <!--<b-navbar-brand to="/"><img src="./assets/Logo-Blnk.png" width="150"/></b-navbar-brand>-->
-      <b-collapse is-nav id="nav_collapse">
-        <b-navbar-nav>
-          <!--<b-nav-item to="/posts-manager">CRUD Example</b-nav-item>-->
-        </b-navbar-nav>
-        <!--
-        <b-navbar-nav class="ml-auto">
-
-          <b-nav-item-dropdown right>
-            <template slot="button-content">
-                <img style="filter: invert(1); margin-bottom: 2px;" src="../src/assets/baseline-person-24px.svg" alt="BV">
-            </template>
-            <b-dropdown-item href="#">Profil</b-dropdown-item>
-            <b-dropdown-item href="#">Abmelden</b-dropdown-item>
-          </b-nav-item-dropdown>
-        </b-navbar-nav>
-        -->
-      </b-collapse>
     </b-navbar>
+
     <!-- routes will be rendered here -->
     <router-view />
+
     <!-- Footer -->
     <div id="footer" >
       <a href="mailto:info@blnk.io.de?subject=Report%20Bug%20-%20BLNK.IO&amp;body=Hallo%20BLNK.IO%20Team,%0D%0A%0D%0AZusammenfassung:%0D%0A%0D%0ASchritte%20zum%20Nachvollziehen:%0D%0A%0D%0AErwartetes%20Ergebnis:%0D%0A%0D%0AErhaltenes%20Ergebnis:%0D%0A%0D%0AMehr%20Informationen:%0D%0A%0D%0A" title="Report Bug by E-Mail">
@@ -132,7 +115,4 @@
       display: none;
     }
   }
-</style>
-
-<style scoped>
 </style>

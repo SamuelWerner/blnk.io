@@ -1,6 +1,7 @@
 <template>
   <main>
-    <!-- Toolleiste -->
+  <!-- Toolleiste -->
+    <!-- First Button Group -->
     <div class="btn-group" role="group">
       <button type="button" class="btn btn-tmenu radiusLeft" @click="undo">
         <md-tooltip md-delay="300">Rückgängig machen</md-tooltip>
@@ -19,6 +20,7 @@
       </button>
     </div>
 
+    <!-- Second Button Group -->
     <div class="btn-group" role="group">
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Schriftart</md-tooltip>
@@ -65,6 +67,7 @@
       </md-menu>
     </div>
 
+    <!-- Third Button Group -->
     <div class="btn-group" role="group">
       <button type="button" class="btn btn-tmenu radiusLeft" @click="makeBold">
         <md-tooltip md-delay="300">Fett</md-tooltip>
@@ -208,6 +211,7 @@
       </md-menu>
     </div>
 
+    <!-- Fourth Button Group -->
     <div class="btn-group subSuperScript" role="group">
       <button type="button" class="btn btn-tmenu radiusLeft" @click="subscript">
         <md-tooltip md-delay="300">Tiefgestellt</md-tooltip>
@@ -218,6 +222,8 @@
         <img class="imgBig" src="../assets/font-style-superscript.svg" />
       </button>
     </div>
+
+    <!-- Fifth Button Group -->
     <div class="btn-group link" role="group">
       <button type="button" class="btn btn-tmenu radiusLeft radiusRight" @click="createLink">
         <md-tooltip md-delay="300">Link einfügen</md-tooltip>
@@ -225,6 +231,7 @@
       </button>
     </div>
 
+    <!-- Sixth Button Group -->
     <div class="btn-group" role="group">
       <button type="button" class="btn btn-tmenu radiusLeft" @click="justifyLeft">
         <md-tooltip md-delay="300">Linksbündig</md-tooltip>
@@ -244,6 +251,7 @@
       </button>
     </div>
 
+    <!-- Seventh Button Group -->
     <div class="btn-group control" role="group">
       <md-menu md-size="small" md-align-trigger  >
         <md-tooltip md-delay="300">Zeilenabstand</md-tooltip>
@@ -281,11 +289,6 @@
         <i class="material-icons toolbar-icon">format_indent_increase</i>
       </button>
     </div>
-    <!--
-    <div class="btn-group" role="group">
-      <button type="button" class="btn btn-tmenu" @click="insertText"> <strong>txt</strong> </button>
-    </div>
-    -->
   </main>
 </template>
 
@@ -302,12 +305,10 @@
         showDialogRename: false,
         showDialogPage: false,
         showDialogLink: false,
-        pagecolor: 'white',
         fontMessage: 'Arial',
         sizeMessage: '12'
       }
-    },
-    methods: {}
+    }
   }
 </script>
 
@@ -332,6 +333,7 @@
     border-top-left-radius: 45% !important;
     border-bottom-left-radius: 45% !important;
   }
+
   .radiusRight {
     border-top-right-radius: 45% !important;
     border-bottom-right-radius: 45% !important;

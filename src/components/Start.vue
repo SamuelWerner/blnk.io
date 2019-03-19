@@ -63,7 +63,8 @@
               <md-dialog-title>Neues Dokument anlegen</md-dialog-title>
               <md-field class="inputBox" md-clearable>
                 <form id="form" @submit.prevent="saveDoc">
-                  <label>Titel eingeben...</label><md-input type="text" v-model="model.title" maxlength="30"></md-input>
+                  <label>Titel eingeben...</label>
+                  <md-input type="text" v-model="model.title" maxlength="30"></md-input>
                 </form>
               </md-field>
               <p style="display: none" class="dialog-helper"></p>
@@ -144,13 +145,6 @@
               <p>Zuletzt verwendete Dokumente:</p>
             </div>
             <div class="col-md-6 col-sm-6 d-none d-sm-block">
-              <!--
-              <select class="form-control form-eigentuemer">
-                <option>Beliebiger Eigentümer</option>
-                <option>Ich bin Eigentümer</option>
-                <option>Ich bin nicht Eigentümer</option>
-              </select>
-              -->
             </div>
           </div>
 
@@ -222,9 +216,6 @@
         model: {},
         initial: 'Dok'
       }
-    },
-    async beforeCreate () {
-      // this.startCss()
     },
     async created () {
       await this.refreshDocs()
@@ -367,6 +358,7 @@
     }
   }
 </style>
+
 
 <!-- Style nur diese Komponente -->
 <style scoped>
@@ -584,28 +576,6 @@
     width: 50%;
     float: right;
     margin-right: 8px;
-  }
-
-  .form-control.form-eigentuemer {
-    height: auto;
-    cursor: pointer;
-  }
-
-  select.form-eigentuemer {
-    text-align-last: right;
-    width: auto;
-    float: right;
-    background-color: transparent;
-    margin-right: 8px;
-    border: 0;
-    color: #fff;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .form-eigentuemer option {
-    color: black;
-    text-align: right;
   }
 
   .liDivDefault {

@@ -641,8 +641,6 @@
   }
 </script>
 
-<style scoped>
-</style>
 
 <style>
   body {

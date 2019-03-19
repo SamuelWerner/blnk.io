@@ -32,7 +32,7 @@
             <md-menu-item @click="copy" ><div class="md-item-filled"><img src="../assets/outline-file_copy-24px.svg" /></div>Kopieren</md-menu-item>
             <md-menu-item @click="paste" disabled><div class="md-item-empty"></div>Einfügen</md-menu-item>
             <md-menu-item @click="deleteFrom" ><div class="md-item-filled"><img src="../assets/baseline-delete-24px.svg" /></div>Markiertes löschen</md-menu-item>
-            <md-menu-item @click="selectAll"><!--markieren('paper')--><div class="md-item-empty"></div>Alles auswählen</md-menu-item>
+            <md-menu-item @click="selectAll"><div class="md-item-empty"></div>Alles auswählen</md-menu-item>
           </md-menu-content>
         </md-menu>
         <!-- Ansicht -->
@@ -74,8 +74,6 @@
             <md-menu-item @click="unlink" ><div class="md-item-filled"><img src="../assets/baseline-link_off-24px.svg" /></div>Link entfernen</md-menu-item>
             <md-menu-item @click="removeFormat" ><div class="md-item-filled"><img src="../assets/baseline-format_clear-24px.svg" /></div>Formatierung entfernen</md-menu-item>
           </md-menu-content>
-
-
         </md-menu>
       </div>
 
@@ -92,7 +90,6 @@
         </md-field>
 
         <md-dialog-actions>
-          <!--<md-button class="md-primary" @click="showDialogRename = false">Abbruch</md-button>-->
           <md-button class="md-primary" @click="showDialogRename = false" type="submit" form="form">Fertig</md-button>
         </md-dialog-actions>
       </md-dialog>
@@ -179,7 +176,6 @@
         showDialogOpen: false,
         showDialogRelease: false,
         showSnackbar: false,
-        pagecolor: 'white',
         docs: [],
         model: {}
       }
