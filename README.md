@@ -1,6 +1,7 @@
 # Blnk.io - a collaboration tool with Vue.js and Node
 
 Project for Study
+Demo: https://blnk-io.herokuapp.com/
 
 ## Quickstart
 1. Clone repository
